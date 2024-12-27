@@ -3,8 +3,9 @@ import {
     patientRegister,
     login, 
     addNewAdmin,
-    getAllDoctors
-} from "../controller/userController.js"; // Import login function
+    getAllDoctors,
+    getUserDetails
+} from "../controller/userController.js"; 
 import {
     isAdminAuthenticated,
     isPatientAuthenticated,
@@ -16,7 +17,9 @@ router.post("/patient/register", patientRegister);
 router.post("/login", login);
 router.post("/admin/addnew", isAdminAuthenticated, addNewAdmin)
 router.get("/doctors", getAllDoctors);
+router.get("/admin/me", isAdminAuthenticated, getUserDetails);
+router.get("/patient/me", isPatientAuthenticated, getUserDetails);
 
 export default router;
 
-//2:13 minute
+//12:13 minute
