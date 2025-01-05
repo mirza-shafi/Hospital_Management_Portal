@@ -1,0 +1,100 @@
+.add-medicine-container {
+    background: linear-gradient(to right, #243b55, #141e30);
+    padding: 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-medicine-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.add-medicine-form {
+    width: 50%;
+    max-width: 800px;
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.form-group {
+    flex: 1 1 calc(33.333% - 0.25rem);
+    min-width: 150px;
+}
+
+.form-label {
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.form-input, .form-textarea, .form-file-input {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    box-sizing: border-box;
+}
+
+.form-textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.form-file-input {
+    margin-top: 0.5rem;
+}
+
+.file-name {
+    margin-top: 0.5rem;
+    color: #333;
+}
+
+.form-button {
+    width: 100%;
+    background-color: #00d1b2;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+.form-button:hover {
+    background-color: #00b89c;
+}
+
+.toast {
+    padding: 0.75rem;
+    border-radius: 4px;
+    color: #fff;
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.toast-error {
+    background-color: #e74c3c;
+}
+
+.toast-success {
+    background-color: #2ecc71;
+}

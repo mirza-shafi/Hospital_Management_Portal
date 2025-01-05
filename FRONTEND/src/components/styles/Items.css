@@ -1,0 +1,141 @@
+.items-container {
+    padding: 2rem;
+    background: linear-gradient(to right, #243b55, #141e30);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .items-wrapper {
+    max-width: 800px;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+  }
+  
+  .items-title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #000000f8;
+  }
+  
+  .items-form {
+    margin-bottom: 1.5rem;
+  }
+  
+  .field {
+    margin-bottom: 1rem;
+  }
+  
+  .label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  
+  .items-input, .items-select select {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 0.5rem;
+  }
+  
+  .items-button {
+    width: 100%;
+    border-radius: 5px;
+    padding: 0.75rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .items-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .items-error {
+    color: #ff3860;
+    font-weight: 500;
+  }
+  
+  .items-success {
+    color: #23d160;
+    font-weight: 500;
+  }
+  
+  .items-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .items-list-item {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9f9f9;
+  }
+  
+  .items-list-item-details {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .item-name, .item-price, .item-type {
+    flex: 1;
+  }
+  
+  .item-price {
+    text-align: center;
+  }
+  
+  .item-type {
+    text-align: right;
+  }
+  
+  .items-list-item:hover {
+    background: #f0f0f0;
+    transition: background 0.3s;
+  }
+  
+  /* Pagination Styles */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .page-item {
+    margin: 0 0.25rem;
+  }
+  
+  .page-link {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .page-link:hover {
+    background-color: #e9ecef;
+  }
+  
+  .active .page-link {
+    background-color: #007bff;
+    color: #fff;
+  }
+  

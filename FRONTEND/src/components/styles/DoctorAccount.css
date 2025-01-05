@@ -1,0 +1,253 @@
+.full-background {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #001f3f; 
+}
+
+
+.doctor-account-container {
+  padding: 20px;
+  background-color: #001f3f; 
+  min-height: 100vh;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box; 
+}
+
+
+.doctor-greetings-container {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+
+.doctor-profile-container {
+  margin-right: 20px;
+}
+
+.doctor-profile-image {
+  width: 150px; 
+  height: 150px; 
+  border-radius: 50%; 
+  border: 4px solid #ffffff; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+  object-fit: cover; 
+}
+
+.doctor-greetings-box .title.is-3 {
+  color: white; 
+}
+
+.doctor-greetings-box {
+  background-color: #004d6b; 
+  color: white;
+  padding: 20px;
+  border-radius: 8px; 
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  max-width: 800px; 
+  width: 100%; 
+  position: relative; 
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.doctor-edit-profile-button,
+.doctor-logout-button {
+  transition: background-color 0.3s, transform 0.3s;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 1rem; /* Adjust font size if needed */
+}
+
+.doctor-edit-profile-button {
+  background-color: #f39c12; 
+  color: white;
+}
+
+.doctor-logout-button {
+  background-color: #e74c3c; 
+  color: white;
+  display: inline-flex;
+  align-items: center;
+}
+
+.doctor-logout-button .icon {
+  margin-right: 5px;
+}
+
+.doctor-dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px; 
+  margin-top: 20px; 
+}
+
+
+.dashboard-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  color: #333333;
+  height: 150px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-card-link {
+  text-decoration: none;
+  color: #004d6b; 
+  font-size: 1.25rem; 
+}
+
+.dashboard-card-subtext {
+  color: #666666; 
+  font-size: 0.875rem; 
+}
+
+
+.total-appointments-card,
+.today-appointment-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 500px; 
+  padding: 15px;
+  text-align: center;
+}
+
+
+.chart-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: auto; 
+}
+
+
+.chart-modal-content {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+}
+
+.chart-modal-title {
+  font-size: 1.5rem;
+  color: #004d6b; 
+  margin-bottom: 10px;
+  text-align: center; 
+}
+
+.chart-modal-subtitle {
+  color: #666666; 
+  margin-bottom: 20px;
+  text-align: center; 
+}
+
+.chart-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #e74c3c; 
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.chart-modal-close:hover {
+  background: #c0392b; 
+}
+
+
+.appointments-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+
+.appointment-column {
+  flex: 1 1 calc(50% - 1rem);
+  max-width: calc(50% - 1rem);
+}
+
+.appointment-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #f9f9f9;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+.appointment-card p {
+  border-bottom: 1px dotted #d0d0d0;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.appointment-card p:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+
+.appointment-card p strong {
+  font-weight: 700;
+  color: #007bff;
+}
+
+
+.appointment-chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; 
+}
+

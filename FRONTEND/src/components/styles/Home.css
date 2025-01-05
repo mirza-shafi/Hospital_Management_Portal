@@ -1,0 +1,218 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+.home-page {
+  background-color: #f7f7f7;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 0px;
+  padding-bottom: 50px;
+}
+
+.home-container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  background: linear-gradient(145deg, #e6e6e6, #ffffff);
+  border-radius: 15px;
+  box-shadow: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.welcome-section {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.welcome-message {
+  font-size: 2.8rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px #fff;
+}
+
+.hospital-quotation {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 2px #fff;
+}
+
+.home-image {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.5s ease;
+}
+
+.home-image:hover {
+  transform: scale(1.05);
+}
+
+.login-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.login-button {
+  width: 220px;
+  height: 55px;
+  background: linear-gradient(to right, #0c8cac, #0a6f7d);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.login-button:hover {
+  background: linear-gradient(to right, #0a6f7d, #0c8cac);
+  transform: translateY(-3px);
+  box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.2);
+}
+
+.doctor-button {
+  background: linear-gradient(to right, #0c8cac, #0a6f7d);
+}
+
+.patient-button {
+  background: linear-gradient(to right, #0c8cac, #0a6f7d);
+}
+
+.login-button:focus {
+  outline: none;
+}
+
+.chatbox {
+  position: fixed;
+  bottom: 140px;
+  right: 20px;
+  width: 350px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.chatbox-header {
+  background: #0c8cac;
+  color: #fff;
+  padding: 10px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatbox-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.chatbox-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.chatbox-body {
+  padding: 15px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.chatbot-icon {
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  background: radial-gradient(circle, #0c8cac 0%, #0a6f7d 100%);
+  color: #fff;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.chatbot-icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-card {
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+  width: 60%;
+  max-width: 350px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-card-head {
+  background-color: #0c8cac;
+  color: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+.modal-card-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.modal-card-body {
+  padding: 15px;
+}
+
+.modal-close {
+  font-size: 1.3rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #fff;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

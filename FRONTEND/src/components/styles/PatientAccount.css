@@ -1,0 +1,121 @@
+.full-background {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #001f3f;
+  }
+  
+  .patient-account-container {
+    padding: 20px;
+    background-color: #001f3f; 
+    min-height: 100vh;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  
+  .patient-greetings-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .patient-account-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-right: 20px;
+    object-fit: cover;
+  }
+  
+  .patient-greetings-box {
+    background-color: #004d6b;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    width: 100%;
+  }
+  
+  .patient-greetings-box::before {
+    content: none;
+  }
+  
+  .patient-greetings-box .title.is-3 {
+    color: white;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .patient-edit-profile-button,
+  .patient-logout-button {
+    transition: background-color 0.3s, transform 0.3s;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  
+  .patient-edit-profile-button {
+    background-color: #f39c12;
+    color: white;
+  }
+  
+  .patient-logout-button {
+    background-color: #e74c3c;
+    color: white;
+    display: flex;
+    align-items: center;
+  }
+  
+  .patient-logout-button .icon {
+    margin-right: 5px;
+  }
+  
+  .patient-dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 20px;
+  }
+  
+  .dashboard-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    color: #333333;
+  }
+  
+  .dashboard-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
+  
+  .dashboard-card-link {
+    text-decoration: none;
+    color: #004d6b;
+    font-size: 1.25rem;
+  }
+  
+  .dashboard-card-subtext {
+    color: #666666;
+    font-size: 0.875rem;
+  }
+  

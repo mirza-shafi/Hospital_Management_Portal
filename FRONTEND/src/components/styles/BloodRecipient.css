@@ -1,0 +1,128 @@
+.blood-recipient-page {
+    background: linear-gradient(to right, #ff6666, #8b0000);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  
+  .blood-recipient-form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .blood-recipient-form {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 800px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: auto;
+  }
+  
+  .blood-recipient-form-title {
+    font-size: 1.5rem;
+    color: #8b0000;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .notification {
+    margin-bottom: 0.75rem;
+  }
+  
+  .field {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .field label {
+    flex: 1;
+    margin-right: 1rem;
+    white-space: nowrap;
+  }
+  
+  .field .control {
+    flex: 2;
+  }
+  
+  .input, .select select {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    background-color: white;
+    color: black;
+  }
+  
+  .button.is-primary {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+  
+  @media (max-width: 768px) {
+    .blood-recipient-form {
+      width: 90%;
+    }
+  
+    .field {
+      flex-direction: column;
+    }
+  
+    .field label {
+      margin-bottom: 0.5rem;
+      margin-right: 0;
+    }
+  
+    .field .control {
+      width: 100%;
+    }
+  }
+  
+  .notification {
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    position: relative;
+    background-color: #fff; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    display: flex;
+    align-items: center;
+  }
+  
+  .notification.is-success {
+    background-color: #d4edda; 
+    color: #155724; 
+  }
+  
+  .notification.is-danger {
+    background-color: #f8d7da;
+    color: #721c24; 
+  }
+  
+  .notification .icon {
+    margin-right: 0.75rem;
+  }
+  
+  .notification .message {
+    flex: 1;
+  }
+  
+  .notification .delete {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .notification .delete:hover {
+    color: #000;
+  }
+  

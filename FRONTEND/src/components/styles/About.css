@@ -1,0 +1,117 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    background: linear-gradient(to right, #243b55, #141e30);
+    color: white;
+}
+
+.about-section {
+    padding: 20px 0;
+}
+
+.about-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.about-box {
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease-in-out;
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+.about-box:hover {
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.3);
+}
+
+.hospital-image {
+    max-width: 80%;
+    height: auto;
+    margin: 5px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mission-text {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-top: 6px;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0c8cac;
+    margin-bottom: 5px;
+    border-bottom: 2px solid #ffffff;
+    display: inline-block;
+    padding-bottom: 4px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #203a43;
+    margin-bottom: 6px;
+    border-bottom: 1px solid #203a43;
+    display: inline-block;
+}
+
+.about-card {
+    background-color: #e1f5fe;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease-in-out, background-color 0.3s;
+    color: #333;
+}
+
+.about-card:hover {
+    transform: translateY(-5px);
+    background-color: #b3e5fc;
+}
+
+.about-card ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.about-card li {
+    margin-bottom: 5px;
+    font-size: 0.85rem;
+    color: #333;
+}
+
+.about-card a {
+    color: #203a43;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.about-card a:hover {
+    text-decoration: underline;
+}
+
+.about-footer {
+    text-align: center;
+    margin-top: 5px;
+    font-size: 0.75rem;
+    color: #666;
+}
+
+.about-footer p {
+    margin: 0;
+}
+
+.content {
+    padding: 8px;
+    background-color: #e1f5fe;
+    border-radius: 8px;
+}

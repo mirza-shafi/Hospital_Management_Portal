@@ -1,0 +1,69 @@
+.bloodbank-page {
+  background: linear-gradient(to right, #ff6666, #8b0000);
+  height: 120vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+}
+
+.bloodbank-page-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.bloodbank-page-subtitle {
+  font-size: 1rem;
+  color: #ffffff; 
+  margin: 0 0 1.5rem 0;
+}
+
+.bloodbank-image-container {
+  margin: 20px 0;
+}
+
+.bloodbank-main-image {
+  max-width: 300px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.bloodbank-card {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to bottom right, #ff8c8c, #f1b0b0);
+  height: 350px;
+  margin: 10px 0;
+  transition: transform 0.2s ease;
+}
+
+.bloodbank-card:hover {
+  transform: scale(1.05);
+}
+
+.bloodbank-card-image img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.bloodbank-card-content {
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.bloodbank-card-content .card-title {
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.bloodbank-card-content .card-subtitle {
+  font-size: 0.9rem;
+  color: #000000; 
+}

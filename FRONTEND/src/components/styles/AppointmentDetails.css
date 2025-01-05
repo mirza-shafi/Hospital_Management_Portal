@@ -1,0 +1,115 @@
+body.appointment-details-body {
+    background: linear-gradient(to right, #243b55, #141e30);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.appointment-details-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+
+.appointment-details-container {
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    max-width: 100%;
+    width: 100%;
+    background: #ffffff;
+    color: #000;
+    overflow: hidden;
+}
+
+
+.appointment-details-title {
+    font-size: 32px;
+    color: #203a43;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 700;
+}
+
+
+.appointment-details-no-appointments {
+    text-align: center;
+    font-size: 22px;
+    color: #888;
+}
+
+
+.appointment-details-table-container {
+    overflow-x: auto;
+}
+
+
+.appointment-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    background: #fff;
+    color: #000;
+}
+
+
+.appointment-details-table th,
+.appointment-details-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+    word-wrap: break-word; 
+}
+
+
+.appointment-details-table th {
+    background-color: #e0f7fa;
+    color: #00695c;
+    font-weight: 700;
+}
+
+
+.appointment-details-table tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+.appointment-details-table tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+
+.appointment-details-table tr:hover {
+    background-color: #eceff1;
+}
+
+.appointment-details-loading,
+.appointment-details-error {
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
+    margin-top: 20px;
+}
+
+
+.appointment-details-table button {
+    background-color: #00796b;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.appointment-details-table button:disabled {
+    background-color: #004d40;
+    cursor: not-allowed;
+}
+
+.appointment-details-table button:hover {
+    background-color: #004d40;
+}

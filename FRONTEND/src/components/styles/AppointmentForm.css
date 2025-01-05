@@ -1,0 +1,106 @@
+.appointment-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, #243b55, #141e30);
+    padding: 20px;
+}
+
+.appointment-form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    width: 700px;
+    max-width: 100%;
+}
+
+.appointment-form-title {
+    font-size: 24px;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #203a43;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.appointment-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.appointment-field {
+    width: 48%;
+    position: relative;
+}
+
+.appointment-label {
+    color: #203a43;
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.appointment-input,
+.appointment-select,
+.appointment-button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #495057;
+    background-color: white;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    border: 1px solid #ced4da;
+    transition: all 0.3s ease;
+}
+
+.appointment-input:focus,
+.appointment-select:focus,
+.appointment-button:hover {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+}
+
+.appointment-button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    color: white;
+    background-color: #203a43;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-top: 15px; /* Added margin for spacing */
+}
+
+.appointment-button:hover {
+    background-color: #2c5364;
+}
+
+.appointment-message {
+    margin-top: 20px;
+    padding: 12px;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.appointment-message.is-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.appointment-message.is-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}

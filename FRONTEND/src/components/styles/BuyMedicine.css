@@ -1,0 +1,139 @@
+.buy-medicine {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    
+    background: linear-gradient(to right, #243b55, #141e30);
+    color: white;
+    padding: 20px;
+    border-radius: 0px;
+  }
+  
+  h1 {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .medicine-search-section,
+  .cart-details-section {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    flex: 1;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="phone"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+  }
+  
+  button {
+    background-color: #203a43;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 0.9em;
+  }
+  
+  button:hover {
+    background-color: #2c5364;
+  }
+  
+  .medicine-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .medicine-item {
+    background: #f8f8f8;
+    color: black;
+    padding: 10px;
+    border-radius: 8px;
+    width: calc(50% - 10px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-height: 250px; 
+    overflow: hidden;
+  }
+  
+  .medicine-detail {
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    position: relative;
+    padding-bottom: 10px; 
+  }
+  
+  .medicine-detail::after {
+    content: "";
+    display: block;
+    border-bottom: 1px dotted #ddd;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+  
+  .medicine-item h3 {
+    font-size: 1.2em;
+    margin: 0;
+  }
+  
+  .medicine-item p {
+    font-size: 0.8em;
+    margin: 0;
+  }
+  
+  .quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
+  }
+  
+  .quantity-control button {
+    padding: 5px;
+    background-color: #2c3e50;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  
+  .message {
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .pagination {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+  }
+  
+  .pagination button {
+    padding: 5px 10px;
+  }
+  
+  .pagination .active {
+    background-color: #2c3e50;
+    color: white;
+  }
+  

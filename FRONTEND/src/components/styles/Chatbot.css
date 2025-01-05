@@ -1,0 +1,132 @@
+.chatbox {
+    width: 350px;
+    height: 450px;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 140px; 
+    right: 30px;
+    animation: fadeIn 0.2s ease-in-out; 
+}
+
+
+.chatbox-header {
+    background-color: #0c8cac;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid #007bff;
+    position: relative;
+}
+
+
+.chatbox-body {
+    flex: 1;
+    max-height: 300px; 
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    background: #f4f6f9;
+}
+
+
+.message {
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+    font-size: 14px;
+    line-height: 1.5;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.message.user {
+    align-self: flex-end;
+    background-color: #d1ecf1;
+    color: #0c8cac;
+    text-align: right;
+    transform: translateY(-5px);
+}
+
+.message.bot {
+    align-self: flex-start;
+    background-color: #ffffff;
+    color: #333;
+    text-align: left;
+    transform: translateY(5px);
+}
+
+.message:hover {
+    background-color: #e9ecef;
+    transform: scale(1.02);
+}
+
+
+.chatbox-footer {
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chatbox-input-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.chatbox-input {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    padding: 10px 15px;
+    margin-right: 10px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.chatbox-input:focus {
+    border-color: #0c8cac;
+    box-shadow: 0 0 0 2px rgba(12, 140, 172, 0.2);
+}
+
+.chatbox-send-icon {
+    background: #0c8cac;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #ffffff;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+    font-size: 16px;
+}
+
+.chatbox-send-icon:hover {
+    background-color: linear-gradient(to right, #0c8cac, #0a6f7d);
+}
+
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

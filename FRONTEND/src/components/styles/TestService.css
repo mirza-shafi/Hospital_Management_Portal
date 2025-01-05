@@ -1,0 +1,127 @@
+.test-service-body {
+  background: linear-gradient(to right, #243b55, #141e30);
+  color: #fff;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.test-service-wrapper {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.test-service-title {
+  text-align: center;
+  color: #fff;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.test-service-billing-section,
+.test-service-test-section {
+  background-color: #fff;
+  color: #000;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin-bottom: 20px;
+}
+
+.test-service-billing-section h2,
+.test-service-test-section h2 {
+  font-size: 1.2em;
+  margin-bottom: 15px;
+  color: #000;
+}
+
+.test-service-billing-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.test-service-form-group input {
+  margin-bottom: 10px;
+}
+
+.test-service-selected-items-container {
+  border-top: 1px dotted #ddd;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.test-service-selected-item {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.test-service-submit-btn {
+  background-color: #0c8cac;
+  border-color: #0c8cac;
+  color: #fff;
+  margin-top: 20px;
+}
+
+.test-service-list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f9fa;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.test-service-select-btn {
+  background-color: #0c8cac;
+  border-color: #0c8cac;
+  color: #fff;
+}
+
+.test-service-list-group-item.selected {
+  background-color: #d1ecf1;
+  border-color: #0c8cac;
+  color: #0c5460;
+}
+
+.test-service-error-message {
+  color: #ff4d4d;
+  font-weight: bold;
+  margin-top: 15px;
+  background: #ffdddd;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ff4d4d;
+  text-align: center;
+}
+
+.test-service-success-message {
+  color: #28a745;
+  font-weight: bold;
+  margin-top: 15px;
+  background: #d4edda;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #28a745;
+  text-align: center;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.page-item.active .page-link {
+  background-color: #0c8cac;
+  border-color: #0c8cac;
+}

@@ -1,0 +1,66 @@
+.blood-availability-page {
+  background: linear-gradient(to right, #ff6666, #8b0000);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.blood-availability-box-container {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  max-width: 700px;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.blood-availability-title {
+  color: #8b0000;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.blood-availability-table-container {
+  margin-top: 1rem;
+}
+
+.blood-availability-table {
+  margin: 0 auto;
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.blood-availability-table thead th {
+  background-color: #d10011;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.1rem;
+}
+
+.blood-availability-table tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+.blood-availability-row:hover {
+  background-color: #ffe0e0;
+  cursor: pointer;
+}
+
+.blood-availability-table td, 
+.blood-availability-table th {
+  text-align: center;
+  color: black;
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+.blood-availability-notification {
+  margin-bottom: 1.5rem;
+}

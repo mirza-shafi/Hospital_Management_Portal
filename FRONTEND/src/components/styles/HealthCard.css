@@ -1,0 +1,173 @@
+.health-card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(to right, #243b55, #141e30);
+    min-height: 100vh;
+  }
+  
+  .form-container {
+    width: 450px;
+    padding: 20px;
+  }
+  
+  .registration-form {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+  }
+  
+  .registration-form h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  .registration-form input {
+    width: calc(100% - 16px);
+    padding: 8px;
+    margin: 6px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .registration-form input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 6px rgba(52, 152, 219, 0.4);
+  }
+  
+  .registration-form button {
+    background: linear-gradient(to right, #3498db, #2980b9);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background 0.3s ease;
+  }
+  
+  .registration-form button:hover {
+    background: linear-gradient(to right, #2980b9, #3498db);
+  }
+  
+  .top-up-form {
+    margin-top: 10px;
+  }
+  
+  .top-up-form input {
+    width: calc(100% - 16px);
+    padding: 8px;
+    margin: 6px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  
+  .top-up-form button {
+    background: linear-gradient(to right, #3498db, #2980b9);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background 0.3s ease;
+  }
+  
+  .top-up-form button:hover {
+    background: linear-gradient(to right, #2980b9, #3498db);
+  }
+  
+  .health-card {
+    display: flex;
+    background: #ffffff;
+    border-radius: 12px;
+    width: 100%;
+    height: 240px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .health-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .health-card-left {
+    width: 40%;
+    background: #0c8cac;
+    border-radius: 12px 0 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    color: white;
+  }
+  
+  .health-card-image {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .health-card-right {
+    width: 60%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(to right, #f8f8f8, #ececec);
+    border-radius: 0 12px 12px 0;
+  }
+  
+  .health-card-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 8px;
+  }
+  
+  .health-card-title {
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 8px;
+  }
+  
+  .health-card p {
+    font-size: 14px;
+    color: #000;
+    margin-bottom: 8px;
+  }
+  
+  .health-card-points {
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 8px;
+    text-align: center;
+  }
+  
+  .success-message {
+    color: green;
+    font-size: 14px;
+    margin-top: 8px;
+    text-align: center;
+  }
+  

@@ -1,0 +1,120 @@
+.support-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: linear-gradient(to right, #243b55, #141e30);
+  height: 100vh;
+  justify-content: center;
+}
+
+.support-form-title-container {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.support-form-title {
+  font-size: 2rem;
+  color: #000000; 
+  text-align: center;
+  font-weight: 700;
+}
+
+.support-form-container {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 700px;
+}
+
+.support-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.support-form-field {
+  margin-bottom: 1rem;
+}
+
+.support-form-label {
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+  color: #333;
+}
+
+.support-form-control {
+  width: 100%;
+  position: relative;
+}
+
+.support-form-input,
+.support-form-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #333;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.support-form-input:focus,
+.support-form-textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+  background-color: #fff;
+}
+
+.support-form-input:hover,
+.support-form-textarea:hover {
+  border-color: #80bdff;
+}
+
+.support-form-input::placeholder,
+.support-form-textarea::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+.support-form-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #0c8cac;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.support-form-button:hover {
+  background-color: #3192aa;
+  transform: translateY(-2px);
+}
+
+.support-form-status {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+.support-form-status.success {
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+}
+
+.support-form-status.error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+}

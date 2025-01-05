@@ -1,0 +1,87 @@
+.blood-group-details-page {
+    background: linear-gradient(to right, #ff6666, #8b0000);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .blood-group-details-box-container {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 2rem;
+    max-width: 800px;
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .blood-group-details-title {
+    color: #800000;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .blood-group-details-table-container {
+    margin-top: 1rem;
+  }
+  
+  .blood-group-details-table {
+    margin: 0 auto;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+  }
+  
+  .blood-group-details-table thead th {
+    background-color: #d10011;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+  
+  .blood-group-details-row:hover {
+    background-color: #ffe0e0;
+    cursor: pointer;
+  }
+  
+  .blood-group-details-table td, 
+  .blood-group-details-table th {
+    text-align: center;
+    color: black;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  
+  .blood-group-details-notification {
+    margin-bottom: 1.5rem;
+  }
+  
+  .pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  
+  .pagination-info {
+    margin: 0 1rem;
+    font-size: 1rem;
+    color: black; 
+  }
+  
+  .pagination-button {
+    border: 1px solid #d10011;
+    color: black; 
+    margin: 0 0.5rem;
+  }
+  
+  .pagination-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  

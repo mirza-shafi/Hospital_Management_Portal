@@ -1,0 +1,110 @@
+.patient-signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #243b55, #141e30);
+  }
+  
+  .patient-signup-content {
+    display: flex;
+    flex-direction: row;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin-top: -10vh;
+  }
+  
+  .patient-signup-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .patient-signup-image img {
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .patient-signup-form {
+    flex: 2;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-left: 20px;
+    max-height: 600px;
+    overflow-y: auto;
+  }
+  
+  .patient-signup-form h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #0c8cac;
+    font-size: 20px;
+  }
+  
+  .patient-signup-quotation {
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 15px;
+    color: #666;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-control {
+    height: 45px;
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s;
+  }
+  
+  .form-control:focus {
+    border-color: #0c8cac;
+    box-shadow: 0 0 0 0.2rem rgba(12, 140, 172, 0.25);
+  }
+  
+  .form-select {
+    height: 45px;
+  }
+  
+  .btn-primary {
+    height: 45px;
+    border-radius: 8px;
+    background-color: #0c8cac;
+    border: none;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0b7b97;
+  }
+  
+  .patient-alert {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  
+  .patient-alert-success {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+  }
+  
+  .patient-alert-danger {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+  }
+  
