@@ -13,7 +13,7 @@ connectDB().then(() => {
     console.log('Database connection established');
 }).catch(err => {
     console.error('Database connection failed:', err);
-    process.exit(1);
+    // process.exit(1);
 });
 
 // Logging middleware
@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 
 // CORS configuration
 app.use(cors({
-    origin: ['http://localhost:3003', 'http://localhost:5173'],
+    origin: ['http://localhost:3003', 'http://localhost:5173', 'http://localhost:3000'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
@@ -38,6 +38,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Test route
 app.get('/api/test', (req, res) => {
     res.json({ message: 'Backend is working!' });
+});
+
+// Root route
+app.get('/', (req, res) => {
+    res.send('Hospital Management Portal Backend is Running!');
 });
 
 // Routes
