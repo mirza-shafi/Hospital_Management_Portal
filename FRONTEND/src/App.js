@@ -4,6 +4,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bulma/css/bulma.min.css';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 import NavbarComponent from './components/Navbar';
 import Home from './components/Home';
@@ -49,60 +50,82 @@ import NewsTicker from './components/NewsTicker';
 import SupportForm from './components/SupportForm';
 import AdminSupport from './components/AdminSupport';
 
+import MainLayout from './components/MainLayout';
+import ProtectedRoute from './components/ProtectedRoute';
+import AdminLayout from './components/AdminLayout';
+
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <NavbarComponent />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/doctor-signup" element={<DoctorSignUp />} />
-          <Route path="/patient-signup" element={<PatientSignUp />} />
-          <Route path="/doctor-login" element={<DoctorLogin />} />
-          <Route path="/patient-login" element={<PatientLogin />} />
-          <Route path="/doctor-account" element={<DoctorAccount />} />
-          <Route path="/patient-account" element={<PatientAccount />} />
-          <Route path="/doctor-profile" element={<DoctorProfile />} />
-          <Route path="/patient-profile" element={<PatientProfile />} />
-          <Route path="/doctor-details" element={<DoctorDetails />} />
-          <Route path="/patient-details" element={<PatientDetails />} />
-          <Route path="/add-prescription" element={<PrescriptionForm/>} />
-          <Route path="/view-prescription" element={<ViewPrescription/>} />
-          <Route path="/patient-prescription" element={<PatientPrescription/>} />
-          <Route path="/about" element={<About/>} />
-          <Route path="/book-ward" element={<BookWard/>} />
-          <Route path="/book-cabin" element={<BookCabin/>} />
-          <Route path="/health-card" element={<HealthCard/>} />
-         <Route path="/admission-bill" element={<AdmissionBill/>} />
-         <Route path="/test-bill" element={<TestBill/>} />
-         <Route path="/items" element={<Items/>} />
-         <Route path="/test-service" element={<TestService/>} />
-         <Route path="/admin-login" element={<AdminLogin/>} />
-         <Route path="/admin-dashboard" element={<AdminDashboard/>} />
-         <Route path="/add-medicine" element={<AddMedicine/>} />
-         <Route path="/medicine-details" element={<MedicineDetails/>} />
-         <Route path="/pharmacy" element={<Pharmacy/>} />
-         <Route path="/buy-medicine" element={<BuyMedicine/>} />
-         <Route path="/medicine-bill" element={<MedicineBill/>} />
-         <Route path="/chat-bot" element={<Chatbot/>} />
-         <Route path="/blood-bank" element={<BloodBank/>} />
-         <Route path="/blood-donor" element={<BloodDonor/>} />
-         <Route path="/blood-availability" element={<BloodAvailability/>} />
-         <Route path="/blood-group" element={<BloodGroupDetails/>} />
-         <Route path="/blood-recipient" element={<BloodRecipient/>} />
-         <Route path="/appointment-form" element={<AppointmentForm/>} />
-         <Route path="/appointment-details" element={<AppointmentDetails/>} />
-         <Route path="/view-appointment" element={<ViewAppointment/>} />
-         <Route path="/admin-manage-users" element={<AdminManageUsers/>} />
-         <Route path="/news-ticker" element={<NewsTicker/>} />
-         <Route path="/support" element={<SupportForm/>} />
-         <Route path="/admin-support" element={<AdminSupport/>} />
+    <ThemeProvider>
+      <Router>
+        <div className="App">
+          <Routes>
+            {/* Routes WITH Navbar */}
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About/>} />
+              <Route path="/pharmacy" element={<Pharmacy />} />
+              <Route path="/blood-bank" element={<BloodBank />} />
+              <Route path="/support" element={<SupportForm />} />
+              <Route path="/doctor-signup" element={<DoctorSignUp />} />
+              <Route path="/patient-signup" element={<PatientSignUp />} />
+              <Route path="/doctor-login" element={<DoctorLogin />} />
+              <Route path="/patient-login" element={<PatientLogin />} />
 
-         
-    
-        </Routes>
-      </div>
-    </Router>
+              {/* Protected Doctor Routes */}
+              <Route element={<ProtectedRoute type="doctor" />}>
+                <Route path="/doctor-account" element={<DoctorAccount />} />
+                <Route path="/doctor-profile" element={<DoctorProfile />} />
+                <Route path="/doctor-details" element={<DoctorDetails />} />
+                <Route path="/add-prescription" element={<PrescriptionForm/>} />
+                <Route path="/view-prescription" element={<ViewPrescription/>} />
+                <Route path="/view-appointment" element={<ViewAppointment/>} />
+              </Route>
+
+              {/* Protected Patient Routes */}
+              <Route element={<ProtectedRoute type="patient" />}>
+                <Route path="/patient-account" element={<PatientAccount />} />
+                <Route path="/patient-profile" element={<PatientProfile />} />
+                <Route path="/patient-prescription" element={<PatientPrescription />} />
+                <Route path="/patient-details" element={<PatientDetails />} />
+                <Route path="/book-ward" element={<BookWard/>} />
+                <Route path="/book-cabin" element={<BookCabin/>} />
+                <Route path="/health-card" element={<HealthCard/>} />
+                <Route path="/admission-bill" element={<AdmissionBill/>} />
+                <Route path="/test-bill" element={<TestBill/>} />
+                <Route path="/medicine-bill" element={<MedicineBill/>} />
+                <Route path="/buy-medicine" element={<BuyMedicine />} />
+                <Route path="/appointment-form" element={<AppointmentForm/>} />
+                <Route path="/appointment-details" element={<AppointmentDetails/>} />
+              </Route>
+
+              {/* Other Public Routes */}
+              <Route path="/chat-bot" element={<Chatbot />} />
+              <Route path="/news-ticker" element={<NewsTicker />} />
+              <Route path="/blood-donor" element={<BloodDonor />} />
+              <Route path="/blood-availability" element={<BloodAvailability />} />
+              <Route path="/blood-group" element={<BloodGroupDetails />} />
+              <Route path="/blood-recipient" element={<BloodRecipient />} />
+            </Route>
+
+            {/* Routes WITHOUT Navbar */}
+            <Route path="/admin-login" element={<AdminLogin />} />
+
+            <Route element={<ProtectedRoute type="admin" />}>
+              <Route element={<AdminLayout />}>
+                <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                <Route path="/items" element={<Items />} />
+                <Route path="/test-service" element={<TestService />} />
+                <Route path="/add-medicine" element={<AddMedicine />} />
+                <Route path="/medicine-details" element={<MedicineDetails />} />
+                <Route path="/admin-manage-users" element={<AdminManageUsers />} />
+                <Route path="/admin-support" element={<AdminSupport />} />
+              </Route>
+            </Route>
+          </Routes>
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 }
 

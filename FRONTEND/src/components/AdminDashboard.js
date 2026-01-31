@@ -1,19 +1,12 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaSignOutAlt } from 'react-icons/fa'; 
+import { useNavigate, Link } from 'react-router-dom';
+import { FaSignOutAlt, FaArrowLeft } from 'react-icons/fa'; 
 import './styles/AdminDashboard.css';
 import { Helmet } from 'react-helmet';
 
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem('adminToken');
-    if (!token) {
-      navigate('/admin-login');
-    }
-  }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
@@ -23,15 +16,22 @@ const AdminDashboard = () => {
   return (
     <div className="admin-dashboard-body">
       <Helmet>
-        <title>Admin Dashboard Page</title>
+        <title>Admin Dashboard - HealingWave</title>
       </Helmet>
       <div className="admin-dashboard-container">
+        <div className="dashboard-top-nav">
+          <Link to="/" className="back-home-link">
+            <FaArrowLeft className="nav-icon" /> Back to Home
+          </Link>
+        </div>
+        
         <div className="admin-dashboard-header">
           <h1 className="admin-dashboard-title">Admin Dashboard</h1>
           <button className="logout-btn" onClick={handleLogout}>
             <FaSignOutAlt /> Logout
           </button>
         </div>
+        
         <div className="admin-dashboard-links">
           <div className="card-box" onClick={() => navigate('/items')}>
             <h3>Manage Test and Services</h3>

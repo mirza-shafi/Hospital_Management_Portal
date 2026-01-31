@@ -1,149 +1,279 @@
+/* Modern Premium Pharmacy Styling */
 .pharmacy-page {
-    background: linear-gradient(to right, #243b55, #141e30);
-    min-height: 100vh;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .pharmacy-header {
-    text-align: center;
-    color: white;
-    margin-bottom: 20px;
-  }
-  
-  .pharmacy-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 5px;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
-  
-  .pharmacy-header p {
-    font-size: 1.2rem;
-    margin-top: 0;
-    font-weight: 300;
-  }
-  
-  .pharmacy-search-bar-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 30px;
-  }
-  
-  .pharmacy-search-bar {
-    display: flex;
-    align-items: center;
-    background-color: white;
-    border-radius: 5px;
-    padding: 10px;
-    width: 50%;
-    max-width: 600px;
-  }
-  
-  .pharmacy-search-icon {
-    margin-right: 10px;
-    font-size: 1.5rem;
-    color: #3498db;
-  }
-  
-  .pharmacy-search-bar input {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.dark .pharmacy-page {
+  background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
+}
+
+.pharmacy-header {
+  text-align: center;
+  margin-bottom: 40px;
+  animation: fadeInDown 0.6s ease-out;
+  padding: 0 10px;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pharmacy-header h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 15px;
+}
+
+.dark .pharmacy-header h1 {
+  background: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pharmacy-header p {
+  color: #94a3b8;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.pharmacy-search-bar-container {
+  width: 100%;
+  max-width: 700px;
+  margin-bottom: 50px;
+  position: relative;
+  padding: 0 15px;
+}
+
+.pharmacy-search-bar {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 5px 20px;
+  border-radius: 50px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.dark .pharmacy-search-bar {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.pharmacy-search-bar:focus-within {
+  border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+  transform: translateY(-2px);
+}
+
+.pharmacy-search-icon {
+  font-size: 1.1rem;
+  color: #64748b;
+  margin-right: 15px;
+}
+
+.pharmacy-search-bar input {
+  flex: 1;
+  border: none !important;
+  background: transparent !important;
+  padding: 12px 0;
+  font-size: 1rem;
+  color: #1e293b;
+  outline: none;
+  box-shadow: none !important;
+}
+
+.dark .pharmacy-search-bar input {
+  color: #f1f5f9;
+}
+
+.pharmacy-medicine-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 25px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 10px;
+}
+
+.pharmacy-medicine-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #f1f5f9;
+  display: flex;
+  flex-direction: column;
+}
+
+.dark .pharmacy-medicine-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.pharmacy-medicine-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-color: #667eea;
+}
+
+.pharmacy-medicine-image {
+  height: 180px;
+  overflow: hidden;
+  position: relative;
+  background: #f8fafc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dark .pharmacy-medicine-image {
+  background: #0f172a;
+}
+
+.pharmacy-medicine-image img {
+  max-width: 100%;
+  max-height: 140px;
+  object-fit: contain;
+  padding: 15px;
+  transition: transform 0.5s ease;
+}
+
+.pharmacy-medicine-card:hover .pharmacy-medicine-image img {
+  transform: scale(1.08);
+}
+
+.pharmacy-medicine-details {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pharmacy-medicine-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.4;
+  display: block;
+}
+
+.dark .pharmacy-medicine-name {
+  color: #f8fafc;
+}
+
+.pharmacy-medicine-strength {
+  font-size: 0.75rem;
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #64748b;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.dark .pharmacy-medicine-strength {
+  background: #334155;
+  color: #cbd5e1;
+}
+
+.pharmacy-generic-name {
+  font-size: 0.85rem;
+  color: #667eea;
+  font-weight: 600;
+}
+
+.pharmacy-manufacturer {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-bottom: 5px;
+}
+
+.pharmacy-medicine-price {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #10b981;
+}
+
+.dark .pharmacy-medicine-price {
+  color: #34d399;
+}
+
+.back-home {
+  transition: all 0.2s ease;
+}
+
+.back-home:hover {
+  color: #667eea !important;
+  transform: translateX(-5px);
+}
+
+/* Pagination */
+.pharmacy-pagination-container {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 0;
+}
+
+.pharmacy-pagination-button {
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark .pharmacy-pagination-button {
+  background: #1e293b;
+  border-color: #334155;
+  color: #94a3b8;
+}
+
+.pharmacy-pagination-button:hover:not(.active) {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.pharmacy-pagination-button.active {
+  background: #667eea;
+  border-color: #667eea;
+  color: white;
+}
+
+@media (max-width: 640px) {
+  .pharmacy-page {
+    padding: 20px 15px;
   }
   
   .pharmacy-medicine-cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    width: 100%;
-    max-width: 1200px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
   }
-  
-  .pharmacy-medicine-card {
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    width: 220px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-    text-align: center;
-    border: 2px solid #3498db;
-  }
-  
-  .pharmacy-medicine-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .pharmacy-medicine-image img {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-  }
-  
-  .pharmacy-medicine-details {
-    padding: 15px;
-    background: #f9f9f9;
-    color: black;
-  }
-  
-  .pharmacy-medicine-name {
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #2c3e50;
-  }
-  
-  .pharmacy-medicine-strength {
-    font-size: 0.9rem;
-    color: #95a5a6;
-  }
-  
-  .pharmacy-generic-name,
-  .pharmacy-dosage-form,
-  .pharmacy-manufacturer,
-  .pharmacy-medicine-price,
-  .pharmacy-medicine-description {
-    font-size: 0.9rem;
-    margin: 5px 0;
-  }
-  
-  .pharmacy-medicine-description {
-    margin-top: 10px;
-    font-style: italic;
-  }
-  
-  .pharmacy-pagination-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    width: 100%;
-    max-width: 1200px;
-  }
-  
-  .pharmacy-pagination-button {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    margin: 0 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 1rem;
-  }
-  
-  .pharmacy-pagination-button:hover {
-    background-color: #2980b9;
-  }
-  
-  .pharmacy-pagination-button.active {
-    background-color: #2980b9;
-  }
+}
   

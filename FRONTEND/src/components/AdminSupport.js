@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import './styles/AdminSupport.css'; 
+import './styles/SupportForm.css'; // Reusing back link styles
 
 const AdminSupport = () => {
   const [requests, setRequests] = useState([]);
@@ -15,7 +17,6 @@ const AdminSupport = () => {
   const navigate = useNavigate(); 
 
   useEffect(() => {
-    
     const token = localStorage.getItem('adminToken');
     if (!token) {
       navigate('/admin-login'); 
@@ -77,8 +78,18 @@ const AdminSupport = () => {
 
   return (
     <div className="admin-support-container">
-      <div className="box admin-support-box">
-        <h1 className="title has-text-centered">Admin Support Panel</h1>
+      <Helmet>
+        <title>Admin Support Panel - HealingWave</title>
+      </Helmet>
+
+      <div className="back-link-container">
+        <Link to="/" className="support-back-home">
+          <i className="fas fa-arrow-left"></i> Back to Home
+        </Link>
+      </div>
+
+      <div className="admin-support-box">
+        <h1 className="title">Admin Support Panel</h1>
 
         {successMessage && <div className="notification is-success">{successMessage}</div>}
         {errorMessage && <div className="notification is-danger">{errorMessage}</div>}
@@ -88,26 +99,30 @@ const AdminSupport = () => {
             <div key={request._id} className="column is-half">
               <div className={`card ${request.status === 'Resolved' ? 'is-resolved' : ''}`}>
                 <header className="card-header">
-                  <p className="card-header-title">{request.name}</p>
-                  <p className="card-header-title is-small has-text-right">{request.email}</p>
+                  <p className="card-header-title">
+                    <i className="fas fa-user-circle" style={{ marginRight: '10px', color: '#667eea' }}></i>
+                    {request.name}
+                  </p>
+                  <p className="card-header-email">{request.email}</p>
                 </header>
                 <div className="card-content">
                   <div className="content">
-                    <p>{request.message}</p>
+                    <p><strong><i className="fas fa-comment-alt" style={{ marginRight: '8px' }}></i> Message:</strong><br/>{request.message}</p>
                     {request.solution && (
-                      <>
-                        <hr />
-                        <p><strong>Solution:</strong> {request.solution}</p>
-                      </>
+                      <div style={{ marginTop: '15px', padding: '15px', background: 'rgba(102, 126, 234, 0.1)', borderRadius: '10px' }}>
+                        <p><strong><i className="fas fa-check-circle" style={{ marginRight: '8px', color: '#10b981' }}></i> Solution:</strong><br/>{request.solution}</p>
+                      </div>
                     )}
                   </div>
                 </div>
                 {!request.solution && (
                   <footer className="card-footer">
                     <button
-                      className="button is-info is-fullwidth"
+                      className="support-form-button"
                       onClick={() => setCurrentRequest(request)}
+                      style={{ margin: 0, padding: '10px' }}
                     >
+                      <i className="fas fa-reply" style={{ marginRight: '8px' }}></i>
                       Respond
                     </button>
                   </footer>
@@ -117,36 +132,49 @@ const AdminSupport = () => {
           ))}
         </div>
 
-        <div className="pagination-container">
-          {[...Array(Math.ceil(requests.length / requestsPerPage)).keys()].map(number => (
-            <button
-              key={number + 1}
-              className={`pagination-button ${currentPage === number + 1 ? 'is-active' : ''}`}
-              onClick={() => paginate(number + 1)}
-            >
-              {number + 1}
-            </button>
-          ))}
-        </div>
+        {requests.length > requestsPerPage && (
+          <div className="pagination-container">
+            {[...Array(Math.ceil(requests.length / requestsPerPage)).keys()].map(number => (
+              <button
+                key={number + 1}
+                className={`pagination-button ${currentPage === number + 1 ? 'is-active' : ''}`}
+                onClick={() => paginate(number + 1)}
+              >
+                {number + 1}
+              </button>
+            ))}
+          </div>
+        )}
 
         {currentRequest && (
           <div className="response-form">
+            <h3 className="title is-4" style={{ marginBottom: '20px' }}>
+              Responding to {currentRequest.name}
+            </h3>
             <form onSubmit={handleRespond}>
               <div className="field">
-                <label className="label">Response to {currentRequest.name}</label>
                 <div className="control">
                   <textarea
                     className="textarea"
+                    placeholder="Provide a solution or response..."
                     value={solution}
                     onChange={(e) => setSolution(e.target.value)}
                     required
                   ></textarea>
                 </div>
               </div>
-              <div className="field">
-                <div className="control">
-                  <button className="button is-primary">Submit Response</button>
-                </div>
+              <div className="field" style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
+                <button className="support-form-button" style={{ flex: 1, margin: 0 }}>
+                  Submit Response
+                </button>
+                <button 
+                  type="button" 
+                  className="support-form-button" 
+                  style={{ flex: 1, margin: 0, background: '#718096' }}
+                  onClick={() => setCurrentRequest(null)}
+                >
+                  Cancel
+                </button>
               </div>
             </form>
           </div>

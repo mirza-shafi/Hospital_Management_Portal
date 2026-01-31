@@ -10,81 +10,83 @@ import { Helmet } from 'react-helmet';
 
 const BloodBank = () => {
   return (
-    <section className="bloodbank-page">
-      <h1 className="bloodbank-page-title">Welcome to the Blood Bank</h1>
-      <div className="bloodbank-image-container">
+    <div className="bloodbank-page">
       <Helmet>
-                   <title>Blood Bank Page</title>
-                </Helmet>
-        <img src={bloodbankImage} alt="Blood Bank" className="bloodbank-main-image" />
+        <title>Blood Bank - HealingWave</title>
+      </Helmet>
+
+      <div style={{ width: '100%', maxWidth: '1200px', marginBottom: '20px' }}>
+        <Link to="/" className="back-home" style={{ color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 'bold' }}>
+          <i className="fas fa-arrow-left"></i> Back to Home
+        </Link>
       </div>
+
+      <h1 className="bloodbank-page-title">Blood Bank Portal</h1>
       <p className="bloodbank-page-subtitle">
-        Discover essential information about blood donation, recipients, availability, and group compatibility.
+        Bridging the gap between donors and recipients. Every drop counts in saving a life.
       </p>
-      <div className="columns is-multiline is-centered">
-        <div className="column is-one-quarter">
-          <Link to="/blood-donor" className="bloodbank-card-link">
-            <div className="card bloodbank-card">
-              <div className="card-image bloodbank-card-image">
-                <figure className="image">
+
+
+
+      <div className="container" style={{ maxWidth: '1200px' }}>
+        <div className="columns is-multiline is-centered">
+          <div className="column is-3">
+            <Link to="/blood-donor" className="bloodbank-card-link">
+              <div className="bloodbank-card">
+                <div className="bloodbank-card-image">
                   <img src={blooddonorImage} alt="Blood Donor" />
-                </figure>
+                </div>
+                <div className="bloodbank-card-content">
+                  <p className="card-title">Donate Blood</p>
+                  <p className="card-subtitle">Register yourself as a hero and save lives.</p>
+                </div>
               </div>
-              <div className="card-content bloodbank-card-content">
-                <p className="card-title">Blood Donor</p>
-                <p className="card-subtitle">Information about donating blood.</p>
-              </div>
-            </div>
-          </Link>
-        </div>
-        <div className="column is-one-quarter">
-          <Link to="/blood-recipient" className="bloodbank-card-link">
-            <div className="card bloodbank-card">
-              <div className="card-image bloodbank-card-image">
-                <figure className="image">
+            </Link>
+          </div>
+          <div className="column is-3">
+            <Link to="/blood-recipient" className="bloodbank-card-link">
+              <div className="bloodbank-card">
+                <div className="bloodbank-card-image">
                   <img src={bloodrecipientImage} alt="Blood Recipient" />
-                </figure>
+                </div>
+                <div className="bloodbank-card-content">
+                  <p className="card-title">Find Blood</p>
+                  <p className="card-subtitle">Request blood for patients in need.</p>
+                </div>
               </div>
-              <div className="card-content bloodbank-card-content">
-                <p className="card-title">Blood Recipient</p>
-                <p className="card-subtitle">Information for those needing blood.</p>
-              </div>
-            </div>
-          </Link>
-        </div>
-        <div className="column is-one-quarter">
-          <Link to="/blood-availability" className="bloodbank-card-link">
-            <div className="card bloodbank-card">
-              <div className="card-image bloodbank-card-image">
-                <figure className="image">
+            </Link>
+          </div>
+          <div className="column is-3">
+            <Link to="/blood-availability" className="bloodbank-card-link">
+              <div className="bloodbank-card">
+                <div className="bloodbank-card-image">
                   <img src={bloodavailImage} alt="Blood Availability" />
-                </figure>
+                </div>
+                <div className="bloodbank-card-content">
+                  <p className="card-title">Availability</p>
+                  <p className="card-subtitle">Real-time check of available blood units.</p>
+                </div>
               </div>
-              <div className="card-content bloodbank-card-content">
-                <p className="card-title">Blood Availability</p>
-                <p className="card-subtitle">Check available blood types.</p>
-              </div>
-            </div>
-          </Link>
-        </div>
-        <div className="column is-one-quarter">
-          <Link to="/blood-group" className="bloodbank-card-link">
-            <div className="card bloodbank-card">
-              <div className="card-image bloodbank-card-image">
-                <figure className="image">
+            </Link>
+          </div>
+          <div className="column is-3">
+            <Link to="/blood-group" className="bloodbank-card-link">
+              <div className="bloodbank-card">
+                <div className="bloodbank-card-image">
                   <img src={bloodgroupImage} alt="Blood Group Information" />
-                </figure>
+                </div>
+                <div className="bloodbank-card-content">
+                  <p className="card-title">Compatibility</p>
+                  <p className="card-subtitle">Understand blood group compatibility.</p>
+                </div>
               </div>
-              <div className="card-content bloodbank-card-content">
-                <p className="card-title">Blood Group Info</p>
-                <p className="card-subtitle">Details about blood group compatibility.</p>
-              </div>
-            </div>
-          </Link>
+            </Link>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
+
 
 export default BloodBank;

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Form, Button, Alert } from 'react-bootstrap';
-import healingwaveImage from '../assets/healingwave.png'; 
-import './styles/PatientSignUp.css';
 import { Helmet } from 'react-helmet';
+import { useNavigate, Link } from 'react-router-dom';
+import './styles/Login.css';
 
 const PatientSignUp = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -16,146 +16,183 @@ const PatientSignUp = () => {
     password: '',
     confirmPassword: ''
   });
-
-  const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const { firstName, lastName, email, sex, dateOfBirth, mobileNumber, password, confirmPassword } = formData;
 
-  const handleChange = (e) => {
+  const onChange = e => {
+    setError('');
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const onSubmit = async e => {
     e.preventDefault();
+    
+    if (!firstName || !lastName || !email || !sex || !dateOfBirth || !mobileNumber || !password || !confirmPassword) {
+      setError('All fields are required');
+      return;
+    }
+
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
 
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
     try {
       const res = await axios.post('/api/patients/pregister', formData);
-      setMessage(res.data.message);
-      setError('');
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        sex: '',
-        dateOfBirth: '',
-        mobileNumber: '',
-        password: '',
-        confirmPassword: ''
-      });
-    } catch (error) {
-      console.error(error);
-      setMessage('');
-      setError(error.response.data.message || 'Error registering patient');
+      alert('Registration successful! Please login.');
+      navigate('/patient-login');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Registration failed');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="patient-signup-container">
+    <div className="login-page">
       <Helmet>
-        <title> Patient Registration Page</title>
+        <title>Patient Registration</title>
       </Helmet>
-      <div className="patient-signup-content">
-        <div className="patient-signup-image">
-          <img src={healingwaveImage} alt="Healing Wave" />
+
+      <div className="login-container signup-container">
+        <Link to="/" className="back-home">
+          <i className="fas fa-arrow-left"></i> Back to Home
+        </Link>
+        <div className="login-header">
+          <i className="fas fa-user-injured"></i>
+          <h1>Patient Registration</h1>
+          <p>Join our healthcare community</p>
         </div>
-        <div className="patient-signup-form">
-          <h2>Patient Account Registration</h2>
-          {message && <Alert variant="success" className="patient-alert patient-alert-success">{message}</Alert>}
-          {error && <Alert variant="danger" className="patient-alert patient-alert-danger">{error}</Alert>}
-          <p className="patient-signup-quotation">Thank you for registration</p>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="firstName">
-              <Form.Control
+
+        <form onSubmit={onSubmit} className="login-form">
+          <div className="input-row">
+            <div className="input-group">
+              <label>First Name</label>
+              <input
                 type="text"
-                placeholder="First Name"
                 name="firstName"
                 value={firstName}
-                onChange={handleChange}
+                onChange={onChange}
+                placeholder="John"
                 required
               />
-            </Form.Group>
-            <Form.Group controlId="lastName">
-              <Form.Control
+            </div>
+
+            <div className="input-group">
+              <label>Last Name</label>
+              <input
                 type="text"
-                placeholder="Last Name"
                 name="lastName"
                 value={lastName}
-                onChange={handleChange}
+                onChange={onChange}
+                placeholder="Doe"
                 required
               />
-            </Form.Group>
-            <Form.Group controlId="email">
-              <Form.Control
-                type="email"
-                placeholder="Email"
-                name="email"
-                value={email}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="sex">
-              <Form.Control
-                as="select"
-                name="sex"
-                value={sex}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Select Sex</option>
+            </div>
+          </div>
+
+          <div className="input-group">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={onChange}
+              placeholder="patient@email.com"
+              required
+            />
+          </div>
+
+          <div className="input-row">
+            <div className="input-group">
+              <label>Gender</label>
+              <select name="sex" value={sex} onChange={onChange} required>
+                <option value="">Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Other">Other</option>
-              </Form.Control>
-            </Form.Group>
-            <Form.Group controlId="dateOfBirth">
-              <Form.Control
+              </select>
+            </div>
+
+            <div className="input-group">
+              <label>Date of Birth</label>
+              <input
                 type="date"
                 name="dateOfBirth"
                 value={dateOfBirth}
-                onChange={handleChange}
+                onChange={onChange}
                 required
               />
-            </Form.Group>
-            <Form.Group controlId="mobileNumber">
-              <Form.Control
-                type="text"
-                placeholder="Mobile Number"
-                name="mobileNumber"
-                value={mobileNumber}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="password">
-              <Form.Control
+            </div>
+          </div>
+
+          <div className="input-group">
+            <label>Mobile Number</label>
+            <input
+              type="tel"
+              name="mobileNumber"
+              value={mobileNumber}
+              onChange={onChange}
+              placeholder="+880 1XXX-XXXXXX"
+              required
+            />
+          </div>
+
+          <div className="input-row">
+            <div className="input-group">
+              <label>Password</label>
+              <div className="password-field">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  value={password}
+                  onChange={onChange}
+                  placeholder="Minimum 6 characters"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="toggle-password"
+                >
+                  <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                </button>
+              </div>
+            </div>
+
+            <div className="input-group">
+              <label>Confirm Password</label>
+              <input
                 type="password"
-                placeholder="Password"
-                name="password"
-                value={password}
-                onChange={handleChange}
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="confirmPassword">
-              <Form.Control
-                type="password"
-                placeholder="Confirm Password"
                 name="confirmPassword"
                 value={confirmPassword}
-                onChange={handleChange}
+                onChange={onChange}
+                placeholder="Re-enter password"
                 required
               />
-            </Form.Group>
-            <Button type="submit" variant="primary" className="w-100">
-         Register
-            </Button>
-          </Form>
+            </div>
+          </div>
+
+          {error && <div className="error-msg">{error}</div>}
+
+          <button type="submit" className="login-btn patient-btn" disabled={loading}>
+            {loading ? 'Creating Account...' : 'Sign Up'}
+          </button>
+        </form>
+
+        <div className="login-footer">
+          <p>Already have an account? <a href="/patient-login">Sign in</a></p>
         </div>
       </div>
     </div>

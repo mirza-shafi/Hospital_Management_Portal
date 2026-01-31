@@ -1,33 +1,181 @@
-import React from 'react';
-import './styles/DoctorSignUp.css';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Helmet } from 'react-helmet';
+import { useNavigate, Link } from 'react-router-dom';
+import './styles/Login.css';
 
 const DoctorSignUp = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    specialization: '',
+    password: '',
+    confirmPassword: ''
+  });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const { name, email, phone, specialization, password, confirmPassword } = formData;
+
+  const onChange = e => {
+    setError('');
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = async e => {
+    e.preventDefault();
+    
+    if (!name || !email || !phone || !specialization || !password || !confirmPassword) {
+      setError('All fields are required');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/doctors/dregister`,
+        { name, email, phone, specialization, password }
+      );
+      
+      if (res.data) {
+        alert('Registration successful! Please login.');
+        navigate('/doctor-login');
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || 'Registration failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="doctor-signup-container">
-      <h1>Doctor Registration</h1>
-      <form className="doctor-signup-form">
-        <div className="form-group">
-          <label htmlFor="name">Full Name</label>
-          <input type="text" id="name" placeholder="Enter your full name" />
+    <div className="login-page">
+      <Helmet>
+        <title>Doctor Registration</title>
+      </Helmet>
+
+      <div className="login-container signup-container">
+        <Link to="/" className="back-home">
+          <i className="fas fa-arrow-left"></i> Back to Home
+        </Link>
+        <div className="login-header">
+          <i className="fas fa-user-md"></i>
+          <h1>Doctor Registration</h1>
+          <p>Join our healthcare network</p>
         </div>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input type="email" id="email" placeholder="Enter your email" />
+
+        <form onSubmit={onSubmit} className="login-form">
+          <div className="input-group">
+            <label>Full Name</label>
+            <input
+              type="text"
+              name="name"
+              value={name}
+              onChange={onChange}
+              placeholder="Dr. John Doe"
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={onChange}
+              placeholder="doctor@hospital.com"
+              required
+            />
+          </div>
+
+          <div className="input-row">
+            <div className="input-group">
+              <label>Phone</label>
+              <input
+                type="tel"
+                name="phone"
+                value={phone}
+                onChange={onChange}
+                placeholder="+880 1XXX-XXXXXX"
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <label>Specialization</label>
+              <input
+                type="text"
+                name="specialization"
+                value={specialization}
+                onChange={onChange}
+                placeholder="Cardiology"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="input-row">
+            <div className="input-group">
+              <label>Password</label>
+              <div className="password-field">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  value={password}
+                  onChange={onChange}
+                  placeholder="Minimum 6 characters"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="toggle-password"
+                >
+                  <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                </button>
+              </div>
+            </div>
+
+            <div className="input-group">
+              <label>Confirm Password</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={onChange}
+                placeholder="Re-enter password"
+                required
+              />
+            </div>
+          </div>
+
+          {error && <div className="error-msg">{error}</div>}
+
+          <button type="submit" className="login-btn doctor-btn" disabled={loading}>
+            {loading ? 'Creating Account...' : 'Sign Up'}
+          </button>
+        </form>
+
+        <div className="login-footer">
+          <p>Already have an account? <a href="/doctor-login">Sign in</a></p>
         </div>
-        <div className="form-group">
-          <label htmlFor="phone">Phone Number</label>
-          <input type="text" id="phone" placeholder="Enter your phone number" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="specialization">Specialization</label>
-          <input type="text" id="specialization" placeholder="Enter your specialization" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" placeholder="Create a password" />
-        </div>
-        <button type="submit" className="signup-button">Register</button>
-      </form>
+      </div>
     </div>
   );
 };

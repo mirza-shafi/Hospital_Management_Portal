@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './styles/Navbar.css';
 import logo from '../assets/healingwave.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCapsules, faContactBook, faHome, faInfoCircle, faTint } from '@fortawesome/free-solid-svg-icons';
+import { faCapsules, faContactBook, faHome, faInfoCircle, faTint, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
+import { useTheme } from '../contexts/ThemeContext';
+import { useLocation } from 'react-router-dom';
 
 const NavbarComponent = () => {
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+  const { theme, toggleTheme } = useTheme();
+  const location = useLocation();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -41,6 +45,16 @@ const NavbarComponent = () => {
             <FontAwesomeIcon icon={faInfoCircle} className="navbar-icon" /> About
           </a>
           
+          <button 
+            className="navbar-item theme-toggle" 
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
+            <FontAwesomeIcon 
+              icon={theme === 'dark' ? faSun : faMoon} 
+              className="navbar-icon" 
+            />
+          </button>
           
           <span className="navbar-item navbar-time">{currentTime}</span>
         </div>

@@ -1,89 +1,159 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import 'bulma/css/bulma.min.css';
 import './styles/About.css';
-import hospitalImage from '../assets/thankyou.png';
 import { Helmet } from 'react-helmet';
+import Footer from './Footer';
 
 function About() {
-    const [aboutData, setAboutData] = useState(null);
-
-    useEffect(() => {
-        fetch('/api/about')
-            .then((response) => response.json())
-            .then((data) => setAboutData(data))
-            .catch((error) => console.error('Error fetching about data:', error));
-    }, []);
-
-    if (!aboutData) {
-        return <div>Loading...</div>;
-    }
-
     return (
-        <section className="section about-section">
-            <div className="container about-container">
-                <Helmet>
-                   <title>About Page</title>
-                </Helmet>
-                <div className="columns is-centered">
-                    <div className="column is-10">
-                        <div className="box has-background-light about-box">
-                            <div className="columns is-vcentered">
-                                <div className="column is-half has-text-centered">
-                                    <h1 className="title" style={{ color: '#0c8cac' }}>{aboutData.title}</h1>
-                                    <img src={hospitalImage} alt="Hospital" className="hospital-image" />
-                                    <p className="mission-text">"{aboutData.mission}"</p>
-                                </div>
-                                <div className="column is-half">
-                                    <div className="content">
-                                        <div className="about-card">
-                                            <h2 className="subtitle is-5">Our Mission</h2>
-                                            <p><i className="fas fa-heartbeat"></i> {aboutData.mission}</p>
-                                        </div>
-                                        <div className="about-card">
-                                            <h2 className="subtitle is-5">Core Values</h2>
-                                            <ul>
-                                                {aboutData.coreValues.map((value, index) => (
-                                                    <li key={index}><i className="fas fa-check-circle"></i> {value}</li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                        <div className="about-card">
-                                            <h2 className="subtitle is-5">Our Services</h2>
-                                            <ul>
-                                                {aboutData.services.map((service, index) => (
-                                                    <li key={index}><i className="fas fa-check-circle"></i> {service}</li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                        <div className="about-card">
-                                            <h2 className="subtitle is-5">Contact Information</h2>
-                                            <p><i className="fas fa-envelope"></i> Email:
-                                                <ul>
-                                                    {aboutData.contactInfo.emails.map((email, index) => (
-                                                        <li key={index}><a href={`mailto:${email}`}>{email}</a></li>
-                                                    ))}
-                                                </ul>
-                                            </p>
-                                            <p><i className="fas fa-phone"></i> Phone:
-                                                <ul>
-                                                    {aboutData.contactInfo.phones.map((phone, index) => (
-                                                        <li key={index}>{phone}</li>
-                                                    ))}
-                                                </ul>
-                                            </p>
-                                            <p><i className="fas fa-map-marker-alt"></i> Address: {aboutData.contactInfo.address}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="about-footer">
-                                <p>&copy; 2024 HealingWave Health Service. All rights reserved.</p>
-                            </div>
+        <div className="about-page">
+            <Helmet>
+                <title>About Us - HealingWave</title>
+            </Helmet>
+
+            {/* Hero Section */}
+            <section className="about-hero">
+                <div className="about-hero-content">
+                    <h1 className="about-hero-title">About HealingWave</h1>
+                    <p className="about-hero-subtitle">
+                        Committed to Excellence in Healthcare Since 1999
+                    </p>
+                </div>
+            </section>
+
+            {/* Mission & Vision Section */}
+            <section className="mission-vision-section">
+                <div className="mission-vision-container">
+                    <div className="mission-card">
+                        <div className="card-icon">
+                            <i className="fas fa-bullseye"></i>
                         </div>
+                        <h2>Our Mission</h2>
+                        <p>
+                            To provide world-class healthcare services with compassion, 
+                            innovation, and excellence. We are dedicated to improving the 
+                            health and well-being of our community through comprehensive 
+                            medical care and patient-centered approach.
+                        </p>
+                    </div>
+                    <div className="mission-card">
+                        <div className="card-icon">
+                            <i className="fas fa-eye"></i>
+                        </div>
+                        <h2>Our Vision</h2>
+                        <p>
+                            To be the leading healthcare provider in Bangladesh, recognized 
+                            for our commitment to quality, innovation, and patient satisfaction. 
+                            We envision a healthier future where everyone has access to 
+                            exceptional medical care.
+                        </p>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+
+            {/* Core Values Section */}
+            <section className="values-section">
+                <h2 className="section-title">Our Core Values</h2>
+                <div className="values-grid">
+                    <div className="value-card">
+                        <div className="value-icon">
+                            <i className="fas fa-heart"></i>
+                        </div>
+                        <h3>Compassion</h3>
+                        <p>We treat every patient with empathy, respect, and dignity</p>
+                    </div>
+                    <div className="value-card">
+                        <div className="value-icon">
+                            <i className="fas fa-award"></i>
+                        </div>
+                        <h3>Excellence</h3>
+                        <p>We strive for the highest standards in medical care</p>
+                    </div>
+                    <div className="value-card">
+                        <div className="value-icon">
+                            <i className="fas fa-users"></i>
+                        </div>
+                        <h3>Teamwork</h3>
+                        <p>We collaborate to deliver comprehensive healthcare</p>
+                    </div>
+                    <div className="value-card">
+                        <div className="value-icon">
+                            <i className="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Innovation</h3>
+                        <p>We embrace cutting-edge technology and treatments</p>
+                    </div>
+                </div>
+            </section>
+
+            {/* Services Section */}
+            <section className="services-section">
+                <h2 className="section-title">Our Services</h2>
+                <div className="services-grid">
+                    <div className="service-item">
+                        <i className="fas fa-heartbeat"></i>
+                        <span>24/7 Emergency Care</span>
+                    </div>
+                    <div className="service-item">
+                        <i className="fas fa-user-md"></i>
+                        <span>Specialist Consultations</span>
+                    </div>
+                    <div className="service-item">
+                        <i className="fas fa-procedures"></i>
+                        <span>Advanced Surgery</span>
+                    </div>
+                    <div className="service-item">
+                        <i className="fas fa-x-ray"></i>
+                        <span>Diagnostic Imaging</span>
+                    </div>
+                    <div className="service-item">
+                        <i className="fas fa-vial"></i>
+                        <span>Laboratory Services</span>
+                    </div>
+                    <div className="service-item">
+                        <i className="fas fa-pills"></i>
+                        <span>Pharmacy</span>
+                    </div>
+                    <div className="service-item">
+                        <i className="fas fa-tint"></i>
+                        <span>Blood Bank</span>
+                    </div>
+                    <div className="service-item">
+                        <i className="fas fa-ambulance"></i>
+                        <span>Ambulance Service</span>
+                    </div>
+                </div>
+            </section>
+
+            {/* Contact Section */}
+            <section className="contact-section">
+                <h2 className="section-title">Get In Touch</h2>
+                <div className="contact-grid">
+                    <div className="contact-card">
+                        <div className="contact-icon">
+                            <i className="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>Address</h3>
+                        <p>123 Medical Center<br/>Dhaka, Bangladesh</p>
+                    </div>
+                    <div className="contact-card">
+                        <div className="contact-icon">
+                            <i className="fas fa-phone"></i>
+                        </div>
+                        <h3>Phone</h3>
+                        <p>+880 1234-567890<br/>+880 9876-543210</p>
+                    </div>
+                    <div className="contact-card">
+                        <div className="contact-icon">
+                            <i className="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email</h3>
+                        <p>info@healingwave.com<br/>support@healingwave.com</p>
+                    </div>
+                </div>
+            </section>
+            <Footer />
+        </div>
     );
 }
 

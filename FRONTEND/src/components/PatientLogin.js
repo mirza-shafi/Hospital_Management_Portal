@@ -1,72 +1,107 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './styles/PatientLogin.css';
-import ECGAnimation from './ECGAnimation';
-import { FaSignInAlt } from 'react-icons/fa';
-import { Helmet } from 'react-helmet'; 
+import { Helmet } from 'react-helmet';
+import { useNavigate, Link } from 'react-router-dom';
+import './styles/Login.css';
 
 const PatientLogin = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const { email, password } = formData;
 
-  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = e => {
+    setError('');
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const onSubmit = async e => {
     e.preventDefault();
+    if (!email || !password) {
+      setError('Please fill in all fields');
+      return;
+    }
+
     setLoading(true);
+    setError('');
 
     try {
-      const res = await axios.post('/api/patients/plogin', formData);
-      localStorage.setItem('token', res.data.token); 
-      localStorage.setItem('patientEmail', email); 
-      window.location.href = '/patient-account';
+      const res = await axios.post('/api/patients/plogin', { email, password });
+      if (res.data.token) {
+        localStorage.setItem('token', res.data.token);
+        navigate('/patient-account');
+      }
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
+    } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="patient-login-container">
+    <div className="login-page">
       <Helmet>
-        <title>Patient Portal Page</title>
+        <title>Patient Login</title>
       </Helmet>
-      <h2>Patient Portal</h2>
-      <p className="patient-login-quote">
-        "Health is the crown on the well person's head that only the ill person can see." - Robin Sharma
-      </p>
-      <form className="patient-login-form" onSubmit={onSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          name="email"
-          value={email}
-          onChange={onChange}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          name="password"
-          value={password}
-          onChange={onChange}
-          required
-        />
-        <button type="submit" className="patient-login-button">
-          {loading ? <span>Loading...</span> : <FaSignInAlt />} 
-        </button>
-      </form>
-      {error && <p className="patient-login-error-message">{error}</p>}
-      {loading && <ECGAnimation />}
-      <p className="patient-login-signup-prompt">
-        Don't have an account? <a href="/patient-signup" className="patient-login-signup-link">Create one here</a>
-      </p>
+
+      <div className="login-container">
+        <Link to="/" className="back-home">
+          <i className="fas fa-arrow-left"></i> Back to Home
+        </Link>
+        <div className="login-header">
+          <i className="fas fa-user-injured"></i>
+          <h1>Patient Login</h1>
+          <p>Access your health records</p>
+        </div>
+
+        <form onSubmit={onSubmit} className="login-form">
+          <div className="input-group">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={onChange}
+              placeholder="patient@email.com"
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label>Password</label>
+            <div className="password-field">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                value={password}
+                onChange={onChange}
+                placeholder="Enter password"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="toggle-password"
+              >
+                <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+              </button>
+            </div>
+          </div>
+
+          {error && <div className="error-msg">{error}</div>}
+
+          <button type="submit" className="login-btn patient-btn" disabled={loading}>
+            {loading ? 'Signing in...' : 'Sign In'}
+          </button>
+        </form>
+
+        <div className="login-footer">
+          <p>Don't have an account? <a href="/patient-signup">Sign up</a></p>
+        </div>
+      </div>
     </div>
   );
 };
