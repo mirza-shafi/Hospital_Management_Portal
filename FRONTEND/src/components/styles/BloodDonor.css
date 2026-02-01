@@ -1,135 +1,286 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 .blooddonor-page {
-    background: linear-gradient(to right, #ff6666, #8b0000);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+/* Dark Mode Background */
+.dark .blooddonor-page {
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+}
+
+/* Abstract background shapes */
+.blooddonor-page::before,
+.blooddonor-page::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+}
+
+.blooddonor-page::before {
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 107, 107, 0.2);
+  top: -50px;
+  left: -100px;
+}
+
+.blooddonor-page::after {
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 71, 87, 0.15);
+  bottom: -50px;
+  right: -50px;
+}
+
+.blooddonor-form-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 500px;
+}
+
+.blooddonor-form {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  width: 100%;
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+/* Dark Mode Form */
+.dark .blooddonor-form {
+  background: rgba(45, 55, 72, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.blooddonor-form:hover {
+  transform: translateY(-5px);
+}
+
+.blooddonor-form-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2d3436;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  letter-spacing: -0.5px;
+  transition: color 0.3s ease;
+}
+
+.dark .blooddonor-form-title {
+  color: #f7fafc;
+}
+
+/* Back Button */
+.back-button {
+  background: none;
+  border: none;
+  color: #636e72;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+  padding: 0;
+}
+
+.back-button:hover {
+  color: #ff4757;
+}
+
+.dark .back-button {
+  color: #a0aec0;
+}
+
+.dark .back-button:hover {
+  color: #ff6b81;
+}
+
+
+/* Form Fields */
+.field {
+  margin-bottom: 1rem;
+  display: block; /* Stack labels and inputs */
+}
+
+.field label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #636e72;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.dark .field label {
+  color: #cbd5e0;
+}
+
+.field:focus-within label {
+  color: #ff4757;
+}
+
+.dark .field:focus-within label {
+  color: #ff6b81;
+}
+
+.control {
+  position: relative;
+}
+
+.input,
+.select select {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  background-color: #f1f2f6;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: #2d3436;
+  transition: all 0.3s ease;
+  outline: none;
+  font-family: inherit;
+}
+
+.dark .input,
+.dark .select select {
+  background-color: #1a202c;
+  color: #e2e8f0;
+  border-color: #4a5568;
+}
+
+.input:focus,
+.select select:focus {
+  background-color: #fff;
+  border-color: #ff4757;
+  box-shadow: 0 0 0 4px rgba(255, 71, 87, 0.1);
+}
+
+.dark .input:focus,
+.dark .select select:focus {
+  background-color: #2d3748;
+  border-color: #ff6b81;
+  box-shadow: 0 0 0 4px rgba(255, 107, 129, 0.2);
+}
+
+.select {
+  width: 100%;
+  height: auto;
+}
+.select::after {
+    border-color: #ff4757;
+}
+.dark .select::after {
+    border-color: #ff6b81 !important;
+}
+
+/* Button Styling */
+.button.is-primary {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(255, 71, 87, 0.3);
+}
+
+.button.is-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(255, 71, 87, 0.4);
+  background: linear-gradient(135deg, #ff6b81 0%, #ff4757 100%);
+}
+
+.button.is-primary:active {
+  transform: translateY(1px);
+}
+
+/* Notifications */
+.notification {
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.notification.is-success {
+  background-color: #e3f9e5;
+  color: #2ecc71;
+  border-left: 5px solid #2ecc71;
+}
+
+.notification.is-danger {
+  background-color: #ffeaea;
+  color: #ff4757;
+  border-left: 5px solid #ff4757;
+}
+
+.notification .icon {
+  font-size: 1.4rem;
+  margin-right: 1rem;
+}
+
+.notification .message {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.notification .delete {
+  background: transparent;
+  color: inherit;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.notification .delete:hover {
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .blooddonor-page {
     padding: 1rem;
-  }
-  
-  .blooddonor-form-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
   }
   
   .blooddonor-form {
-    background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 800px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: auto;
+    padding: 1.5rem;
   }
-  
+
   .blooddonor-form-title {
-    font-size: 1.5rem;
-    color: #8b0000;
-    margin-bottom: 1rem;
-    text-align: center;
+    font-size: 1.75rem;
   }
-  
-  .notification {
-    margin-bottom: 0.75rem;
-  }
-  
-  .field {
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-  }
-  
-  .field label {
-    flex: 1;
-    margin-right: 1rem;
-    white-space: nowrap;
-  }
-  
-  .field .control {
-    flex: 2;
-  }
-  
-  .input, .select select {
-    width: 100%;
-    padding: 0.5rem;
-    font-size: 0.875rem;
-    background-color: white;
-    color: black;
-  }
-  
-  .button.is-primary {
-    width: 100%;
-    padding: 0.5rem;
-    font-size: 0.875rem;
-  }
-  
-  @media (max-width: 768px) {
-    .blooddonor-form {
-      width: 90%;
-    }
-  
-    .field {
-      flex-direction: column;
-    }
-  
-    .field label {
-      margin-bottom: 0.5rem;
-      margin-right: 0;
-    }
-  
-    .field .control {
-      width: 100%;
-    }
-  }
-  .notification {
-    margin-bottom: 1rem;
-    padding: 0.75rem 1rem;
-    border-radius: 4px;
-    position: relative;
-    background-color: #fff; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    display: flex;
-    align-items: center;
-  }
-  
-  .notification.is-success {
-    background-color: #d4edda; 
-    border-left: 4px solid #c3e6cb;
-    color: #155724; 
-  }
-  
-  .notification.is-danger {
-    background-color: #f8d7da; 
-    border-left: 4px solid #f5c6cb; 
-    color: #721c24; 
-  }
-  
-  .notification .icon {
-    font-size: 1.25rem;
-    margin-right: 0.75rem;
-  }
-  
-  .notification .message {
-    flex: 1;
-    font-size: 0.875rem;
-  }
-  
-  .notification .delete {
-    background: none;
-    border: none;
-    font-size: 1.25rem;
-    cursor: pointer;
-    color: inherit;
-    margin-left: 1rem;
-  }
-  
-  .notification.is-success .delete {
-    color: #155724;
-  }
-  
-  .notification.is-danger .delete {
-    color: #721c24;
-  }
+}
   

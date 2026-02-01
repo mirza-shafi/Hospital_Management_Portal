@@ -3,8 +3,12 @@ import 'bulma/css/bulma.min.css';
 import './styles/BloodAvailability.css';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const BloodAvailability = () => {
+  const navigate = useNavigate();
   const [bloodGroups, setBloodGroups] = useState([]);
   const [error, setError] = useState('');
 
@@ -27,6 +31,9 @@ const BloodAvailability = () => {
           <Helmet>
              <title>Blood Availability Page</title>
             </Helmet>
+        <button className="blood-availability-back-button" onClick={() => navigate(-1)}>
+            <FontAwesomeIcon icon={faArrowLeft} /> Back
+        </button>
         <h1 className="blood-availability-title">Blood Group Availability</h1>
         {error && <div className="notification is-danger blood-availability-notification">{error}</div>}
         <div className="blood-availability-table-container">

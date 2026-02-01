@@ -1,128 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 .blood-recipient-page {
-    background: linear-gradient(to right, #ff6666, #8b0000);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+/* Dark Mode Background */
+.dark .blood-recipient-page {
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+}
+
+/* Abstract background shapes */
+.blood-recipient-page::before,
+.blood-recipient-page::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+}
+
+.blood-recipient-page::before {
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 107, 107, 0.2);
+  top: -50px;
+  left: -100px;
+}
+
+.blood-recipient-page::after {
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 71, 87, 0.15);
+  bottom: -50px;
+  right: -50px;
+}
+
+.blood-recipient-form-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 500px;
+}
+
+.blood-recipient-form {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  width: 100%;
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+/* Dark Mode Form */
+.dark .blood-recipient-form {
+  background: rgba(45, 55, 72, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.blood-recipient-form:hover {
+  transform: translateY(-5px);
+}
+
+.blood-recipient-form-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2d3436;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  letter-spacing: -0.5px;
+  transition: color 0.3s ease;
+}
+
+.dark .blood-recipient-form-title {
+  color: #f7fafc;
+}
+
+/* Back Button */
+.blood-recipient-back-button {
+  background: none;
+  border: none;
+  color: #636e72;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+  padding: 0;
+}
+
+.blood-recipient-back-button:hover {
+  color: #ff4757;
+}
+
+.dark .blood-recipient-back-button {
+  color: #a0aec0;
+}
+
+.dark .blood-recipient-back-button:hover {
+  color: #ff6b81;
+}
+
+/* Form Fields */
+.blood-recipient-field {
+  margin-bottom: 1rem;
+  display: block; /* Stack labels and inputs */
+  align-items: stretch;
+}
+
+.blood-recipient-field label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #636e72;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+  white-space: normal;
+  margin-right: 0;
+}
+
+.dark .blood-recipient-field label {
+  color: #cbd5e0;
+}
+
+.blood-recipient-field:focus-within label {
+  color: #ff4757;
+}
+
+.dark .blood-recipient-field:focus-within label {
+  color: #ff6b81;
+}
+
+
+.control {
+  position: relative;
+}
+
+.blood-recipient-input,
+.blood-recipient-select select {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  background-color: #f1f2f6;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: #2d3436;
+  transition: all 0.3s ease;
+  outline: none;
+  font-family: inherit;
+}
+
+.dark .blood-recipient-input,
+.dark .blood-recipient-select select {
+  background-color: #1a202c;
+  color: #e2e8f0;
+  border-color: #4a5568;
+}
+
+.blood-recipient-input:focus,
+.blood-recipient-select select:focus {
+  background-color: #fff;
+  border-color: #ff4757;
+  box-shadow: 0 0 0 4px rgba(255, 71, 87, 0.1);
+}
+
+.dark .blood-recipient-input:focus,
+.dark .blood-recipient-select select:focus {
+  background-color: #2d3748;
+  border-color: #ff6b81;
+  box-shadow: 0 0 0 4px rgba(255, 107, 129, 0.2);
+}
+
+.blood-recipient-select {
+  width: 100%;
+  height: auto;
+}
+.blood-recipient-select::after {
+    border-color: #ff4757;
+}
+.dark .blood-recipient-select::after {
+    border-color: #ff6b81 !important;
+}
+
+/* Button Styling */
+.blood-recipient-button.is-primary {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(255, 71, 87, 0.3);
+}
+
+.blood-recipient-button.is-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(255, 71, 87, 0.4);
+  background: linear-gradient(135deg, #ff6b81 0%, #ff4757 100%);
+}
+
+.blood-recipient-button.is-primary:active {
+  transform: translateY(1px);
+}
+
+/* Notifications */
+.blood-recipient-notification {
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.blood-recipient-notification.is-success {
+  background-color: #e3f9e5;
+  color: #2ecc71;
+  border-left: 5px solid #2ecc71;
+}
+
+.blood-recipient-notification.is-danger {
+  background-color: #ffeaea;
+  color: #ff4757;
+  border-left: 5px solid #ff4757;
+}
+
+.blood-recipient-notification .icon {
+  font-size: 1.4rem;
+  margin-right: 1rem;
+}
+
+.blood-recipient-notification .message {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.blood-recipient-notification .delete {
+  background: transparent;
+  color: inherit;
+  opacity: 0.6;
+  position: static; /* Reset absolute positioning */
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.blood-recipient-notification .delete:hover {
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .blood-recipient-page {
     padding: 1rem;
-  }
-  
-  .blood-recipient-form-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
   }
   
   .blood-recipient-form {
-    background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 800px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: auto;
+    padding: 1.5rem;
   }
-  
+
   .blood-recipient-form-title {
-    font-size: 1.5rem;
-    color: #8b0000;
-    margin-bottom: 1rem;
-    text-align: center;
+    font-size: 1.75rem;
   }
-  
-  .notification {
-    margin-bottom: 0.75rem;
-  }
-  
-  .field {
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-  }
-  
-  .field label {
-    flex: 1;
-    margin-right: 1rem;
-    white-space: nowrap;
-  }
-  
-  .field .control {
-    flex: 2;
-  }
-  
-  .input, .select select {
-    width: 100%;
-    padding: 0.5rem;
-    font-size: 0.875rem;
-    background-color: white;
-    color: black;
-  }
-  
-  .button.is-primary {
-    width: 100%;
-    padding: 0.5rem;
-    font-size: 0.875rem;
-  }
-  
-  @media (max-width: 768px) {
-    .blood-recipient-form {
-      width: 90%;
-    }
-  
-    .field {
-      flex-direction: column;
-    }
-  
-    .field label {
-      margin-bottom: 0.5rem;
-      margin-right: 0;
-    }
-  
-    .field .control {
-      width: 100%;
-    }
-  }
-  
-  .notification {
-    margin-bottom: 1rem;
-    padding: 0.75rem 1rem;
-    border-radius: 4px;
-    position: relative;
-    background-color: #fff; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    display: flex;
-    align-items: center;
-  }
-  
-  .notification.is-success {
-    background-color: #d4edda; 
-    color: #155724; 
-  }
-  
-  .notification.is-danger {
-    background-color: #f8d7da;
-    color: #721c24; 
-  }
-  
-  .notification .icon {
-    margin-right: 0.75rem;
-  }
-  
-  .notification .message {
-    flex: 1;
-  }
-  
-  .notification .delete {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .notification .delete:hover {
-    color: #000;
-  }
+}
   

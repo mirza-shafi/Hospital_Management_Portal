@@ -152,13 +152,12 @@
   text-decoration: none;
   font-size: 0.95rem;
   transition: all 0.3s ease;
-  padding: 8px 16px;
-  background: #f1f5f9;
-  border-radius: 12px;
+  padding: 0;
+  background: transparent;
 }
 
 .dark .back-home-link {
-  background: #1a202c;
+  background: transparent;
   color: #94a3b8;
 }
 
@@ -169,13 +168,13 @@
 
 .back-home-link:hover {
   color: #667eea !important;
-  background: white;
-  transform: translateX(-5px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+  background: transparent;
+  transform: none;
+  box-shadow: none;
 }
 
 .dark .back-home-link:hover {
-  background: #2d3748;
+  background: transparent;
   color: #a78bfa !important;
 }
 

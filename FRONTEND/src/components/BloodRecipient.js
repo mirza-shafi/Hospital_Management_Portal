@@ -5,10 +5,15 @@ import axios from 'axios';
 import successSoundFile from '../assets/success.mp3';
 import errorSoundFile from '../assets/error.mp3';
 import { Helmet } from 'react-helmet';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 const successSound = new Audio(successSoundFile);
 const errorSound = new Audio(errorSoundFile);
 
 const BloodRecipient = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -49,12 +54,14 @@ const BloodRecipient = () => {
 
   return (
     <section className="blood-recipient-page">
-      <div className="container">
       <Helmet>
                    <title>Blood Recipient Page</title>
                 </Helmet>
         <div className="blood-recipient-form-container">
           <form className="blood-recipient-form" onSubmit={handleSubmit}>
+            <button type="button" className="blood-recipient-back-button" onClick={() => navigate(-1)}>
+                <FontAwesomeIcon icon={faArrowLeft} /> Back
+            </button>
             <h1 className="blood-recipient-form-title">Blood Recipient Form</h1>
             {message && (
               <div className="notification is-success blood-recipient-notification">
@@ -190,7 +197,6 @@ const BloodRecipient = () => {
             </div>
           </form>
         </div>
-      </div>
     </section>
   );
 };

@@ -1,87 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 .blood-group-details-page {
-    background: linear-gradient(to right, #ff6666, #8b0000);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
+  background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+/* Dark Mode Background */
+.dark .blood-group-details-page {
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+}
+
+/* Abstract background shapes */
+.blood-group-details-page::before,
+.blood-group-details-page::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+}
+
+.blood-group-details-page::before {
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 107, 107, 0.2);
+  top: -50px;
+  left: -100px;
+}
+
+.blood-group-details-page::after {
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 71, 87, 0.15);
+  bottom: -50px;
+  right: -50px;
+}
+
+.blood-group-details-box-container {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  padding: 2rem;
+  max-width: 900px;
+  width: 100%;
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+  overflow-x: auto;
+}
+
+/* Dark Mode Container */
+.dark .blood-group-details-box-container {
+  background: rgba(45, 55, 72, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.blood-group-details-box-container:hover {
+  transform: translateY(-5px);
+}
+
+.blood-group-details-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2d3436;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  letter-spacing: -0.5px;
+  transition: color 0.3s ease;
+}
+
+.dark .blood-group-details-title {
+  color: #f7fafc;
+}
+
+/* Back Button */
+.blood-group-details-back-button {
+  background: none;
+  border: none;
+  color: #636e72;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+  padding: 0;
+}
+
+.blood-group-details-back-button:hover {
+  color: #ff4757;
+}
+
+.dark .blood-group-details-back-button {
+  color: #a0aec0;
+}
+
+.dark .blood-group-details-back-button:hover {
+  color: #ff6b81;
+}
+
+.blood-group-details-table-container {
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+.blood-group-details-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: transparent;
+}
+
+.blood-group-details-table thead th {
+  background-color: #ff4757;
+  color: white;
+  text-align: left;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.dark .blood-group-details-table thead th {
+  background-color: #9b2c2c;
+}
+
+.blood-group-details-table thead th:first-child {
+  border-top-left-radius: 12px;
+}
+
+.blood-group-details-table thead th:last-child {
+  border-top-right-radius: 12px;
+}
+
+.blood-group-details-table tbody tr {
+  transition: all 0.3s ease;
+  background-color: white;
+}
+
+.dark .blood-group-details-table tbody tr {
+  background-color: #2d3748;
+}
+
+.blood-group-details-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.dark .blood-group-details-table tbody tr:nth-child(even) {
+  background-color: #1a202c;
+}
+
+.blood-group-details-row:hover {
+  transform: scale(1.01);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  z-index: 2;
+  position: relative;
+  background-color: white !important;
+}
+
+.dark .blood-group-details-row:hover {
+  background-color: #4a5568 !important;
+}
+
+.blood-group-details-table td {
+  padding: 0.8rem 1rem;
+  font-size: 0.95rem;
+  color: #2d3436;
+  border-bottom: 1px solid #f1f2f6;
+  text-align: left;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.dark .blood-group-details-table td {
+  color: #e2e8f0;
+  border-bottom: 1px solid #4a5568;
+}
+
+.blood-group-details-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 12px;
+}
+
+.blood-group-details-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 12px;
+}
+
+.blood-group-details-notification {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: #ffeaea;
+  color: #ff4757;
+  border-left: 5px solid #ff4757;
+  font-weight: 500;
+}
+
+/* Pagination */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
+  gap: 1rem;
+}
+
+.pagination-info {
+  font-size: 0.95rem;
+  color: #636e72;
+  font-weight: 500;
+}
+
+.dark .pagination-info {
+  color: #a0aec0;
+}
+
+.pagination-button {
+  background: transparent;
+  border: none;
+  color: #636e72;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.dark .pagination-button {
+  background: transparent;
+  border: none;
+  color: #a0aec0;
+}
+
+.pagination-button:hover:not(:disabled) {
+  color: #ff4757;
+  background: rgba(255, 71, 87, 0.1);
+  transform: none;
+}
+
+.dark .pagination-button:hover:not(:disabled) {
+  color: #ff6b81;
+  background: rgba(255, 107, 129, 0.1);
+  border: none;
+}
+
+.pagination-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: transparent;
+}
+
+.dark .pagination-button:disabled {
+  background: transparent;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .blood-group-details-page {
+    padding: 1rem;
   }
   
   .blood-group-details-box-container {
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    padding: 2rem;
-    max-width: 800px;
-    width: 100%;
-    overflow-x: auto;
+    padding: 1.5rem;
   }
-  
+
   .blood-group-details-title {
-    color: #800000;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
+    font-size: 1.5rem;
   }
   
-  .blood-group-details-table-container {
-    margin-top: 1rem;
+  .blood-group-details-table thead th,
+  .blood-group-details-table td {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.85rem;
   }
-  
-  .blood-group-details-table {
-    margin: 0 auto;
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-  }
-  
-  .blood-group-details-table thead th {
-    background-color: #d10011;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-    font-size: 1.1rem;
-  }
-  
-  .blood-group-details-row:hover {
-    background-color: #ffe0e0;
-    cursor: pointer;
-  }
-  
-  .blood-group-details-table td, 
-  .blood-group-details-table th {
-    text-align: center;
-    color: black;
-    padding: 1rem;
-    font-size: 1rem;
-  }
-  
-  .blood-group-details-notification {
-    margin-bottom: 1.5rem;
-  }
-  
-  .pagination-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
-  }
-  
-  .pagination-info {
-    margin: 0 1rem;
-    font-size: 1rem;
-    color: black; 
-  }
-  
-  .pagination-button {
-    border: 1px solid #d10011;
-    color: black; 
-    margin: 0 0.5rem;
-  }
-  
-  .pagination-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-  
+}

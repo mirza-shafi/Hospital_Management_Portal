@@ -4,11 +4,12 @@ import logo from '../assets/healingwave.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCapsules, faContactBook, faHome, faInfoCircle, faTint, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from '../contexts/ThemeContext';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 const NavbarComponent = () => {
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
   const { theme, toggleTheme } = useTheme();
+  const [isActive, setIsActive] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -19,31 +20,54 @@ const NavbarComponent = () => {
     return () => clearInterval(timer);
   }, []);
 
+  // Close menu when route changes
+  useEffect(() => {
+    setIsActive(false);
+  }, [location]);
+
+  const toggleMenu = () => {
+    setIsActive(!isActive);
+  };
+
   return (
-    <nav className="navbar custom-navbar">
+    <nav className="navbar custom-navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
-        <a className="navbar-item" href="/admin-login">
+        <Link className="navbar-item" to="/admin-login">
           <img src={logo} alt="HealingWave Logo" className="navbar-logo" />
           <span className="navbar-title">HealingWave</span>
+        </Link>
+
+        <a 
+          role="button" 
+          className={`navbar-burger ${isActive ? 'is-active' : ''}`}
+          aria-label="menu" 
+          aria-expanded={isActive ? 'true' : 'false'}
+          data-target="navbarBasicExample"
+          onClick={toggleMenu}
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
         </a>
       </div>
-      <div className="navbar-menu">
+
+      <div id="navbarBasicExample" className={`navbar-menu ${isActive ? 'is-active' : ''}`}>
         <div className="navbar-end">
-          <a className="navbar-item" href="/">
+          <Link className="navbar-item" to="/">
             <FontAwesomeIcon icon={faHome} className="navbar-icon" /> Home
-          </a>
-          <a className="navbar-item" href="/blood-bank">
+          </Link>
+          <Link className="navbar-item" to="/blood-bank">
             <FontAwesomeIcon icon={faTint} className="navbar-icon" /> Blood Bank
-          </a>
-          <a className="navbar-item" href="/pharmacy">
+          </Link>
+          <Link className="navbar-item" to="/pharmacy">
             <FontAwesomeIcon icon={faCapsules} className="navbar-icon" /> Pharmacy
-          </a>
-          <a className="navbar-item" href="/support">
+          </Link>
+          <Link className="navbar-item" to="/support">
             <FontAwesomeIcon icon={faContactBook} className="navbar-icon" /> Support
-          </a>
-          <a className="navbar-item" href="/about">
+          </Link>
+          <Link className="navbar-item" to="/about">
             <FontAwesomeIcon icon={faInfoCircle} className="navbar-icon" /> About
-          </a>
+          </Link>
           
           <button 
             className="navbar-item theme-toggle" 

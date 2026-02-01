@@ -4,7 +4,12 @@ import './styles/BloodGroupDetails.css';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
 
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+
 const BloodGroupDetails = () => {
+  const navigate = useNavigate();
   const [donorDetails, setDonorDetails] = useState([]);
   const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,9 +40,12 @@ const BloodGroupDetails = () => {
   return (
     <section className="blood-group-details-page">
       <div className="blood-group-details-box-container">
-      <Helmet>
-                   <title>Blood Group Details Page</title>
-                </Helmet>
+        <Helmet>
+          <title>Blood Group Details Page</title>
+        </Helmet>
+        <button className="blood-group-details-back-button" onClick={() => navigate(-1)}>
+          <FontAwesomeIcon icon={faArrowLeft} /> Back
+        </button>
         <h1 className="blood-group-details-title">Blood Donor Details</h1>
         {error && <div className="notification is-danger blood-group-details-notification">{error}</div>}
         <div className="blood-group-details-table-container">
@@ -66,21 +74,23 @@ const BloodGroupDetails = () => {
         </div>
         <div className="pagination-container">
           <button
-            className="button is-light pagination-button"
+            className="pagination-button"
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
+            aria-label="Previous page"
           >
-            Previous
+            <FontAwesomeIcon icon={faChevronLeft} />
           </button>
           <span className="pagination-info">
             Page {currentPage} of {totalPages}
           </span>
           <button
-            className="button is-light pagination-button"
+            className="pagination-button"
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
+            aria-label="Next page"
           >
-            Next
+            <FontAwesomeIcon icon={faChevronRight} />
           </button>
         </div>
       </div>

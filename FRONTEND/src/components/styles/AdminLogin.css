@@ -162,10 +162,42 @@
 @media (max-width: 768px) {
   .admin-login-main-container {
     flex-direction: column;
-    margin: 20px;
+    margin: 1rem;
+    padding-top: 0; 
   }
+  
   .admin-login-image {
-    padding: 20px;
+    padding: 3rem 1rem 1rem 1rem; /* Top padding clears the absolute back button */
+    background: transparent;
+  }
+
+  .dark .admin-login-image {
+    background: transparent;
+  }
+  
+  .admin-login-image img {
+    max-width: 100px; /* Much smaller logo */
+  }
+  
+  .admin-login-form-container {
+    padding: 1.5rem;
+  }
+  
+  .admin-login-title {
+    font-size: 1.8rem;
+  }
+  
+  .admin-login-subtitle {
+    margin-bottom: 1.5rem;
+  }
+  
+  .admin-login-input {
+    padding: 12px 16px;
+    margin-bottom: 1rem;
+  }
+  
+  .admin-login-button {
+    padding: 12px;
   }
 }
 

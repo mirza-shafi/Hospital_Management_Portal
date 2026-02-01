@@ -5,11 +5,15 @@ import './styles/BloodDonor.css';
 import successSoundFile from '../assets/success.mp3';
 import errorSoundFile from '../assets/error.mp3';
 import { Helmet } from 'react-helmet';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const successSound = new Audio(successSoundFile);
 const errorSound = new Audio(errorSoundFile);
 
 const BloodDonor = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -52,12 +56,14 @@ const BloodDonor = () => {
 
   return (
     <section className="blooddonor-page">
-      <div className="container">
       <Helmet>
                    <title>Blood Donor Page</title>
                 </Helmet>
         <div className="blooddonor-form-container">
           <form className="blooddonor-form" onSubmit={handleSubmit}>
+            <button type="button" className="back-button" onClick={() => navigate(-1)}>
+                <FontAwesomeIcon icon={faArrowLeft} /> Back
+            </button>
             <h1 className="blooddonor-form-title">Blood Donor Registration</h1>
             {successMessage && (
               <div className="notification is-success">
@@ -211,7 +217,6 @@ const BloodDonor = () => {
             </div>
           </form>
         </div>
-      </div>
     </section>
   );
 };
