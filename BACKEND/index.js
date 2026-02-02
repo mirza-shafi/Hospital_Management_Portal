@@ -52,6 +52,9 @@ app.use('/api/medicines', require('./routes/medicines'));
 app.use('/api/medicineBill', require('./routes/medicineBill'));
 app.use('/api/about', require('./routes/about'));
 
+// Serve static files
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error('Error:', err);

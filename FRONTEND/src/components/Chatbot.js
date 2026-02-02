@@ -53,13 +53,12 @@ const Chatbot = ({ onClose }) => {
               border: 'none',
               color: 'white',
               cursor: 'pointer',
-              fontSize: '1.2rem',
+              fontSize: '1.4rem',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '5px',
-              borderRadius: '50%',
-              transition: 'background 0.2s'
+              padding: '0',
+              opacity: 0.8
             }}>
               <FaTimes />
             </button>

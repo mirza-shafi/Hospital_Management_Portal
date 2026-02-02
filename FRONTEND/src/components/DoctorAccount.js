@@ -75,6 +75,13 @@ const DoctorAccount = () => {
 
   const closeModal = () => setActiveModal(null);
 
+  const getImageUrl = (path) => {
+    if (!path) return 'https://ui-avatars.com/api/?name=User&background=random';
+    if (path.startsWith('http') || path.startsWith('data:')) return path;
+    const cleanPath = path.startsWith('/') ? path : `/${path}`;
+    return `http://localhost:8000${cleanPath}?t=${new Date().getTime()}`;
+  };
+
   if (!doctor) {
     return <div className="loading">Loading...</div>;
   }
@@ -93,78 +100,64 @@ const DoctorAccount = () => {
         </div>
 
         {/* Dashboard Stats Cards */}
-        <div className="doctor-dashboard columns is-multiline is-centered">
-          <div className="column is-one-quarter-desktop is-half-tablet mb-4">
-            <div className="box dashboard-card total-appointments-card" onClick={() => setActiveModal('appointmentsChart')}>
-              <span className="icon is-large">
-                <i className="fas fa-calendar-check"></i>
-              </span>
-              <div className="dashboard-card-link">Total Appointments</div>
-              <p className="dashboard-card-subtext">{totalAppointments} Appointments</p>
-            </div>
+        <div className="stats-grid fade-in">
+          <div className="dashboard-card total-appointments-card" onClick={() => setActiveModal('appointmentsChart')}>
+            <span className="icon">
+              <i className="fas fa-calendar-check"></i>
+            </span>
+            <div className="dashboard-card-link">Total Appointments</div>
+            <p className="dashboard-card-subtext">{totalAppointments} Appointments</p>
           </div>
 
-          <div className="column is-one-quarter-desktop is-half-tablet mb-4">
-            <div className="box dashboard-card total-patients-card" onClick={() => setActiveModal('patientsChart')}>
-              <span className="icon is-large">
-                <i className="fas fa-user-injured"></i>
-              </span>
-              <div className="dashboard-card-link">Total Patients</div>
-              <p className="dashboard-card-subtext">{totalPatients} Patients</p>
-            </div>
+          <div className="dashboard-card total-patients-card" onClick={() => setActiveModal('patientsChart')}>
+            <span className="icon">
+              <i className="fas fa-user-injured"></i>
+            </span>
+            <div className="dashboard-card-link">Total Patients</div>
+            <p className="dashboard-card-subtext">{totalPatients} Patients</p>
           </div>
           
-          <div className="column is-one-quarter-desktop is-half-tablet mb-4">
-            <div className="box dashboard-card today-appointment-card" onClick={() => setActiveModal('todayAppointments')}>
-              <span className="icon is-large">
-                <i className="fas fa-calendar-day"></i>
-              </span>
-              <div className="dashboard-card-link">Today's Appointments</div>
-              <p className="dashboard-card-subtext">{todayAppointments.length} Appointments</p>
-            </div>
+          <div className="dashboard-card today-appointment-card" onClick={() => setActiveModal('todayAppointments')}>
+            <span className="icon">
+              <i className="fas fa-calendar-day"></i>
+            </span>
+            <div className="dashboard-card-link">Today's Appointments</div>
+            <p className="dashboard-card-subtext">{todayAppointments.length} Appointments</p>
           </div>
         </div>
 
         {/* Action Cards */}
-        <div className="doctor-dashboard columns is-multiline is-centered">
-          <div className="column is-one-quarter-desktop is-half-tablet mb-4">
-            <div className="box dashboard-card" onClick={() => setActiveModal('addPrescription')}>
-              <span className="icon is-large">
-                <i className="fas fa-prescription"></i>
-              </span>
-              <div className="dashboard-card-link">Add Prescription</div>
-              <p className="dashboard-card-subtext">Create new prescriptions</p>
-            </div>
+        <div className="actions-grid fade-in">
+          <div className="dashboard-card" onClick={() => setActiveModal('addPrescription')}>
+            <span className="icon">
+              <i className="fas fa-prescription"></i>
+            </span>
+            <div className="dashboard-card-link">Add Prescription</div>
+            <p className="dashboard-card-subtext">Create new prescriptions for patients</p>
           </div>
           
-          <div className="column is-one-quarter-desktop is-half-tablet mb-4">
-            <div className="box dashboard-card" onClick={() => setActiveModal('appointmentDetails')}>
-              <span className="icon is-large">
-                <i className="fas fa-calendar-alt"></i>
-              </span>
-              <div className="dashboard-card-link">Appointments</div>
-              <p className="dashboard-card-subtext">Manage appointments</p>
-            </div>
+          <div className="dashboard-card" onClick={() => setActiveModal('appointmentDetails')}>
+            <span className="icon">
+              <i className="fas fa-calendar-alt"></i>
+            </span>
+            <div className="dashboard-card-link">Appointments</div>
+            <p className="dashboard-card-subtext">Manage upcoming schedules</p>
           </div>
           
-          <div className="column is-one-quarter-desktop is-half-tablet mb-4">
-            <div className="box dashboard-card" onClick={() => setActiveModal('patientDetails')}>
-              <span className="icon is-large">
-                <i className="fas fa-user-injured"></i>
-              </span>
-              <div className="dashboard-card-link">Patient Details</div>
-              <p className="dashboard-card-subtext">View patient records</p>
-            </div>
+          <div className="dashboard-card" onClick={() => setActiveModal('patientDetails')}>
+            <span className="icon">
+              <i className="fas fa-user-injured"></i>
+            </span>
+            <div className="dashboard-card-link">Patient Records</div>
+            <p className="dashboard-card-subtext">View and manage medical histories</p>
           </div>
           
-          <div className="column is-one-quarter-desktop is-half-tablet mb-4">
-            <div className="box dashboard-card" onClick={() => setActiveModal('viewPrescriptions')}>
-              <span className="icon is-large">
-                <i className="fas fa-file-medical"></i>
-              </span>
-              <div className="dashboard-card-link">Prescriptions</div>
-              <p className="dashboard-card-subtext">View all prescriptions</p>
-            </div>
+          <div className="dashboard-card" onClick={() => setActiveModal('viewPrescriptions')}>
+            <span className="icon">
+              <i className="fas fa-file-medical"></i>
+            </span>
+            <div className="dashboard-card-link">Prescriptions</div>
+            <p className="dashboard-card-subtext">Review recent medical orders</p>
           </div>
         </div>
 
@@ -183,7 +176,12 @@ const DoctorAccount = () => {
                 </div>
             )}
             <div className="profile-bar" onClick={() => setShowProfileMenu(!showProfileMenu)}>
-                <img src={doctor.profilePicture || '../assets/default-profile.png'} alt="Profile" className="mini-profile-img" />
+                <img 
+                    src={getImageUrl(doctor.profilePicture)} 
+                    alt="Profile" 
+                    className="mini-profile-img" 
+                    onError={(e) => e.target.src = 'https://ui-avatars.com/api/?name=User&background=random'}
+                />
                 <div className="mini-profile-info">
                     <span className="mini-doctor-name">Dr. {doctor.lastName}</span>
                     <span className="mini-doctor-role">Doctor</span>
@@ -271,10 +269,10 @@ const DoctorAccount = () => {
 
         {activeModal === 'addPrescription' && (
           <div className="fullscreen-modal">
-            <button className="close-modal-btn" onClick={closeModal}>
-              <FaTimes />
-            </button>
-            <div className="fullscreen-modal-content">
+            <div className="fullscreen-modal-content-wrapper prescription-wrapper">
+              <button className="close-modal-btn" onClick={closeModal}>
+                <FaTimes />
+              </button>
               <PrescriptionForm />
             </div>
           </div>
@@ -282,10 +280,10 @@ const DoctorAccount = () => {
 
         {activeModal === 'appointmentDetails' && (
           <div className="fullscreen-modal">
-            <button className="close-modal-btn" onClick={closeModal}>
-              <FaTimes />
-            </button>
-            <div className="fullscreen-modal-content">
+             <div className="fullscreen-modal-content-wrapper appointment-table-wrapper">
+              <button className="close-modal-btn" onClick={closeModal}>
+                <FaTimes />
+              </button>
               <AppointmentDetails />
             </div>
           </div>
@@ -293,10 +291,10 @@ const DoctorAccount = () => {
 
         {activeModal === 'patientDetails' && (
           <div className="fullscreen-modal">
-            <button className="close-modal-btn" onClick={closeModal}>
-              <FaTimes />
-            </button>
-            <div className="fullscreen-modal-content">
+            <div className="fullscreen-modal-content-wrapper patient-details-wrapper">
+              <button className="close-modal-btn" onClick={closeModal}>
+                <FaTimes />
+              </button>
               <PatientDetails />
             </div>
           </div>
@@ -304,10 +302,10 @@ const DoctorAccount = () => {
 
         {activeModal === 'viewPrescriptions' && (
           <div className="fullscreen-modal">
-            <button className="close-modal-btn" onClick={closeModal}>
-              <FaTimes />
-            </button>
-            <div className="fullscreen-modal-content">
+            <div className="fullscreen-modal-content-wrapper view-prescription-wrapper">
+              <button className="close-modal-btn" onClick={closeModal}>
+                <FaTimes />
+              </button>
               <ViewPrescription />
             </div>
           </div>

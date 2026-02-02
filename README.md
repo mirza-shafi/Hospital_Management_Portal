@@ -15,6 +15,23 @@ A sophisticated, full-stack medical ecosystem designed to bridge the gap between
 - **🩸 Advanced Blood Bank**: Comprehensive system for managing donors, blood availability, and finding compatible blood groups.
 - **🔐 Multi-Role Access**: Dedicated, secure portals for **Admins**, **Doctors**, and **Patients** with JWT-based authorization.
 - **💊 Pharmacy & Inventory**: Centralized management of medicine stocks and pharmacy operations.
+- **📊 Advanced Analytics**: Premium data visualization for appointments and patient demographics using **Chart.js**.
+
+---
+
+## 🚀 Recent Enhancements
+
+### **💎 Dark Premium Re-imagined**
+The entire portal has been upgraded with a **"Dark Premium"** design language:
+- **Glassmorphism**: Sophisticated use of blur, transparency, and subtle borders.
+- **Iconography**: Integrated **React Icons (Fa)** for higher information density and visual clarity.
+- **Patient Details**: Completely redesigned patient cards with grouped personal/clinical data and expressive iconography.
+- **Enhanced Search**: Modernized search bars with focus-state animations and integrated search buttons.
+
+### **📈 Data & Analytics**
+- **Appointments Chart**: Donut-style visualization with center-text summaries for quick insights.
+- **Patients Chart**: Robust bar-chart tracking of patient volume.
+- **Consistency**: High-fidelity dark mode support for all charts and modals.
 
 ---
 
@@ -91,7 +108,7 @@ cd Hospital_Management_Portal
 docker-compose up --build
 ```
 *   **Frontend**: `http://localhost:3003`
-*   **Backend**: `http://localhost:5000`
+*   **Backend**: `http://localhost:8000`
 
 ---
 
@@ -121,14 +138,14 @@ Create `.env` files in their respective directories. **Never commit these to Git
 
 **BACKEND/.env**
 ```env
-PORT=5000
+PORT=5001
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_signing_key
 ```
 
 **FRONTEND/.env**
 ```env
-REACT_APP_API_URL=http://localhost:5000
+REACT_APP_API_URL=http://localhost:5001
 ```
 
 ---

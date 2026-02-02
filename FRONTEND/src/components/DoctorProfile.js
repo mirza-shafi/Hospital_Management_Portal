@@ -22,6 +22,7 @@ const DoctorProfile = ({ email, onClose }) => {
   const [imagePreview, setImagePreview] = useState(null);
   const [profilePictureFile, setProfilePictureFile] = useState(null);
   const fileInputRef = useRef(null);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -47,155 +48,137 @@ const DoctorProfile = ({ email, onClose }) => {
     try { await axios.put('/api/doctors/update-settings', { email, settings: newSettings }); } catch (e) {}
   };
 
-  const handleLogout = () => {
+  const handleLogoutClick = () => {
+      setShowLogoutConfirm(true);
+  };
+
+  const confirmLogout = () => {
     localStorage.removeItem('doctorToken');
     localStorage.removeItem('doctorEmail');
     window.location.href = '/';
   };
 
+  const renderLogoutModal = () => (
+      <div className="custom-confirm-overlay">
+          <div className="custom-confirm-modal">
+              <h3>Sign Out?</h3>
+              <p>Are you sure you want to sign out?</p>
+              <div className="confirm-actions">
+                  <button className="cancel-btn" onClick={() => setShowLogoutConfirm(false)}>Cancel</button>
+                  <button className="confirm-btn red" onClick={confirmLogout}>Sign Out</button>
+              </div>
+          </div>
+      </div>
+  );
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfilePictureFile(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleUploadPhoto = async () => {
+    if (!profilePictureFile) return;
+    const pictureData = new FormData();
+    pictureData.append('profilePicture', profilePictureFile);
+
+    try {
+      const uploadRes = await axios.post(`/api/doctors/upload-profile-pic/${formData._id}`, pictureData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      const pictureUrl = uploadRes.data.profilePicture;
+      setFormData({ ...formData, profilePicture: pictureUrl });
+      // Update preview with full URL from server response
+      setImagePreview(getImageUrl(pictureUrl)); 
+      setProfilePictureFile(null);
+      setMessage('Photo updated!');
+    } catch (error) {
+      setError('Failed to upload photo.');
+    }
+  };
+
+  const getImageUrl = (path) => {
+      if (!path) return 'https://ui-avatars.com/api/?name=User&background=random';
+      if (path.startsWith('http') || path.startsWith('data:')) return path;
+      const cleanPath = path.startsWith('/') ? path : `/${path}`;
+      return `http://localhost:8000${cleanPath}?t=${new Date().getTime()}`;
+  };
+
   // Views
   const renderDashboard = () => (
-    <div className="settings-dashboard fade-in">
+    <div className="settings-dashboard-compact fade-in">
         
-        {/* Profile Summary Card */}
-        <div className="settings-card profile-summary-card">
-            <div className="profile-summary-content">
-                <div className="profile-summary-avatar">
-                   <img src={imagePreview || '../assets/default-profile.png'} alt="Profile" />
-                </div>
-                <div className="profile-summary-info">
-                    <h2>{formData.firstName} {formData.lastName}</h2>
+        {/* Profile Summary - Slim */}
+        <div className="settings-group profile-group">
+            <div className="profile-row">
+                <img src={getImageUrl(imagePreview)} alt="Profile" className="profile-avatar-small" onError={(e) => e.target.src = 'https://ui-avatars.com/api/?name=User&background=random'} />
+                <div className="profile-info-compact">
+                    <h3>{formData.firstName} {formData.lastName}</h3>
                     <p>{formData.email}</p>
-                    <span className="member-badge">Doctor</span>
-                </div>
-            </div>
-            <button className="edit-btn-outline" onClick={() => setView('edit-profile')}>Edit Profile</button>
-        </div>
-
-        {/* Appearance */}
-        <div className="settings-card">
-            <div className="card-header">
-                <div className="icon-box purple"><FaPalette /></div>
-                <div>
-                    <h3>Appearance</h3>
-                    <p>Customize how the dashboard looks</p>
-                </div>
-            </div>
-            <div className="theme-toggle-row">
-                <button className={`theme-btn ${theme === 'light' ? 'active' : ''}`} onClick={() => setTheme('light')}>
-                    <FaSun /> Light
-                </button>
-                <button className={`theme-btn ${theme === 'dark' ? 'active' : ''}`} onClick={() => setTheme('dark')}>
-                    <FaMoon /> Dark
-                </button>
-            </div>
-        </div>
-
-        {/* Profile Settings Links */}
-        <div className="settings-card">
-            <div className="card-header">
-                <div className="icon-box blue"><FaUser /></div>
-                <div>
-                    <h3>Profile</h3>
-                    <p>Manage your account details</p>
-                </div>
-            </div>
-            <div className="settings-list">
-                <div className="settings-item clickable" onClick={() => setView('edit-profile')}>
-                    <span>Edit Profile</span>
-                    <FaChevronRight />
-                </div>
-                <div className="settings-item clickable">
-                    <span>Change Username</span>
-                    <FaChevronRight />
                 </div>
             </div>
         </div>
 
-        {/* Notifications */}
-        <div className="settings-card">
-             <div className="card-header">
-                <div className="icon-box orange"><FaBell /></div>
-                <div>
-                    <h3>Notifications</h3>
-                    <p>Configure how you receive updates</p>
-                </div>
+        {/* Account Settings Group */}
+        <div className="settings-group">
+            <div className="group-title">Account</div>
+            <div className="settings-row clickable" onClick={() => setView('edit-profile')}>
+                <div className="row-left"><div className="icon-small blue"><FaUser /></div> <span>Edit Profile</span></div>
+                <FaChevronRight className="chevron" />
             </div>
-            <div className="settings-list">
-                <div className="settings-item">
-                    <div>
-                        <span className="item-title">Email Notifications</span>
-                        <span className="item-desc">Receive updates via email</span>
-                    </div>
-                    <label className="switch">
-                        <input type="checkbox" checked={settingsData.notifications.email} onChange={() => handleToggle('notifications', 'email')} />
-                        <span className="slider round"></span>
-                    </label>
-                </div>
-                <div className="settings-item">
-                    <div>
-                        <span className="item-title">SMS Notifications</span>
-                        <span className="item-desc">Receive urgent alerts</span>
-                    </div>
-                    <label className="switch">
-                        <input type="checkbox" checked={settingsData.notifications.sms} onChange={() => handleToggle('notifications', 'sms')} />
-                        <span className="slider round"></span>
-                    </label>
-                </div>
+            <div className="divider"></div>
+            <div className="settings-row clickable" onClick={() => setView('change-password')}>
+                <div className="row-left"><div className="icon-small green"><FaLock /></div> <span>Change Password</span></div>
+                <FaChevronRight className="chevron" />
+            </div>
+            <div className="divider"></div>
+            <div className="settings-row">
+                <div className="row-left"><div className="icon-small green"><FaShieldAlt /></div> <span>Two-Factor Authentication</span></div>
+                <label className="switch-small">
+                    <input type="checkbox" checked={settingsData.twoFactor} onChange={() => handleToggle('security', 'twoFactor')} />
+                    <span className="slider-small round"></span>
+                </label>
             </div>
         </div>
 
-        {/* Security */}
-        <div className="settings-card">
-             <div className="card-header">
-                <div className="icon-box green"><FaShieldAlt /></div>
-                <div>
-                    <h3>Security</h3>
-                    <p>Secure your account</p>
+        {/* Preferences Group */}
+        <div className="settings-group">
+            <div className="group-title">Preferences</div>
+            <div className="settings-row">
+                <div className="row-left"><div className="icon-small purple"><FaPalette /></div> <span>Appearance</span></div>
+                <div className="theme-toggle-compact">
+                    <button className={`theme-btn-mini ${theme === 'light' ? 'active' : ''}`} onClick={() => setTheme('light')}><FaSun /></button>
+                    <button className={`theme-btn-mini ${theme === 'dark' ? 'active' : ''}`} onClick={() => setTheme('dark')}><FaMoon /></button>
                 </div>
             </div>
-            <div className="settings-list">
-                <div className="settings-item clickable" onClick={() => setView('change-password')}>
-                    <span>Change Password</span>
-                    <FaChevronRight />
-                </div>
-                 <div className="settings-item">
-                    <div>
-                        <span className="item-title">Two-Factor Authentication</span>
-                        <span className="item-desc">Add an extra layer of security</span>
-                    </div>
-                    <label className="switch">
-                        <input type="checkbox" checked={settingsData.twoFactor} onChange={() => handleToggle('security', 'twoFactor')} />
-                        <span className="slider round"></span>
-                    </label>
-                </div>
+            <div className="divider"></div>
+            <div className="settings-row">
+                <div className="row-left"><div className="icon-small orange"><FaBell /></div> <span>Email Notifications</span></div>
+                <label className="switch-small">
+                    <input type="checkbox" checked={settingsData.notifications.email} onChange={() => handleToggle('notifications', 'email')} />
+                    <span className="slider-small round"></span>
+                </label>
+            </div>
+            <div className="divider"></div>
+             <div className="settings-row">
+                <div className="row-left"><div className="icon-small orange"><FaBell /></div> <span>SMS Notifications</span></div>
+                <label className="switch-small">
+                    <input type="checkbox" checked={settingsData.notifications.sms} onChange={() => handleToggle('notifications', 'sms')} />
+                    <span className="slider-small round"></span>
+                </label>
             </div>
         </div>
 
          {/* Danger Zone */}
-         <div className="settings-card danger-zone">
-             <div className="card-header">
-                <div className="icon-box red"><FaSignOutAlt /></div>
-                <div className="danger-text">
-                    <h3>Danger Zone</h3>
-                    <p>Irreversible actions</p>
-                </div>
+         <div className="settings-group danger-group">
+             <div className="settings-row clickable" onClick={handleLogoutClick}>
+                <div className="row-left"><div className="icon-small red"><FaSignOutAlt /></div> <span className="text-red">Sign Out</span></div>
             </div>
-            <div className="settings-list">
-                <div className="settings-item">
-                    <div>
-                        <span className="item-title">Sign out of all devices</span>
-                        <span className="item-desc">Log out from all active sessions</span>
-                    </div>
-                    <button className="sign-out-all-btn" onClick={handleLogout}>Sign Out All</button>
-                </div>
-                 <div className="settings-item">
-                     <div>
-                        <span className="item-title">Delete Account</span>
-                        <span className="item-desc">Permanently delete your account</span>
-                    </div>
-                    <button className="delete-account-btn" onClick={handleLogout}>Delete Account</button>
-                </div>
+            <div className="divider"></div>
+             <div className="settings-row" style={{ opacity: 0.5, cursor: 'not-allowed' }}>
+                <div className="row-left"><div className="icon-small red"><FaTimes /></div> <span className="text-red">Delete Account</span></div>
             </div>
         </div>
 
@@ -211,7 +194,14 @@ const DoctorProfile = ({ email, onClose }) => {
           </div>
           {/* ...Reuse form logic/JSX... */}
           <div className="profile-form-container">
-             {/* Just a simple message for brevity in this rewrite, or full form */}
+             <div className="avatar-upload-section">
+                <div className="avatar-preview-edit">
+                    <img src={getImageUrl(imagePreview)} alt="Preview" onError={(e) => e.target.src = 'https://ui-avatars.com/api/?name=User&background=random'} />
+                    <button type="button" onClick={() => fileInputRef.current.click()} className="camera-btn"><FaCamera /></button>
+                </div>
+                 <input type="file" ref={fileInputRef} hidden onChange={handleFileChange} />
+                 {profilePictureFile && <button onClick={handleUploadPhoto} className="upload-photo-btn">Confirm Photo Upload</button>}
+             </div>
              <form onSubmit={async (e) => {
                  e.preventDefault();
                  try { await axios.put('/api/doctors/dupdate', { email, ...formData }); setMessage('Saved!'); } catch(e){ setError('Error'); }
@@ -272,6 +262,7 @@ const DoctorProfile = ({ email, onClose }) => {
             {view === 'edit-profile' && renderEditProfile()}
             {view === 'change-password' && renderChangePassword()}
         </div>
+        {showLogoutConfirm && renderLogoutModal()}
       </div>
     </div>
   );

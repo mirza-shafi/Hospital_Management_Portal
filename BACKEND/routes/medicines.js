@@ -45,14 +45,10 @@ router.post('/add', upload.single('image'), async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const medicines = await Medicine.find();
-    res.json({
-      success: true,
-      data: medicines
-    });
+    res.json(medicines);
   } catch (error) {
     console.error('Error fetching medicines:', error);
     res.status(500).json({
-      success: false,
       message: 'Error fetching medicines',
       error: error.message
     });
