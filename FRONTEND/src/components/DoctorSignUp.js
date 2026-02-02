@@ -7,10 +7,11 @@ import './styles/Login.css';
 const DoctorSignUp = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
-    phone: '',
-    specialization: '',
+    mobileNumber: '',
+    specialty: '',
     password: '',
     confirmPassword: ''
   });
@@ -18,7 +19,7 @@ const DoctorSignUp = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const { name, email, phone, specialization, password, confirmPassword } = formData;
+  const { firstName, lastName, email, mobileNumber, specialty, password, confirmPassword } = formData;
 
   const onChange = e => {
     setError('');
@@ -28,7 +29,7 @@ const DoctorSignUp = () => {
   const onSubmit = async e => {
     e.preventDefault();
     
-    if (!name || !email || !phone || !specialization || !password || !confirmPassword) {
+    if (!firstName || !lastName || !email || !mobileNumber || !specialty || !password || !confirmPassword) {
       setError('All fields are required');
       return;
     }
@@ -48,8 +49,8 @@ const DoctorSignUp = () => {
 
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/doctors/dregister`,
-        { name, email, phone, specialization, password }
+        '/api/doctors/dregister',
+        { firstName, lastName, email, mobileNumber, specialty, password }
       );
       
       if (res.data) {
@@ -80,16 +81,29 @@ const DoctorSignUp = () => {
         </div>
 
         <form onSubmit={onSubmit} className="login-form">
-          <div className="input-group">
-            <label>Full Name</label>
-            <input
-              type="text"
-              name="name"
-              value={name}
-              onChange={onChange}
-              placeholder="Dr. John Doe"
-              required
-            />
+          <div className="input-row">
+            <div className="input-group">
+              <label>First Name</label>
+              <input
+                type="text"
+                name="firstName"
+                value={firstName}
+                onChange={onChange}
+                placeholder="John"
+                required
+              />
+            </div>
+            <div className="input-group">
+              <label>Last Name</label>
+              <input
+                type="text"
+                name="lastName"
+                value={lastName}
+                onChange={onChange}
+                placeholder="Doe"
+                required
+              />
+            </div>
           </div>
 
           <div className="input-group">
@@ -106,11 +120,11 @@ const DoctorSignUp = () => {
 
           <div className="input-row">
             <div className="input-group">
-              <label>Phone</label>
+              <label>Mobile Number</label>
               <input
                 type="tel"
-                name="phone"
-                value={phone}
+                name="mobileNumber"
+                value={mobileNumber}
                 onChange={onChange}
                 placeholder="+880 1XXX-XXXXXX"
                 required
@@ -118,11 +132,11 @@ const DoctorSignUp = () => {
             </div>
 
             <div className="input-group">
-              <label>Specialization</label>
+              <label>Specialty</label>
               <input
                 type="text"
-                name="specialization"
-                value={specialization}
+                name="specialty"
+                value={specialty}
                 onChange={onChange}
                 placeholder="Cardiology"
                 required
@@ -146,24 +160,24 @@ const DoctorSignUp = () => {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="toggle-password"
-                >
-                  <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
-                </button>
+                  >
+                    <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                  </button>
+                </div>
+              </div>
+  
+              <div className="input-group">
+                <label>Confirm Password</label>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  value={confirmPassword}
+                  onChange={onChange}
+                  placeholder="Re-enter password"
+                  required
+                />
               </div>
             </div>
-
-            <div className="input-group">
-              <label>Confirm Password</label>
-              <input
-                type="password"
-                name="confirmPassword"
-                value={confirmPassword}
-                onChange={onChange}
-                placeholder="Re-enter password"
-                required
-              />
-            </div>
-          </div>
 
           {error && <div className="error-msg">{error}</div>}
 

@@ -30,7 +30,7 @@ const DoctorLogin = () => {
 
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/doctors/dlogin`,
+        '/api/doctors/dlogin',
         { email, password },
         { headers: { 'Content-Type': 'application/json' } }
       );
