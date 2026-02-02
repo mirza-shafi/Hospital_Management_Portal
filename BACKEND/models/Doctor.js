@@ -16,7 +16,15 @@ const DoctorSchema = new mongoose.Schema({
   department: { type: String },
   availability: { type: String },
   createdAt: { type: Date, default: Date.now },
-  profilePicture: { type: String } 
+  profilePicture: { type: String },
+  settings: {
+    twoFactor: { type: Boolean, default: false },
+    notifications: {
+      email: { type: Boolean, default: true },
+      sms: { type: Boolean, default: true },
+      promotions: { type: Boolean, default: false }
+    }
+  }
 });
 
 module.exports = mongoose.model('Doctor', DoctorSchema);

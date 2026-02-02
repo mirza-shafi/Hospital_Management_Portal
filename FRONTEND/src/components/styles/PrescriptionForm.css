@@ -1,163 +1,226 @@
+/* Modern Prescription Form Design */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 .prescription-form-container {
     display: flex;
     justify-content: center;
     align-items: center; 
-    height: 100vh;
-    background:linear-gradient(to right, #243b55, #141e30);
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     margin: 0;
-  }
-  
-  .prescription-form-box {
-    background-color: #ffffff; 
     padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    font-family: 'Inter', sans-serif;
+}
+
+.prescription-form-box {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
     width: 100%;
     max-width: 800px; 
     box-sizing: border-box;
-    border: 2px solid #41dc8e; 
-  }
-  
-  .prescription-form {
-    display: flex;
-    flex-direction: column;
-    max-width: 600px; 
-    margin: 0 auto; 
-  }
-  
-  .prescription-form-title {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.prescription-form-title {
     text-align: center;
-    margin-bottom: 15px;
-    color: #333; 
-    font-size: 1.5rem; 
-    font-weight: bold;
-  }
-  
-  .prescription-form-row {
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2rem; 
+    font-weight: 700;
+}
+
+.prescription-form-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px; 
-  }
-  
-  .prescription-form-field {
+    margin-bottom: 20px; 
+    gap: 20px;
+}
+
+.prescription-form-field {
     flex: 1;
-    margin-right: 10px;
-  }
-  
-  .prescription-form-field:last-child {
-    margin-right: 0;
-  }
-  
-  .prescription-form-field label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333; 
-    font-size: 0.9rem; 
-  }
-  
-  .prescription-form-field input,
-  .prescription-form-field textarea {
-    padding: 8px; 
-    font-size: 0.9rem;
-    border: 1px solid #ccc; 
-    border-radius: 4px;
+}
+
+.prescription-form-field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #4a5568; 
+    font-size: 0.95rem; 
+}
+
+.prescription-form-field input,
+.prescription-form-field textarea {
+    padding: 12px 16px; 
+    font-size: 1rem;
+    border: 2px solid #e2e8f0; 
+    border-radius: 12px;
     outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s; 
+    transition: all 0.3s ease;
     width: 100%;
     box-sizing: border-box; 
-  }
-  
-  .prescription-form-field input:focus,
-  .prescription-form-field textarea:focus {
-    border-color: #41dc8e; 
-    box-shadow: 0 0 6px rgba(65, 220, 142, 0.2); 
-  }
-  
-  .prescription-form-field textarea {
-    resize: vertical;
-    height: 100px; 
-  }
-  
-  .prescription-form-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-  }
-  
-  .prescription-form-submit-button,
-  .prescription-form-download-button {
-    padding: 10px 20px; 
-    font-size: 0.9rem;
-    color: #fff; 
-    background-color:  #0c8cac; 
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-  }
-  
-  .prescription-form-submit-button:hover,
-  .prescription-form-download-button:hover {
-    background-color: #36c572; 
-    transform: scale(1.02); 
-  }
-  
-  .prescription-form-message {
-    margin-top: 15px;
-    padding: 10px;
-    border-radius: 4px;
-    text-align: center;
-  }
-  
-  .prescription-form-success {
-    color: #4caf50; 
-    border: 1px solid #4caf50; 
-    background-color: #e8f5e9; 
-  }
-  
-  .prescription-form-error {
-    color: #f44336; 
-    border: 1px solid #f44336;
-    background-color: #ffebee; 
-  }
-  
-.toast-container {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+    background: #f7fafc;
+    color: #2d3748;
 }
 
+.prescription-form-field input:focus,
+.prescription-form-field textarea:focus {
+    border-color: #667eea; 
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    background: #fff;
+}
+
+.prescription-form-field textarea {
+    resize: vertical;
+    min-height: 120px; 
+}
+
+.prescription-form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.prescription-form-submit-button,
+.prescription-form-download-button {
+    padding: 12px 30px; 
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff; 
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.prescription-form-submit-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.prescription-form-download-button {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.prescription-form-submit-button:hover,
+.prescription-form-download-button:hover {
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.prescription-form-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 500;
+    animation: fadeIn 0.3s ease;
+}
+
+.prescription-form-success {
+    color: #047857; 
+    background-color: #d1fae5; 
+    border: 1px solid #a7f3d0;
+}
+
+.prescription-form-error {
+    color: #b91c1c; 
+    background-color: #fee2e2;
+    border: 1px solid #fecaca;
+}
+
+/* Toast Notifications */
+.toast-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
 
 .toast {
-  background-color: #ffffff;
-  color: #333;
-  border-radius: 8px;
-  padding: 15px 20px;
-  margin-bottom: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  opacity: 0;
-  transition: opacity 0.5s, transform 0.5s;
-  transform: translateY(20px);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    color: #2d3748;
+    border-radius: 12px;
+    padding: 16px 24px;
+    margin-bottom: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    width: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideIn 0.3s forwards;
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
+@keyframes slideIn {
+    to { opacity: 1; transform: translateY(0); }
+}
 
 .toast-success {
-  background-color: #d4edda;
-  color: #155724;
-  border-left: 5px solid #28a745;
+    border-left: 5px solid #48bb78;
 }
 
-
 .toast-error {
-  background-color: #f8d7da;
-  color: #721c24;
-  border-left: 5px solid #dc3545;
+    border-left: 5px solid #f56565;
+}
+
+/* Dark Mode Overrides */
+.dark .prescription-form-container {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.dark .prescription-form-box {
+    background: rgba(30, 41, 59, 0.8);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .prescription-form-title {
+    background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dark .prescription-form-field label {
+    color: #e2e8f0;
+}
+
+.dark .prescription-form-field input,
+.dark .prescription-form-field textarea {
+    background: #1e293b;
+    border-color: #475569;
+    color: #f1f5f9;
+}
+
+.dark .prescription-form-field input:focus,
+.dark .prescription-form-field textarea:focus {
+    border-color: #818cf8;
+    box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
+}
+
+.dark .toast {
+    background: #1e293b;
+    color: #f1f5f9;
+    border-color: rgba(255, 255, 255, 0.1);
 }

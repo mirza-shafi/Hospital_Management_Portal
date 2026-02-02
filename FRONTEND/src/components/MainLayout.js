@@ -1,11 +1,14 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import NavbarComponent from './Navbar';
 
 const MainLayout = () => {
+  const location = useLocation();
+  const hideNavbar = location.pathname === '/doctor-account';
+
   return (
     <>
-      <NavbarComponent />
+      {!hideNavbar && <NavbarComponent />}
       <Outlet />
     </>
   );

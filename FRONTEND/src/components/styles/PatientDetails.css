@@ -1,138 +1,196 @@
+/* Modern Patient Details Design */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 .patient-details-container {
     padding: 40px;
     min-height: 100vh;
-    background: linear-gradient(to right, #243b55, #141e30);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
     color: #fff;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  .page-title {
-    margin-bottom: 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.page-title {
+    margin-bottom: 40px;
     font-size: 2.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
-  
-  .search-bar {
-    margin-bottom: 30px;
+    font-weight: 700;
+    text-align: center;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeInDown 0.5s ease;
+}
+
+@keyframes fadeInDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.search-bar {
+    margin-bottom: 40px;
     display: flex;
     align-items: center;
-    background: #fff;
-    border-radius: 25px;
-    padding: 10px 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50px;
+    padding: 10px 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     width: 100%;
-    max-width: 500px;
-  }
-  
-  .search-icon {
+    max-width: 600px;
+    transition: all 0.3s ease;
+}
+
+.search-bar:focus-within {
+    transform: scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.search-icon {
     font-size: 20px;
-    color: #3498db;
-    margin-right: 10px;
-  }
-  
-  .search-input {
+    color: #667eea;
+    margin-right: 15px;
+}
+
+.search-input {
     width: 100%;
-    padding: 15px;
+    padding: 12px;
     border: none;
     outline: none;
-    border-radius: 25px;
-    background-color: #f0f0f0;
-    font-size: 1rem;
-    text-align: center;
-  }
-  
-  .no-results {
+    background: transparent;
+    font-size: 1.1rem;
+    color: #2d3748;
+}
+
+.search-input::placeholder {
+    color: #a0aec0;
+}
+
+.no-results {
     margin-top: 20px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .no-results p {
-    color: #2c3e50;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.no-results p {
+    color: #fff;
     font-size: 1.2rem;
     text-align: center;
-  }
-  
-  .patient-list {
+}
+
+.patient-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
     width: 100%;
-  }
-  
-  .patient-card {
-    background-color: rgba(255, 255, 255, 0.95);
-    color: #2c3e50;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    width: 320px;
+    max-width: 1400px;
+}
+
+.patient-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    color: #2d3748;
+    padding: 30px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 340px;
     text-align: left;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-  }
-  
-  .patient-card::before {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.patient-card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 5px;
-    background: linear-gradient(to right, #3498db, #2c3e50);
-    animation: animate-bar 3s linear infinite;
-  }
-  
-  @keyframes animate-bar {
-    0% {
-      left: -100%;
-    }
-    50% {
-      left: 0;
-    }
-    100% {
-      left: 100%;
-    }
-  }
-  
-  .patient-card:hover {
+    height: 6px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+.patient-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
-  }
-  
-  .patient-name {
-    margin-bottom: 15px;
-    font-size: 1.6rem;
-    color: #2980b9;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  .patient-info p {
-    margin: 8px 0;
-    font-size: 1.1rem;
-    position: relative;
-  }
-  
-  .patient-info p strong {
-    color: #2980b9;
-  }
-  
-  .patient-info p::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(to right, #3498db, #2c3e50);
-    opacity: 0.7;
-    border-bottom: 1px dotted #2980b9;
-  }
-  
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.patient-name {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.patient-info p {
+    margin: 10px 0;
+    font-size: 1rem;
+    border-bottom: 1px dashed #e2e8f0;
+    padding-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.patient-info p:last-child {
+    border-bottom: none;
+}
+
+.patient-info p strong {
+    color: #4a5568;
+    font-weight: 600;
+}
+
+/* Dark Mode Overrides */
+.dark .patient-details-container {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.dark .search-bar {
+    background: rgba(30, 41, 59, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .search-input {
+    color: #f1f5f9;
+}
+
+.dark .search-icon {
+    color: #818cf8;
+}
+
+.dark .patient-card {
+    background: rgba(30, 41, 59, 0.8);
+    color: #f1f5f9;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .patient-card::before {
+    background: linear-gradient(90deg, #818cf8, #c084fc);
+}
+
+.dark .patient-name {
+    background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dark .patient-info p {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .patient-info p strong {
+    color: #94a3b8;
+}

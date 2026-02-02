@@ -36,7 +36,8 @@ const DoctorLogin = () => {
       );
 
       if (res.data.token) {
-        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('doctorToken', res.data.token);
+        localStorage.setItem('doctorEmail', email);
         navigate('/doctor-account');
       }
     } catch (err) {

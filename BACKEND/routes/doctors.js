@@ -51,15 +51,22 @@ router.post('/dregister', async (req, res) => {
 // Login a doctor
 router.post('/dlogin', async (req, res) => {
     const { email, password } = req.body;
+    console.log('Login attempt for:', email);
 
     try {
         const doctor = await Doctor.findOne({ email });
+        console.log('Doctor found:', doctor ? 'YES' : 'NO');
+        
         if (!doctor) {
+            console.log('❌ Doctor not found in database');
             return res.status(400).json({ message: 'Invalid email or password' });
         }
 
         const isMatch = await bcrypt.compare(password, doctor.password);
+        console.log('Password match:', isMatch ? 'YES' : 'NO');
+        
         if (!isMatch) {
+            console.log('❌ Password does not match');
             return res.status(400).json({ message: 'Invalid email or password' });
         }
 
@@ -70,9 +77,10 @@ router.post('/dlogin', async (req, res) => {
         };
 
         const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
+        console.log('✓ Token generated successfully');
         res.json({ token });
     } catch (error) {
-        console.error(error);
+        console.error('❌ Login error:', error);
         res.status(500).json({ message: 'Server error' });
     }
 });
@@ -158,5 +166,51 @@ router.get('/profilepic/:id', async (req, res) => {
     }
 });
 
+// Change Password Route
+router.post('/change-password', async (req, res) => {
+    const { email, currentPassword, newPassword } = req.body;
+
+    try {
+        const doctor = await Doctor.findOne({ email });
+        if (!doctor) {
+            return res.status(404).json({ message: 'Doctor not found' });
+        }
+
+        const isMatch = await bcrypt.compare(currentPassword, doctor.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Incorrect current password' });
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        doctor.password = hashedPassword;
+        await doctor.save();
+
+        res.json({ message: 'Password changed successfully' });
+    } catch (error) {
+        console.error('Error changing password:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+// Update Settings Route
+router.put('/update-settings', async (req, res) => {
+    const { email, settings } = req.body;
+
+    try {
+        const doctor = await Doctor.findOne({ email });
+        if (!doctor) {
+            return res.status(404).json({ message: 'Doctor not found' });
+        }
+
+        // Merge existing settings with new settings
+        doctor.settings = { ...doctor.settings, ...settings };
+        await doctor.save();
+
+        res.json({ message: 'Settings updated successfully', settings: doctor.settings });
+    } catch (error) {
+        console.error('Error updating settings:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
 
 module.exports = router;

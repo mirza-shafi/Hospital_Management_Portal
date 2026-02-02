@@ -1,51 +1,68 @@
+/* Modern View Prescription Design */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 .view-prescription-container {
-    background: linear-gradient(to right, #243b55, #141e30);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
-    padding: 30px;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: #fff;
+    font-family: 'Inter', sans-serif;
 }
 
 .page-title {
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 20px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: center;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .search-bar {
     display: flex;
     align-items: center;
-    background: #fff;
-    border-radius: 25px;
-    padding: 5px; 
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50px;
+    padding: 10px 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    margin-bottom: 40px;
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
+    transition: all 0.3s ease;
+}
+
+.search-bar:focus-within {
+    transform: scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
 .search-icon {
     font-size: 24px;
-    color: #3498db;
-    margin: 0 10px;  
+    color: #667eea;
+    margin-right: 15px;
 }
+
 .search-input {
     flex: 1; 
     padding: 12px;
     border: none;
     outline: none;
-    border-radius: 25px;
-    background-color: #f0f0f0;
-    font-size: 16px;
+    background: transparent;
+    font-size: 1.1rem;
+    color: #2d3748;
 }
 
 .loading-message,
 .error-message {
-    font-size: 18px;
+    font-size: 1.2rem;
     text-align: center;
     margin-top: 20px;
+    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
 }
 
 .prescription-list {
@@ -53,92 +70,179 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    gap: 30px;
 }
 
 .prescription-card {
     position: relative;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    width: 90%;
-    max-width: 700px;
-    margin: 15px 0;
-    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 800px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 .prescription-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
 }
 
 .card-content {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 15px;
+    width: 100%;
 }
 
 .card-detail {
-    font-size: 16px;
-    padding: 12px 18px;
-    border-left: 5px solid #3498db;
-    background-color: #f9f9f9;
-    border-radius: 6px;
-    margin-bottom: 10px;
+    font-size: 1rem;
+    padding: 16px 20px;
+    border-left: 5px solid #667eea;
+    background-color: #f7fafc;
+    border-radius: 8px;
     width: 100%;
+    box-sizing: border-box;
     transition: background-color 0.3s;
 }
 
 .card-detail strong {
-    color: #2c3e50;
-    font-weight: 700;
+    color: #4a5568;
+    font-weight: 600;
+    margin-right: 10px;
 }
 
 .card-detail-value {
-    color: #000;
+    color: #2d3748;
+    font-weight: 500;
 }
 
 .card-detail:hover {
-    background-color: #e0e0e0;
+    background-color: #ebf4ff;
 }
 
 .prescription-text {
-    font-size: 16px;
-    color: #555;
-    margin-top: 5px;
+    font-size: 1rem;
+    color: #4a5568;
+    margin-top: 10px;
     white-space: pre-wrap;
+    line-height: 1.6;
+    padding-top: 10px;
+    border-top: 1px dashed #cbd5e0;
 }
 
 .download-button {
-    background-color: #2c3e50;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff;
     border: none;
-    padding: 12px 24px;
-    border-radius: 6px;
+    padding: 12px 30px;
+    border-radius: 50px;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 25px;
     align-self: flex-end;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
 .download-button:hover {
-    background-color: #3498db;
     transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
 }
 
 .no-prescriptions {
-    font-size: 18px;
-    color: #ccc;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px 40px;
+    border-radius: 50px;
+    backdrop-filter: blur(5px);
 }
 
 .close-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    color: #e74c3c;
+    top: 20px;
+    right: 20px;
+    font-size: 1.2rem;
+    color: #cbd5e0;
     cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 5px;
+}
+
+.close-button:hover {
+    color: #e53e3e;
+    transform: rotate(90deg);
+}
+
+/* Dark Mode Overrides */
+.dark .view-prescription-container {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.dark .search-bar {
+    background: rgba(30, 41, 59, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .search-input {
+    color: #f1f5f9;
+}
+
+.dark .search-icon {
+    color: #818cf8;
+}
+
+.dark .prescription-card {
+    background: rgba(30, 41, 59, 0.8);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .card-detail {
+    background-color: #1e293b;
+    border-left-color: #818cf8;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: 5px solid #818cf8;
+}
+
+.dark .card-detail strong {
+    color: #94a3b8;
+}
+
+.dark .card-detail-value {
+    color: #f1f5f9;
+}
+
+.dark .card-detail:hover {
+    background-color: #334155;
+}
+
+.dark .prescription-text {
+    color: #cbd5e1;
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .download-button {
+    background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+    box-shadow: 0 4px 15px rgba(129, 140, 248, 0.3);
+}
+
+.dark .close-button {
+    color: #64748b;
+}
+
+.dark .close-button:hover {
+    color: #f87171;
 }
