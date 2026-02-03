@@ -79,7 +79,7 @@ const DoctorAccount = () => {
     if (!path) return 'https://ui-avatars.com/api/?name=User&background=random';
     if (path.startsWith('http') || path.startsWith('data:')) return path;
     const cleanPath = path.startsWith('/') ? path : `/${path}`;
-    return `http://localhost:8000${cleanPath}?t=${new Date().getTime()}`;
+    return `http://localhost:1002${cleanPath}?t=${new Date().getTime()}`;
   };
 
   if (!doctor) {

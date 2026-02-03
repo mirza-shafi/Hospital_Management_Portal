@@ -6,8 +6,11 @@ const Patient = require('../models/Patient');
 const router = express.Router();
 require('dotenv').config();
 
-// Hardcoded admin credentials for simplicity (in real projects, store credentials securely)
-const adminCredentials = { username: 'admin', password: 'admin' };
+// Loaded from environment variables for security
+const adminCredentials = { 
+  username: process.env.ADMIN_USERNAME || 'admin', 
+  password: process.env.ADMIN_PASSWORD || 'admin' 
+};
 
 // Use the JWT secret key from .env
 const JWT_SECRET = process.env.JWT_SECRET;

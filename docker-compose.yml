@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: hospital_backend
     ports:
-      - "8000:8000"
+      - "1002:1002"
     env_file:
       - ./BACKEND/.env
     volumes:
@@ -23,7 +23,7 @@ services:
       dockerfile: Dockerfile
     container_name: hospital_frontend
     ports:
-      - "3003:3003"
+      - "1001:1001"
     env_file:
       - ./FRONTEND/.env
     environment:

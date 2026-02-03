@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 
 // CORS configuration
 app.use(cors({
-    origin: ['http://localhost:3003', 'http://localhost:5173', 'http://localhost:3000'],
+    origin: ['http://localhost:1001', 'http://localhost:5173', 'http://localhost:3000'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
@@ -48,8 +48,20 @@ app.get('/', (req, res) => {
 // Routes
 app.use('/api/doctors', require('./routes/doctors'));
 app.use('/api/patients', require('./routes/patients'));
+app.use('/api/appointments', require('./routes/appointments'));
 app.use('/api/medicines', require('./routes/medicines'));
 app.use('/api/medicineBill', require('./routes/medicineBill'));
+app.use('/api/prescriptions', require('./routes/prescriptions'));
+app.use('/api/healthcards', require('./routes/healthcards'));
+app.use('/api/bloodDonor', require('./routes/bloodDonor'));
+app.use('/api/bloodRecipient', require('./routes/bloodRecipient'));
+app.use('/api/bloodAvailability', require('./routes/bloodAvailability'));
+app.use('/api/wardBooking', require('./routes/wardBooking'));
+app.use('/api/cabinBooking', require('./routes/cabinBooking'));
+app.use('/api/testOrService', require('./routes/testOrService'));
+app.use('/api/testAndServicesBill', require('./routes/testAndServicesBill'));
+app.use('/api/chatbot', require('./routes/chatbot'));
+app.use('/api/support', require('./routes/support'));
 app.use('/api/about', require('./routes/about'));
 
 // Serve static files

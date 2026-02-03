@@ -54,7 +54,7 @@ async function checkDoctor() {
       console.log(`\nPassword hash: ${doctor.password}`);
       
       // Test password
-      const testPassword = 'password123';
+      const testPassword = process.env.TEST_PASSWORD || 'password123';
       const isMatch = await bcrypt.compare(testPassword, doctor.password);
       console.log(`\nPassword test with '${testPassword}': ${isMatch ? '✓ MATCH' : '❌ NO MATCH'}`);
       

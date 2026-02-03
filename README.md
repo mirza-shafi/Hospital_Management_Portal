@@ -166,8 +166,8 @@ cd Hospital_Management_Portal
 docker-compose up --build
 
 # Access the application
-# Frontend: http://localhost:3003
-# Backend API: http://localhost:8000
+# Frontend: http://localhost:1001
+# Backend API: http://localhost:1002
 ```
 
 ### **Option 2: Manual Installation**
@@ -310,9 +310,9 @@ Hospital_Management_Portal/
 ```
 User (Browser)
      ↓
-React Frontend (Port 3003)
+React Frontend (Port 1001)
      ↓
-Express.js API (Port 8000)
+Express.js API (Port 1002)
      ↓
 MongoDB Database
 ```
@@ -396,11 +396,11 @@ POST   /api/cabinBooking          - Book cabin
 ### **Backend (.env)**
 ```env
 # Server Configuration
-PORT=5001
+PORT=1002
 NODE_ENV=development
 
 # Database
-MONGO_URI=mongodb://localhost:27017/hospital_db
+MONIT_URI=mongodb://localhost:27017/hospital_db
 # OR for MongoDB Atlas
 # MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/hospital_db
 
@@ -422,7 +422,7 @@ UPLOAD_PATH=./uploads
 ### **Frontend (.env)**
 ```env
 # API Configuration
-REACT_APP_API_URL=http://localhost:5001
+REACT_APP_API_URL=http://localhost:1002
 
 # Optional: Google Maps API (if used)
 # REACT_APP_GOOGLE_MAPS_KEY=your_google_maps_api_key
@@ -432,8 +432,8 @@ REACT_APP_API_URL=http://localhost:5001
 ```env
 # docker-compose.yml environment variables
 MONGODB_URI=mongodb://mongo:27017/hospital_db
-FRONTEND_PORT=3003
-BACKEND_PORT=8000
+FRONTEND_PORT=1001
+BACKEND_PORT=1002
 ```
 
 ---

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import { useNavigate, Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import './styles/Login.css';
 
 const DoctorSignUp = () => {
@@ -54,8 +55,17 @@ const DoctorSignUp = () => {
       );
       
       if (res.data) {
-        alert('Registration successful! Please login.');
-        navigate('/doctor-login');
+        Swal.fire({
+          title: 'Success!',
+          text: 'Registration successful! Please login.',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#00d1b2' // Bulma primary color
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate('/doctor-login');
+          }
+        });
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');
