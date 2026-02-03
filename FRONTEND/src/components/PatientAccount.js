@@ -56,9 +56,9 @@ const PatientAccount = () => {
         // Update health metrics from backend data
         if (res.data) {
           setHealthMetrics({
-            bloodPressure: res.data.bloodPressure || '120/80',
-            bloodSugar: res.data.bloodSugar || '95 mg/dL',
-            weight: res.data.weight || '70 kg',
+            bloodPressure: res.data.bloodPressure || '--',
+            bloodSugar: res.data.bloodSugar || '--',
+            weight: res.data.weight || '--',
             lastCheckup: formatDate(res.data.lastCheckup) || 'Not recorded'
           });
         }
