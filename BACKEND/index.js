@@ -63,6 +63,7 @@ app.use('/api/testAndServicesBill', require('./routes/testAndServicesBill'));
 app.use('/api/chatbot', require('./routes/chatbot'));
 app.use('/api/support', require('./routes/support'));
 app.use('/api/about', require('./routes/about'));
+app.use('/api/notifications', require('./routes/notifications'));
 
 // Serve static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

@@ -37,7 +37,12 @@ const patientSchema = new mongoose.Schema({
   age: { type: Number },
   difficulty: { type: String },
   beendignosed: { type: String },
-  condition: { type: String }
+  condition: { type: String },
+  // Health Metrics
+  weight: { type: String, default: '--' },
+  bloodPressure: { type: String, default: '--' },
+  bloodSugar: { type: String, default: '--' },
+  lastCheckup: { type: Date }
 }, {
   timestamps: true
 });

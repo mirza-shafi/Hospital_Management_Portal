@@ -113,6 +113,39 @@ router.get('/count/:doctorEmail', async (req, res) => {
   }
 });
 
+// Get total appointments count for a patient
+router.get('/count/patient/:patientEmail', async (req, res) => {
+  try {
+    const { patientEmail } = req.params;
+    const count = await Appointment.countDocuments({ patientEmail });
+    res.json({ count });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Get upcoming appointments for a patient
+router.get('/upcoming/patient/:patientEmail', async (req, res) => {
+  try {
+    const { patientEmail } = req.params;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Start of today
+
+    const appointments = await Appointment.find({ 
+      patientEmail,
+      date: { $gte: today }
+    })
+    .sort({ date: 1, timeSlot: 1 })
+    .limit(5);
+
+    res.json(appointments);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Get today's appointments for a specific doctor
 router.get('/today-appointments', async (req, res) => {
     try {

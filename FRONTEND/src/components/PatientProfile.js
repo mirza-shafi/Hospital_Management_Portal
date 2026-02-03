@@ -5,13 +5,16 @@ import { Helmet } from 'react-helmet';
 
 const PatientProfile = ({ email, onClose }) => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
     bloodGroup: '',
     age: '',
     difficulty: '',
     beendignosed: '',
-    condition: ''
+    condition: '',
+    weight: '',
+    bloodPressure: '',
+    bloodSugar: '',
+    lastCheckup: ''
   });
 
   const [message, setMessage] = useState('');
@@ -149,6 +152,69 @@ const PatientProfile = ({ email, onClose }) => {
                   value={formData.condition}
                   onChange={handleChange}
                 />
+              </div>
+            </div>
+
+            <h4 className="subtitle is-5 mt-4 mb-3">Health Metrics</h4>
+            <div className="columns is-mobile is-multiline">
+              <div className="column is-6">
+                <div className="field">
+                  <label className="label">Weight (kg)</label>
+                  <div className="control">
+                    <input
+                      className="input"
+                      type="text"
+                      name="weight"
+                      placeholder="e.g. 70 kg"
+                      value={formData.weight}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="column is-6">
+                <div className="field">
+                  <label className="label">Blood Pressure</label>
+                  <div className="control">
+                    <input
+                      className="input"
+                      type="text"
+                      name="bloodPressure"
+                      placeholder="e.g. 120/80"
+                      value={formData.bloodPressure}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="column is-6">
+                <div className="field">
+                  <label className="label">Blood Sugar</label>
+                  <div className="control">
+                    <input
+                      className="input"
+                      type="text"
+                      name="bloodSugar"
+                      placeholder="e.g. 95 mg/dL"
+                      value={formData.bloodSugar}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="column is-6">
+                <div className="field">
+                  <label className="label">Last Checkup</label>
+                  <div className="control">
+                    <input
+                      className="input"
+                      type="date"
+                      name="lastCheckup"
+                      value={formData.lastCheckup ? new Date(formData.lastCheckup).toISOString().split('T')[0] : ''}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
             <button className="button is-primary" type="submit">Update</button>

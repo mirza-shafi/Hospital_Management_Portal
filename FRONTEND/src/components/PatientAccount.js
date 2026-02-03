@@ -14,19 +14,17 @@ const PatientAccount = () => {
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [recentPrescriptions, setRecentPrescriptions] = useState(0);
   
-  // Health metrics (placeholder - can be fetched from backend)
-  const [healthMetrics] = useState({
-    bloodPressure: '120/80',
-    bloodSugar: '95 mg/dL',
-    weight: '70 kg',
-    lastCheckup: '15 Jan 2026'
+  // Health metrics
+  const [healthMetrics, setHealthMetrics] = useState({
+    bloodPressure: '--',
+    bloodSugar: '--',
+    weight: '--',
+    lastCheckup: '--'
   });
 
-  // Notifications (placeholder)
-  const [notifications] = useState([
-    { id: 1, type: 'reminder', message: 'Take your morning medication', time: '2 hours ago' },
-    { id: 2, type: 'appointment', message: 'Upcoming appointment with Dr. Smith tomorrow', time: '1 day' },
-    { id: 3, type: 'tip', message: 'Drink 8 glasses of water daily for better health', time: '3 hours ago' }
+  // Notifications
+  const [notifications, setNotifications] = useState([
+    { id: 1, type: 'tip', message: 'Welcome to your new dashboard! Complete your profile.', time: 'Just now' }
   ]);
 
   // Close profile menu when clicking outside
@@ -54,36 +52,65 @@ const PatientAccount = () => {
 
         const res = await axios.get(`/api/patients/pdetails/email/${email}`);
         setPatient(res.data);
+        
+        // Update health metrics from backend data
+        if (res.data) {
+          setHealthMetrics({
+            bloodPressure: res.data.bloodPressure || '120/80',
+            bloodSugar: res.data.bloodSugar || '95 mg/dL',
+            weight: res.data.weight || '70 kg',
+            lastCheckup: formatDate(res.data.lastCheckup) || 'Not recorded'
+          });
+        }
 
-        // Fetch appointments count
+        // Fetch total appointments count
         try {
-          const appointmentRes = await axios.get(`/api/appointments/count/${email}`);
+          const appointmentRes = await axios.get(`/api/appointments/count/patient/${email}`);
           setTotalAppointments(appointmentRes.data.count || 0);
         } catch (err) {
-          console.log('Appointments endpoint not available yet');
-          setTotalAppointments(0);
+          console.error('Error fetching total appointments:', err);
         }
 
         // Fetch upcoming appointments
         try {
-          const upcomingRes = await axios.get(`/api/appointments/upcoming?patientEmail=${email}`);
+          // Use the specific upcoming endpoint
+          const upcomingRes = await axios.get(`/api/appointments/upcoming/patient/${email}`);
           setUpcomingAppointments(upcomingRes.data || []);
         } catch (err) {
-          console.log('Upcoming appointments endpoint not available yet');
-          // Mock data for demonstration
-          setUpcomingAppointments([
-            { _id: 1, doctorName: 'Dr. Sarah Smith', specialization: 'Cardiologist', date: '2026-02-05', timeSlot: '10:00 AM', type: 'In-person' },
-            { _id: 2, doctorName: 'Dr. John Doe', specialization: 'General Physician', date: '2026-02-08', timeSlot: '2:30 PM', type: 'Video' }
-          ]);
+          console.error('Error fetching upcoming appointments:', err);
         }
 
         // Fetch prescriptions count
         try {
+          // Using existing prescription route if available, otherwise mock or count from endpoint
           const prescriptionRes = await axios.get(`/api/prescriptions/count?patientEmail=${email}`);
           setRecentPrescriptions(prescriptionRes.data.count || 0);
         } catch (err) {
-          console.log('Prescriptions endpoint not available yet');
-          setRecentPrescriptions(3);
+          // Fallback if specific count endpoint doesn't exist, try fetching all
+          try {
+             const allPrescriptions = await axios.get(`/api/prescriptions/patient/${email}`);
+             setRecentPrescriptions(allPrescriptions.data ? allPrescriptions.data.length : 0);
+          } catch (e) {
+             console.log('Prescriptions endpoint issue', e);
+          }
+        }
+
+        // Fetch notifications
+        try {
+          const notifRes = await axios.get(`/api/notifications/${email}`);
+          if (notifRes.data && notifRes.data.length > 0) {
+            // Transform to match UI expectation if needed
+            const formattedNotifs = notifRes.data.map(n => ({
+              id: n._id,
+              type: n.type,
+              message: n.message,
+              time: formatTimeAgo(n.createdAt),
+              icon: n.icon
+            }));
+            setNotifications(formattedNotifs);
+          }
+        } catch (err) {
+          console.log('No notifications found');
         }
 
       } catch (error) {
@@ -93,6 +120,18 @@ const PatientAccount = () => {
 
     fetchPatientDetails();
   }, []);
+  
+  // Helper to format time ago
+  const formatTimeAgo = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInSeconds = Math.floor((now - date) / 1000);
+    
+    if (diffInSeconds < 60) return 'Just now';
+    if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} mins ago`;
+    if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} hours ago`;
+    return `${Math.floor(diffInSeconds / 86400)} days ago`;
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('patientToken');

@@ -164,13 +164,19 @@ router.get('/pdetails/email/:email', async (req, res) => {
 });
 
 // Update patient profile
+// Update patient profile & health metrics
 router.put('/pupdate', async (req, res) => {
-  const { email, firstName, lastName, bloodGroup, age, difficulty, beendignosed, condition } = req.body;
+  const { email, name, bloodGroup, age, difficulty, beendignosed, condition, weight, bloodPressure, bloodSugar, lastCheckup } = req.body;
 
   try {
+    const updateData = { name, bloodGroup, age, difficulty, beendignosed, condition, weight, bloodPressure, bloodSugar, lastCheckup };
+    
+    // Remove undefined fields
+    Object.keys(updateData).forEach(key => updateData[key] === undefined && delete updateData[key]);
+
     const patient = await Patient.findOneAndUpdate(
       { email },
-      { firstName, lastName, bloodGroup, age, difficulty, beendignosed, condition },
+      updateData,
       { new: true }
     );
 
@@ -191,11 +197,10 @@ router.get('/pdetails/search', async (req, res) => {
     const { searchQuery } = req.query;
     const patients = await Patient.find({
       $or: [
-        { firstName: { $regex: searchQuery, $options: 'i' } }, // Case-insensitive search
-        { lastName: { $regex: searchQuery, $options: 'i' } },
+        { name: { $regex: searchQuery, $options: 'i' } }, // Case-insensitive search
         { mobileNumber: { $regex: searchQuery, $options: 'i' } },
       ]
-    }).select('firstName lastName age sex mobileNumber bloodGroup difficulty beendignosed condition');
+    }).select('name age sex mobileNumber bloodGroup difficulty beendignosed condition');
 
     if (patients.length === 0) {
       return res.status(404).json({ message: 'No patients found' });
