@@ -109,13 +109,24 @@ router.post('/plogin', async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    console.log('🔐 Patient Login Attempt:');
+    console.log('  Email:', email);
+    console.log('  Password length:', password?.length);
+
     const patient = await Patient.findOne({ email });
+    console.log('  Patient found:', patient ? 'YES' : 'NO');
+    
     if (!patient) {
+      console.log('  ❌ Patient not found in database');
       return res.status(400).json({ message: 'Invalid email or password' });
     }
 
+    console.log('  Stored password hash:', patient.password?.substring(0, 20) + '...');
     const isMatch = await bcrypt.compare(password, patient.password);
+    console.log('  Password match:', isMatch ? 'YES' : 'NO');
+    
     if (!isMatch) {
+      console.log('  ❌ Password does not match');
       return res.status(400).json({ message: 'Invalid email or password' });
     }
 
@@ -125,11 +136,14 @@ router.post('/plogin', async (req, res) => {
       }
     };
 
+    console.log('  JWT_SECRET exists:', !!JWT_SECRET);
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
+    console.log('  ✅ Token generated successfully');
+    console.log('  Token preview:', token.substring(0, 30) + '...');
 
     res.json({ token });
   } catch (error) {
-    console.error(error);
+    console.error('  ❌ Login error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });

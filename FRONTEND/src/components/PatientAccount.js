@@ -26,7 +26,7 @@ const PatientAccount = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('patientToken');
     localStorage.removeItem('patientEmail');
     window.location.href = '/'; 
   };

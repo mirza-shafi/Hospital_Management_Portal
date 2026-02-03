@@ -49,7 +49,17 @@ const PatientSignUp = () => {
     setError('');
 
     try {
-      const res = await axios.post('/api/patients/pregister', formData);
+      // Combine firstName and lastName into name field for backend
+      const registrationData = {
+        name: `${firstName} ${lastName}`,
+        email,
+        password,
+        sex,
+        dateOfBirth,
+        mobileNumber
+      };
+      
+      const res = await axios.post('/api/patients/register', registrationData);
       alert('Registration successful! Please login.');
       navigate('/patient-login');
     } catch (err) {
