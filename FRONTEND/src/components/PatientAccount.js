@@ -3,7 +3,7 @@ import axios from 'axios';
 import PatientProfile from './PatientProfile';
 import 'bulma/css/bulma.min.css';
 import './styles/PatientAccount.css';
-import { FaSignOutAlt, FaTimes, FaCog, FaChevronUp } from 'react-icons/fa';
+import { FaSignOutAlt, FaTimes, FaCog, FaChevronUp, FaHeartbeat, FaTint, FaWeight, FaPhoneAlt, FaBell, FaCalendarAlt, FaVideo, FaPrescriptionBottle } from 'react-icons/fa';
 import { Helmet } from 'react-helmet';
 
 const PatientAccount = () => {
@@ -13,6 +13,21 @@ const PatientAccount = () => {
   const [totalAppointments, setTotalAppointments] = useState(0);
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [recentPrescriptions, setRecentPrescriptions] = useState(0);
+  
+  // Health metrics (placeholder - can be fetched from backend)
+  const [healthMetrics] = useState({
+    bloodPressure: '120/80',
+    bloodSugar: '95 mg/dL',
+    weight: '70 kg',
+    lastCheckup: '15 Jan 2026'
+  });
+
+  // Notifications (placeholder)
+  const [notifications] = useState([
+    { id: 1, type: 'reminder', message: 'Take your morning medication', time: '2 hours ago' },
+    { id: 2, type: 'appointment', message: 'Upcoming appointment with Dr. Smith tomorrow', time: '1 day' },
+    { id: 3, type: 'tip', message: 'Drink 8 glasses of water daily for better health', time: '3 hours ago' }
+  ]);
 
   // Close profile menu when clicking outside
   const menuRef = useRef(null);
@@ -40,7 +55,7 @@ const PatientAccount = () => {
         const res = await axios.get(`/api/patients/pdetails/email/${email}`);
         setPatient(res.data);
 
-        // Fetch appointments count (placeholder - adjust API endpoint as needed)
+        // Fetch appointments count
         try {
           const appointmentRes = await axios.get(`/api/appointments/count/${email}`);
           setTotalAppointments(appointmentRes.data.count || 0);
@@ -49,22 +64,26 @@ const PatientAccount = () => {
           setTotalAppointments(0);
         }
 
-        // Fetch upcoming appointments (placeholder)
+        // Fetch upcoming appointments
         try {
           const upcomingRes = await axios.get(`/api/appointments/upcoming?patientEmail=${email}`);
           setUpcomingAppointments(upcomingRes.data || []);
         } catch (err) {
           console.log('Upcoming appointments endpoint not available yet');
-          setUpcomingAppointments([]);
+          // Mock data for demonstration
+          setUpcomingAppointments([
+            { _id: 1, doctorName: 'Dr. Sarah Smith', specialization: 'Cardiologist', date: '2026-02-05', timeSlot: '10:00 AM', type: 'In-person' },
+            { _id: 2, doctorName: 'Dr. John Doe', specialization: 'General Physician', date: '2026-02-08', timeSlot: '2:30 PM', type: 'Video' }
+          ]);
         }
 
-        // Fetch prescriptions count (placeholder)
+        // Fetch prescriptions count
         try {
           const prescriptionRes = await axios.get(`/api/prescriptions/count?patientEmail=${email}`);
           setRecentPrescriptions(prescriptionRes.data.count || 0);
         } catch (err) {
           console.log('Prescriptions endpoint not available yet');
-          setRecentPrescriptions(0);
+          setRecentPrescriptions(3);
         }
 
       } catch (error) {
@@ -90,24 +109,121 @@ const PatientAccount = () => {
     return `http://localhost:1002${cleanPath}?t=${new Date().getTime()}`;
   };
 
+  const getNextAppointment = () => {
+    if (upcomingAppointments.length === 0) return null;
+    return upcomingAppointments[0];
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    
+    if (date.toDateString() === today.toDateString()) return 'Today';
+    if (date.toDateString() === tomorrow.toDateString()) return 'Tomorrow';
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  };
+
   if (!patient) {
     return <div className="loading">Loading...</div>;
   }
 
+  const nextAppointment = getNextAppointment();
+
   return (
     <div className="full-background">
       <Helmet>
-        <title>Patient Account Page</title>
+        <title>Patient Dashboard - {patient.name}</title>
       </Helmet>
       <div className="patient-account-container">
         
-        {/* Simple Header */}
+        {/* Header with Welcome */}
         <div className="patient-greetings-container simple-header">
-          <h2 className="title is-3 greeting-text">Welcome, {patient.name || 'Patient'}</h2>
-          <p className="subtitle is-6">Manage your health records and appointments</p>
+          <h2 className="title is-3 greeting-text">Welcome back, {patient.name?.split(' ')[0] || 'Patient'}! 👋</h2>
+          <p className="subtitle is-6">Here's your health overview for today</p>
         </div>
 
-        {/* Dashboard Stats Cards */}
+        {/* Health Overview Section */}
+        <div className="health-overview-section fade-in">
+          <h3 className="section-title">Health Overview</h3>
+          <div className="health-metrics-grid">
+            <div className="metric-card">
+              <div className="metric-icon bp-icon">
+                <FaHeartbeat />
+              </div>
+              <div className="metric-info">
+                <span className="metric-label">Blood Pressure</span>
+                <span className="metric-value">{healthMetrics.bloodPressure}</span>
+                <span className="metric-status normal">Normal</span>
+              </div>
+            </div>
+            
+            <div className="metric-card">
+              <div className="metric-icon sugar-icon">
+                <FaTint />
+              </div>
+              <div className="metric-info">
+                <span className="metric-label">Blood Sugar</span>
+                <span className="metric-value">{healthMetrics.bloodSugar}</span>
+                <span className="metric-status normal">Normal</span>
+              </div>
+            </div>
+            
+            <div className="metric-card">
+              <div className="metric-icon weight-icon">
+                <FaWeight />
+              </div>
+              <div className="metric-info">
+                <span className="metric-label">Weight</span>
+                <span className="metric-value">{healthMetrics.weight}</span>
+                <span className="metric-status">Healthy</span>
+              </div>
+            </div>
+            
+            <div className="metric-card">
+              <div className="metric-icon checkup-icon">
+                <FaCalendarAlt />
+              </div>
+              <div className="metric-info">
+                <span className="metric-label">Last Checkup</span>
+                <span className="metric-value">{healthMetrics.lastCheckup}</span>
+                <span className="metric-status">Recent</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Next Appointment Highlight */}
+        {nextAppointment && (
+          <div className="next-appointment-highlight fade-in">
+            <div className="appointment-header">
+              <h3 className="section-title">Next Appointment</h3>
+              <span className="appointment-badge">{formatDate(nextAppointment.date)}</span>
+            </div>
+            <div className="appointment-content">
+              <div className="doctor-info">
+                <div className="doctor-avatar">
+                  {nextAppointment.doctorName.split(' ').map(n => n[0]).join('')}
+                </div>
+                <div className="doctor-details">
+                  <h4>{nextAppointment.doctorName}</h4>
+                  <p>{nextAppointment.specialization}</p>
+                </div>
+              </div>
+              <div className="appointment-time">
+                <FaCalendarAlt /> {nextAppointment.timeSlot}
+                {nextAppointment.type === 'Video' && <span className="video-badge"><FaVideo /> Video Call</span>}
+              </div>
+              <div className="appointment-actions">
+                <button className="btn-reschedule">Reschedule</button>
+                {nextAppointment.type === 'Video' && <button className="btn-join">Join Call</button>}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Quick Stats Cards */}
         <div className="stats-grid fade-in">
           <div className="dashboard-card total-appointments-card" onClick={() => setActiveModal('appointmentsInfo')}>
             <span className="icon">
@@ -121,7 +237,7 @@ const PatientAccount = () => {
             <span className="icon">
               <i className="fas fa-calendar-day"></i>
             </span>
-            <div className="dashboard-card-link">Upcoming Appointments</div>
+            <div className="dashboard-card-link">Upcoming</div>
             <p className="dashboard-card-subtext">{upcomingAppointments.length} Scheduled</p>
           </div>
           
@@ -129,71 +245,86 @@ const PatientAccount = () => {
             <span className="icon">
               <i className="fas fa-file-medical"></i>
             </span>
-            <div className="dashboard-card-link">My Prescriptions</div>
-            <p className="dashboard-card-subtext">{recentPrescriptions} Records</p>
+            <div className="dashboard-card-link">Prescriptions</div>
+            <p className="dashboard-card-subtext">{recentPrescriptions} Active</p>
           </div>
         </div>
 
-        {/* Action Cards */}
-        <div className="actions-grid fade-in">
-          <div className="dashboard-card" onClick={() => window.location.href = '/patient/appointment'}>
-            <span className="icon">
-              <i className="fas fa-calendar-plus"></i>
-            </span>
-            <div className="dashboard-card-link">Book Appointment</div>
-            <p className="dashboard-card-subtext">Schedule a new appointment</p>
-          </div>
-          
-          <div className="dashboard-card" onClick={() => window.location.href = '/view-prescription'}>
-            <span className="icon">
-              <i className="fas fa-prescription"></i>
-            </span>
-            <div className="dashboard-card-link">View Prescriptions</div>
-            <p className="dashboard-card-subtext">Access your medical prescriptions</p>
-          </div>
-          
-          <div className="dashboard-card" onClick={() => window.location.href = '/patient/healthcard'}>
-            <span className="icon">
-              <i className="fas fa-id-card"></i>
-            </span>
-            <div className="dashboard-card-link">Health Card</div>
-            <p className="dashboard-card-subtext">View your health card details</p>
-          </div>
-          
-          <div className="dashboard-card" onClick={() => window.location.href = '/patient/bookcabin'}>
-            <span className="icon">
-              <i className="fas fa-bed"></i>
-            </span>
-            <div className="dashboard-card-link">Book Cabin</div>
-            <p className="dashboard-card-subtext">Reserve a hospital cabin</p>
-          </div>
+        {/* Quick Actions */}
+        <div className="quick-actions-section fade-in">
+          <h3 className="section-title">Quick Actions</h3>
+          <div className="actions-grid">
+            <div className="dashboard-card action-card" onClick={() => window.location.href = '/patient/appointment'}>
+              <span className="icon">
+                <i className="fas fa-calendar-plus"></i>
+              </span>
+              <div className="dashboard-card-link">Book Appointment</div>
+              <p className="dashboard-card-subtext">Schedule with a doctor</p>
+            </div>
+            
+            <div className="dashboard-card action-card" onClick={() => window.location.href = '/view-prescription'}>
+              <span className="icon">
+                <i className="fas fa-prescription"></i>
+              </span>
+              <div className="dashboard-card-link">My Prescriptions</div>
+              <p className="dashboard-card-subtext">View & download</p>
+            </div>
+            
+            <div className="dashboard-card action-card" onClick={() => window.location.href = '/patient/pharmacy'}>
+              <span className="icon">
+                <i className="fas fa-capsules"></i>
+              </span>
+              <div className="dashboard-card-link">Order Medicine</div>
+              <p className="dashboard-card-subtext">From pharmacy</p>
+            </div>
+            
+            <div className="dashboard-card action-card" onClick={() => window.location.href = '/patient/healthcard'}>
+              <span className="icon">
+                <i className="fas fa-id-card"></i>
+              </span>
+              <div className="dashboard-card-link">Health Card</div>
+              <p className="dashboard-card-subtext">Digital ID card</p>
+            </div>
 
-          <div className="dashboard-card" onClick={() => window.location.href = '/patient/bookward'}>
-            <span className="icon">
-              <i className="fas fa-warehouse"></i>
-            </span>
-            <div className="dashboard-card-link">Book Ward</div>
-            <p className="dashboard-card-subtext">Reserve a hospital ward</p>
-          </div>
+            <div className="dashboard-card action-card" onClick={() => window.location.href = '/patient/testbills'}>
+              <span className="icon">
+                <i className="fas fa-file-invoice-dollar"></i>
+              </span>
+              <div className="dashboard-card-link">Bills & Payments</div>
+              <p className="dashboard-card-subtext">View billing history</p>
+            </div>
 
-          <div className="dashboard-card" onClick={() => window.location.href = '/patient/pharmacy'}>
-            <span className="icon">
-              <i className="fas fa-capsules"></i>
-            </span>
-            <div className="dashboard-card-link">Pharmacy</div>
-            <p className="dashboard-card-subtext">Browse and purchase medicines</p>
-          </div>
-
-          <div className="dashboard-card" onClick={() => window.location.href = '/patient/testbills'}>
-            <span className="icon">
-              <i className="fas fa-vial"></i>
-            </span>
-            <div className="dashboard-card-link">Test Bills</div>
-            <p className="dashboard-card-subtext">View your test billing details</p>
+            <div className="dashboard-card action-card emergency-card" onClick={() => setActiveModal('emergency')}>
+              <span className="icon">
+                <FaPhoneAlt />
+              </span>
+              <div className="dashboard-card-link">Emergency</div>
+              <p className="dashboard-card-subtext">24/7 helpline</p>
+            </div>
           </div>
         </div>
 
-        {/* Mini Profile Widget (Bottom Left) */}
+        {/* Notifications & Tips */}
+        <div className="notifications-section fade-in">
+          <h3 className="section-title"><FaBell /> Notifications & Health Tips</h3>
+          <div className="notifications-list">
+            {notifications.map(notif => (
+              <div key={notif.id} className={`notification-item ${notif.type}`}>
+                <div className="notif-icon">
+                  {notif.type === 'reminder' && <FaPrescriptionBottle />}
+                  {notif.type === 'appointment' && <FaCalendarAlt />}
+                  {notif.type === 'tip' && <FaHeartbeat />}
+                </div>
+                <div className="notif-content">
+                  <p>{notif.message}</p>
+                  <span className="notif-time">{notif.time}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Mini Profile Widget */}
         <div className="mini-profile-widget" ref={menuRef}>
           {showProfileMenu && (
             <div className="profile-menu-popup">
@@ -220,7 +351,7 @@ const PatientAccount = () => {
           </div>
         </div>
 
-        {/* Logout Confirmation Modal */}
+        {/* Modals */}
         {activeModal === 'logoutConfirmation' && (
           <div className="chart-modal" onClick={closeModal}>
             <div className="chart-modal-content logout-modal" onClick={(e) => e.stopPropagation()}>
@@ -234,18 +365,34 @@ const PatientAccount = () => {
           </div>
         )}
 
-        {/* Profile Modal */}
         {activeModal === 'profile' && <PatientProfile email={patient.email} onClose={closeModal} />}
 
-        {/* Appointments Info Modal */}
-        {activeModal === 'appointmentsInfo' && (
+        {activeModal === 'emergency' && (
           <div className="chart-modal" onClick={closeModal}>
-            <div className="chart-modal-content" onClick={(e) => e.stopPropagation()}>
-              <h3 className="chart-modal-title">Total Appointments</h3>
-              <p className="chart-modal-subtitle">Overview of your appointment history</p>
-              <div className="info-content">
-                <p>You have <strong>{totalAppointments}</strong> total appointments in your records.</p>
-                <p>To book a new appointment, click on "Book Appointment" card.</p>
+            <div className="chart-modal-content emergency-modal" onClick={(e) => e.stopPropagation()}>
+              <h3 className="chart-modal-title">Emergency Contacts</h3>
+              <div className="emergency-contacts">
+                <div className="emergency-item">
+                  <FaPhoneAlt className="emergency-icon" />
+                  <div>
+                    <h4>Ambulance</h4>
+                    <a href="tel:102" className="emergency-number">102</a>
+                  </div>
+                </div>
+                <div className="emergency-item">
+                  <FaPhoneAlt className="emergency-icon" />
+                  <div>
+                    <h4>Hospital Emergency</h4>
+                    <a href="tel:+1234567890" className="emergency-number">+123-456-7890</a>
+                  </div>
+                </div>
+                <div className="emergency-item">
+                  <FaPhoneAlt className="emergency-icon" />
+                  <div>
+                    <h4>24/7 Helpline</h4>
+                    <a href="tel:+1234567891" className="emergency-number">+123-456-7891</a>
+                  </div>
+                </div>
               </div>
               <button className="chart-modal-close" onClick={closeModal}>
                 <FaTimes />
@@ -254,7 +401,6 @@ const PatientAccount = () => {
           </div>
         )}
 
-        {/* Upcoming Appointments Modal */}
         {activeModal === 'upcomingAppointments' && (
           <div className="chart-modal" onClick={closeModal}>
             <div className="chart-modal-content" onClick={(e) => e.stopPropagation()}>
@@ -264,31 +410,16 @@ const PatientAccount = () => {
                 {upcomingAppointments.length > 0 ? (
                   upcomingAppointments.map((appointment) => (
                     <div className="appointment-card" key={appointment._id}>
-                      <p><strong>Date:</strong> {new Date(appointment.date).toLocaleDateString()}</p>
-                      <p><strong>Time:</strong> {appointment.timeSlot}</p>
                       <p><strong>Doctor:</strong> {appointment.doctorName}</p>
+                      <p><strong>Specialization:</strong> {appointment.specialization}</p>
+                      <p><strong>Date:</strong> {formatDate(appointment.date)}</p>
+                      <p><strong>Time:</strong> {appointment.timeSlot}</p>
+                      <p><strong>Type:</strong> {appointment.type}</p>
                     </div>
                   ))
                 ) : (
                   <p className="has-text-centered has-text-grey">No upcoming appointments.</p>
                 )}
-              </div>
-              <button className="chart-modal-close" onClick={closeModal}>
-                <FaTimes />
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Prescriptions Info Modal */}
-        {activeModal === 'prescriptionsInfo' && (
-          <div className="chart-modal" onClick={closeModal}>
-            <div className="chart-modal-content" onClick={(e) => e.stopPropagation()}>
-              <h3 className="chart-modal-title">My Prescriptions</h3>
-              <p className="chart-modal-subtitle">Your medical prescription records</p>
-              <div className="info-content">
-                <p>You have <strong>{recentPrescriptions}</strong> prescription records.</p>
-                <p>To view all prescriptions, click on "View Prescriptions" card.</p>
               </div>
               <button className="chart-modal-close" onClick={closeModal}>
                 <FaTimes />
