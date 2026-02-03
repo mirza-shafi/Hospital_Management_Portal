@@ -64,7 +64,6 @@ function App() {
             <Route element={<MainLayout />}>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About/>} />
-              <Route path="/pharmacy" element={<Pharmacy />} />
               <Route path="/blood-bank" element={<BloodBank />} />
               <Route path="/support" element={<SupportForm />} />
               <Route path="/doctor-signup" element={<DoctorSignUp />} />
@@ -84,19 +83,19 @@ function App() {
 
               {/* Protected Patient Routes */}
               <Route element={<ProtectedRoute type="patient" />}>
-                <Route path="/patient-account" element={<PatientAccount />} />
-                <Route path="/patient-profile" element={<PatientProfile />} />
-                <Route path="/patient-prescription" element={<PatientPrescription />} />
-                <Route path="/patient-details" element={<PatientDetails />} />
-                <Route path="/book-ward" element={<BookWard/>} />
-                <Route path="/book-cabin" element={<BookCabin/>} />
-                <Route path="/health-card" element={<HealthCard/>} />
-                <Route path="/admission-bill" element={<AdmissionBill/>} />
-                <Route path="/test-bill" element={<TestBill/>} />
-                <Route path="/medicine-bill" element={<MedicineBill/>} />
-                <Route path="/buy-medicine" element={<BuyMedicine />} />
-                <Route path="/appointment-form" element={<AppointmentForm/>} />
-                <Route path="/appointment-details" element={<AppointmentDetails/>} />
+                <Route path="/patient" element={<PatientAccount />} />
+                <Route path="/patient/profile" element={<PatientProfile />} />
+                <Route path="/patient/prescription" element={<PatientPrescription />} />
+                <Route path="/patient/details" element={<PatientDetails />} />
+                <Route path="/patient/bookward" element={<BookWard/>} />
+                <Route path="/patient/bookcabin" element={<BookCabin/>} />
+                <Route path="/patient/healthcard" element={<HealthCard/>} />
+                <Route path="/patient/admission-bill" element={<AdmissionBill/>} />
+                <Route path="/patient/testbills" element={<TestBill/>} />
+                <Route path="/patient/medicine-bill" element={<MedicineBill/>} />
+                <Route path="/patient/pharmacy" element={<Pharmacy />} />
+                <Route path="/patient/appointment" element={<AppointmentForm/>} />
+                <Route path="/patient/appointment-details" element={<AppointmentDetails/>} />
               </Route>
 
               {/* Other Public Routes */}

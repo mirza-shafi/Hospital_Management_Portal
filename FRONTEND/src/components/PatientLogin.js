@@ -38,7 +38,7 @@ const PatientLogin = () => {
       if (res.data.token) {
         localStorage.setItem('patientToken', res.data.token);
         localStorage.setItem('patientEmail', email);
-        navigate('/patient-account');
+        navigate('/patient');
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
