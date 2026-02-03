@@ -42,7 +42,10 @@ const patientSchema = new mongoose.Schema({
   weight: { type: String, default: '--' },
   bloodPressure: { type: String, default: '--' },
   bloodSugar: { type: String, default: '--' },
-  lastCheckup: { type: Date }
+  lastCheckup: { type: Date },
+  // Settings
+  theme: { type: String, default: 'light' },
+  profilePicture: { type: String }
 }, {
   timestamps: true
 });

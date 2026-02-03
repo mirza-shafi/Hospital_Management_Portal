@@ -2,6 +2,8 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const Patient = require('../models/Patient');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const path = require('path');
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET; 
 const validateRegistration = require('../middleware/registrationValidator');
@@ -209,7 +211,117 @@ router.get('/pdetails/search', async (req, res) => {
     res.json(patients);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Update Theme
+router.put('/update-theme', async (req, res) => {
+  try {
+    const { email, theme } = req.body;
+    const patient = await Patient.findOneAndUpdate({ email }, { theme }, { new: true });
+    if (!patient) return res.status(404).json({ message: 'Patient not found' });
+    res.json({ message: 'Theme updated', theme: patient.theme });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Change Password
+router.put('/change-password', async (req, res) => {
+  try {
+    const { email, currentPassword, newPassword } = req.body;
+    const patient = await Patient.findOne({ email });
+    if (!patient) return res.status(404).json({ message: 'Patient not found' });
+
+    // Verify current password
+    const isMatch = await bcrypt.compare(currentPassword, patient.password);
+    if (!isMatch) return res.status(400).json({ message: 'Incorrect current password' });
+
+    // Hash new password
+    const salt = await bcrypt.genSalt(10);
+    patient.password = await bcrypt.hash(newPassword, salt);
+    await patient.save();
+
+    res.json({ message: 'Password updated successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Delete Account
+router.delete('/delete-account', async (req, res) => {
+  try {
+    const { email, password } = req.body; // Require password for deletion
+    const patient = await Patient.findOne({ email });
+    if (!patient) return res.status(404).json({ message: 'Patient not found' });
+
+    // Verify password before deletion
+    const isMatch = await bcrypt.compare(password, patient.password);
+    if (!isMatch) return res.status(400).json({ message: 'Incorrect password' });
+
+    await Patient.findOneAndDelete({ email });
+    res.json({ message: 'Account deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Multer setup for patient profile pictures
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+      cb(null, 'uploads/patients'); 
+  },
+  filename: function (req, file, cb) {
+      cb(null, `${Date.now()}-${file.originalname}`);
+  }
+});
+const upload = multer({ storage: storage });
+
+// Route to upload profile picture
+router.post('/upload-profile-picture', upload.single('profilePicture'), async (req, res) => {
+  try {
+      const { email } = req.body;
+      const patient = await Patient.findOne({ email });
+      if (!patient) return res.status(404).json({ message: 'Patient not found' });
+
+      // Update patient profile picture URL
+      patient.profilePicture = `/uploads/patients/${req.file.filename}`;
+      await patient.save();
+
+      res.json({ profilePicture: patient.profilePicture });
+  } catch (error) {
+      console.error('Error uploading profile picture:', error);
+      res.status(500).json({ message: 'Failed to upload profile picture.' });
+  }
+});
+
+// Multer setup for patient profile pictures
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+      cb(null, 'uploads/patients'); 
+  },
+  filename: function (req, file, cb) {
+      cb(null, `${Date.now()}-${file.originalname}`);
+  }
+});
+const upload = multer({ storage: storage });
+
+// Route to upload profile picture
+router.post('/upload-profile-picture', upload.single('profilePicture'), async (req, res) => {
+  try {
+      const { email } = req.body;
+      const patient = await Patient.findOne({ email });
+      if (!patient) return res.status(404).json({ message: 'Patient not found' });
+
+      // Update patient profile picture URL
+      patient.profilePicture = `/uploads/patients/${req.file.filename}`;
+      await patient.save();
+
+      res.json({ profilePicture: patient.profilePicture });
+  } catch (error) {
+      console.error('Error uploading profile picture:', error);
+      res.status(500).json({ message: 'Failed to upload profile picture.' });
   }
 });
 

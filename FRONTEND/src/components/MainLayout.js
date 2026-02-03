@@ -4,7 +4,8 @@ import NavbarComponent from './Navbar';
 
 const MainLayout = () => {
   const location = useLocation();
-  const hideNavbar = location.pathname === '/doctor-account';
+  // Hide navbar for doctor-account AND all patient pages
+  const hideNavbar = location.pathname === '/doctor-account' || location.pathname.startsWith('/patient');
 
   return (
     <>
