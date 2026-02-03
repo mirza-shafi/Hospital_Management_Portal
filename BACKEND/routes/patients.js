@@ -296,33 +296,4 @@ router.post('/upload-profile-picture', upload.single('profilePicture'), async (r
   }
 });
 
-// Multer setup for patient profile pictures
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-      cb(null, 'uploads/patients'); 
-  },
-  filename: function (req, file, cb) {
-      cb(null, `${Date.now()}-${file.originalname}`);
-  }
-});
-const upload = multer({ storage: storage });
-
-// Route to upload profile picture
-router.post('/upload-profile-picture', upload.single('profilePicture'), async (req, res) => {
-  try {
-      const { email } = req.body;
-      const patient = await Patient.findOne({ email });
-      if (!patient) return res.status(404).json({ message: 'Patient not found' });
-
-      // Update patient profile picture URL
-      patient.profilePicture = `/uploads/patients/${req.file.filename}`;
-      await patient.save();
-
-      res.json({ profilePicture: patient.profilePicture });
-  } catch (error) {
-      console.error('Error uploading profile picture:', error);
-      res.status(500).json({ message: 'Failed to upload profile picture.' });
-  }
-});
-
 module.exports = router;
