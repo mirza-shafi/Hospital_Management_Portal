@@ -18,11 +18,16 @@ const JWT_SECRET = process.env.JWT_SECRET;
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
+  console.log('Admin login attempt with username:', username);
+  console.log('Expected username:', adminCredentials.username);
+  
   if (username === adminCredentials.username && password === adminCredentials.password) {
     // Generate a JWT token
     const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '1h' });
+    console.log('Admin login successful for:', username);
     res.json({ message: 'Login successful', token });
   } else {
+    console.log('Admin login failed - invalid credentials');
     res.status(401).json({ message: 'Invalid credentials' });
   }
 });

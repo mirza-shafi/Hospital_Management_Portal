@@ -4,9 +4,16 @@ const Patient = require('../models/Patient');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET; 
 const validateRegistration = require('../middleware/registrationValidator');
+
+// Ensure uploads/patients directory exists
+const uploadDir = path.join(__dirname, '../uploads/patients');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 // Register Patient
 router.post('/register', validateRegistration, async (req, res) => {
@@ -281,6 +288,10 @@ const upload = multer({ storage: storage });
 // Route to upload profile picture
 router.post('/upload-profile-picture', upload.single('profilePicture'), async (req, res) => {
   try {
+      if (!req.file) {
+          return res.status(400).json({ message: 'No file uploaded' });
+      }
+
       const { email } = req.body;
       const patient = await Patient.findOne({ email });
       if (!patient) return res.status(404).json({ message: 'Patient not found' });
@@ -292,7 +303,7 @@ router.post('/upload-profile-picture', upload.single('profilePicture'), async (r
       res.json({ profilePicture: patient.profilePicture });
   } catch (error) {
       console.error('Error uploading profile picture:', error);
-      res.status(500).json({ message: 'Failed to upload profile picture.' });
+      res.status(500).json({ message: 'Failed to upload profile picture.', error: error.message });
   }
 });
 

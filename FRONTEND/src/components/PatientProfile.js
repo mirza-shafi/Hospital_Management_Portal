@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import api from '../api/config';
 import './styles/PatientProfile.css';
 import { 
   FaCamera, FaTimes, FaUser, FaLock, FaBell, FaPalette, FaShieldAlt, 
@@ -20,7 +20,7 @@ const useTheme = () => {
   return { theme, setTheme: toggleTheme };
 };
 
-const PatientProfile = ({ email, onClose }) => {
+const PatientProfile = ({ email, onClose, onProfileUpdate }) => {
   const { theme, setTheme } = useTheme();
   const [view, setView] = useState('dashboard'); 
   const [showSuccess, setShowSuccess] = useState(false); // New state for popup
@@ -53,11 +53,11 @@ const PatientProfile = ({ email, onClose }) => {
   useEffect(() => {
     const fetchPatientDetails = async () => {
       try {
-        const res = await axios.get(`/api/patients/pdetails/email/${email}`);
+        const res = await api.get(`/patients/pdetails/email/${email}`);
         setFormData(res.data);
         if (res.data.profilePicture) {
             const isAbsolute = res.data.profilePicture.startsWith('http');
-            setImagePreview(isAbsolute ? res.data.profilePicture : `${axios.defaults.baseURL || 'http://localhost:1002'}${res.data.profilePicture}`);
+            setImagePreview(isAbsolute ? res.data.profilePicture : `http://localhost:1002${res.data.profilePicture}`);
         } else {
             setImagePreview('https://ui-avatars.com/api/?name=' + (res.data.name || 'User') + '&background=random');
         }
@@ -70,30 +70,43 @@ const PatientProfile = ({ email, onClose }) => {
     fetchPatientDetails();
   }, [email]);
 
-  const handleFileChange = async (e) => {
+  const [profilePictureFile, setProfilePictureFile] = useState(null);
+  const handleFileChange = (e) => {
     const file = e.target.files[0];
-    if (!file) return;
+    if (file) {
+      setProfilePictureFile(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
 
-    // Create local preview
-    setImagePreview(URL.createObjectURL(file));
+  const handleSaveProfilePicture = async () => {
+    if (!profilePictureFile) {
+      setError('Please select an image first');
+      return;
+    }
 
-    // Upload immediately
     const uploadData = new FormData();
-    uploadData.append('profilePicture', file);
+    uploadData.append('profilePicture', profilePictureFile);
     uploadData.append('email', email);
 
     try {
-        const res = await axios.post('/api/patients/upload-profile-picture', uploadData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-        });
-        // Update processed URL from server
-        const isAbsolute = res.data.profilePicture.startsWith('http');
-        setImagePreview(isAbsolute ? res.data.profilePicture : `${axios.defaults.baseURL || 'http://localhost:1002'}${res.data.profilePicture}`);
-        setMessage('Profile picture updated!');
-        setTimeout(() => setMessage(''), 3000);
+      console.log('Uploading profile picture for:', email);
+      const res = await api.post('/patients/upload-profile-picture', uploadData);
+      
+      console.log('Upload successful:', res.data);
+      const isAbsolute = res.data.profilePicture.startsWith('http');
+      setImagePreview(isAbsolute ? res.data.profilePicture : `http://localhost:1002${res.data.profilePicture}`);
+      setProfilePictureFile(null);
+      
+      setMessage('Profile picture saved successfully!');
+      setError('');
+      setTimeout(() => setMessage(''), 3000);
     } catch (err) {
-        console.error(err);
-        setError('Failed to upload image');
+      console.error('Profile picture upload error:', err);
+      console.error('Error status:', err.response?.status);
+      console.error('Error response:', err.response?.data);
+      setError(err.response?.data?.message || 'Failed to save profile picture');
+      setMessage('');
     }
   };
 
@@ -110,7 +123,7 @@ const PatientProfile = ({ email, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put('/api/patients/pupdate', { email, ...formData });
+      await api.put('/patients/pupdate', { email, ...formData });
       
       // Show Custom Popup
       setShowSuccess(true);
@@ -119,6 +132,10 @@ const PatientProfile = ({ email, onClose }) => {
       // Auto hide after 2 seconds
       setTimeout(() => {
         setShowSuccess(false);
+        // Trigger parent refresh
+        if (onProfileUpdate) {
+          onProfileUpdate();
+        }
         // Optional: switch back to dashboard or reload 
         // window.location.reload(); 
       }, 2000);
@@ -190,24 +207,19 @@ const PatientProfile = ({ email, onClose }) => {
         {/* Profile Summary */}
         <div className="settings-group profile-group">
             <div className="profile-row">
-                <div className="profile-avatar-wrapper" style={{position: 'relative', cursor: 'pointer'}} onClick={() => fileInputRef.current.click()}>
-                    <img src={imagePreview} alt="Profile" className="profile-avatar-small" />
-                    <div className="avatar-overlay">
-                        <FaCamera />
-                    </div>
-                </div>
-                <input 
-                    type="file" 
-                    ref={fileInputRef} 
-                    onChange={handleFileChange} 
-                    style={{display: 'none'}} 
-                    accept="image/*"
-                />
+                <img src={imagePreview} alt="Profile" className="profile-avatar-small" />
                 <div className="profile-info-compact">
                     <h3>{formData.name}</h3>
                     <p>{email}</p>
                 </div>
             </div>
+            <input 
+                type="file" 
+                ref={fileInputRef} 
+                onChange={handleFileChange} 
+                style={{display: 'none'}} 
+                accept="image/*"
+            />
         </div>
 
         {/* Account Settings Group */}
@@ -276,6 +288,64 @@ const PatientProfile = ({ email, onClose }) => {
           <div className="sub-header compact-header">
               <button onClick={() => setView('dashboard')} className="back-btn"><FaArrowLeft /> Back</button>
               <h2>Edit Profile & Health</h2>
+          </div>
+          
+          {/* Profile Picture Section */}
+          <div className="settings-group compact-form-section">
+              <div className="group-title">Profile Picture</div>
+              <div style={{ padding: '20px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '15px' }}>
+                  <img 
+                      src={imagePreview} 
+                      alt="Profile" 
+                      style={{ width: '100px', height: '100px', borderRadius: '50%', objectFit: 'cover', border: '3px solid #e2e8f0' }}
+                      onError={(e) => e.target.src = 'https://ui-avatars.com/api/?name=Patient&background=random'}
+                  />
+                  <input 
+                      type="file" 
+                      ref={fileInputRef} 
+                      onChange={handleFileChange} 
+                      style={{display: 'none'}} 
+                      accept="image/*"
+                  />
+                  <div style={{ display: 'flex', gap: '10px', width: '100%', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
+                      <button 
+                          type="button"
+                          onClick={() => fileInputRef.current.click()}
+                          style={{
+                              padding: '10px 20px',
+                              background: '#3b82f6',
+                              color: 'white',
+                              border: 'none',
+                              borderRadius: '8px',
+                              cursor: 'pointer',
+                              fontWeight: '600',
+                              fontSize: '0.9rem'
+                          }}
+                      >
+                          <FaCamera style={{ marginRight: '5px' }} /> Change
+                      </button>
+                      <button 
+                          type="button"
+                          onClick={handleSaveProfilePicture}
+                          disabled={!profilePictureFile}
+                          style={{
+                              padding: '10px 20px',
+                              background: profilePictureFile ? '#10b981' : '#cbd5e1',
+                              color: 'white',
+                              border: 'none',
+                              borderRadius: '8px',
+                              cursor: profilePictureFile ? 'pointer' : 'not-allowed',
+                              fontWeight: '600',
+                              fontSize: '0.9rem'
+                          }}
+                      >
+                          Save Picture
+                      </button>
+                      {message && <p style={{ color: '#10b981', fontSize: '0.85rem', margin: '0 0 0 10px', whiteSpace: 'nowrap' }}>{message}</p>}
+                      {error && <p style={{ color: '#ef4444', fontSize: '0.85rem', margin: '0 0 0 10px', whiteSpace: 'nowrap' }}>{error}</p>}
+                  </div>
+                  {profilePictureFile && !message && !error && <p style={{ color: '#10b981', fontSize: '0.85rem', marginTop: '10px' }}>New image selected - Click Save to confirm</p>}
+              </div>
           </div>
           
           <form onSubmit={handleSubmit} className="compact-form">

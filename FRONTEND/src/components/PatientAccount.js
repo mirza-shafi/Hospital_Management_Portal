@@ -13,6 +13,7 @@ const PatientAccount = () => {
   const [totalAppointments, setTotalAppointments] = useState(0);
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [recentPrescriptions, setRecentPrescriptions] = useState(0);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
   
   // Health metrics
   const [healthMetrics, setHealthMetrics] = useState({
@@ -119,7 +120,7 @@ const PatientAccount = () => {
     };
 
     fetchPatientDetails();
-  }, []);
+  }, [refreshTrigger]);
   
   // Helper to format time ago
   const formatTimeAgo = (dateString) => {
@@ -180,7 +181,7 @@ const PatientAccount = () => {
         {/* Header with Welcome */}
         <div className="patient-greetings-container simple-header">
           <h2 className="title is-3 greeting-text">Welcome back, {patient.name?.split(' ')[0] || 'Patient'}! 👋</h2>
-          <p className="subtitle is-6">Here's your health overview for today</p>
+          
         </div>
 
         {/* Health Overview Section */}
@@ -404,7 +405,7 @@ const PatientAccount = () => {
           </div>
         )}
 
-        {activeModal === 'profile' && <PatientProfile email={patient.email} onClose={closeModal} />}
+        {activeModal === 'profile' && <PatientProfile email={patient.email} onClose={closeModal} onProfileUpdate={() => setRefreshTrigger(prev => prev + 1)} />}
 
         {activeModal === 'emergency' && (
           <div className="chart-modal" onClick={closeModal}>

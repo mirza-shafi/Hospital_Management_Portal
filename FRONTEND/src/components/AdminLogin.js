@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api/config';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Helmet } from 'react-helmet';
@@ -14,13 +14,22 @@ const AdminLogin = () => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    if (!username || !password) {
+      setError('Please enter both username and password.');
+      return;
+    }
+
     try {
-      const res = await axios.post('/api/admin/login', { username, password });
+      console.log('Attempting login with username:', username);
+      const res = await api.post('/admin/login', { username, password });
+      console.log('Login successful:', res.data);
       localStorage.setItem('adminToken', res.data.token);
       setError('');
       navigate('/admin-dashboard');
     } catch (err) {
-      setError('Invalid username or password.');
+      console.error('Login error:', err);
+      console.error('Error response:', err.response?.data);
+      setError(err.response?.data?.message || 'Invalid username or password.');
     }
   };
 

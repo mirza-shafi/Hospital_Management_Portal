@@ -12,6 +12,10 @@ const api = axios.create({
 // Request interceptor with more detailed logging
 api.interceptors.request.use(
     (config) => {
+        // Don't override Content-Type for FormData (file uploads)
+        if (config.data instanceof FormData) {
+            delete config.headers['Content-Type'];
+        }
         console.log('API Request:', {
             method: config.method?.toUpperCase(),
             url: `${config.baseURL}${config.url}`,
