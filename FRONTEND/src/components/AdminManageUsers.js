@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../api/config';
 import AdminLayout from './AdminLayout';
 import PatientDetailsSheet from './PatientDetailsSheet';
+import SuccessNotification from './SuccessNotification';
 import { FaFilter, FaFileExport, FaCog, FaEllipsisH, FaSearch, FaUserPlus, FaChevronRight, FaTimes } from 'react-icons/fa';
 import { Helmet } from 'react-helmet';
 
@@ -14,6 +15,9 @@ const AdminManageUsers = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [showAddForm, setShowAddForm] = useState(false);
     const [editingPatient, setEditingPatient] = useState(null);
+    const [showSuccessNotification, setShowSuccessNotification] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+    const [successPatientName, setSuccessPatientName] = useState('');
     const [newPatient, setNewPatient] = useState({ 
         firstName: '', 
         lastName: '', 
@@ -45,13 +49,17 @@ const AdminManageUsers = () => {
         e.preventDefault();
         setLoading(true);
         try {
+            const fullName = `${newPatient.firstName} ${newPatient.lastName}`;
             if (editingPatient) {
                 await api.put(`/admin/patients/${editingPatient._id}`, newPatient);
-                alert('Patient updated successfully!');
+                setSuccessMessage('Patient updated successfully!');
+                setSuccessPatientName(fullName);
             } else {
                 await api.post('/admin/patients', newPatient);
-                alert('Patient added successfully!');
+                setSuccessMessage('Patient created successfully!');
+                setSuccessPatientName(fullName);
             }
+            setShowSuccessNotification(true);
             setShowAddForm(false);
             setEditingPatient(null);
             setNewPatient({ 
@@ -336,6 +344,15 @@ const AdminManageUsers = () => {
                     onClose={() => setSelectedPatient(null)} 
                 />
             )}
+
+            {/* Success Notification Popup */}
+            <SuccessNotification 
+                show={showSuccessNotification}
+                message={successMessage}
+                patientName={successPatientName}
+                onClose={() => setShowSuccessNotification(false)}
+                duration={4000}
+            />
         </AdminLayout>
     );
 };

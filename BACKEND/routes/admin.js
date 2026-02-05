@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const Admin = require('../models/Admin');
 const Doctor = require('../models/Doctor');
 const Patient = require('../models/Patient');
@@ -90,8 +91,11 @@ router.get('/patients', async (req, res) => {
 router.post('/doctors', async (req, res) => {
   const { firstName, lastName, email, sex, dateOfBirth, mobileNumber, password } = req.body;
   try {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
     const newDoctor = new Doctor({
-      firstName, lastName, email, sex, dateOfBirth, mobileNumber, password
+      firstName, lastName, email, sex, dateOfBirth, mobileNumber, password: hashedPassword
     });
     await newDoctor.save();
     res.status(201).json(newDoctor);
@@ -113,9 +117,12 @@ router.post('/patients', async (req, res) => {
   }
 
   try {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
     const newPatient = new Patient({
       name: fullName, 
-      email, sex, dateOfBirth, mobileNumber, password
+      email, sex, dateOfBirth, mobileNumber, password: hashedPassword
     });
     await newPatient.save();
     res.status(201).json(newPatient);
@@ -159,6 +166,12 @@ router.put('/patients/:id', async (req, res) => {
         const lName = lastName !== undefined ? lastName : (existingPatient.name?.split(' ').slice(1).join(' ') || '');
         updateData.name = `${fName} ${lName}`.trim();
       }
+    }
+
+    // Hash password if it's being updated
+    if (updateData.password) {
+      const salt = await bcrypt.genSalt(10);
+      updateData.password = await bcrypt.hash(updateData.password, salt);
     }
 
     const patient = await Patient.findByIdAndUpdate(id, updateData, { new: true });

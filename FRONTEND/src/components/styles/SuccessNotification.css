@@ -1,0 +1,160 @@
+.success-notification-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.success-notification-popup {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+  border-radius: 20px;
+  padding: 40px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  position: relative;
+  animation: popupSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: all;
+  border: 2px solid #e8f4ff;
+}
+
+@keyframes popupSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #9ca3af;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.notification-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  color: white;
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+  animation: iconPulse 0.6s ease-out;
+}
+
+@keyframes iconPulse {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.notification-content {
+  text-align: center;
+}
+
+.notification-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 12px 0;
+}
+
+.notification-message {
+  font-size: 15px;
+  color: #6b7280;
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
+.patient-name {
+  font-size: 14px;
+  color: #059669;
+  background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin: 0;
+  border-left: 4px solid #10b981;
+}
+
+.patient-name strong {
+  font-weight: 600;
+  color: #047857;
+}
+
+.notification-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #059669);
+  border-radius: 0 0 20px 20px;
+  animation: progress 4000ms linear forwards;
+}
+
+@keyframes progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .success-notification-popup {
+    padding: 32px 24px;
+    max-width: 95%;
+  }
+
+  .notification-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 35px;
+  }
+
+  .notification-title {
+    font-size: 20px;
+  }
+
+  .notification-message {
+    font-size: 14px;
+  }
+}
