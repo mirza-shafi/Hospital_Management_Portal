@@ -21,14 +21,31 @@ router.post('/login', async (req, res) => {
   console.log('Admin login attempt with username:', username);
   console.log('Expected username:', adminCredentials.username);
   
-  if (username === adminCredentials.username && password === adminCredentials.password) {
-    // Generate a JWT token
-    const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '1h' });
-    console.log('Admin login successful for:', username);
-    res.json({ message: 'Login successful', token });
-  } else {
-    console.log('Admin login failed - invalid credentials');
-    res.status(401).json({ message: 'Invalid credentials' });
+  try {
+    // 1. Check Database First
+    const admin = await Admin.findOne({ username });
+    
+    if (admin) {
+        // In a real app, compare hashed passwords here (e.g., bcrypt.compare)
+        if (admin.password === password) {
+             const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '1h' });
+             console.log('Admin login successful (DB) for:', username);
+             return res.json({ message: 'Login successful', token });
+        }
+    }
+
+    // 2. Fallback to Environment Custom Variables (Legacy/Backup)
+    if (username === adminCredentials.username && password === adminCredentials.password) {
+      const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '1h' });
+      console.log('Admin login successful (Env) for:', username);
+      res.json({ message: 'Login successful', token });
+    } else {
+      console.log('Admin login failed - invalid credentials');
+      res.status(401).json({ message: 'Invalid credentials' });
+    }
+  } catch (error) {
+    console.error('Admin login error:', error);
+    res.status(500).json({ message: 'Server error during login' });
   }
 });
 
