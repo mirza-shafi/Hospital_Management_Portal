@@ -94,11 +94,11 @@ const AdminManagePharmacy = () => {
             </Helmet>
 
             <div className="flex items-center justify-between mb-8">
-                <div className="flex bg-white p-1 rounded-xl border border-gray-200 shadow-sm">
+            <div className="flex bg-white dark:bg-zinc-900 p-1 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm">
                     <button 
                         onClick={() => setViewMode('inventory')}
                         className={`flex items-center gap-2 px-6 py-2.5 rounded-lg font-semibold transition-all ${
-                            viewMode === 'inventory' ? 'bg-indigo-600 text-white shadow-md' : 'text-gray-500 hover:bg-gray-50'
+                            viewMode === 'inventory' ? 'bg-indigo-600 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800'
                         }`}
                     >
                         <FaCapsules /> Inventory Registry
@@ -106,7 +106,7 @@ const AdminManagePharmacy = () => {
                     <button 
                         onClick={() => setViewMode('add')}
                         className={`flex items-center gap-2 px-6 py-2.5 rounded-lg font-semibold transition-all ${
-                            viewMode === 'add' ? 'bg-indigo-600 text-white shadow-md' : 'text-gray-500 hover:bg-gray-50'
+                            viewMode === 'add' ? 'bg-indigo-600 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800'
                         }`}
                     >
                         <FaPlus /> Add New Drug
@@ -121,7 +121,7 @@ const AdminManagePharmacy = () => {
                         <input 
                             type="text" 
                             placeholder="Search by brand or generic name..." 
-                            className="w-full pl-9 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                            className="w-full pl-9 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:text-gray-200 font-sans"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -130,10 +130,10 @@ const AdminManagePharmacy = () => {
             </div>
 
             {viewMode === 'inventory' ? (
-                <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                <div className="bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm overflow-hidden">
                     <div className="overflow-x-auto min-h-[400px]">
                         <table className="w-full text-left">
-                            <thead className="bg-gray-50 border-b border-gray-100 text-xs font-bold text-gray-500 uppercase tracking-widest">
+                            <thead className="bg-gray-50 dark:bg-zinc-800/10 border-b border-gray-100 dark:border-zinc-800 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
                                 <tr>
                                     <th className="p-4">Drug Information</th>
                                     <th className="p-4">Composition</th>
@@ -142,32 +142,32 @@ const AdminManagePharmacy = () => {
                                     <th className="p-4 text-right">Action</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-100">
+                            <tbody className="divide-y divide-gray-100 dark:divide-zinc-800">
                                 {loading ? (
                                     <tr><td colSpan="5" className="p-12 text-center text-gray-400">Loading supply chain data...</td></tr>
                                 ) : filteredMedicines.length === 0 ? (
                                     <tr><td colSpan="5" className="p-12 text-center text-gray-400">Nomenclature not found.</td></tr>
                                 ) : (
                                     filteredMedicines.map((m) => (
-                                        <tr key={m._id} className="hover:bg-indigo-50/30 transition-colors group">
+                                        <tr key={m._id} className="hover:bg-indigo-50/30 dark:hover:bg-indigo-900/10 transition-colors border-b border-gray-100 dark:border-zinc-800 group">
                                             <td className="p-4">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden border border-gray-200">
-                                                        {m.image ? <img src={`${m.image}`} className="w-full h-full object-cover" /> : <FaCapsules className="text-gray-300" />}
+                                                    <div className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-zinc-800 flex items-center justify-center overflow-hidden border border-gray-200 dark:border-zinc-700">
+                                                        {m.image ? <img src={`${m.image}`} className="w-full h-full object-cover" /> : <FaCapsules className="text-gray-300 dark:text-gray-600" />}
                                                     </div>
                                                     <div>
-                                                        <div className="font-bold text-gray-900">{m.name}</div>
-                                                        <div className="text-[10px] text-gray-400 uppercase tracking-tight">{m.manufacturer}</div>
+                                                        <div className="font-bold text-gray-900 dark:text-gray-100">{m.name}</div>
+                                                        <div className="text-[10px] text-gray-400 dark:text-gray-500 uppercase tracking-tight">{m.manufacturer}</div>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td className="p-4">
-                                                <div className="text-sm font-medium text-gray-700">{m.genericName}</div>
-                                                <div className="text-xs text-gray-500">{m.strength} | {m.dosageForm}</div>
+                                                <div className="text-sm font-medium text-gray-700 dark:text-gray-300">{m.genericName}</div>
+                                                <div className="text-xs text-gray-500 dark:text-gray-400">{m.strength} | {m.dosageForm}</div>
                                             </td>
                                             <td className="p-4">
-                                                <div className="font-bold text-gray-900">৳{m.price}</div>
-                                                <div className="text-[10px] text-gray-500">MRPT per Strip</div>
+                                                <div className="font-bold text-gray-900 dark:text-gray-100">৳{m.price}</div>
+                                                <div className="text-[10px] text-gray-500 dark:text-gray-400">MRPT per Strip</div>
                                             </td>
                                             <td className="p-4">
                                                 <div className={`text-lg font-black ${m.strip < 10 ? 'text-red-600' : 'text-indigo-600'}`}>
@@ -177,10 +177,10 @@ const AdminManagePharmacy = () => {
                                             </td>
                                             <td className="p-4 text-right">
                                                 <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all">
-                                                    <button onClick={() => handleStockUpdate(m._id, m.strip)} className="p-2 hover:bg-indigo-100 rounded-lg text-indigo-600 title='Update Stock'">
+                                                    <button onClick={() => handleStockUpdate(m._id, m.strip)} className="p-2 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 rounded-lg text-indigo-600 dark:text-indigo-400 title='Update Stock'">
                                                         <FaSyncAlt className="text-sm" />
                                                     </button>
-                                                    <button className="p-2 hover:bg-red-100 rounded-lg text-red-600 title='Delete'">
+                                                    <button className="p-2 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-lg text-red-600 dark:text-red-400 title='Delete'">
                                                         <FaTrashAlt className="text-sm" />
                                                     </button>
                                                 </div>
@@ -193,47 +193,47 @@ const AdminManagePharmacy = () => {
                     </div>
                 </div>
             ) : (
-                <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 max-w-4xl mx-auto">
+                <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-200 dark:border-zinc-800 shadow-sm p-8 max-w-4xl mx-auto">
                     <form onSubmit={handleAddMedicine} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 mb-1">DRUG NAME</label>
-                                <input name="name" value={formData.name} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500/20" required />
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">DRUG NAME</label>
+                                <input name="name" value={formData.name} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-indigo-500/20 dark:text-gray-200 font-sans" required />
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 mb-1">GENERIC NAME</label>
-                                <input name="genericName" value={formData.genericName} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500/20" required />
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">GENERIC NAME</label>
+                                <input name="genericName" value={formData.genericName} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-indigo-500/20 dark:text-gray-200 font-sans" required />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-bold text-gray-500 mb-1">STRENGTH</label>
-                                    <input placeholder="e.g. 500mg" name="strength" value={formData.strength} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg" required />
+                                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">STRENGTH</label>
+                                    <input placeholder="e.g. 500mg" name="strength" value={formData.strength} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg dark:text-gray-200 font-sans" required />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-gray-500 mb-1">DOSAGE FORM</label>
-                                    <input placeholder="e.g. Tablet" name="dosageForm" value={formData.dosageForm} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg" required />
+                                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">DOSAGE FORM</label>
+                                    <input placeholder="e.g. Tablet" name="dosageForm" value={formData.dosageForm} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg dark:text-gray-200 font-sans" required />
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 mb-1">MANUFACTURER</label>
-                                <input name="manufacturer" value={formData.manufacturer} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg" required />
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">MANUFACTURER</label>
+                                <input name="manufacturer" value={formData.manufacturer} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg dark:text-gray-200 font-sans" required />
                             </div>
                         </div>
 
                         <div className="space-y-4">
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-bold text-gray-500 mb-1">UNIT PRICE (৳)</label>
-                                    <input type="number" name="price" value={formData.price} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg" required />
+                                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">UNIT PRICE (৳)</label>
+                                    <input type="number" name="price" value={formData.price} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg dark:text-gray-200 font-sans" required />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-gray-500 mb-1">INITIAL STOCK</label>
-                                    <input type="number" name="strip" value={formData.strip} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg" required />
+                                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">INITIAL STOCK</label>
+                                    <input type="number" name="strip" value={formData.strip} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg dark:text-gray-200 font-sans" required />
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 mb-1">PRODUCT IMAGE</label>
-                                <div className="border-2 border-dashed border-gray-200 rounded-xl p-4 flex flex-col items-center justify-center gap-2 hover:border-indigo-300 transition-all cursor-pointer relative overflow-hidden h-32">
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">PRODUCT IMAGE</label>
+                                <div className="border-2 border-dashed border-gray-200 dark:border-zinc-700 rounded-xl p-4 flex flex-col items-center justify-center gap-2 hover:border-indigo-300 dark:hover:border-indigo-500 transition-all cursor-pointer relative overflow-hidden h-32">
                                     {imagePreview ? (
                                         <img src={imagePreview} className="absolute inset-0 w-full h-full object-contain" />
                                     ) : (
@@ -246,8 +246,8 @@ const AdminManagePharmacy = () => {
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 mb-1">DESCRIPTION</label>
-                                <textarea name="description" value={formData.description} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg h-24 resize-none"></textarea>
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">DESCRIPTION</label>
+                                <textarea name="description" value={formData.description} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg h-24 resize-none dark:text-gray-200 font-sans"></textarea>
                             </div>
                         </div>
 

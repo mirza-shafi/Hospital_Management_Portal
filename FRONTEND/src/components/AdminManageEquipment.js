@@ -78,11 +78,11 @@ const AdminManageEquipment = () => {
             </Helmet>
 
             <div className="flex items-center justify-between mb-8">
-                <div className="flex bg-white p-1 rounded-xl border border-gray-200 shadow-sm">
+            <div className="flex bg-white dark:bg-zinc-900 p-1 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm">
                     <button 
                         onClick={() => setViewMode('list')}
                         className={`flex items-center gap-2 px-6 py-2.5 rounded-lg font-semibold transition-all ${
-                            viewMode === 'list' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-500 hover:bg-gray-50'
+                            viewMode === 'list' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800'
                         }`}
                     >
                         <FaTools /> Asset Registry
@@ -90,7 +90,7 @@ const AdminManageEquipment = () => {
                     <button 
                         onClick={() => setViewMode('add')}
                         className={`flex items-center gap-2 px-6 py-2.5 rounded-lg font-semibold transition-all ${
-                            viewMode === 'add' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-500 hover:bg-gray-50'
+                            viewMode === 'add' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800'
                         }`}
                     >
                         <FaPlus /> Register New
@@ -105,7 +105,7 @@ const AdminManageEquipment = () => {
                         <input 
                             type="text" 
                             placeholder="Search by name or serial..." 
-                            className="w-full pl-9 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                            className="w-full pl-9 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:text-gray-200 font-sans"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -114,10 +114,10 @@ const AdminManageEquipment = () => {
             </div>
 
             {viewMode === 'list' ? (
-                <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                <div className="bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm overflow-hidden">
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left">
-                            <thead className="bg-gray-50 border-b border-gray-100 text-xs font-bold text-gray-500 uppercase tracking-widest">
+                        <table className="w-full text-left border-collapse">
+                            <thead className="bg-gray-50 dark:bg-zinc-800/10 border-b border-gray-100 dark:border-zinc-800 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
                                 <tr>
                                     <th className="p-4">Equipment Info</th>
                                     <th className="p-4">Category</th>
@@ -127,34 +127,34 @@ const AdminManageEquipment = () => {
                                     <th className="p-4 text-right">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-100">
+                            <tbody className="divide-y divide-gray-100 dark:divide-zinc-800">
                                 {loading ? (
                                     <tr><td colSpan="6" className="p-12 text-center text-gray-400">Syncing asset database...</td></tr>
                                 ) : filteredEquipment.length === 0 ? (
                                     <tr><td colSpan="6" className="p-12 text-center text-gray-400">No equipment found.</td></tr>
                                 ) : (
                                     filteredEquipment.map((e) => (
-                                        <tr key={e._id} className="hover:bg-blue-50/20 transition-colors group">
+                                        <tr key={e._id} className="hover:bg-blue-50/20 dark:hover:bg-blue-900/10 transition-colors border-b border-gray-100 dark:border-zinc-800 group">
                                             <td className="p-4">
-                                                <div className="font-bold text-gray-900">{e.name}</div>
-                                                <div className="text-[10px] text-gray-400 uppercase">{e.location || 'Central Facility'}</div>
+                                                <div className="font-bold text-gray-900 dark:text-gray-100">{e.name}</div>
+                                                <div className="text-[10px] text-gray-400 dark:text-gray-500 uppercase">{e.location || 'Central Facility'}</div>
                                             </td>
-                                            <td className="p-4 text-sm text-gray-600">{e.category}</td>
-                                            <td className="p-4 text-sm font-mono text-blue-600 bg-blue-50 w-fit px-2 py-0.5 rounded whitespace-nowrap">{e.serialNumber}</td>
+                                            <td className="p-4 text-sm text-gray-600 dark:text-gray-400">{e.category}</td>
+                                            <td className="p-4 text-sm font-mono text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 w-fit px-2 py-0.5 rounded whitespace-nowrap border border-blue-100 dark:border-blue-800">{e.serialNumber}</td>
                                             <td className="p-4">
                                                 <div className="flex items-center gap-2">
                                                     {getStatusIcon(e.status)}
-                                                    <span className="text-sm font-semibold text-gray-700">{e.status}</span>
+                                                    <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">{e.status}</span>
                                                 </div>
                                             </td>
-                                            <td className="p-4 text-xs text-gray-500">
+                                            <td className="p-4 text-xs text-gray-500 dark:text-gray-400">
                                                 {new Date(e.lastMaintenance).toLocaleDateString()}
                                             </td>
                                             <td className="p-4 text-right">
                                                 <select 
                                                     value={e.status}
                                                     onChange={(opt) => handleStatusUpdate(e._id, opt.target.value)}
-                                                    className="p-1 text-[10px] border border-gray-200 rounded focus:ring-1 focus:ring-blue-500 outline-none"
+                                                    className="p-1 text-[10px] bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded focus:ring-1 focus:ring-blue-500 outline-none dark:text-gray-200"
                                                 >
                                                     <option value="Functional">Functional</option>
                                                     <option value="Maintenance">Maintenance</option>
@@ -170,26 +170,26 @@ const AdminManageEquipment = () => {
                     </div>
                 </div>
             ) : (
-                <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 max-w-4xl mx-auto">
+                <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-200 dark:border-zinc-800 shadow-sm p-8 max-w-4xl mx-auto">
                     <form onSubmit={handleAddItem} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 mb-1 tracking-widest uppercase">Asset Name</label>
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1 tracking-widest uppercase">Asset Name</label>
                                 <input 
                                     value={formData.name} 
                                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                                     placeholder="e.g. MRI Scanner"
-                                    className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500/20" 
+                                    className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-blue-500/20 dark:text-gray-200 font-sans" 
                                     required 
                                 />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-bold text-gray-500 mb-1 tracking-widest uppercase">Category</label>
+                                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1 tracking-widest uppercase">Category</label>
                                     <select 
                                         value={formData.category}
                                         onChange={(e) => setFormData({...formData, category: e.target.value})}
-                                        className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg"
+                                        className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg dark:text-gray-200 font-sans"
                                     >
                                         <option>Diagnostic</option>
                                         <option>Therapeutic</option>
@@ -199,11 +199,11 @@ const AdminManageEquipment = () => {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-gray-500 mb-1 tracking-widest uppercase">Serial No.</label>
+                                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1 tracking-widest uppercase">Serial No.</label>
                                     <input 
                                         value={formData.serialNumber} 
                                         onChange={(e) => setFormData({...formData, serialNumber: e.target.value})}
-                                        className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg" 
+                                        className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg dark:text-gray-200 font-sans" 
                                         required 
                                     />
                                 </div>
@@ -212,31 +212,31 @@ const AdminManageEquipment = () => {
 
                         <div className="space-y-4">
                              <div>
-                                <label className="block text-xs font-bold text-gray-500 mb-1 tracking-widest uppercase">Facility Location</label>
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1 tracking-widest uppercase">Facility Location</label>
                                 <input 
                                     value={formData.location} 
                                     onChange={(e) => setFormData({...formData, location: e.target.value})}
                                     placeholder="Building/Floor/Room"
-                                    className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg" 
+                                    className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg dark:text-gray-200 font-sans" 
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 mb-1 tracking-widest uppercase">Maintenance Date</label>
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1 tracking-widest uppercase">Maintenance Date</label>
                                 <input 
                                     type="date"
                                     value={formData.lastMaintenance} 
                                     onChange={(e) => setFormData({...formData, lastMaintenance: e.target.value})}
-                                    className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg" 
+                                    className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg dark:text-gray-200 font-sans" 
                                 />
                             </div>
                         </div>
 
                         <div className="md:col-span-2">
-                             <label className="block text-xs font-bold text-gray-500 mb-1 tracking-widest uppercase">Technical Specifications</label>
+                             <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1 tracking-widest uppercase">Technical Specifications</label>
                              <textarea 
                                 value={formData.description} 
                                 onChange={(e) => setFormData({...formData, description: e.target.value})}
-                                className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg h-24 resize-none"
+                                className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg h-24 resize-none dark:text-gray-200 font-sans"
                              ></textarea>
                         </div>
 

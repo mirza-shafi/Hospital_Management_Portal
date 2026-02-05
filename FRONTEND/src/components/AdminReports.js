@@ -80,15 +80,15 @@ const AdminReports = () => {
                 <SummaryCard title="Room Bookings" value={`৳${(totals.ward + totals.cabin).toLocaleString()}`} icon={<FaBed />} color="orange" />
             </div>
 
-            <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden mb-8">
-                <div className="p-4 border-b border-gray-100 bg-gray-50/30 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div className="flex bg-white p-1 rounded-lg border border-gray-200 w-fit">
+            <div className="bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm overflow-hidden mb-8">
+                <div className="p-4 border-b border-gray-100 dark:border-zinc-800 bg-gray-50/30 dark:bg-zinc-800/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex bg-white dark:bg-zinc-800 p-1 rounded-lg border border-gray-200 dark:border-zinc-700 w-fit">
                         {['All', 'Medicine', 'Test', 'Ward', 'Cabin'].map(cat => (
                             <button 
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
                                 className={`px-4 py-1.5 text-xs font-semibold rounded-md transition-all ${
-                                    activeCategory === cat ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-500 hover:text-gray-900'
+                                    activeCategory === cat ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
                                 }`}
                             >
                                 {cat}
@@ -103,7 +103,7 @@ const AdminReports = () => {
                         <input 
                             type="text" 
                             placeholder="Search by patient or category..." 
-                            className="w-full pl-9 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                            className="w-full pl-9 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:text-gray-200 transition-all font-sans"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -113,7 +113,7 @@ const AdminReports = () => {
                 <div className="overflow-x-auto min-h-[400px]">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="bg-gray-50/50 border-b border-gray-100 text-xs font-semibold text-gray-500 uppercase">
+                            <tr className="bg-gray-50/50 dark:bg-zinc-800/10 border-b border-gray-100 dark:border-zinc-800 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">
                                 <th className="p-4">Transaction Date</th>
                                 <th className="p-4">Patient / Category</th>
                                 <th className="p-4">Record Type</th>
@@ -122,33 +122,33 @@ const AdminReports = () => {
                                 <th className="p-4"></th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-100">
+                        <tbody className="divide-y divide-gray-100 dark:divide-zinc-800">
                             {loading ? (
                                 <tr><td colSpan="6" className="p-12 text-center text-gray-400">Compiling financial data...</td></tr>
                             ) : filteredTransactions.length === 0 ? (
                                 <tr><td colSpan="6" className="p-12 text-center text-gray-400">No records found for the selection.</td></tr>
                             ) : (
                                 filteredTransactions.map((t, i) => (
-                                    <tr key={i} className="hover:bg-gray-50/50 transition-colors group">
-                                        <td className="p-4 text-sm text-gray-600">
+                                    <tr key={i} className="hover:bg-gray-50/50 dark:hover:bg-zinc-800/20 transition-colors group">
+                                        <td className="p-4 text-sm text-gray-600 dark:text-gray-400">
                                             {new Date(t.date || t.bookedDate).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}
                                         </td>
                                         <td className="p-4">
-                                            <div className="font-semibold text-gray-900">{t.name || 'Anonymous'}</div>
-                                            <div className="text-[10px] text-gray-500 font-mono">ID: {t._id.slice(-8).toUpperCase()}</div>
+                                            <div className="font-semibold text-gray-900 dark:text-gray-100">{t.name || 'Anonymous'}</div>
+                                            <div className="text-[10px] text-gray-500 dark:text-gray-400 font-mono">ID: {t._id.slice(-8).toUpperCase()}</div>
                                         </td>
                                         <td className="p-4">
                                             <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                                                t.type === 'Medicine' ? 'bg-indigo-50 text-indigo-600' :
-                                                t.type === 'Test' ? 'bg-emerald-50 text-emerald-600' : 'bg-orange-50 text-orange-600'
+                                                t.type === 'Medicine' ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400' :
+                                                t.type === 'Test' ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400' : 'bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400'
                                             }`}>
                                                 {t.type}
                                             </span>
                                         </td>
-                                        <td className="p-4 font-bold text-gray-900">৳{t.totalBill.toLocaleString()}</td>
+                                        <td className="p-4 font-bold text-gray-900 dark:text-gray-100">৳{t.totalBill.toLocaleString()}</td>
                                         <td className="p-4">
                                             <span className={`px-2 py-1 rounded-full text-[10px] font-bold ${
-                                                t.paid ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
+                                                t.paid ? 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-300' : 'bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300'
                                             }`}>
                                                 {t.paid ? 'SETTLED' : 'PENDING'}
                                             </span>
@@ -171,20 +171,20 @@ const AdminReports = () => {
 
 const SummaryCard = ({ title, value, icon, color }) => {
     const colors = {
-        blue: "bg-blue-50 text-blue-600 border-blue-100",
-        indigo: "bg-indigo-50 text-indigo-600 border-indigo-100",
-        emerald: "bg-emerald-50 text-emerald-600 border-emerald-100",
-        orange: "bg-orange-50 text-orange-600 border-orange-100"
+        blue: "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-blue-100 dark:border-blue-900/30",
+        indigo: "bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 border-indigo-100 dark:border-indigo-900/30",
+        emerald: "bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border-emerald-100 dark:border-emerald-900/30",
+        orange: "bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 border-orange-100 dark:border-orange-900/30"
     };
 
     return (
-        <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center gap-4">
+        <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl border border-gray-100 dark:border-zinc-800 shadow-sm flex items-center gap-4">
             <div className={`w-12 h-12 rounded-lg flex items-center justify-center text-xl shadow-sm border ${colors[color]}`}>
                 {icon}
             </div>
             <div>
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">{title}</p>
-                <p className="text-2xl font-bold text-gray-900 leading-none">{value}</p>
+                <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">{title}</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100 leading-none">{value}</p>
             </div>
         </div>
     );

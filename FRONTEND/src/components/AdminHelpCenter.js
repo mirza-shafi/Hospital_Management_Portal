@@ -41,34 +41,34 @@ const AdminHelpCenter = () => {
                 {/* Category Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {categories.map((cat, i) => (
-                        <div key={i} className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all cursor-pointer group">
-                             <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <div key={i} className="bg-white dark:bg-zinc-900 p-8 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all cursor-pointer group">
+                             <div className="w-12 h-12 bg-gray-50 dark:bg-zinc-800 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                                 {cat.icon}
                              </div>
-                             <h3 className="font-bold text-gray-900 mb-2">{cat.title}</h3>
-                             <p className="text-sm text-gray-500 leading-relaxed">{cat.desc}</p>
+                             <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2">{cat.title}</h3>
+                             <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{cat.desc}</p>
                         </div>
                     ))}
                 </div>
 
                 {/* FAQ Section */}
-                <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-10">
-                    <h3 className="text-xl font-bold text-gray-900 mb-8 flex items-center gap-2">
+                <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-gray-100 dark:border-zinc-800 shadow-sm p-10">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-8 flex items-center gap-2">
                         <FaQuestionCircle className="text-amber-500" /> Frequently Asked Questions
                     </h3>
                     <div className="space-y-6">
                         {faqs.map((faq, i) => (
-                            <div key={i} className="p-6 bg-gray-50 rounded-2xl">
-                                <h4 className="font-bold text-gray-900 mb-2">Q: {faq.q}</h4>
-                                <p className="text-sm text-gray-600">A: {faq.a}</p>
+                            <div key={i} className="p-6 bg-gray-50 dark:bg-zinc-800/50 rounded-2xl border border-gray-100 dark:border-zinc-800">
+                                <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2">Q: {faq.q}</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">A: {faq.a}</p>
                             </div>
                         ))}
                     </div>
                 </div>
 
                 {/* Quick Support */}
-                <div className="text-center py-10 border-t border-gray-100">
-                    <p className="text-gray-400 text-sm">Still stuck? Contact IT support at <span className="font-bold text-indigo-600">it-desk@healingwave.com</span></p>
+                <div className="text-center py-10 border-t border-gray-100 dark:border-zinc-800">
+                    <p className="text-gray-400 dark:text-gray-500 text-sm">Still stuck? Contact IT support at <span className="font-bold text-indigo-600 dark:text-indigo-400">it-desk@healingwave.com</span></p>
                 </div>
             </div>
         </AdminLayout>

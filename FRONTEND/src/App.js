@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bulma/css/bulma.min.css';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { AdminThemeProvider } from './context/AdminThemeContext';
 
 import NavbarComponent from './components/Navbar';
 import Home from './components/Home';
@@ -67,7 +68,8 @@ import AdminLayout from './components/AdminLayout';
 
 function App() {
   return (
-    <ThemeProvider>
+    <AdminThemeProvider>
+      <ThemeProvider>
       <Router>
         <div className="App">
           <Routes>
@@ -145,6 +147,7 @@ function App() {
         </div>
       </Router>
     </ThemeProvider>
+    </AdminThemeProvider>
   );
 }
 

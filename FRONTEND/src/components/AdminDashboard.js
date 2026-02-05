@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../api/config';
 import AdminLayout from './AdminLayout';
 import StatsCard from './StatsCard';
+import { useAdminTheme } from '../context/AdminThemeContext';
 import { 
   FaUsers, FaUserMd, FaCalendarAlt, FaExclamationTriangle, FaTint, FaCapsules, 
   FaTools, FaChartLine, FaChartPie, FaChevronRight, FaArrowUp, FaArrowDown 
@@ -14,6 +15,7 @@ import { Helmet } from 'react-helmet';
 import './styles/AdminStats.css';
 
 const AdminDashboard = () => {
+  const { theme } = useAdminTheme();
   const [stats, setStats] = useState({
     doctors: 0,
     patients: 0,
@@ -54,10 +56,10 @@ const AdminDashboard = () => {
 
   const getStatusColor = (status) => {
     switch(status) {
-      case 'Stable': return 'bg-indigo-50 text-indigo-600 border border-indigo-100';
-      case 'Mild': return 'bg-emerald-50 text-emerald-600 border border-emerald-100';
-      case 'Critical': return 'bg-red-50 text-red-600 border border-red-100';
-      default: return 'bg-gray-50 text-gray-600';
+      case 'Stable': return 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-900/30';
+      case 'Mild': return 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30';
+      case 'Critical': return 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900/30';
+      default: return 'bg-gray-50 dark:bg-zinc-800 text-gray-600 dark:text-gray-400';
     }
   };
 
@@ -66,7 +68,7 @@ const AdminDashboard = () => {
       <div className="flex items-center justify-center h-[80vh]">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-gray-500 font-bold animate-pulse">Syncing Clinic Intelligence...</p>
+          <p className="text-gray-500 dark:text-gray-400 font-bold animate-pulse">Syncing Clinic Intelligence...</p>
         </div>
       </div>
     </AdminLayout>
@@ -88,13 +90,13 @@ const AdminDashboard = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5">
         {/* Analytics Chart */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+        <div className="lg:col-span-2 bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 shadow-sm p-4 rounded-2xl">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-bold text-gray-900">Appointment Analytics</h3>
-              <p className="text-[10px] text-gray-400">Monthly patient visit volume trends</p>
+              <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100">Appointment Analytics</h3>
+              <p className="text-[10px] text-gray-400 dark:text-gray-500">Monthly patient visit volume trends</p>
             </div>
-            <div className="flex items-center gap-1 text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-lg text-[10px] font-bold">
+            <div className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-0.5 rounded-lg text-[10px] font-bold">
               <FaArrowUp /> 12.5%
             </div>
           </div>
@@ -107,11 +109,17 @@ const AdminDashboard = () => {
                     <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 10}} dy={5} />
-                <YAxis axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 10}} />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={theme === 'dark' ? '#334155' : '#e2e8f0'} opacity={0.5} />
+                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{fill: theme === 'dark' ? '#94a3b8' : '#64748b', fontSize: 10}} dy={5} />
+                <YAxis axisLine={false} tickLine={false} tick={{fill: theme === 'dark' ? '#94a3b8' : '#64748b', fontSize: 10}} />
                 <Tooltip 
-                  contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 8px 12px -2px rgba(0,0,0,0.08)', padding: '8px' }}
+                  contentStyle={{ 
+                    borderRadius: '12px', 
+                    border: 'none', 
+                    backgroundColor: theme === 'dark' ? '#18181b' : '#ffffff',
+                    boxShadow: '0 8px 12px -2px rgba(0,0,0,0.12)', 
+                    padding: '8px' 
+                  }}
                   itemStyle={{ color: '#6366f1', fontWeight: 'bold', fontSize: '11px' }}
                 />
                 <Area type="monotone" dataKey="appointments" stroke="#6366f1" strokeWidth={2} fillOpacity={1} fill="url(#colorApp)" />
@@ -121,9 +129,9 @@ const AdminDashboard = () => {
         </div>
 
         {/* Distribution Chart */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
-          <h3 className="text-sm font-bold text-gray-900 mb-0.5">Patient Status</h3>
-          <p className="text-[10px] text-gray-400 mb-4">Global health distribution</p>
+        <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm p-4">
+          <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100 mb-0.5">Patient Status</h3>
+          <p className="text-[10px] text-gray-400 dark:text-gray-500 mb-4">Global health distribution</p>
           <div className="h-[140px] w-full relative">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -136,8 +144,8 @@ const AdminDashboard = () => {
               </PieChart>
             </ResponsiveContainer>
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-lg font-black text-gray-900">{stats.patients}</span>
-              <span className="text-[7px] text-gray-400 font-bold uppercase tracking-widest leading-none">Lives</span>
+              <span className="text-lg font-black text-gray-900 dark:text-gray-100">{stats.patients}</span>
+              <span className="text-[7px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-widest leading-none">Lives</span>
             </div>
           </div>
           <div className="mt-3 space-y-1.5">
@@ -145,9 +153,9 @@ const AdminDashboard = () => {
               <div key={item.name} className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
                   <div className="w-1.5 h-1.5 rounded-full" style={{backgroundColor: COLORS[idx]}}></div>
-                  <span className="text-[10px] font-medium text-gray-600">{item.name}</span>
+                  <span className="text-[10px] font-medium text-gray-600 dark:text-gray-400">{item.name}</span>
                 </div>
-                <span className="text-[10px] font-bold text-gray-900">{item.value}%</span>
+                <span className="text-[10px] font-bold text-gray-900 dark:text-gray-100">{item.value}%</span>
               </div>
             ))}
           </div>
@@ -156,57 +164,57 @@ const AdminDashboard = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
         {/* Pharmacy Card */}
-        <div className="bg-white p-3.5 rounded-2xl border border-gray-100 shadow-sm hover:border-indigo-200 transition-all group">
+        <div className="bg-white dark:bg-zinc-900 p-3.5 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm hover:border-indigo-200 dark:hover:border-indigo-900/40 transition-all group">
           <div className="flex items-center justify-between mb-2">
-            <div className="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">
+            <div className="w-8 h-8 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded-lg flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">
               <FaCapsules size={14} />
             </div>
-            <span className="text-[8px] font-black text-indigo-600 uppercase tracking-widest">Pharmacy</span>
+            <span className="text-[8px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-widest">Pharmacy</span>
           </div>
           <div className="flex items-end justify-between">
             <div>
-              <div className="text-lg font-black text-gray-900 leading-none mb-1">{stats.pharmacy?.total || 0}</div>
-              <p className="text-[8px] text-gray-400 font-bold uppercase tracking-tighter">Inventory</p>
+              <div className="text-lg font-black text-gray-900 dark:text-gray-100 leading-none mb-1">{stats.pharmacy?.total || 0}</div>
+              <p className="text-[8px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-tighter">Inventory</p>
             </div>
-            <div className={`px-1.5 py-0.5 rounded text-[8px] font-black uppercase ${stats.pharmacy?.lowStock > 0 ? 'bg-red-50 text-red-600' : 'bg-emerald-50 text-emerald-600'}`}>
+            <div className={`px-1.5 py-0.5 rounded text-[8px] font-black uppercase ${stats.pharmacy?.lowStock > 0 ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400' : 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400'}`}>
               {stats.pharmacy?.lowStock || 0} Low
             </div>
           </div>
         </div>
 
         {/* Blood Bank Card */}
-        <div className="bg-white p-3.5 rounded-2xl border border-gray-100 shadow-sm hover:border-red-200 transition-all group">
+        <div className="bg-white dark:bg-zinc-900 p-3.5 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm hover:border-red-200 dark:hover:border-red-900/40 transition-all group">
           <div className="flex items-center justify-between mb-2">
-            <div className="w-8 h-8 bg-red-50 text-red-600 rounded-lg flex items-center justify-center group-hover:bg-red-600 group-hover:text-white transition-all">
+            <div className="w-8 h-8 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg flex items-center justify-center group-hover:bg-red-600 group-hover:text-white transition-all">
               <FaTint size={14} />
             </div>
-            <span className="text-[8px] font-black text-red-600 uppercase tracking-widest">Blood Bank</span>
+            <span className="text-[8px] font-black text-red-600 dark:text-red-400 uppercase tracking-widest">Blood Bank</span>
           </div>
           <div className="flex items-end justify-between">
             <div>
-              <div className="text-lg font-black text-gray-900 leading-none mb-1">{stats.bloodBank?.donors || 0}</div>
-              <p className="text-[8px] text-gray-400 font-bold uppercase tracking-tighter">Donors</p>
+              <div className="text-lg font-black text-gray-900 dark:text-gray-100 leading-none mb-1">{stats.bloodBank?.donors || 0}</div>
+              <p className="text-[8px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-tighter">Donors</p>
             </div>
-            <div className="px-1.5 py-0.5 bg-red-50 text-red-600 rounded text-[8px] font-black uppercase">
+            <div className="px-1.5 py-0.5 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded text-[8px] font-black uppercase">
               {stats.bloodBank?.requests || 0} Req.
             </div>
           </div>
         </div>
 
         {/* Equipment Card */}
-        <div className="bg-white p-3.5 rounded-2xl border border-gray-100 shadow-sm hover:border-blue-200 transition-all group">
+        <div className="bg-white dark:bg-zinc-900 p-3.5 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm hover:border-blue-200 dark:hover:border-blue-900/40 transition-all group">
           <div className="flex items-center justify-between mb-2">
-            <div className="w-8 h-8 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">
+            <div className="w-8 h-8 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-lg flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">
               <FaTools size={14} />
             </div>
-            <span className="text-[8px] font-black text-blue-600 uppercase tracking-widest">Equipment</span>
+            <span className="text-[8px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest">Equipment</span>
           </div>
           <div className="flex items-end justify-between">
             <div>
-              <div className="text-lg font-black text-gray-900 leading-none mb-1">{stats.equipment?.functional || 0}</div>
-              <p className="text-[8px] text-gray-400 font-bold uppercase tracking-tighter">Functional</p>
+              <div className="text-lg font-black text-gray-900 dark:text-gray-100 leading-none mb-1">{stats.equipment?.functional || 0}</div>
+              <p className="text-[8px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-tighter">Functional</p>
             </div>
-            <div className="px-1.5 py-0.5 bg-amber-50 text-amber-600 rounded text-[8px] font-black uppercase">
+            <div className="px-1.5 py-0.5 bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 rounded text-[8px] font-black uppercase">
               {stats.equipment?.maintenance || 0} Maint.
             </div>
           </div>
@@ -214,49 +222,49 @@ const AdminDashboard = () => {
       </div>
 
       {/* Recent Activity / Table */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-        <div className="px-5 py-3.5 border-b border-gray-100 flex items-center justify-between">
+      <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm overflow-hidden">
+        <div className="px-5 py-3.5 border-b border-gray-100 dark:border-zinc-800 flex items-center justify-between">
           <div>
-            <h3 className="text-sm font-bold text-gray-900">Medical Registry</h3>
-            <p className="text-[10px] text-gray-400">Latest patients admitted</p>
+            <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100">Medical Registry</h3>
+            <p className="text-[10px] text-gray-400 dark:text-gray-500">Latest patients admitted</p>
           </div>
-          <button className="text-indigo-600 font-bold text-[10px] flex items-center gap-1 hover:underline">
+          <button className="text-indigo-600 dark:text-indigo-400 font-bold text-[10px] flex items-center gap-1 hover:underline">
             Directory <FaChevronRight size={7} />
           </button>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="bg-gray-50/30">
-                <th className="px-5 py-2.5 text-[8px] font-black text-gray-400 uppercase tracking-widest italic">Identity</th>
-                <th className="px-5 py-2.5 text-[8px] font-black text-gray-400 uppercase tracking-widest italic">Diagnosis</th>
-                <th className="px-5 py-2.5 text-[8px] font-black text-gray-400 uppercase tracking-widest font-bold text-center">Status</th>
-                <th className="px-5 py-2.5 text-[8px] font-black text-gray-400 uppercase tracking-widest text-right italic">Entry</th>
+              <tr className="bg-gray-50/30 dark:bg-zinc-800/50">
+                <th className="px-5 py-2.5 text-[8px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest italic">Identity</th>
+                <th className="px-5 py-2.5 text-[8px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest italic">Diagnosis</th>
+                <th className="px-5 py-2.5 text-[8px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest font-bold text-center">Status</th>
+                <th className="px-5 py-2.5 text-[8px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest text-right italic">Entry</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-gray-100 dark:divide-zinc-800">
               {patients.map((patient) => (
                 <tr key={patient._id} className="hover:bg-indigo-50/10 transition-all group">
                   <td className="px-5 py-2.5">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded-md bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-[10px]">
+                      <div className="w-6 h-6 rounded-md bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-[10px]">
                         {patient.firstName ? patient.firstName[0] : 'U'}
                       </div>
                       <div>
-                        <div className="font-bold text-gray-900 text-[12px] leading-tight underline decoration-indigo-200 decoration-1 underline-offset-2">{patient.firstName} {patient.lastName}</div>
-                        <div className="text-[8px] text-gray-400 font-medium truncate max-w-[100px] leading-none">{patient.email}</div>
+                        <div className="font-bold text-gray-900 dark:text-gray-100 text-[12px] leading-tight underline decoration-indigo-200 dark:decoration-indigo-900/40 decoration-1 underline-offset-2">{patient.firstName} {patient.lastName}</div>
+                        <div className="text-[8px] text-gray-400 dark:text-gray-500 font-medium truncate max-w-[100px] leading-none">{patient.email}</div>
                       </div>
                     </div>
                   </td>
                   <td className="px-5 py-2.5">
-                    <div className="text-[11px] font-semibold text-gray-600">{patient.diagnosis}</div>
+                    <div className="text-[11px] font-semibold text-gray-600 dark:text-gray-400">{patient.diagnosis}</div>
                   </td>
                   <td className="px-5 py-2.5 text-center">
                     <span className={`px-1.5 py-0.5 rounded text-[8px] font-black uppercase ${getStatusColor(patient.status)}`}>
                       {patient.status}
                     </span>
                   </td>
-                  <td className="px-5 py-2.5 text-right font-bold text-gray-400 text-[10px]">
+                  <td className="px-5 py-2.5 text-right font-bold text-gray-400 dark:text-gray-500 text-[10px]">
                     {patient.lastVisit}
                   </td>
                 </tr>

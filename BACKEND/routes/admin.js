@@ -285,10 +285,17 @@ router.get('/stats', async (req, res) => {
 router.get('/profile', authMiddleware, async (req, res) => {
   try {
     // req.user comes from authMiddleware
-    const admin = await Admin.findOne({ username: req.user.username });
+    let admin = await Admin.findOne({ username: req.user.username });
+    
+    // If not found in DB (e.g. logged in via fallback), return defaults
     if (!admin) {
-      return res.status(404).json({ message: 'Admin not found' });
+      return res.json({
+        name: 'HealingWave Admin',
+        email: 'admin@healingwave.com',
+        username: req.user.username
+      });
     }
+
     // Don't send password back
     const { password, ...adminInfo } = admin.toObject();
     res.json(adminInfo);
@@ -302,13 +309,25 @@ router.get('/profile', authMiddleware, async (req, res) => {
 router.put('/profile', authMiddleware, async (req, res) => {
   try {
     const { name, email, password } = req.body;
+    let updateData = { name, email };
+
+    if (password && password.trim() !== '') {
+      // In a real app, you would hash the password here
+      // But for this project's current admin logic, we keep it as is or hash it
+      const salt = await bcrypt.genSalt(10);
+      updateData.password = await bcrypt.hash(password, salt);
+    }
+
     const admin = await Admin.findOneAndUpdate(
-      { username: 'admin' },
-      { name, email, password },
-      { new: true }
+      { username: req.user.username },
+      updateData,
+      { new: true, upsert: true } // Upsert in case it doesn't exist from env login
     );
-    res.json(admin);
+    
+    const { password: _, ...adminInfo } = admin.toObject();
+    res.json(adminInfo);
   } catch (error) {
+    console.error('Profile update error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
