@@ -43,6 +43,10 @@ const patientSchema = new mongoose.Schema({
   bloodPressure: { type: String, default: '--' },
   bloodSugar: { type: String, default: '--' },
   lastCheckup: { type: Date },
+  // Clinical Data
+  diagnosis: { type: String, default: 'General Checkup' },
+  status: { type: String, enum: ['Stable', 'Mild', 'Critical'], default: 'Stable' },
+  lastVisit: { type: String, default: () => new Date().toLocaleDateString() },
   // Settings
   theme: { type: String, default: 'light' },
   profilePicture: { type: String }

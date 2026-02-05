@@ -4,6 +4,17 @@ const Appointment = require('../models/Appointment');
 const Doctor = require('../models/Doctor');
 const HealthCard = require('../models/HealthCard');
 
+// Get all appointments (for Admin)
+router.get('/', async (req, res) => {
+    try {
+        const appointments = await Appointment.find().sort({ date: -1 });
+        res.json(appointments);
+    } catch (err) {
+        console.error('Error fetching all appointments:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Get all distinct departments
 router.get('/departments', async (req, res) => {
     try {

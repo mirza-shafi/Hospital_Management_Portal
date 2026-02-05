@@ -3,6 +3,17 @@ const express = require('express');
 const Prescription = require('../models/Prescription');
 const router = express.Router();
 
+// Get all prescriptions (for Admin)
+router.get('/all', async (req, res) => {
+  try {
+    const prescriptions = await Prescription.find().sort({ createdAt: -1 });
+    res.json(prescriptions);
+  } catch (error) {
+    console.error('Error fetching all prescriptions:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Middleware to authenticate doctor
 const authenticateDoctor = (req, res, next) => {
   const doctorEmail = req.headers['doctor-email'];

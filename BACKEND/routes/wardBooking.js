@@ -3,6 +3,17 @@ const router = express.Router();
 const WardBook = require('../models/wardBook');
 const HealthCard = require('../models/HealthCard');
 
+// Get all ward bookings (for Admin)
+router.get('/all-bills', async (req, res) => {
+  try {
+    const bookings = await WardBook.find();
+    res.json(bookings);
+  } catch (error) {
+    console.error('Error fetching all ward bills:', error);
+    res.status(500).json({ error: 'Server Error' });
+  }
+});
+
 // Endpoint to get available wards
 router.get('/wavailable', async (req, res) => {
   try {
@@ -109,7 +120,7 @@ router.put('/pay-ward-bill/:id', async (req, res) => {
   const { topUpAmount, email } = req.body;
 
   try {
-    const wardBill = await WardBooking.findById(id);
+    const wardBill = await WardBook.findById(id);
     if (!wardBill) {
       return res.status(404).json({ message: 'Ward bill not found' });
     }

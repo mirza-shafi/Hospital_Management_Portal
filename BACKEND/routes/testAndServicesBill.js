@@ -3,6 +3,17 @@ const router = express.Router();
 const TestAndServicesBill = require('../models/TestAndServicesBill');
 const HealthCard = require('../models/HealthCard');
 
+// Get all test and services bills (for Admin)
+router.get('/all-bills', async (req, res) => {
+  try {
+    const bills = await TestAndServicesBill.find();
+    res.json(bills);
+  } catch (err) {
+    console.error('Error fetching all test bills:', err);
+    res.status(500).json({ error: 'Failed to fetch bills' });
+  }
+});
+
 // Create a new bill
 router.post('/add', async (req, res) => {
   try {

@@ -9,9 +9,14 @@ const api = axios.create({
     withCredentials: false
 });
 
-// Request interceptor with more detailed logging
+// Request interceptor with token injection and logging
 api.interceptors.request.use(
     (config) => {
+        const token = localStorage.getItem('adminToken') || localStorage.getItem('token');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+
         // Don't override Content-Type for FormData (file uploads)
         if (config.data instanceof FormData) {
             delete config.headers['Content-Type'];

@@ -3,6 +3,17 @@ const router = express.Router();
 const CabinBooking = require('../models/cabinBook');
 const HealthCard = require('../models/HealthCard');
 
+// Get all cabin bookings (for Admin)
+router.get('/all-bills', async (req, res) => {
+  try {
+    const bookings = await CabinBooking.find();
+    res.json(bookings);
+  } catch (error) {
+    console.error('Error fetching all cabin bills:', error);
+    res.status(500).json({ error: 'Server Error' });
+  }
+});
+
 // Endpoint to get available cabins
 router.get('/cavailable', async (req, res) => {
   try {

@@ -61,7 +61,7 @@ const PatientDetailsSheetActual = ({ patient, onClose }) => {
   const fetchAppointments = async (email) => {
       try {
           setLoadingApps(true);
-          const res = await axios.get(`http://localhost:1002/api/appointments/patient/email/${email}`);
+          const res = await axios.get(`/api/appointments/patient/email/${email}`);
           setAppointments(res.data);
       } catch(err) {
           console.error("Failed to load appointments", err);

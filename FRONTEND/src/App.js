@@ -33,6 +33,17 @@ import TestService from './components/TestService';
 import AdminLogin from './components/AdminLogin';
 import AdminDashboard from './components/AdminDashboard';
 import AdminManageUsers from './components/AdminManageUsers';
+import AdminManageDoctors from './components/AdminManageDoctors';
+import AdminManageAppointments from './components/AdminManageAppointments';
+import AdminReports from './components/AdminReports';
+import AdminManageClinic from './components/AdminManageClinic';
+import AdminManageConsultations from './components/AdminManageConsultations';
+import AdminManageBlood from './components/AdminManageBlood';
+import AdminManagePharmacy from './components/AdminManagePharmacy';
+import AdminManageEquipment from './components/AdminManageEquipment';
+import AdminManageFeedback from './components/AdminManageFeedback';
+import AdminHelpCenter from './components/AdminHelpCenter';
+import AdminSettings from './components/AdminSettings';
 import AddMedicine from './components/AddMedicine';
 import MedicineDetails from './components/MedicineDetails';
 import Pharmacy from './components/Pharmacy';
@@ -111,15 +122,24 @@ function App() {
             <Route path="/admin-login" element={<AdminLogin />} />
 
             <Route element={<ProtectedRoute type="admin" />}>
-              <Route element={<AdminLayout />}>
                 <Route path="/admin-dashboard" element={<AdminDashboard />} />
                 <Route path="/items" element={<Items />} />
                 <Route path="/test-service" element={<TestService />} />
                 <Route path="/add-medicine" element={<AddMedicine />} />
                 <Route path="/medicine-details" element={<MedicineDetails />} />
-                <Route path="/admin-manage-users" element={<AdminManageUsers />} />
+                <Route path="/admin/patient-manage" element={<AdminManageUsers />} />
+                <Route path="/admin/doctor-manage" element={<AdminManageDoctors />} />
+                <Route path="/admin/appointment-manage" element={<AdminManageAppointments />} />
+                <Route path="/admin/reports" element={<AdminReports />} />
+                <Route path="/admin/clinic-manage" element={<AdminManageClinic />} />
+                <Route path="/admin/consultation-manage" element={<AdminManageConsultations />} />
+                <Route path="/admin/blood-manage" element={<AdminManageBlood />} />
+                <Route path="/admin/pharmacy-manage" element={<AdminManagePharmacy />} />
+                <Route path="/admin/equipment-manage" element={<AdminManageEquipment />} />
+                <Route path="/feedback" element={<AdminManageFeedback />} />
+                <Route path="/help" element={<AdminHelpCenter />} />
+                <Route path="/settings" element={<AdminSettings />} />
                 <Route path="/admin-support" element={<AdminSupport />} />
-              </Route>
             </Route>
           </Routes>
         </div>

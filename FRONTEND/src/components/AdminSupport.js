@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/config';
 import { useNavigate, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import './styles/AdminSupport.css'; 
@@ -25,7 +25,7 @@ const AdminSupport = () => {
 
     const fetchRequests = async () => {
       try {
-        const response = await axios.get('/api/support/requests', {
+        const response = await api.get('/support/requests', {
           headers: {
             Authorization: `Bearer ${token}` 
           }
@@ -43,7 +43,7 @@ const AdminSupport = () => {
     e.preventDefault();
     const token = localStorage.getItem('adminToken');
     try {
-      await axios.post(`/api/support/respond/${currentRequest._id}`, { solution }, {
+      await api.post(`/support/respond/${currentRequest._id}`, { solution }, {
         headers: {
           Authorization: `Bearer ${token}` 
         }

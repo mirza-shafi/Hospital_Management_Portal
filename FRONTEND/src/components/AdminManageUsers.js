@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/config';
 import AdminLayout from './AdminLayout';
 import PatientDetailsSheet from './PatientDetailsSheet';
-import { FaFilter, FaFileExport, FaCog, FaEllipsisH, FaSearch, FaUserPlus, FaChevronRight } from 'react-icons/fa';
+import { FaFilter, FaFileExport, FaCog, FaEllipsisH, FaSearch, FaUserPlus, FaChevronRight, FaTimes } from 'react-icons/fa';
 import { Helmet } from 'react-helmet';
 
 const AdminManageUsers = () => {
@@ -12,6 +12,19 @@ const AdminManageUsers = () => {
     const [loading, setLoading] = useState(true);
     const [selectedPatient, setSelectedPatient] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
+    const [showAddForm, setShowAddForm] = useState(false);
+    const [editingPatient, setEditingPatient] = useState(null);
+    const [newPatient, setNewPatient] = useState({ 
+        firstName: '', 
+        lastName: '', 
+        email: '', 
+        sex: 'Male', 
+        dateOfBirth: '', 
+        mobileNumber: '', 
+        password: 'password123',
+        diagnosis: 'Checkup',
+        status: 'Stable'
+    });
 
     useEffect(() => {
         fetchPatients();
@@ -19,20 +32,64 @@ const AdminManageUsers = () => {
 
     const fetchPatients = async () => {
         try {
-            const res = await axios.get('http://localhost:1002/api/admin/patients');
-            // Mocking enhanced data to match the UI requirements
-            const enhancedData = res.data.map(p => ({
-                ...p,
-                diagnosis: ['Diabetes', 'Hypertension', 'Asthma', 'Arrhythmia', 'Healthy'][Math.floor(Math.random() * 5)],
-                status: ['Stable', 'Critical', 'Mild'][Math.floor(Math.random() * 3)],
-                lastAppointment: new Date(Date.now() - Math.floor(Math.random() * 10000000000)).toLocaleDateString()
-            }));
-            setPatients(enhancedData);
+            const res = await api.get('/admin/patients');
+            setPatients(res.data);
         } catch (error) {
             console.error('Error fetching patients:', error);
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleAddPatient = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        try {
+            if (editingPatient) {
+                await api.put(`/admin/patients/${editingPatient._id}`, newPatient);
+                alert('Patient updated successfully!');
+            } else {
+                await api.post('/admin/patients', newPatient);
+                alert('Patient added successfully!');
+            }
+            setShowAddForm(false);
+            setEditingPatient(null);
+            setNewPatient({ 
+                firstName: '', 
+                lastName: '', 
+                email: '', 
+                sex: 'Male', 
+                dateOfBirth: '', 
+                mobileNumber: '', 
+                password: 'password123',
+                diagnosis: 'Checkup',
+                status: 'Stable'
+            });
+            await fetchPatients();
+        } catch (error) {
+            console.error('Failed to save patient:', error);
+            alert('Failed to save patient data. Please check your connection.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleEditClick = (patient, e) => {
+        e.stopPropagation();
+        setEditingPatient(patient);
+        const [firstName, ...lastNameParts] = (patient.name || '').split(' ');
+        setNewPatient({
+            firstName: firstName || '',
+            lastName: lastNameParts.join(' ') || '',
+            email: patient.email || '',
+            sex: patient.sex || 'Male',
+            dateOfBirth: patient.dateOfBirth ? new Date(patient.dateOfBirth).toISOString().split('T')[0] : '',
+            mobileNumber: patient.mobileNumber || '',
+            password: 'password123',
+            diagnosis: patient.diagnosis || 'Checkup',
+            status: patient.status || 'Stable'
+        });
+        setShowAddForm(true);
     };
 
     const getStatusColor = (status) => {
@@ -50,9 +107,9 @@ const AdminManageUsers = () => {
     );
 
     return (
-        <AdminLayout>
+        <AdminLayout title="Patient" subtitle="Manage and view all registered patients">
             <Helmet>
-                <title>Patient Management - Medicare</title>
+                <title>Patient Management - HealingWave</title>
             </Helmet>
 
             {/* Header / Actions Row */}
@@ -61,7 +118,10 @@ const AdminManageUsers = () => {
                     <h1 className="text-2xl font-bold text-gray-900">Patient List</h1>
                     <p className="text-sm text-gray-500 mt-1">Manage and view all registered patients</p>
                 </div>
-                <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-semibold shadow-lg shadow-blue-200 transition-all">
+                <button 
+                    onClick={() => setShowAddForm(true)}
+                    className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-semibold shadow-lg shadow-blue-200 transition-all font-sans"
+                >
                     <FaUserPlus />
                     Add New Patient
                 </button>
@@ -148,7 +208,7 @@ const AdminManageUsers = () => {
                                             <div className="text-sm text-gray-900">{patient.email}</div>
                                             <div className="text-xs text-gray-500">{patient.mobileNumber}</div>
                                         </td>
-                                        <td className="p-4 text-sm text-gray-600">{patient.lastAppointment}</td>
+                                        <td className="p-4 text-sm text-gray-600">{patient.lastVisit}</td>
                                         <td className="p-4">
                                             <span className="text-sm text-gray-700 capitalize px-2 py-1 bg-gray-100 rounded text-xs font-medium">{patient.sex}</span>
                                         </td>
@@ -159,7 +219,16 @@ const AdminManageUsers = () => {
                                             </span>
                                         </td>
                                         <td className="p-4 text-right">
-                                            <FaChevronRight className="text-gray-300 group-hover:text-blue-400 transition-colors text-xs" />
+                                            <div className="flex items-center gap-2 justify-end">
+                                                <button 
+                                                    onClick={(e) => handleEditClick(patient, e)}
+                                                    className="p-1.5 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors"
+                                                    title="Edit Patient"
+                                                >
+                                                    <FaCog size={14} />
+                                                </button>
+                                                <FaChevronRight className="text-gray-300 group-hover:text-blue-400 transition-colors text-xs" />
+                                            </div>
                                         </td>
                                     </tr>
                                 ))
@@ -177,6 +246,88 @@ const AdminManageUsers = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Add Patient Modal */}
+            {showAddForm && (
+                <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setShowAddForm(false)}></div>
+                    <div className="relative bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl animate-in zoom-in-95 duration-200">
+                        <div className="flex items-center justify-between mb-6">
+                            <h2 className="text-2xl font-bold text-gray-900">{editingPatient ? 'Edit Patient Details' : 'Register New Patient'}</h2>
+                            <button onClick={() => { setShowAddForm(false); setEditingPatient(null); }} className="text-gray-400 hover:text-gray-600">
+                                <FaTimes />
+                            </button>
+                        </div>
+                        <form onSubmit={handleAddPatient} className="grid grid-cols-2 gap-4">
+                            <div className="col-span-1">
+                                <label className="block text-xs font-bold text-gray-400 uppercase mb-2">First Name</label>
+                                <input required className="w-full p-3 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500/10" value={newPatient.firstName} onChange={e => setNewPatient({...newPatient, firstName: e.target.value})} />
+                            </div>
+                            <div className="col-span-1">
+                                <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Last Name</label>
+                                <input required className="w-full p-3 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500/10" value={newPatient.lastName} onChange={e => setNewPatient({...newPatient, lastName: e.target.value})} />
+                            </div>
+                            <div className="col-span-2">
+                                <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Email Address</label>
+                                <input required type="email" className="w-full p-3 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500/10" value={newPatient.email} onChange={e => setNewPatient({...newPatient, email: e.target.value})} />
+                            </div>
+                            <div className="col-span-1">
+                                <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Gender</label>
+                                <select className="w-full p-3 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500/10" value={newPatient.sex} onChange={e => setNewPatient({...newPatient, sex: e.target.value})}>
+                                    <option>Male</option><option>Female</option><option>Other</option>
+                                </select>
+                            </div>
+                            <div className="col-span-1">
+                                <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Phone</label>
+                                <input required className="w-full p-3 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500/10" value={newPatient.mobileNumber} onChange={e => setNewPatient({...newPatient, mobileNumber: e.target.value})} />
+                            </div>
+                            <div className="col-span-1">
+                                <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Date of Birth</label>
+                                <input required type="date" className="w-full p-3 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500/10" value={newPatient.dateOfBirth} onChange={e => setNewPatient({...newPatient, dateOfBirth: e.target.value})} />
+                            </div>
+                            <div className="col-span-1">
+                                <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Initial Diagnosis</label>
+                                <input 
+                                    list="diagnosis-options"
+                                    className="w-full p-3 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500/10" 
+                                    placeholder="e.g. Fever" 
+                                    value={newPatient.diagnosis}
+                                    onChange={e => setNewPatient({...newPatient, diagnosis: e.target.value})} 
+                                />
+                                <datalist id="diagnosis-options">
+                                    <option value="Fever" />
+                                    <option value="Cold / Flu" />
+                                    <option value="Hypertension" />
+                                    <option value="Diabetes" />
+                                    <option value="Asthma" />
+                                    <option value="Injury" />
+                                    <option value="General Checkup" />
+                                </datalist>
+                            </div>
+                            <div className="col-span-1">
+                                <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Admission Status</label>
+                                <select className="w-full p-3 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500/10" value={newPatient.status} onChange={e => setNewPatient({...newPatient, status: e.target.value})}>
+                                    <option>Stable</option>
+                                    <option>Mild</option>
+                                    <option>Critical</option>
+                                </select>
+                            </div>
+                            {!editingPatient && (
+                                <div className="col-span-1">
+                                    <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Default Password</label>
+                                    <input disabled className="w-full p-3 bg-gray-100 border border-gray-100 rounded-xl outline-none" value="password123" />
+                                </div>
+                            )}
+                            <div className="col-span-2 flex gap-3 mt-4">
+                                <button type="submit" className="flex-1 bg-blue-600 text-white font-bold py-3 rounded-xl shadow-lg shadow-blue-100">
+                                    {editingPatient ? 'Update Patient' : 'Create Patient'}
+                                </button>
+                                <button type="button" onClick={() => { setShowAddForm(false); setEditingPatient(null); }} className="px-6 py-3 bg-gray-100 text-gray-500 font-bold rounded-xl">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
 
             {/* Details Sheet Overlay */}
             {selectedPatient && (

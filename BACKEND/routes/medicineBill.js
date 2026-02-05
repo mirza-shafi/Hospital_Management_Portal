@@ -4,6 +4,17 @@ const Medicine = require('../models/Medicine');
 const MedicineBill = require('../models/MedicineBill');
 const HealthCard = require('../models/HealthCard'); 
 
+// Get all medicine bills (for Admin)
+router.get('/all-bills', async (req, res) => {
+  try {
+    const bills = await MedicineBill.find().populate('medicines.medicineId', 'name price');
+    res.json(bills);
+  } catch (error) {
+    console.error('Error fetching all medicine bills:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Purchase medicines
 router.post('/buy', async (req, res) => {
   const { name, email, phoneNumber, address, selectedMedicines } = req.body;

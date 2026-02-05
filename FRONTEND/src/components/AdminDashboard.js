@@ -1,18 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import api from '../api/config';
 import AdminLayout from './AdminLayout';
 import StatsCard from './StatsCard';
-import { FaUsers, FaUserCheck, FaNotesMedical, FaExclamationTriangle, FaFilter, FaFileExport, FaEllipsisH, FaThList, FaThLarge, FaCog } from 'react-icons/fa';
+import { 
+  FaUsers, FaUserMd, FaCalendarAlt, FaExclamationTriangle, FaTint, FaCapsules, 
+  FaTools, FaChartLine, FaChartPie, FaChevronRight, FaArrowUp, FaArrowDown 
+} from 'react-icons/fa';
+import { 
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
+  AreaChart, Area, PieChart, Pie, Cell 
+} from 'recharts';
 import { Helmet } from 'react-helmet';
-import './styles/AdminStats.css'; // Keep for any custom overrides if needed, though we rely mostly on Tailwind now.
+import './styles/AdminStats.css';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
     doctors: 0,
     patients: 0,
-    appointments: 0
+    appointments: 0,
+    pharmacy: { total: 0, lowStock: 0 },
+    bloodBank: { donors: 0, requests: 0, stocks: [] },
+    equipment: { functional: 0, maintenance: 0 },
+    appointmentTrends: []
   });
-  const [patients, setPatients] = useState([]); // Fetch actual patients for table
+  const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,22 +32,11 @@ const AdminDashboard = () => {
 
   const fetchData = async () => {
     try {
-      const token = localStorage.getItem('adminToken');
-      // Fetch Stats
-      const statsRes = await axios.get('http://localhost:1002/api/admin/stats');
-      setStats(statsRes.data);
+      const statsRes = await api.get('/admin/stats');
+      setStats(prev => ({ ...prev, ...statsRes.data }));
 
-      // Fetch Patients for table
-      const patientsRes = await axios.get('http://localhost:1002/api/admin/patients');
-      // Mocking extra data for visual demo (Status, Diagnosis)
-      const enhancedPatients = patientsRes.data.map(p => ({
-        ...p,
-        diagnosis: ['Hypertension', 'Diabetes', 'Healthy', 'Flu'][Math.floor(Math.random() * 4)],
-        status: ['Stable', 'Critical', 'Mild'][Math.floor(Math.random() * 3)],
-        lastAppointment: '2025-10-04' // Mock
-      }));
-      setPatients(enhancedPatients);
-
+      const patientsRes = await api.get('/admin/patients');
+      setPatients(patientsRes.data.slice(0, 5));
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -44,154 +44,226 @@ const AdminDashboard = () => {
     }
   };
 
-  // Mock breakdown based on Total Patients
-  const mildPatients = Math.floor(stats.patients * 0.5) || 0;
-  const stablePatients = Math.floor(stats.patients * 0.4) || 0;
-  const criticalPatients = stats.patients - mildPatients - stablePatients || 0;
+  const COLORS = ['#6366f1', '#10b981', '#f59e0b', '#ef4444'];
+  const patientStatusData = [
+    { name: 'Stable', value: 45 },
+    { name: 'Mild', value: 30 },
+    { name: 'Critical', value: 15 },
+    { name: 'Others', value: 10 }
+  ];
 
   const getStatusColor = (status) => {
     switch(status) {
-      case 'Stable': return 'bg-blue-50 text-blue-600 border border-blue-100';
+      case 'Stable': return 'bg-indigo-50 text-indigo-600 border border-indigo-100';
       case 'Mild': return 'bg-emerald-50 text-emerald-600 border border-emerald-100';
       case 'Critical': return 'bg-red-50 text-red-600 border border-red-100';
       default: return 'bg-gray-50 text-gray-600';
     }
   };
 
+  if (loading) return (
+    <AdminLayout>
+      <div className="flex items-center justify-center h-[80vh]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-gray-500 font-bold animate-pulse">Syncing Clinic Intelligence...</p>
+        </div>
+      </div>
+    </AdminLayout>
+  );
+
   return (
     <AdminLayout>
       <Helmet>
-        <title>Medicare Admin Dashboard</title>
+        <title>Dashboard | HealingWave Admin</title>
       </Helmet>
 
-      {/* Stats Row */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <StatsCard 
-            title="Total patients" 
-            value={stats.patients} 
-            icon={<FaUsers />} 
-        />
-        <StatsCard 
-            title="Mild patients" 
-            value={mildPatients} 
-            type="success" // Emerald
-            icon={<FaUserCheck />} 
-        />
-         <StatsCard 
-            title="Stable patients" 
-            value={stablePatients} 
-            type="info" // Blue
-            icon={<FaNotesMedical />} 
-        />
-         <StatsCard 
-            title="Critical patients" 
-            value={criticalPatients} 
-            type="critical" // Red
-            icon={<FaExclamationTriangle />} 
-        />
+      {/* Primary Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+        <StatsCard title="Total Doctors" value={stats.doctors} type="info" icon={<FaUserMd />} />
+        <StatsCard title="Total Patients" value={stats.patients} type="default" icon={<FaUsers />} />
+        <StatsCard title="Monthly Appointments" value={stats.appointments} type="warning" icon={<FaCalendarAlt />} />
+        <StatsCard title="Emergency Alerts" value={3} type="critical" icon={<FaExclamationTriangle />} />
       </div>
 
-      {/* Table Section */}
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-        {/* Table Toolbar */}
-        <div className="p-4 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="relative max-w-sm w-full">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                    <FaFilter />
-                </span>
-                <input 
-                    type="text" 
-                    placeholder="Search patient..." 
-                    className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5">
+        {/* Analytics Chart */}
+        <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h3 className="text-sm font-bold text-gray-900">Appointment Analytics</h3>
+              <p className="text-[10px] text-gray-400">Monthly patient visit volume trends</p>
+            </div>
+            <div className="flex items-center gap-1 text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-lg text-[10px] font-bold">
+              <FaArrowUp /> 12.5%
+            </div>
+          </div>
+          <div className="h-[200px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={stats.appointmentTrends}>
+                <defs>
+                  <linearGradient id="colorApp" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.1}/>
+                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 10}} dy={5} />
+                <YAxis axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 10}} />
+                <Tooltip 
+                  contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 8px 12px -2px rgba(0,0,0,0.08)', padding: '8px' }}
+                  itemStyle={{ color: '#6366f1', fontWeight: 'bold', fontSize: '11px' }}
                 />
-            </div>
-
-            <div className="flex items-center gap-2">
-                 <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
-                    <FaFilter className="text-gray-400" />
-                    Filter
-                </button>
-                 <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
-                    All Status
-                    <FaCog className="text-gray-400 text-xs" />
-                </button>
-                 <button className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors shadow-sm shadow-blue-200">
-                    <FaFileExport />
-                    Export
-                </button>
-                <div className="w-px h-6 bg-gray-200 mx-1"></div>
-                 <button className="p-2 text-gray-400 hover:text-gray-600 bg-gray-50 rounded-lg">
-                    <FaThList />
-                </button>
-                 <button className="p-2 text-gray-400 hover:text-gray-600">
-                    <FaThLarge />
-                </button>
-            </div>
+                <Area type="monotone" dataKey="appointments" stroke="#6366f1" strokeWidth={2} fillOpacity={1} fill="url(#colorApp)" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
-        {/* Table */}
-        <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-                <thead>
-                    <tr className="bg-gray-50/50 border-b border-gray-100">
-                        <th className="p-4 w-4">
-                            <input type="checkbox" className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                        </th>
-                        <th className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Name</th>
-                        <th className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Last Appointment</th>
-                        <th className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Date of Birth</th>
-                        <th className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Gender</th>
-                        <th className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Diagnosis</th>
-                        <th className="p-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                        <th className="p-4 w-10"></th>
-                    </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                    {loading ? (
-                         <tr><td colSpan="8" className="p-8 text-center text-gray-500">Loading data...</td></tr>
-                    ) : patients.map((patient) => (
-                        <tr key={patient._id} className="hover:bg-gray-50/50 transition-colors group">
-                            <td className="p-4">
-                                <input type="checkbox" className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                            </td>
-                            <td className="p-4">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm">
-                                        {patient.firstName ? patient.firstName[0] : 'U'}
-                                    </div>
-                                    <div className="font-medium text-gray-900">{patient.firstName} {patient.lastName}</div>
-                                </div>
-                            </td>
-                            <td className="p-4 text-sm text-gray-600">{patient.lastAppointment}</td>
-                            <td className="p-4 text-sm text-gray-600">{patient.dateOfBirth}</td>
-                            <td className="p-4 text-sm text-gray-600">{patient.sex}</td>
-                            <td className="p-4 text-sm text-gray-900 font-medium">{patient.diagnosis}</td>
-                            <td className="p-4">
-                                <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${getStatusColor(patient.status)}`}>
-                                    {patient.status}
-                                </span>
-                            </td>
-                            <td className="p-4 text-right">
-                                <button className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 opacity-0 group-hover:opacity-100 transition-all">
-                                    <FaEllipsisH />
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-        
-        {/* Pagination (Mock) */}
-        {!loading && (
-             <div className="p-4 border-t border-gray-100 flex items-center justify-between text-sm text-gray-500">
-                <div>Showing 1-{patients.length} of {patients.length} patients</div>
-                <div className="flex gap-2">
-                    <button className="px-3 py-1 border border-gray-200 rounded hover:bg-gray-50">Previous</button>
-                    <button className="px-3 py-1 border border-gray-200 rounded hover:bg-gray-50">Next</button>
+        {/* Distribution Chart */}
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+          <h3 className="text-sm font-bold text-gray-900 mb-0.5">Patient Status</h3>
+          <p className="text-[10px] text-gray-400 mb-4">Global health distribution</p>
+          <div className="h-[140px] w-full relative">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie data={patientStatusData} cx="50%" cy="50%" innerRadius={40} outerRadius={55} paddingAngle={4} dataKey="value">
+                  {patientStatusData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+              <span className="text-lg font-black text-gray-900">{stats.patients}</span>
+              <span className="text-[7px] text-gray-400 font-bold uppercase tracking-widest leading-none">Lives</span>
+            </div>
+          </div>
+          <div className="mt-3 space-y-1.5">
+            {patientStatusData.map((item, idx) => (
+              <div key={item.name} className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full" style={{backgroundColor: COLORS[idx]}}></div>
+                  <span className="text-[10px] font-medium text-gray-600">{item.name}</span>
                 </div>
+                <span className="text-[10px] font-bold text-gray-900">{item.value}%</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+        {/* Pharmacy Card */}
+        <div className="bg-white p-3.5 rounded-2xl border border-gray-100 shadow-sm hover:border-indigo-200 transition-all group">
+          <div className="flex items-center justify-between mb-2">
+            <div className="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">
+              <FaCapsules size={14} />
             </div>
-        )}
+            <span className="text-[8px] font-black text-indigo-600 uppercase tracking-widest">Pharmacy</span>
+          </div>
+          <div className="flex items-end justify-between">
+            <div>
+              <div className="text-lg font-black text-gray-900 leading-none mb-1">{stats.pharmacy?.total || 0}</div>
+              <p className="text-[8px] text-gray-400 font-bold uppercase tracking-tighter">Inventory</p>
+            </div>
+            <div className={`px-1.5 py-0.5 rounded text-[8px] font-black uppercase ${stats.pharmacy?.lowStock > 0 ? 'bg-red-50 text-red-600' : 'bg-emerald-50 text-emerald-600'}`}>
+              {stats.pharmacy?.lowStock || 0} Low
+            </div>
+          </div>
+        </div>
+
+        {/* Blood Bank Card */}
+        <div className="bg-white p-3.5 rounded-2xl border border-gray-100 shadow-sm hover:border-red-200 transition-all group">
+          <div className="flex items-center justify-between mb-2">
+            <div className="w-8 h-8 bg-red-50 text-red-600 rounded-lg flex items-center justify-center group-hover:bg-red-600 group-hover:text-white transition-all">
+              <FaTint size={14} />
+            </div>
+            <span className="text-[8px] font-black text-red-600 uppercase tracking-widest">Blood Bank</span>
+          </div>
+          <div className="flex items-end justify-between">
+            <div>
+              <div className="text-lg font-black text-gray-900 leading-none mb-1">{stats.bloodBank?.donors || 0}</div>
+              <p className="text-[8px] text-gray-400 font-bold uppercase tracking-tighter">Donors</p>
+            </div>
+            <div className="px-1.5 py-0.5 bg-red-50 text-red-600 rounded text-[8px] font-black uppercase">
+              {stats.bloodBank?.requests || 0} Req.
+            </div>
+          </div>
+        </div>
+
+        {/* Equipment Card */}
+        <div className="bg-white p-3.5 rounded-2xl border border-gray-100 shadow-sm hover:border-blue-200 transition-all group">
+          <div className="flex items-center justify-between mb-2">
+            <div className="w-8 h-8 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">
+              <FaTools size={14} />
+            </div>
+            <span className="text-[8px] font-black text-blue-600 uppercase tracking-widest">Equipment</span>
+          </div>
+          <div className="flex items-end justify-between">
+            <div>
+              <div className="text-lg font-black text-gray-900 leading-none mb-1">{stats.equipment?.functional || 0}</div>
+              <p className="text-[8px] text-gray-400 font-bold uppercase tracking-tighter">Functional</p>
+            </div>
+            <div className="px-1.5 py-0.5 bg-amber-50 text-amber-600 rounded text-[8px] font-black uppercase">
+              {stats.equipment?.maintenance || 0} Maint.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Recent Activity / Table */}
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div className="px-5 py-3.5 border-b border-gray-100 flex items-center justify-between">
+          <div>
+            <h3 className="text-sm font-bold text-gray-900">Medical Registry</h3>
+            <p className="text-[10px] text-gray-400">Latest patients admitted</p>
+          </div>
+          <button className="text-indigo-600 font-bold text-[10px] flex items-center gap-1 hover:underline">
+            Directory <FaChevronRight size={7} />
+          </button>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left">
+            <thead>
+              <tr className="bg-gray-50/30">
+                <th className="px-5 py-2.5 text-[8px] font-black text-gray-400 uppercase tracking-widest italic">Identity</th>
+                <th className="px-5 py-2.5 text-[8px] font-black text-gray-400 uppercase tracking-widest italic">Diagnosis</th>
+                <th className="px-5 py-2.5 text-[8px] font-black text-gray-400 uppercase tracking-widest font-bold text-center">Status</th>
+                <th className="px-5 py-2.5 text-[8px] font-black text-gray-400 uppercase tracking-widest text-right italic">Entry</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {patients.map((patient) => (
+                <tr key={patient._id} className="hover:bg-indigo-50/10 transition-all group">
+                  <td className="px-5 py-2.5">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-md bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-[10px]">
+                        {patient.firstName ? patient.firstName[0] : 'U'}
+                      </div>
+                      <div>
+                        <div className="font-bold text-gray-900 text-[12px] leading-tight underline decoration-indigo-200 decoration-1 underline-offset-2">{patient.firstName} {patient.lastName}</div>
+                        <div className="text-[8px] text-gray-400 font-medium truncate max-w-[100px] leading-none">{patient.email}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-5 py-2.5">
+                    <div className="text-[11px] font-semibold text-gray-600">{patient.diagnosis}</div>
+                  </td>
+                  <td className="px-5 py-2.5 text-center">
+                    <span className={`px-1.5 py-0.5 rounded text-[8px] font-black uppercase ${getStatusColor(patient.status)}`}>
+                      {patient.status}
+                    </span>
+                  </td>
+                  <td className="px-5 py-2.5 text-right font-bold text-gray-400 text-[10px]">
+                    {patient.lastVisit}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </AdminLayout>
   );
