@@ -45,8 +45,7 @@ const AdminManageUsers = () => {
     };
 
     const filteredPatients = patients.filter(p => 
-        (p.firstName?.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        (p.lastName?.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (p.name?.toLowerCase().includes(searchTerm.toLowerCase())) ||
         (p.email?.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
@@ -137,10 +136,10 @@ const AdminManageUsers = () => {
                                         <td className="p-4">
                                             <div className="flex items-center gap-3">
                                                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center text-blue-600 font-bold text-sm border border-blue-100">
-                                                    {patient.firstName ? patient.firstName[0] : 'U'}
+                                                    {patient.name ? patient.name[0] : 'U'}
                                                 </div>
                                                 <div>
-                                                    <div className="font-semibold text-gray-900">{patient.firstName} {patient.lastName}</div>
+                                                    <div className="font-semibold text-gray-900">{patient.name}</div>
                                                     <div className="text-xs text-gray-500">ID: #{patient._id.slice(-6).toUpperCase()}</div>
                                                 </div>
                                             </div>

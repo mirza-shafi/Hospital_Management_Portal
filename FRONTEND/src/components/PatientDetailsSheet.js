@@ -87,10 +87,10 @@ const PatientDetailsSheetActual = ({ patient, onClose }) => {
         <div className="p-6 border-b border-gray-100 flex items-start justify-between bg-gray-50/50">
             <div className="flex items-center gap-4">
                 <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-2xl font-bold border-4 border-white shadow-sm">
-                    {patient.firstName?.[0]}
+                    {patient.name?.[0]}
                 </div>
                 <div>
-                    <h2 className="text-xl font-bold text-gray-900">{patient.firstName} {patient.lastName}</h2>
+                    <h2 className="text-xl font-bold text-gray-900">{patient.name}</h2>
                     <p className="text-sm text-gray-500">{patient.email}</p>
                     <div className="flex gap-2 mt-2">
                         <span className={`px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-700`}>
