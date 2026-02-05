@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
 const Doctor = require('../models/Doctor');
 const Patient = require('../models/Patient');
+const Appointment = require('../models/Appointment');
 const router = express.Router();
 require('dotenv').config();
 
@@ -164,6 +165,24 @@ router.delete('/patients/:id', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Get detailed system statistics
+router.get('/stats', async (req, res) => {
+  try {
+    const doctorsCount = await Doctor.countDocuments();
+    const patientsCount = await Patient.countDocuments();
+    const appointmentsCount = await Appointment.countDocuments();
+    
+    res.json({
+      doctors: doctorsCount,
+      patients: patientsCount,
+      appointments: appointmentsCount
+    });
+  } catch (error) {
+    console.error('Error fetching admin stats:', error);
+    res.status(500).json({ message: 'Server error fetching statistics' });
   }
 });
 

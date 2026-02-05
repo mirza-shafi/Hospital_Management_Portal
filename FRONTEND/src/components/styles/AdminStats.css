@@ -1,0 +1,199 @@
+/* Admin Stats & Dashboard Styles */
+.admin-dashboard-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .dashboard-top-nav {
+    margin-bottom: 2rem;
+  }
+  
+  .back-home-link {
+    display: inline-flex;
+    align-items: center;
+    color: #64748b;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  
+  .back-home-link:hover {
+    color: #3b82f6;
+  }
+  
+  .nav-icon {
+    margin-right: 0.5rem;
+  }
+  
+  .admin-dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .admin-dashboard-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #1e293b;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .logout-btn {
+    background-color: #fee2e2;
+    color: #ef4444;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+  }
+  
+  .logout-btn:hover {
+    background-color: #fecaca;
+    transform: translateY(-1px);
+  }
+  
+  /* Stats Section */
+  .dashboard-stats-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  
+  .stat-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f1f5f9;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  }
+  
+  .stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+  
+  .stat-title {
+    color: #64748b;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .stat-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+  
+  .stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1;
+  }
+  
+  .stat-subtext {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #94a3b8;
+  }
+  
+  /* Quick Actions Grid */
+  .dashboard-actions-section {
+    margin-top: 3rem;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 1.5rem;
+  }
+  
+  .admin-dashboard-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .card-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    cursor: pointer;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #3b82f6;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  
+  .card-box:hover {
+    border-color: #3b82f6;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1);
+  }
+  
+  .card-box:hover::before {
+    opacity: 1;
+  }
+  
+  .card-box h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.75rem;
+  }
+  
+  .card-subtext {
+    color: #64748b;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  /* Icon Colors */
+  .bg-blue-100 { background-color: #dbeafe; color: #2563eb; }
+  .bg-green-100 { background-color: #dcfce7; color: #16a34a; }
+  .bg-purple-100 { background-color: #f3e8ff; color: #9333ea; }
+  .bg-orange-100 { background-color: #ffedd5; color: #ea580c; }
