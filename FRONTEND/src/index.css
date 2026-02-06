@@ -13,8 +13,8 @@ body {
 }
 
 .dark body {
-  background-color: #1a202c;
-  color: #e2e8f0;
+  background-color: #09090b; /* zinc-950 */
+  color: #f1f5f9; /* zinc-100 */
 }
 
 code {

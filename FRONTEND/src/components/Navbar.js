@@ -4,7 +4,7 @@ import logo from '../assets/healingwave.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCapsules, faContactBook, faHome, faInfoCircle, faTint, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from '../contexts/ThemeContext';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, NavLink } from 'react-router-dom';
 
 const NavbarComponent = () => {
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
@@ -53,21 +53,21 @@ const NavbarComponent = () => {
 
       <div id="navbarBasicExample" className={`navbar-menu ${isActive ? 'is-active' : ''}`}>
         <div className="navbar-end">
-          <Link className="navbar-item" to="/">
+          <NavLink className="navbar-item" to="/">
             <FontAwesomeIcon icon={faHome} className="navbar-icon" /> Home
-          </Link>
-          <Link className="navbar-item" to="/blood-bank">
+          </NavLink>
+          <NavLink className="navbar-item" to="/blood-bank">
             <FontAwesomeIcon icon={faTint} className="navbar-icon" /> Blood Bank
-          </Link>
-          <Link className="navbar-item" to="/pharmacy">
+          </NavLink>
+          <NavLink className="navbar-item" to="/pharmacy">
             <FontAwesomeIcon icon={faCapsules} className="navbar-icon" /> Pharmacy
-          </Link>
-          <Link className="navbar-item" to="/support">
+          </NavLink>
+          <NavLink className="navbar-item" to="/support">
             <FontAwesomeIcon icon={faContactBook} className="navbar-icon" /> Support
-          </Link>
-          <Link className="navbar-item" to="/about">
+          </NavLink>
+          <NavLink className="navbar-item" to="/about">
             <FontAwesomeIcon icon={faInfoCircle} className="navbar-icon" /> About
-          </Link>
+          </NavLink>
           
           <button 
             className="navbar-item theme-toggle" 

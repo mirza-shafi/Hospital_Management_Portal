@@ -1,33 +1,25 @@
 /* Modern Premium Support Portal */
-.support-form-wrapper {
+.support-portal-root {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  padding: 40px 20px;
+  background-color: #f8fafc;
+  padding: 48px 16px;
   transition: all 0.3s ease;
 }
 
-.dark .support-form-wrapper {
-  background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
+.dark .support-portal-root {
+  background-color: #09090b; /* zinc-950 */
 }
 
-.support-form-container {
-  width: 100%;
-  max-width: 650px;
+.support-card {
   background: white;
-  border-radius: 20px;
-  padding: 40px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-  animation: slideUp 0.5s ease-out;
-  position: relative;
-  z-index: 10;
+  border-radius: 2.5rem;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.dark .support-form-container {
-  background: #2d3748;
+.dark .support-card {
+  background: #18181b; /* zinc-900 */
+  border-color: rgba(63, 63, 70, 0.4); /* zinc-700 */
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
 }
 
@@ -120,8 +112,8 @@
 
 .dark .support-form-input,
 .dark .support-form-textarea {
-  background: #1a202c;
-  border-color: #4a5568;
+  background: #09090b; /* zinc-950 */
+  border-color: #27272a; /* zinc-800 */
   color: #f7fafc;
 }
 

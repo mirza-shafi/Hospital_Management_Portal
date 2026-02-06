@@ -50,7 +50,7 @@ const AdminManageBlood = () => {
             </Helmet>
 
             {/* Tab Navigation */}
-            <div className="flex bg-white dark:bg-zinc-900 p-1 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm w-fit mb-8">
+            <div className="admin-toggle-container flex bg-white dark:bg-zinc-900 p-1 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm w-fit mb-8">
                 <button 
                     onClick={() => { setActiveTab('donors'); setSearchTerm(''); }}
                     className={`flex items-center gap-2 px-6 py-2.5 rounded-lg font-semibold transition-all ${
@@ -86,7 +86,7 @@ const AdminManageBlood = () => {
                     <input 
                         type="text" 
                         placeholder={`Search ${activeTab === 'donors' ? 'donors' : 'recipients'} by name or blood group...`}
-                        className="w-full pl-10 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500/20 dark:text-gray-200 font-sans"
+                        className="admin-search-input w-full pl-10 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500/20 dark:text-gray-200 font-sans"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -97,7 +97,7 @@ const AdminManageBlood = () => {
                 <div className="overflow-x-auto min-h-[400px]">
                     {activeTab === 'donors' && (
                         <table className="w-full text-left">
-                            <thead className="bg-gray-50 border-b border-gray-100">
+                            <thead className="bg-gray-50 dark:bg-zinc-800/50 border-b border-gray-100 dark:border-zinc-800">
                                 <tr>
                                     <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">Donor Name</th>
                                     <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">Blood Group</th>
@@ -105,7 +105,7 @@ const AdminManageBlood = () => {
                                     <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">Email</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-100">
+                            <tbody className="divide-y divide-gray-100 dark:divide-zinc-800">
                                 {loading ? (
                                     <tr><td colSpan="4" className="p-12 text-center text-gray-400">Loading donor list...</td></tr>
                                 ) : filteredDonors.length === 0 ? (
@@ -130,7 +130,7 @@ const AdminManageBlood = () => {
 
                     {activeTab === 'recipients' && (
                         <table className="w-full text-left">
-                            <thead className="bg-gray-50 dark:bg-zinc-800/10 border-b border-gray-100 dark:border-zinc-800">
+                            <thead className="bg-gray-50 dark:bg-zinc-800/50 border-b border-gray-100 dark:border-zinc-800">
                                 <tr>
                                     <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">Recipient Name</th>
                                     <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">Blood Needed</th>
@@ -138,7 +138,7 @@ const AdminManageBlood = () => {
                                     <th className="p-4 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">Contact</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-100">
+                            <tbody className="divide-y divide-gray-100 dark:divide-zinc-800">
                                 {loading ? (
                                     <tr><td colSpan="4" className="p-12 text-center text-gray-400">Loading recipient list...</td></tr>
                                 ) : filteredRecipients.length === 0 ? (

@@ -301,6 +301,29 @@
     color: #e4e4e7 !important;              /* zinc-200 */
 }
 
+
 .dark .admin-btn-secondary:hover {
     background-color: #3f3f46 !important;   /* zinc-700 */
+}
+
+/* Force Dark Mode for Toggle Containers */
+.dark .admin-toggle-container {
+    background-color: #27272a !important;   /* zinc-800 */
+    border-color: #3f3f46 !important;       /* zinc-700 */
+}
+
+/* Pagination Buttons */
+.dark .admin-pagination-btn {
+    background-color: #27272a !important;   /* zinc-800 */
+    border-color: #3f3f46 !important;       /* zinc-700 */
+    color: #e4e4e7 !important;              /* zinc-200 */
+}
+
+.dark .admin-pagination-btn:hover:not(:disabled) {
+    background-color: #3f3f46 !important;   /* zinc-700 */
+}
+
+.dark .admin-pagination-btn:disabled {
+    opacity: 0.4 !important;
+    color: #71717a !important;              /* zinc-500 */
 }

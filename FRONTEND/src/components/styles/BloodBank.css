@@ -1,80 +1,115 @@
 /* Modern Premium Blood Bank Styling */
 .bloodbank-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background-color: #f8fafc;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 60px 20px;
+  padding: 40px 20px;
   transition: all 0.3s ease;
 }
 
 .dark .bloodbank-page {
-  background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
+  background-color: #09090b; /* zinc-950 */
+}
+
+.bloodbank-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.back-home {
+  color: #64748b !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  transition: all 0.2s ease;
+  width: fit-content;
+  text-decoration: none !important;
+}
+
+.back-home:hover {
+  color: #ef4444 !important;
+  transform: translateX(-4px);
+}
+
+.dark .back-home {
+  color: #94a3b8 !important;
+}
+
+.dark .back-home:hover {
+  color: #f87171 !important;
 }
 
 .bloodbank-page-title {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 800;
   background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   text-align: center;
 }
 
 .bloodbank-page-subtitle {
-  color: #94a3b8;
-  font-size: 1.1rem;
-  margin-bottom: 50px;
+  color: #64748b;
+  font-size: 1rem;
+  margin-bottom: 40px;
   text-align: center;
-  max-width: 800px;
+  max-width: 600px;
 }
 
-.bloodbank-image-container {
-  margin-bottom: 50px;
-  animation: fadeIn 0.8s ease-out;
+.dark .bloodbank-page-subtitle {
+  color: #94a3b8;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+.bloodbank-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  width: 100%;
 }
 
-.bloodbank-main-image {
-  max-width: 400px;
-  height: auto;
-  border-radius: 20px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+.bloodbank-card-link {
+  text-decoration: none !important;
+  color: inherit !important;
 }
 
 .bloodbank-card {
   height: 100%;
   background: white;
-  border-radius: 20px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border: 1px solid #f1f5f9;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #e2e8f0;
   display: flex;
   flex-direction: column;
 }
 
 .dark .bloodbank-card {
-  background: #1a202c;
-  border-color: #2d3748;
+  background: #18181b; /* zinc-900 */
+  border-color: rgba(63, 63, 70, 0.4);
 }
 
 .bloodbank-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 45px rgba(239, 68, 68, 0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(239, 68, 68, 0.1);
   border-color: #ef4444;
+}
+
+.bloodbank-card-image {
+  height: 180px;
+  overflow: hidden;
 }
 
 .bloodbank-card-image img {
   width: 100%;
-  height: 220px;
+  height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
 }
@@ -84,29 +119,33 @@
 }
 
 .bloodbank-card-content {
-  padding: 24px;
-  text-align: center;
+  padding: 20px;
+  text-align: left;
 }
 
 .bloodbank-card-content .card-title {
-  font-size: 1.5rem;
-  font-weight: 800;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: #1a202c;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .dark .bloodbank-card-content .card-title {
-  color: white;
+  color: #f7fafc;
 }
 
 .bloodbank-card-content .card-subtitle {
   color: #64748b;
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.dark .bloodbank-card-content .card-subtitle {
+  color: #a1a1aa;
 }
 
 @media (max-width: 768px) {
   .bloodbank-page-title {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 }

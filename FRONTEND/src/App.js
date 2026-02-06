@@ -43,7 +43,6 @@ import AdminManageBlood from './components/AdminManageBlood';
 import AdminManagePharmacy from './components/AdminManagePharmacy';
 import AdminManageEquipment from './components/AdminManageEquipment';
 import AdminManageFeedback from './components/AdminManageFeedback';
-import AdminHelpCenter from './components/AdminHelpCenter';
 import AdminSettings from './components/AdminSettings';
 import AddMedicine from './components/AddMedicine';
 import MedicineDetails from './components/MedicineDetails';
@@ -80,6 +79,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About/>} />
               <Route path="/blood-bank" element={<BloodBank />} />
+              <Route path="/pharmacy" element={<Pharmacy />} />
               <Route path="/support" element={<SupportForm />} />
               <Route path="/doctor-signup" element={<DoctorSignUp />} />
               <Route path="/patient-signup" element={<PatientSignUp />} />
@@ -146,7 +146,6 @@ function App() {
                 <Route path="/admin/pharmacy-manage" element={<AdminManagePharmacy />} />
                 <Route path="/admin/equipment-manage" element={<AdminManageEquipment />} />
                 <Route path="/feedback" element={<AdminManageFeedback />} />
-                <Route path="/help" element={<AdminHelpCenter />} />
                 <Route path="/settings" element={<AdminSettings />} />
                 <Route path="/admin-support" element={<AdminSupport />} />
             </Route>

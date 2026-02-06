@@ -82,7 +82,7 @@ const AdminReports = () => {
 
             <div className="admin-card bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm overflow-hidden mb-8">
                 <div className="p-4 border-b border-gray-100 dark:border-zinc-800 bg-gray-50/30 dark:bg-zinc-800/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div className="flex bg-white dark:bg-zinc-800 p-1 rounded-lg border border-gray-200 dark:border-zinc-700 w-fit">
+                    <div className="admin-toggle-container flex bg-white dark:bg-zinc-800 p-1 rounded-lg border border-gray-200 dark:border-zinc-700 w-fit">
                         {['All', 'Medicine', 'Test', 'Ward', 'Cabin'].map(cat => (
                             <button 
                                 key={cat}
@@ -180,7 +180,7 @@ const SummaryCard = ({ title, value, icon, color }) => {
     };
 
     return (
-        <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl border border-gray-100 dark:border-zinc-800 shadow-sm flex items-center gap-4">
+        <div className="admin-card bg-white dark:bg-zinc-900 p-6 rounded-xl border border-gray-100 dark:border-zinc-800 shadow-sm flex items-center gap-4">
             <div className={`w-12 h-12 rounded-lg flex items-center justify-center text-xl shadow-sm border ${colors[color]}`}>
                 {icon}
             </div>

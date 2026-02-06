@@ -9,7 +9,7 @@
 }
 
 .dark .about-page {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(135deg, #09090b 0%, #18181b 100%);
 }
 
 /* Hero Section */
@@ -22,7 +22,8 @@
 }
 
 .dark .about-hero {
-  background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+  background: linear-gradient(135deg, #09090b 0%, #171717 100%);
+  border-bottom: 1px solid rgba(63, 63, 70, 0.3);
 }
 
 .about-hero::before {
@@ -86,8 +87,9 @@
 }
 
 .dark .mission-card {
-  background: rgba(45, 55, 72, 0.95);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  background: rgba(24, 24, 27, 0.95); /* zinc-900 */
+  border-color: rgba(63, 63, 70, 0.3); /* zinc-700 */
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
 .mission-card:hover {

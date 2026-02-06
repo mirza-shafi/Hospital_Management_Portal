@@ -10,7 +10,7 @@
 }
 
 .dark .home-page {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(135deg, #09090b 0%, #18181b 100%);
 }
 
 /* Hero Section with Carousel */
@@ -315,8 +315,9 @@
 }
 
 .dark .feature-card {
-  background: rgba(45, 55, 72, 0.9);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  background: rgba(24, 24, 27, 0.95); /* zinc-900 */
+  border-color: rgba(63, 63, 70, 0.3); /* zinc-700 */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .dark .feature-card::before {
@@ -642,7 +643,9 @@
 }
 
 .dark .stats-section {
-  background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+  background: linear-gradient(135deg, #09090b 0%, #18181b 100%);
+  border-top: 1px solid rgba(63, 63, 70, 0.2);
+  border-bottom: 1px solid rgba(63, 63, 70, 0.2);
 }
 
 .stats-container {
@@ -715,7 +718,8 @@
 }
 
 .dark .modern-footer {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(135deg, #09090b 0%, #171717 100%);
+  border-top: 1px solid rgba(63, 63, 70, 0.3);
 }
 
 .footer-content {

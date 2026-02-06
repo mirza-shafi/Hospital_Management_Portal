@@ -91,7 +91,6 @@ const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Ma
 
   const bottomItems = [
      { name: 'Feedback', icon: <FaRegCommentDots />, path: '/feedback' },
-     { name: 'Help Center', icon: <FaRegCommentDots />, path: '/help' },
      { name: 'Settings', icon: <FaCog />, path: '/settings' }, 
   ];
 

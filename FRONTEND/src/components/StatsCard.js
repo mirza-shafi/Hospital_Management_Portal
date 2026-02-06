@@ -1,14 +1,22 @@
 import React from 'react';
 import { useAdminTheme } from '../context/AdminThemeContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 const StatsCard = ({ title, value, type = 'default', icon }) => {
-  // Safe consumption of Admin Context, or fallback to props/defaults
-  let theme = 'light';
+  // Try Admin Context first, then Public Context
+  let currentTheme = 'light';
+  
   try {
-     const context = useAdminTheme();
-     if (context) theme = context.theme;
+    const adminContext = useAdminTheme();
+    if (adminContext) currentTheme = adminContext.theme;
   } catch (e) {
-     // Not in Admin Context, ignore
+    // Not in Admin Context, try Public Context
+    try {
+      const publicContext = useTheme();
+      if (publicContext) currentTheme = publicContext.theme;
+    } catch (err) {
+      // No context available, default to light
+    }
   }
   
   // Styles based on type
@@ -22,10 +30,10 @@ const StatsCard = ({ title, value, type = 'default', icon }) => {
 
   const selectedStyle = styles[type] || styles.default;
   
-  const bgClass = theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-100';
-  const textClass = theme === 'dark' ? 'text-gray-100' : 'text-gray-900';
-  const subTextClass = theme === 'dark' ? 'text-gray-400' : 'text-gray-500';
-  const iconBg = theme === 'dark' ? 'bg-zinc-800 border-zinc-700' : 'bg-gray-50 border-gray-100';
+  const bgClass = currentTheme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-100';
+  const textClass = currentTheme === 'dark' ? 'text-gray-100' : 'text-gray-900';
+  const subTextClass = currentTheme === 'dark' ? 'text-gray-400' : 'text-gray-500';
+  const iconBg = currentTheme === 'dark' ? 'bg-zinc-800 border-zinc-700' : 'bg-gray-50 border-gray-100';
 
   return (
     <div className={`stat-card ${bgClass} rounded-xl p-5 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border flex items-center justify-between ${selectedStyle.border}`}>

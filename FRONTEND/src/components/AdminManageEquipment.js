@@ -78,7 +78,7 @@ const AdminManageEquipment = () => {
             </Helmet>
 
             <div className="flex items-center justify-between mb-8">
-            <div className="flex bg-white dark:bg-zinc-900 p-1 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm">
+            <div className="admin-toggle-container flex bg-white dark:bg-zinc-900 p-1 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm">
                     <button 
                         onClick={() => setViewMode('list')}
                         className={`flex items-center gap-2 px-6 py-2.5 rounded-lg font-semibold transition-all ${

@@ -10,7 +10,7 @@
 }
 
 .dark .pharmacy-page {
-  background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
+  background-color: #09090b; /* zinc-950 */
 }
 
 .pharmacy-header {
@@ -69,8 +69,8 @@
 }
 
 .dark .pharmacy-search-bar {
-  background: #1e293b;
-  border-color: #334155;
+  background: #18181b; /* zinc-900 */
+  border-color: rgba(63, 63, 70, 0.4);
 }
 
 .pharmacy-search-bar:focus-within {
@@ -121,8 +121,8 @@
 }
 
 .dark .pharmacy-medicine-card {
-  background: #1e293b;
-  border-color: #334155;
+  background: #18181b; /* zinc-900 */
+  border-color: rgba(63, 63, 70, 0.3);
 }
 
 .pharmacy-medicine-card:hover {
@@ -142,7 +142,7 @@
 }
 
 .dark .pharmacy-medicine-image {
-  background: #0f172a;
+  background: #09090b; /* zinc-950 */
 }
 
 .pharmacy-medicine-image img {
@@ -250,9 +250,9 @@
 }
 
 .dark .pharmacy-pagination-button {
-  background: #1e293b;
-  border-color: #334155;
-  color: #94a3b8;
+  background: #18181b; /* zinc-900 */
+  border-color: rgba(63, 63, 70, 0.4);
+  color: #a1a1aa; /* zinc-400 */
 }
 
 .pharmacy-pagination-button:hover:not(.active) {
