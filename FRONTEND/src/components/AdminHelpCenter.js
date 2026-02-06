@@ -41,7 +41,7 @@ const AdminHelpCenter = () => {
                 {/* Category Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {categories.map((cat, i) => (
-                        <div key={i} className="bg-white dark:bg-zinc-900 p-8 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all cursor-pointer group">
+                        <div key={i} className="admin-card bg-white dark:bg-zinc-900 p-8 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all cursor-pointer group">
                              <div className="w-12 h-12 bg-gray-50 dark:bg-zinc-800 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                                 {cat.icon}
                              </div>
@@ -52,7 +52,7 @@ const AdminHelpCenter = () => {
                 </div>
 
                 {/* FAQ Section */}
-                <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-gray-100 dark:border-zinc-800 shadow-sm p-10">
+                <div className="admin-card bg-white dark:bg-zinc-900 rounded-3xl border border-gray-100 dark:border-zinc-800 shadow-sm p-10">
                     <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-8 flex items-center gap-2">
                         <FaQuestionCircle className="text-amber-500" /> Frequently Asked Questions
                     </h3>

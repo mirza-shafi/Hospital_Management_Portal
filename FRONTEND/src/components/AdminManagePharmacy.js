@@ -121,7 +121,7 @@ const AdminManagePharmacy = () => {
                         <input 
                             type="text" 
                             placeholder="Search by brand or generic name..." 
-                            className="w-full pl-9 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:text-gray-200 font-sans"
+                            className="admin-search-input w-full pl-9 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:text-gray-200 font-sans"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -130,7 +130,7 @@ const AdminManagePharmacy = () => {
             </div>
 
             {viewMode === 'inventory' ? (
-                <div className="bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm overflow-hidden">
+                <div className="admin-card bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm overflow-hidden">
                     <div className="overflow-x-auto min-h-[400px]">
                         <table className="w-full text-left">
                             <thead className="bg-gray-50 dark:bg-zinc-800/10 border-b border-gray-100 dark:border-zinc-800 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
@@ -193,7 +193,7 @@ const AdminManagePharmacy = () => {
                     </div>
                 </div>
             ) : (
-                <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-200 dark:border-zinc-800 shadow-sm p-8 max-w-4xl mx-auto">
+                <div className="admin-card bg-white dark:bg-zinc-900 rounded-2xl border border-gray-200 dark:border-zinc-800 shadow-sm p-8 max-w-4xl mx-auto">
                     <form onSubmit={handleAddMedicine} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-4">
                             <div>

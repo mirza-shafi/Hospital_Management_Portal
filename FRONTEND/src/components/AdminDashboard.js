@@ -90,7 +90,7 @@ const AdminDashboard = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5">
         {/* Analytics Chart */}
-        <div className="lg:col-span-2 bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 shadow-sm p-4 rounded-2xl">
+        <div className="admin-card lg:col-span-2 bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 shadow-sm p-4 rounded-2xl">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100">Appointment Analytics</h3>
@@ -129,7 +129,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Distribution Chart */}
-        <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm p-4">
+        <div className="admin-card bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm p-4">
           <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100 mb-0.5">Patient Status</h3>
           <p className="text-[10px] text-gray-400 dark:text-gray-500 mb-4">Global health distribution</p>
           <div className="h-[140px] w-full relative">
@@ -164,7 +164,7 @@ const AdminDashboard = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
         {/* Pharmacy Card */}
-        <div className="bg-white dark:bg-zinc-900 p-3.5 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm hover:border-indigo-200 dark:hover:border-indigo-900/40 transition-all group">
+        <div className="admin-card bg-white dark:bg-zinc-900 p-3.5 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm hover:border-indigo-200 dark:hover:border-indigo-900/40 transition-all group">
           <div className="flex items-center justify-between mb-2">
             <div className="w-8 h-8 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded-lg flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">
               <FaCapsules size={14} />
@@ -183,7 +183,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Blood Bank Card */}
-        <div className="bg-white dark:bg-zinc-900 p-3.5 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm hover:border-red-200 dark:hover:border-red-900/40 transition-all group">
+        <div className="admin-card bg-white dark:bg-zinc-900 p-3.5 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm hover:border-red-200 dark:hover:border-red-900/40 transition-all group">
           <div className="flex items-center justify-between mb-2">
             <div className="w-8 h-8 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg flex items-center justify-center group-hover:bg-red-600 group-hover:text-white transition-all">
               <FaTint size={14} />
@@ -202,7 +202,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* Equipment Card */}
-        <div className="bg-white dark:bg-zinc-900 p-3.5 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm hover:border-blue-200 dark:hover:border-blue-900/40 transition-all group">
+        <div className="admin-card bg-white dark:bg-zinc-900 p-3.5 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm hover:border-blue-200 dark:hover:border-blue-900/40 transition-all group">
           <div className="flex items-center justify-between mb-2">
             <div className="w-8 h-8 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-lg flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">
               <FaTools size={14} />
@@ -222,7 +222,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Recent Activity / Table */}
-      <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm overflow-hidden">
+      <div className="admin-card bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm overflow-hidden">
         <div className="px-5 py-3.5 border-b border-gray-100 dark:border-zinc-800 flex items-center justify-between">
           <div>
             <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100">Medical Registry</h3>

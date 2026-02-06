@@ -67,7 +67,7 @@ const AdminSettings = () => {
                 </div>
 
                 {/* Content Area */}
-                <div className="flex-1 bg-white dark:bg-zinc-900 rounded-3xl border border-gray-100 dark:border-zinc-800 shadow-sm p-10">
+                <div className="admin-card flex-1 bg-white dark:bg-zinc-900 rounded-3xl border border-gray-100 dark:border-zinc-800 shadow-sm p-10">
                     {loading ? (
                         <div className="text-center py-20 text-gray-400">Loading settings...</div>
                     ) : activeSection === 'profile' && (

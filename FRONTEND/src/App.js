@@ -68,13 +68,15 @@ import AdminLayout from './components/AdminLayout';
 
 function App() {
   return (
-    <AdminThemeProvider>
-      <ThemeProvider>
-      <Router>
+    <Router>
         <div className="App">
           <Routes>
-            {/* Routes WITH Navbar */}
-            <Route element={<MainLayout />}>
+            {/* Routes WITH Navbar - Wrapped in Public ThemeProvider */}
+            <Route element={
+              <ThemeProvider>
+                <MainLayout />
+              </ThemeProvider>
+            }>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About/>} />
               <Route path="/blood-bank" element={<BloodBank />} />
@@ -123,7 +125,12 @@ function App() {
             {/* Routes WITHOUT Navbar */}
             <Route path="/admin-login" element={<AdminLogin />} />
 
-            <Route element={<ProtectedRoute type="admin" />}>
+            {/* Admin Routes - Wrapped in AdminThemeProvider */}
+            <Route element={
+              <AdminThemeProvider>
+                <ProtectedRoute type="admin" />
+              </AdminThemeProvider>
+            }>
                 <Route path="/admin-dashboard" element={<AdminDashboard />} />
                 <Route path="/items" element={<Items />} />
                 <Route path="/test-service" element={<TestService />} />
@@ -146,8 +153,6 @@ function App() {
           </Routes>
         </div>
       </Router>
-    </ThemeProvider>
-    </AdminThemeProvider>
   );
 }
 

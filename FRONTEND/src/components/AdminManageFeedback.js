@@ -86,7 +86,7 @@ const AdminManageFeedback = () => {
                                 className={`p-6 rounded-2xl border transition-all cursor-pointer ${
                                     selectedRequest?._id === req._id 
                                     ? 'bg-indigo-50 dark:bg-indigo-900/20 border-indigo-200 dark:border-indigo-900/30 shadow-md' 
-                                    : 'bg-white dark:bg-zinc-900 border-gray-100 dark:border-zinc-800 hover:border-indigo-100 dark:hover:border-indigo-900/40 shadow-sm'
+                                    : 'admin-card bg-white dark:bg-zinc-900 border-gray-100 dark:border-zinc-800 hover:border-indigo-100 dark:hover:border-indigo-900/40 shadow-sm'
                                 }`}
                             >
                                 <div className="flex justify-between items-start mb-3">
@@ -112,7 +112,7 @@ const AdminManageFeedback = () => {
                 </div>
 
                 {/* Response Area */}
-                <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-200 dark:border-zinc-800 shadow-sm p-8 h-fit sticky top-8">
+                <div className="admin-card bg-white dark:bg-zinc-900 rounded-2xl border border-gray-200 dark:border-zinc-800 shadow-sm p-8 h-fit sticky top-8">
                     {selectedRequest ? (
                         <>
                             <div className="border-b border-gray-100 dark:border-zinc-800 pb-6 mb-6">

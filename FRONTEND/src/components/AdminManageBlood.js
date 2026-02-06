@@ -93,7 +93,7 @@ const AdminManageBlood = () => {
                 </div>
             )}
 
-            <div className="bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm overflow-hidden">
+            <div className="admin-card bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm overflow-hidden">
                 <div className="overflow-x-auto min-h-[400px]">
                     {activeTab === 'donors' && (
                         <table className="w-full text-left">

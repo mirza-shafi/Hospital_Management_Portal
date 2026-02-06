@@ -7,6 +7,8 @@ import Chatbot from './Chatbot';
 import NewsTicker from './NewsTicker';
 import { Helmet } from 'react-helmet';
 import Footer from './Footer';
+import StatsCard from './StatsCard';
+import { FaUserMd, FaSmile, FaCalendarCheck, FaTrophy } from 'react-icons/fa';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -167,22 +169,30 @@ const Home = () => {
       {/* Statistics Section */}
       <div className="stats-section">
         <div className="stats-container">
-          <div className="stat-card">
-            <div className="stat-number">500+</div>
-            <div className="stat-label">Expert Doctors</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-number">50,000+</div>
-            <div className="stat-label">Happy Patients</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-number">25+</div>
-            <div className="stat-label">Years Experience</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-number">100+</div>
-            <div className="stat-label">Medical Awards</div>
-          </div>
+          <StatsCard 
+            title="Expert Doctors" 
+            value="500+" 
+            icon={<FaUserMd size={24} className="text-blue-500" />} 
+            type="info"
+          />
+          <StatsCard 
+            title="Happy Patients" 
+            value="50,000+" 
+            icon={<FaSmile size={24} className="text-yellow-500" />} 
+            type="warning"
+          />
+          <StatsCard 
+            title="Years Experience" 
+            value="25+" 
+            icon={<FaCalendarCheck size={24} className="text-emerald-500" />} 
+            type="success"
+          />
+          <StatsCard 
+            title="Medical Awards" 
+            value="100+" 
+            icon={<FaTrophy size={24} className="text-indigo-500" />} 
+            type="default"
+          />
         </div>
       </div>
 

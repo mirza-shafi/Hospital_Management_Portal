@@ -13,10 +13,17 @@ export const AdminThemeProvider = ({ children }) => {
 
     useEffect(() => {
         const root = window.document.documentElement;
+        console.log(`[AdminThemeContext] Switching theme to: ${theme}`);
+        
+        // Remove any existing theme classes to avoid conflicts
+        root.classList.remove('light', 'dark');
+
         if (theme === 'dark') {
             root.classList.add('dark');
+            root.style.colorScheme = 'dark';
         } else {
-            root.classList.remove('dark');
+            root.classList.add('light'); // Optional, but good for specificity
+            root.style.colorScheme = 'light';
         }
         localStorage.setItem('adminTheme', theme);
     }, [theme]);

@@ -96,12 +96,12 @@ const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Ma
   ];
 
   return (
-    <div className={`flex h-screen font-sans transition-colors duration-300 ${theme === 'dark' ? 'bg-pure-dark text-gray-100' : 'bg-gray-50 text-gray-900'} ${isResizing ? 'cursor-col-resize select-none' : ''}`}>
+    <div className={`${theme === 'dark' ? 'dark bg-pure-dark text-gray-100' : 'bg-gray-50 text-gray-900'} flex h-screen font-sans transition-colors duration-300 ${isResizing ? 'cursor-col-resize select-none' : ''}`}>
       {/* Sidebar */}
       <aside 
         ref={sidebarRef}
         style={{ width: isSidebarCollapsed ? '80px' : `${sidebarWidth}px` }}
-        className={`bg-white dark:bg-zinc-900 border-r border-gray-200 dark:border-zinc-800 flex flex-col fixed h-full z-30 ${!isResizing ? 'transition-all duration-300' : ''}`}
+        className={`${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'} border-r flex flex-col fixed h-full z-30 ${!isResizing ? 'transition-all duration-300' : ''}`}
       >
         {/* Resize Handle */}
         {!isSidebarCollapsed && (
@@ -125,7 +125,7 @@ const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Ma
             {!isSidebarCollapsed && (
                 <button 
                     onClick={toggleSidebar}
-                    className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-400 hover:text-gray-600 transition-all absolute -right-3 top-6 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 shadow-sm z-50"
+                    className={`p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-400 hover:text-gray-600 transition-all absolute -right-3 top-6 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'} border shadow-sm z-50`}
                     title="Collapse Sidebar"
                 >
                     <FaChevronDown className="rotate-90 text-xs" />
@@ -172,7 +172,7 @@ const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Ma
             </div>
         </nav>
         
-        <div className="p-4 border-t border-gray-100 dark:border-zinc-800 space-y-1">
+        <div className={`p-4 border-t ${theme === 'dark' ? 'border-zinc-800' : 'border-gray-100'} space-y-1`}>
              {bottomItems.map((item) => (
                 <Link
                 key={item.name}
@@ -193,7 +193,7 @@ const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Ma
         className={`flex-1 flex flex-col min-w-0 overflow-hidden ${!isResizing ? 'transition-all duration-300' : ''}`}
       >
         {/* Top Header */}
-        <header className="bg-white dark:bg-zinc-900 border-b border-gray-200 dark:border-zinc-800 h-16 flex items-center justify-between px-8 sticky top-0 z-20 transition-all">
+        <header className={`${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'} border-b h-16 flex items-center justify-between px-8 sticky top-0 z-20 transition-all`}>
             <div>
                 <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">{title}</h2>
                 <p className="text-xs text-gray-500 dark:text-gray-400">{subtitle}</p>

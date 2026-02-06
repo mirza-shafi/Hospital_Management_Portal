@@ -77,7 +77,7 @@ const AdminManageClinic = () => {
                 </div>
             </div>
 
-            <div className="bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm overflow-hidden">
+            <div className="admin-card bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm overflow-hidden">
                 <div className="p-4 border-b border-gray-100 dark:border-zinc-800 bg-gray-50/30 dark:bg-zinc-800/10 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div className="relative max-w-md w-full">
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
@@ -86,7 +86,7 @@ const AdminManageClinic = () => {
                         <input 
                             type="text" 
                             placeholder={`Search ${activeTab === 'wards' ? 'ward' : 'cabin'} bookings...`}
-                            className="w-full pl-10 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:text-gray-200 font-sans"
+                            className="admin-search-input w-full pl-10 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:text-gray-200 font-sans"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />

@@ -80,7 +80,7 @@ const AdminReports = () => {
                 <SummaryCard title="Room Bookings" value={`৳${(totals.ward + totals.cabin).toLocaleString()}`} icon={<FaBed />} color="orange" />
             </div>
 
-            <div className="bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm overflow-hidden mb-8">
+            <div className="admin-card bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm overflow-hidden mb-8">
                 <div className="p-4 border-b border-gray-100 dark:border-zinc-800 bg-gray-50/30 dark:bg-zinc-800/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="flex bg-white dark:bg-zinc-800 p-1 rounded-lg border border-gray-200 dark:border-zinc-700 w-fit">
                         {['All', 'Medicine', 'Test', 'Ward', 'Cabin'].map(cat => (
@@ -88,7 +88,9 @@ const AdminReports = () => {
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
                                 className={`px-4 py-1.5 text-xs font-semibold rounded-md transition-all ${
-                                    activeCategory === cat ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                                    activeCategory === cat 
+                                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' 
+                                    : 'admin-btn-secondary bg-transparent text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-zinc-700'
                                 }`}
                             >
                                 {cat}
@@ -103,7 +105,7 @@ const AdminReports = () => {
                         <input 
                             type="text" 
                             placeholder="Search by patient or category..." 
-                            className="w-full pl-9 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:text-gray-200 transition-all font-sans"
+                            className="admin-search-input w-full pl-9 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:text-gray-200 transition-all font-sans"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />

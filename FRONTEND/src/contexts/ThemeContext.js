@@ -18,10 +18,16 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
+    const root = document.documentElement;
+    // Clean up potential conflicts from Admin Theme
+    root.classList.remove('light', 'dark');
+    
     if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
+      root.classList.add('dark');
+      root.style.colorScheme = 'dark';
     } else {
-      document.documentElement.classList.remove('dark');
+      root.classList.remove('dark'); // 'light' is default/implied
+      root.style.colorScheme = 'light';
     }
   }, [theme]);
 
