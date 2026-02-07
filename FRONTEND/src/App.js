@@ -5,65 +5,90 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bulma/css/bulma.min.css';
 import { ThemeProvider } from './contexts/ThemeContext';
-import { AdminThemeProvider } from './context/AdminThemeContext';
+import { AdminThemeProvider } from './features/admin/context/AdminThemeContext';
 
-import NavbarComponent from './components/Navbar';
-import Home from './components/Home';
-import DoctorSignUp from './components/DoctorSignUp';
-import PatientSignUp from './components/PatientSignUp';
-import DoctorLogin from './components/DoctorLogin';
-import PatientLogin from './components/PatientLogin';
-import DoctorAccount from './components/DoctorAccount';
-import PatientAccount from './components/PatientAccount';
-import DoctorProfile from './components/DoctorProfile';
-import PatientProfile from './components/PatientProfile';
-import DoctorDetails from './components/DoctorDetails';
-import PatientDetails from './components/PatientDetails';
-import PrescriptionForm from './components/PrescriptionForm';
-import About from './components/About';
-import ViewPrescription from './components/ViewPrescription';
-import PatientPrescription from './components/PatientPrescription';
-import BookWard from './components/BookWard';
-import BookCabin from './components/BookCabin';
-import HealthCard from './components/HealthCard';
-import AdmissionBill from './components/AdmissionBill';
-import TestBill from './components/TestBill';
-import MedicineBill from './components/MedicineBill';
-import Items from './components/Items';
-import TestService from './components/TestService';
-import AdminLogin from './components/AdminLogin';
-import AdminDashboard from './components/AdminDashboard';
-import AdminManageUsers from './components/AdminManageUsers';
-import AdminManageDoctors from './components/AdminManageDoctors';
-import AdminManageAppointments from './components/AdminManageAppointments';
-import AdminReports from './components/AdminReports';
-import AdminManageClinic from './components/AdminManageClinic';
-import AdminManageConsultations from './components/AdminManageConsultations';
-import AdminManageBlood from './components/AdminManageBlood';
-import AdminManagePharmacy from './components/AdminManagePharmacy';
-import AdminManageEquipment from './components/AdminManageEquipment';
-import AdminManageFeedback from './components/AdminManageFeedback';
-import AdminSettings from './components/AdminSettings';
-import AddMedicine from './components/AddMedicine';
-import MedicineDetails from './components/MedicineDetails';
-import Pharmacy from './components/Pharmacy';
-import BuyMedicine from './components/BuyMedicine';
-import Chatbot from './components/Chatbot';
-import BloodBank from './components/BloodBank';
-import BloodDonor from './components/BloodDonor';
-import BloodAvailability from './components/BloodAvailability';
-import BloodGroupDetails from './components/BloodGroupDetails';
-import BloodRecipient from './components/BloodRecipient';
-import AppointmentForm from './components/AppointmentForm';
-import AppointmentDetails from './components/AppointmentDetails';
-import ViewAppointment from './components/ViewAppointment';
-import NewsTicker from './components/NewsTicker';
-import SupportForm from './components/SupportForm';
-import AdminSupport from './components/AdminSupport';
+// Shared components
+import NavbarComponent from './features/shared/components/layout/Navbar';
+import MainLayout from './features/shared/components/layout/MainLayout';
+import ProtectedRoute from './features/shared/components/ProtectedRoute';
+import Chatbot from './features/shared/components/utils/Chatbot';
+import NewsTicker from './features/shared/components/utils/NewsTicker';
+import SupportForm from './features/shared/components/forms/SupportForm';
 
-import MainLayout from './components/MainLayout';
-import ProtectedRoute from './components/ProtectedRoute';
-import AdminLayout from './components/AdminLayout';
+// Pages
+import Home from './pages/Home';
+import About from './pages/About';
+
+// Auth components
+import DoctorSignUp from './features/auth/components/DoctorSignUp';
+import PatientSignUp from './features/auth/components/PatientSignUp';
+import DoctorLogin from './features/auth/components/DoctorLogin';
+import PatientLogin from './features/auth/components/PatientLogin';
+import AdminLogin from './features/auth/components/AdminLogin';
+
+// Doctor components
+// Doctor components
+import DoctorDashboard from './features/doctor/components/DoctorDashboard';
+import DoctorProfile from './features/doctor/components/DoctorProfile';
+import DoctorDetails from './features/doctor/components/details/DoctorDetails';
+import PrescriptionForm from './features/doctor/components/prescriptions/PrescriptionForm';
+import PatientDetails from './features/patient/components/PatientDetails'; // Reusing for now
+import ViewPrescription from './features/patient/components/prescriptions/ViewPrescription'; // Reusing
+import AppointmentDetails from './features/clinic/components/AppointmentDetails'; // Reusing
+
+// Doctor Layout & Context
+import DoctorLayout from './features/doctor/components/layout/DoctorLayout';
+import { DoctorThemeProvider } from './features/doctor/context/DoctorThemeContext';
+import { Outlet } from 'react-router-dom';
+
+// Patient components
+import PatientAccount from './features/patient/components/PatientAccount';
+import PatientProfile from './features/patient/components/PatientProfile';
+// import PatientDetails from './features/patient/components/PatientDetails'; // Already imported above
+import PatientPrescription from './features/patient/components/prescriptions/PatientPrescription';
+// import ViewPrescription from './features/patient/components/prescriptions/ViewPrescription'; // Already imported above
+import AppointmentForm from './features/patient/components/appointments/AppointmentForm';
+import ViewAppointment from './features/patient/components/appointments/ViewAppointment';
+import HealthCard from './features/patient/components/health/HealthCard';
+
+// Clinic components
+import BookWard from './features/clinic/components/BookWard';
+import BookCabin from './features/clinic/components/BookCabin';
+import AdmissionBill from './features/clinic/components/AdmissionBill';
+import TestBill from './features/clinic/components/TestBill';
+import TestService from './features/clinic/components/TestService';
+// import AppointmentDetails from './features/clinic/components/AppointmentDetails'; // Already imported above
+
+// Pharmacy components
+import Pharmacy from './features/pharmacy/components/Pharmacy';
+import BuyMedicine from './features/pharmacy/components/BuyMedicine';
+import AddMedicine from './features/pharmacy/components/AddMedicine';
+import MedicineDetails from './features/pharmacy/components/MedicineDetails';
+import MedicineBill from './features/pharmacy/components/MedicineBill';
+import Items from './features/pharmacy/components/Items';
+
+// Blood Bank components
+import BloodBank from './features/blood-bank/components/BloodBank';
+import BloodDonor from './features/blood-bank/components/BloodDonor';
+import BloodAvailability from './features/blood-bank/components/BloodAvailability';
+import BloodGroupDetails from './features/blood-bank/components/BloodGroupDetails';
+import BloodRecipient from './features/blood-bank/components/BloodRecipient';
+
+// Admin components
+import AdminDashboard from './features/admin/components/dashboard/AdminDashboard';
+import AdminManageUsers from './features/admin/components/patients/AdminManageUsers';
+import AdminManageDoctors from './features/admin/components/doctors/AdminManageDoctors';
+import AdminManageAppointments from './features/admin/components/appointments/AdminManageAppointments';
+import AdminReports from './features/admin/components/reports/AdminReports';
+import AdminManageClinic from './features/admin/components/clinic/AdminManageClinic';
+import AdminManageConsultations from './features/admin/components/consultations/AdminManageConsultations';
+import AdminManageBlood from './features/admin/components/blood/AdminManageBlood';
+import AdminManagePharmacy from './features/admin/components/pharmacy/AdminManagePharmacy';
+import AdminManageEquipment from './features/admin/components/equipment/AdminManageEquipment';
+import AdminManageFeedback from './features/admin/components/feedback/AdminManageFeedback';
+import AdminSettings from './features/admin/components/settings/AdminSettings';
+import AdminSupport from './features/admin/components/support/AdminSupport';
+import AdminLayout from './features/admin/components/layout/AdminLayout';
 
 function App() {
   return (
@@ -85,16 +110,6 @@ function App() {
               <Route path="/patient-signup" element={<PatientSignUp />} />
               <Route path="/doctor-login" element={<DoctorLogin />} />
               <Route path="/patient-login" element={<PatientLogin />} />
-
-              {/* Protected Doctor Routes */}
-              <Route element={<ProtectedRoute type="doctor" />}>
-                <Route path="/doctor-account" element={<DoctorAccount />} />
-                <Route path="/doctor-profile" element={<DoctorProfile />} />
-                <Route path="/doctor-details" element={<DoctorDetails />} />
-                <Route path="/add-prescription" element={<PrescriptionForm/>} />
-                <Route path="/view-prescription" element={<ViewPrescription/>} />
-                <Route path="/view-appointment" element={<ViewAppointment/>} />
-              </Route>
 
               {/* Protected Patient Routes */}
               <Route element={<ProtectedRoute type="patient" />}>
@@ -120,6 +135,30 @@ function App() {
               <Route path="/blood-availability" element={<BloodAvailability />} />
               <Route path="/blood-group" element={<BloodGroupDetails />} />
               <Route path="/blood-recipient" element={<BloodRecipient />} />
+            </Route>
+
+            {/* Protected Doctor Routes - New Layout (Outside MainLayout) */}
+            {/* Protected Doctor Routes - New Layout (Outside MainLayout) */}
+            <Route element={<ProtectedRoute type="doctor" />}>
+                <Route element={
+                    <DoctorThemeProvider>
+                        <DoctorLayout>
+                              <Outlet />
+                        </DoctorLayout>
+                    </DoctorThemeProvider>
+                }>
+                    <Route path="/doctor-account" element={<DoctorDashboard />} />
+                    <Route path="/doctor-profile" element={<DoctorProfile />} />
+                    <Route path="/doctor/appointments" element={<AppointmentDetails />} />
+                    <Route path="/doctor/patients" element={<PatientDetails />} />
+                    <Route path="/doctor/prescriptions" element={<ViewPrescription />} />
+                    <Route path="/doctor/add-prescription" element={<PrescriptionForm />} />
+                    {/* Legacy Routes */}
+                    <Route path="/doctor-details" element={<DoctorDetails />} />
+                    <Route path="/add-prescription" element={<PrescriptionForm/>} />
+                    <Route path="/view-prescription" element={<ViewPrescription/>} />
+                    <Route path="/view-appointment" element={<AppointmentDetails/>} />
+                </Route>
             </Route>
 
             {/* Routes WITHOUT Navbar */}

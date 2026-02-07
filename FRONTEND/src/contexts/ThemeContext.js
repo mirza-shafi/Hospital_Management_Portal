@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
+import { storage } from '../utils/storage';
 
 const ThemeContext = createContext();
 
@@ -12,12 +13,15 @@ export const useTheme = () => {
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem('theme');
-    return savedTheme || 'light';
+    if (typeof window !== 'undefined') {
+      const savedTheme = storage.getItem('theme');
+      return savedTheme || 'light';
+    }
+    return 'light';
   });
 
   useEffect(() => {
-    localStorage.setItem('theme', theme);
+    storage.setItem('theme', theme);
     const root = document.documentElement;
     // Clean up potential conflicts from Admin Theme
     root.classList.remove('light', 'dark');

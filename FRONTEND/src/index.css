@@ -25,3 +25,25 @@ code {
 * {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
+
+/* Autofill styling for dark mode */
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover, 
+.dark input:-webkit-autofill:focus, 
+.dark input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #18181b inset !important;
+    -webkit-text-fill-color: #f1f5f9 !important;
+    caret-color: #f1f5f9 !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Autofill styling for light mode */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #f9fafb inset !important; /* gray-50 */
+    -webkit-text-fill-color: #1f2937 !important; /* gray-800 */
+    caret-color: #1f2937 !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
