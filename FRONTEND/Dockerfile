@@ -1,7 +1,6 @@
-# Use Node.js 18 LTS for compatibility
-FROM node:18-alpine
+# Build stage
+FROM node:18-alpine AS build
 
-# Set working directory
 WORKDIR /app
 
 # Copy package files
@@ -13,8 +12,18 @@ RUN npm install
 # Copy all files
 COPY . .
 
-# Expose port
-EXPOSE 1001
+# Build the app
+RUN npm run build
 
-# Start the app
-CMD ["npm", "start"]
+# Production stage
+FROM nginx:stable-alpine
+
+# Copy build files from build stage
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Copy nginx config for SPA routing
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
