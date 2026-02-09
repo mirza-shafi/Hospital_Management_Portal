@@ -19,6 +19,10 @@ COPY . .
 # Remove development files if they exist
 RUN rm -rf .git .gitignore README.md *.md tests/ test/ .env.example
 
+# Create uploads directory and set permissions for node user
+RUN mkdir -p uploads/doctors uploads/medicines uploads/patients && \
+    chown -R node:node /app
+
 # Expose port
 EXPOSE 1002
 
