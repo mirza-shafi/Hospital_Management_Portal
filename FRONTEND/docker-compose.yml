@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hospital_frontend
+    ports:
+      - "1001:80"
+    env_file:
+      - .env
+    restart: unless-stopped

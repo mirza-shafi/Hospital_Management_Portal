@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hospital_backend
+    ports:
+      - "1002:1002"
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - hospital_network
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    container_name: hospital_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - hospital_network
+    restart: unless-stopped
+
+networks:
+  hospital_network:
+    driver: bridge
+
+volumes:
+  mongo_data:
