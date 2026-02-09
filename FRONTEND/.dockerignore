@@ -1,8 +1,43 @@
+# Dependencies
 node_modules
 npm-debug.log
-build
+yarn-error.log
+
+# Git
 .git
 .gitignore
+
+# Environment
 .env
-.DS_Store
+.env.*
+
+# Build output (will be created during build)
+build/
+dist/
+
+# Documentation
+README.md
 *.md
+docs/
+
+# Tests
+tests/
+test/
+src/**/*.test.js
+src/**/*.test.jsx
+src/**/*.spec.js
+src/**/*.spec.jsx
+coverage/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Misc
+.dockerignore
+Dockerfile
+docker-compose.yml
+nginx.conf
