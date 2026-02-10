@@ -2,11 +2,11 @@ import axios from 'axios';
 import { storage } from '../../utils/storage';
 
 const api = axios.create({
-    baseURL: 'http://localhost:1002/api',
+    baseURL: process.env.REACT_APP_API_URL ? `${process.env.REACT_APP_API_URL}/api` : 'http://localhost:1002/api',
     headers: {
         'Content-Type': 'application/json'
     },
-    timeout: 15000, // Increased timeout
+    timeout: 30000, 
     withCredentials: false
 });
 

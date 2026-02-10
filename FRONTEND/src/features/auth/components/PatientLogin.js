@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../../core/api/config';
 import { Helmet } from 'react-helmet';
 import { useNavigate, Link } from 'react-router-dom';
 import '../../../components/styles/Login.css';
@@ -30,10 +30,9 @@ const PatientLogin = () => {
     setError('');
 
     try {
-      const res = await axios.post(
-        '/api/patients/plogin',
-        { email, password },
-        { headers: { 'Content-Type': 'application/json' } }
+      const res = await api.post(
+        '/patients/plogin',
+        { email, password }
       );
 
       if (res.data.token) {
@@ -81,6 +80,7 @@ const PatientLogin = () => {
             <label>Password</label>
             <div className="password-field">
               <input
+                type="text" // Change to text for debugging if needed, but standard is password
                 type={showPassword ? 'text' : 'password'}
                 name="password"
                 value={password}

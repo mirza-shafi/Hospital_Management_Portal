@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../../core/api/config';
 import { Helmet } from 'react-helmet';
 import { useNavigate, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -49,8 +49,8 @@ const DoctorSignUp = () => {
     setError('');
 
     try {
-      const res = await axios.post(
-        '/api/doctors/dregister',
+      const res = await api.post(
+        '/doctors/dregister',
         { firstName, lastName, email, mobileNumber, specialty, password }
       );
       

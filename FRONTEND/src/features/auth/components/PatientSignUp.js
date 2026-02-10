@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../../core/api/config';
 import { Helmet } from 'react-helmet';
 import { useNavigate, Link } from 'react-router-dom';
 import '../../../components/styles/Login.css';
@@ -59,7 +59,7 @@ const PatientSignUp = () => {
         mobileNumber
       };
       
-      const res = await axios.post('/api/patients/register', registrationData);
+      const res = await api.post('/patients/register', registrationData);
       alert('Registration successful! Please login.');
       navigate('/patient-login');
     } catch (err) {

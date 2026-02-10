@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../../core/api/config';
 import { Helmet } from 'react-helmet';
 import { useNavigate, Link } from 'react-router-dom';
 import '../../../components/styles/Login.css';
@@ -30,10 +30,9 @@ const DoctorLogin = () => {
     setError('');
 
     try {
-      const res = await axios.post(
-        '/api/doctors/dlogin',
-        { email, password },
-        { headers: { 'Content-Type': 'application/json' } }
+      const res = await api.post(
+        '/doctors/dlogin',
+        { email, password }
       );
 
       if (res.data.token) {
