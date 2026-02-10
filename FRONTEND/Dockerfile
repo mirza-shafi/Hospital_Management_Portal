@@ -13,6 +13,10 @@ RUN npm ci && \
 # Copy all files
 COPY . .
 
+# Add build arguments for environment variables
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+
 # Build the app
 RUN npm run build && \
     rm -rf node_modules src public
