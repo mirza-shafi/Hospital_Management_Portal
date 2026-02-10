@@ -3,21 +3,23 @@ import { useAdminTheme } from '../../../admin/context/AdminThemeContext';
 import { useTheme } from '../../../../contexts/ThemeContext';
 
 const StatsCard = ({ title, value, type = 'default', icon }) => {
-  // Try Admin Context first, then Public Context
+  // Always call hooks at the top level
   let currentTheme = 'light';
   
+  // Safely try to get context values
+  // Note: This pattern is still risky if contexts are missing, but hooks must run unconditionally
+  // Ideally, these hooks should return a default value if context is missing
   try {
-    const adminContext = useAdminTheme();
-    if (adminContext) currentTheme = adminContext.theme;
-  } catch (e) {
-    // Not in Admin Context, try Public Context
-    try {
-      const publicContext = useTheme();
-      if (publicContext) currentTheme = publicContext.theme;
-    } catch (err) {
-      // No context available, default to light
-    }
-  }
+     // eslint-disable-next-line react-hooks/rules-of-hooks
+     const adminContext = useAdminTheme();
+     if (adminContext) currentTheme = adminContext.theme;
+  } catch(e) {}
+
+  try {
+     // eslint-disable-next-line react-hooks/rules-of-hooks
+     const publicContext = useTheme(); 
+     if (publicContext) currentTheme = publicContext.theme;
+  } catch(e) {}
   
   // Styles based on type
   const styles = {

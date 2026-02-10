@@ -6,6 +6,7 @@ import {
   FaCamera, FaTimes, FaUser, FaLock, FaBell, FaPalette, FaShieldAlt, 
   FaSignOutAlt, FaChevronRight, FaSun, FaMoon, FaHeartbeat, FaFileMedical, FaCheckCircle, FaArrowLeft
 } from 'react-icons/fa';
+import axios from 'axios';
 
 // Placeholder hook for theme if not available in this context
 const useTheme = () => {

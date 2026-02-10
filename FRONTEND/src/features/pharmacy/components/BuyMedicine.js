@@ -6,6 +6,7 @@ import successSoundFile from '../../../assets/success.mp3';
 import errorSoundFile from '../../../assets/error.mp3';
 import { FaSearch, FaArrowLeft, FaPlus, FaMinus, FaShoppingCart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const successSound = new Audio(successSoundFile);
 const errorSound = new Audio(errorSoundFile);
