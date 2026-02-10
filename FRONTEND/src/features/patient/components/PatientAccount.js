@@ -147,7 +147,8 @@ const PatientAccount = () => {
     if (!path) return 'https://ui-avatars.com/api/?name=Patient&background=random';
     if (path.startsWith('http') || path.startsWith('data:')) return path;
     const cleanPath = path.startsWith('/') ? path : `/${path}`;
-    return `http://localhost:1002${cleanPath}?t=${new Date().getTime()}`;
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:1002';
+    return `${apiUrl}${cleanPath}?t=${new Date().getTime()}`;
   };
 
   const getNextAppointment = () => {

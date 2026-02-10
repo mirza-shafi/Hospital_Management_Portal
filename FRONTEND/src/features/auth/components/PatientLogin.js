@@ -80,7 +80,6 @@ const PatientLogin = () => {
             <label>Password</label>
             <div className="password-field">
               <input
-                type="text" // Change to text for debugging if needed, but standard is password
                 type={showPassword ? 'text' : 'password'}
                 name="password"
                 value={password}

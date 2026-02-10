@@ -59,7 +59,8 @@ const PatientProfile = ({ email, onClose, onProfileUpdate }) => {
         setFormData(res.data);
         if (res.data.profilePicture) {
             const isAbsolute = res.data.profilePicture.startsWith('http');
-            setImagePreview(isAbsolute ? res.data.profilePicture : `http://localhost:1002${res.data.profilePicture}`);
+            const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:1002';
+            setImagePreview(isAbsolute ? res.data.profilePicture : `${apiUrl}${res.data.profilePicture}`);
         } else {
             setImagePreview('https://ui-avatars.com/api/?name=' + (res.data.name || 'User') + '&background=random');
         }
@@ -97,7 +98,8 @@ const PatientProfile = ({ email, onClose, onProfileUpdate }) => {
       
       console.log('Upload successful:', res.data);
       const isAbsolute = res.data.profilePicture.startsWith('http');
-      setImagePreview(isAbsolute ? res.data.profilePicture : `http://localhost:1002${res.data.profilePicture}`);
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:1002';
+      setImagePreview(isAbsolute ? res.data.profilePicture : `${apiUrl}${res.data.profilePicture}`);
       setProfilePictureFile(null);
       
       setMessage('Profile picture saved successfully!');
