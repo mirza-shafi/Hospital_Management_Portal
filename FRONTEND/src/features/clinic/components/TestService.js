@@ -3,11 +3,9 @@ import axios from 'axios';
 import '../../../components/styles/TestService.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Pagination from 'react-js-pagination';
-import successSoundFile from '../../../assets/success.mp3';
-import errorSoundFile from '../../../assets/error.mp3';
 import { Helmet } from 'react-helmet';
-const successSound = new Audio(successSoundFile);
-const errorSound = new Audio(errorSoundFile);
+const successSound = ({ play: () => Promise.resolve(), pause: () => {}, currentTime: 0, volume: 1 });
+const errorSound = ({ play: () => Promise.resolve(), pause: () => {}, currentTime: 0, volume: 1 });
 
 const TestService = () => {
   const [items, setItems] = useState([]);

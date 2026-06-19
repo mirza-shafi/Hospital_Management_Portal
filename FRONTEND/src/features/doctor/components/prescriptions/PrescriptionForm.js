@@ -5,12 +5,10 @@ import { prescriptionPDF } from '../../../shared/components/utils/PDFGenerator';
 import '../../../../components/styles/PrescriptionForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane, faDownload } from '@fortawesome/free-solid-svg-icons';
-import successSoundFile from '../../../../assets/success.mp3';
-import errorSoundFile from '../../../../assets/error.mp3';
 import { Helmet } from 'react-helmet';
 
-const successSound = new Audio(successSoundFile);
-const errorSound = new Audio(errorSoundFile);
+const successSound = ({ play: () => Promise.resolve(), pause: () => {}, currentTime: 0, volume: 1 });
+const errorSound = ({ play: () => Promise.resolve(), pause: () => {}, currentTime: 0, volume: 1 });
 
 const PrescriptionForm = () => {
   const [formData, setFormData] = useState({

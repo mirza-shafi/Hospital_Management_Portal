@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import 'bulma/css/bulma.min.css';
 import '../../../components/styles/BloodDonor.css';
-import successSoundFile from '../../../assets/success.mp3';
-import errorSoundFile from '../../../assets/error.mp3';
 import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
-const successSound = new Audio(successSoundFile);
-const errorSound = new Audio(errorSoundFile);
+const successSound = ({ play: () => Promise.resolve(), pause: () => {}, currentTime: 0, volume: 1 });
+const errorSound = ({ play: () => Promise.resolve(), pause: () => {}, currentTime: 0, volume: 1 });
 
 const BloodDonor = () => {
   const navigate = useNavigate();

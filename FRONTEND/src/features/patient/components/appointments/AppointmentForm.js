@@ -5,11 +5,9 @@ import { Helmet } from 'react-helmet';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarCheck, faUser, faEnvelope, faPhone, faClock, faStethoscope, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { storage } from '../../../../utils/storage';
-import successSoundFile from '../../../../assets/success.mp3';
-import errorSoundFile from '../../../../assets/error.mp3';
 
-const successSound = new Audio(successSoundFile);
-const errorSound = new Audio(errorSoundFile);
+const successSound = ({ play: () => Promise.resolve(), pause: () => {}, currentTime: 0, volume: 1 });
+const errorSound = ({ play: () => Promise.resolve(), pause: () => {}, currentTime: 0, volume: 1 });
 
 const AppointmentForm = () => {
     const location = useLocation();

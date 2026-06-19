@@ -9,7 +9,7 @@
 [![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org)
 [![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org)
 
-**A comprehensive, full-stack hospital management system with AI assistance, blood bank management, and premium dark glassmorphism UI**
+**A comprehensive, full-stack hospital management system with a RAG-powered AI assistant, blood bank management, online pharmacy, and a clean, modern medical UI**
 
 [Features](#-features) • [Tech Stack](#-tech-stack) • [Installation](#-quick-start) • [Architecture](#-architecture) • [API Documentation](#-api-endpoints) • [Contributing](#-contributing)
 
@@ -41,7 +41,7 @@
 - 🎯 **Real-world Solution**: Addresses actual challenges in healthcare management
 - 💡 **Modern Tech**: Built with industry-standard MERN stack and Docker
 - 🔒 **Security First**: JWT authentication, role-based access control, and secure data handling
-- 🎨 **Premium UX**: Dark glassmorphism design with responsive layouts
+- 🎨 **Clean UX**: Modern white/neutral medical design with responsive layouts
 - 🚀 **Production Ready**: Dockerized for easy deployment and scaling
 
 ---
@@ -94,10 +94,10 @@
 - Comprehensive bill history
 - PDF bill download and printing
 
-### **🤖 AI Health Chatbot**
-- Intelligent patient guidance and triage
-- Instant answers to common health queries
-- 24/7 availability for patient support
+### **🤖 AI Health Assistant (RAG)**
+- Answers grounded in the portal's own live data (doctors, blood stock, medicines)
+- Semantic vector search with parent–child retrieval (see the AI Assistant section)
+- Clickable in-app links, conversation memory, and 24/7 availability
 
 ### **📊 Analytics & Reporting**
 - Appointment statistics with Chart.js visualizations
@@ -105,10 +105,10 @@
 - Doctor performance metrics
 - Revenue and billing analytics
 
-### **🎨 Premium UI/UX**
-- Dark glassmorphism design language
+### **🎨 Clean, Modern UI/UX**
+- Clean white/neutral medical design language (Mayo Clinic / Cleveland Clinic inspired)
 - Fully responsive across all devices
-- Smooth animations and transitions
+- Subtle, professional transitions
 - Intuitive navigation and workflows
 - Modern iconography with React Icons
 
@@ -119,7 +119,7 @@
 ### **Frontend**
 ```
 ⚛️  React.js 18.3.1        - UI library
-🎨  CSS3 + Glassmorphism   - Styling
+🎨  CSS3 + Tailwind CSS    - Styling
 📊  Chart.js               - Data visualization
 🎭  React Icons            - Icon library
 🔄  Axios                  - HTTP client

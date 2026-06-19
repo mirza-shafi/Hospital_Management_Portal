@@ -4,7 +4,6 @@ import '../../../../components/styles/Chatbot.css';
 import { FaPaperPlane, FaRobot, FaTimes } from 'react-icons/fa';
 import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
-import messageSound from '../../../../assets/message.wav';
 
 // Escape HTML then render a safe subset of markdown: links, bold, line breaks.
 const escapeHtml = (s) =>
@@ -66,7 +65,7 @@ const Chatbot = ({ onClose }) => {
       const response = await axios.post('/api/chatbot/chat', { message: outgoing, history });
       const botMessage = { sender: 'bot', text: response.data.response };
       setMessages((prev) => [...prev, botMessage]);
-      try { new Audio(messageSound).play().catch(() => {}); } catch (e) {}
+      try { ({ play: () => Promise.resolve(), pause: () => {}, currentTime: 0, volume: 1 }).play().catch(() => {}); } catch (e) {}
     } catch (error) {
       setMessages((prev) => [...prev, { sender: 'bot', text: 'I am having trouble connecting. Please try again in a moment.' }]);
     } finally {
