@@ -319,6 +319,77 @@ MongoDB Database
 
 ---
 
+## 🤖 AI Assistant (RAG)
+
+HealingWave includes an AI assistant that answers questions about doctors,
+appointments, blood availability, medicines, and how to use the portal. It is
+grounded in the application's **own live data** using a lightweight
+Retrieval-Augmented Generation (RAG) pipeline.
+
+### How it works
+
+```
+User question
+     ↓
+Build knowledge base (live from MongoDB + static portal docs)
+     ↓
+Keyword retriever  ── term-overlap scoring, title-weighted, top-K (≈6)
+     ↓
+Prompt assembly    ── retrieved context + guardrails (system prompt)
+     ↓
+LLM generation     ── Hugging Face router → meta-llama/Llama-3.1-8B-Instruct
+     ↓
+Answer (+ rule-based fallback if the LLM is unavailable)
+```
+
+### Implementation details
+
+- **Knowledge base** (`BACKEND/services/ragChatbot.js → buildKnowledgeBase`):
+  generated on each request from live collections — every **doctor** (name,
+  specialty, department, availability), live **blood stock** per group, and all
+  **medicines** (generic name, price, manufacturer) — plus static documents for
+  services, appointments, blood bank, pharmacy, health card, and support.
+- **Retriever** (`retrieve`): lexical, keyword/term-overlap scoring with a
+  title weight; returns the top documents and caps the context size. *(No
+  vector embeddings — retrieval is lexical, not semantic.)*
+- **Generation** (`askLLM`): retrieved snippets are injected into a system
+  prompt with guardrails — answer only from context, never invent
+  doctor/price/stock data, always link pages as `[Label](/path)`, and never
+  provide a diagnosis (advise consulting a doctor). Calls the Hugging Face
+  OpenAI-compatible router endpoint.
+- **Fallback**: if the LLM call fails (network/rate-limit), the endpoint serves
+  the original rule-based responses, so the assistant never breaks. Every
+  interaction is persisted to the `Chatbot` collection.
+- **Frontend** (`Chatbot.js`): renders Markdown links as clickable in-app
+  navigation, shows a typing indicator, and sends recent conversation history
+  for context.
+
+### Configuration
+
+Set these in `BACKEND/.env` (the token is read at runtime; the `.env` file is
+git-ignored):
+
+```env
+HF_API_TOKEN=your_hugging_face_access_token   # https://huggingface.co/settings/tokens
+HF_MODEL=meta-llama/Llama-3.1-8B-Instruct
+```
+
+> Note: this uses a **Hugging Face** inference token (prefix `hf_`), not Google
+> Gemini.
+
+### Current scope vs. possible enhancements
+
+| Capability | Status |
+| --- | --- |
+| DB-grounded retrieval + LLM generation | ✅ Implemented |
+| Rule-based fallback | ✅ Implemented |
+| Lexical (keyword) retrieval | ✅ Implemented |
+| Vector / embedding semantic search | ⬜ Not implemented (planned) |
+| Parent–child chunk retrieval | ⬜ Not implemented (planned) |
+| Persistent vector store | ⬜ Not implemented (planned) |
+
+---
+
 ## 🔌 API Endpoints
 
 ### **Authentication**

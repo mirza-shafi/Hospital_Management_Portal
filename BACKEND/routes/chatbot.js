@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Chatbot = require('../models/Chatbot');
+const { generateAnswer } = require('../services/ragChatbot');
 
 // Define the responses for different queries
 const responses = {
@@ -33,52 +34,48 @@ const responses = {
   `,
 };
 
-// Chatbot interaction endpoint
+// Chatbot interaction endpoint (RAG via Hugging Face, with rule-based fallback)
 router.post('/chat', async (req, res) => {
-  const { message } = req.body;
+  const { message, history } = req.body;
+  if (!message || !message.trim()) {
+    return res.status(400).json({ response: 'Please enter a message.' });
+  }
   const lowerCaseMessage = message.toLowerCase();
-  
-  let response = responses.default;
 
-  if (/blood donate and receive/.test(lowerCaseMessage)) {
-    response = responses.bloodDonateAndReceive;
-  } else if (/blood donor/.test(lowerCaseMessage)) {
-    response = responses.bloodDonor;
-  } else if (/blood recipient/.test(lowerCaseMessage)) {
-    response = responses.bloodRecipient;
-  } else if (/blood group/.test(lowerCaseMessage)) {
-    response = responses.bloodGroup;
-  } else if (/blood bank/.test(lowerCaseMessage)) {
-    response = responses.bloodbank;
-  } else if (/hello/.test(lowerCaseMessage)) {
-    response = responses.hello;
-  } else if (/health card/.test(lowerCaseMessage)) {
-    response = responses.healthCard;
-  } else if (/patient/.test(lowerCaseMessage)) {
-    response = responses.patientInfo;
-  } else if (/doctor/.test(lowerCaseMessage)) {
-    response = responses.doctorInfo;
-  } else if (/pay/.test(lowerCaseMessage)) {
-    response = responses.payments;
-  } else if (/appointment/.test(lowerCaseMessage)) {
-    response = responses.appointments;
-  } else if (/test|service/.test(lowerCaseMessage)) {
-    response = responses.testsAndServices;
-  } else if (/support/.test(lowerCaseMessage)) {
-    response = responses.support;
-  } else if (/about/.test(lowerCaseMessage)) {
-    response = responses.about;
+  // Rule-based fallback response (used if the LLM call fails)
+  let fallback = responses.default;
+  if (/blood donate and receive/.test(lowerCaseMessage)) fallback = responses.bloodDonateAndReceive;
+  else if (/blood donor/.test(lowerCaseMessage)) fallback = responses.bloodDonor;
+  else if (/blood recipient/.test(lowerCaseMessage)) fallback = responses.bloodRecipient;
+  else if (/blood group/.test(lowerCaseMessage)) fallback = responses.bloodGroup;
+  else if (/blood bank/.test(lowerCaseMessage)) fallback = responses.bloodbank;
+  else if (/hello|hi |^hi$/.test(lowerCaseMessage)) fallback = responses.hello;
+  else if (/health card/.test(lowerCaseMessage)) fallback = responses.healthCard;
+  else if (/patient/.test(lowerCaseMessage)) fallback = responses.patientInfo;
+  else if (/doctor/.test(lowerCaseMessage)) fallback = responses.doctorInfo;
+  else if (/pay/.test(lowerCaseMessage)) fallback = responses.payments;
+  else if (/appointment/.test(lowerCaseMessage)) fallback = responses.appointments;
+  else if (/test|service/.test(lowerCaseMessage)) fallback = responses.testsAndServices;
+  else if (/support/.test(lowerCaseMessage)) fallback = responses.support;
+  else if (/about/.test(lowerCaseMessage)) fallback = responses.about;
+
+  let response = fallback;
+  let source = 'fallback';
+  try {
+    const result = await generateAnswer(message, Array.isArray(history) ? history : []);
+    if (result && result.answer) {
+      response = result.answer;
+      source = 'ai';
+    }
+  } catch (err) {
+    console.error('RAG chatbot error, using fallback:', err.message);
   }
 
-  // Save the interaction
-  const chatbotInteraction = new Chatbot({
-    userMessage: message,
-    botMessage: response,
-  });
+  try {
+    await new Chatbot({ userMessage: message, botMessage: response }).save();
+  } catch (e) { /* non-fatal */ }
 
-  await chatbotInteraction.save();
-
-  res.json({ response });
+  res.json({ response, source });
 });
 
 module.exports = router;

@@ -219,3 +219,34 @@
 .chatbox.dark-mode .chatbox-body::-webkit-scrollbar-thumb {
   background: #475569;
 }
+
+
+/* AI chat link + typing indicator */
+.chatbox-body .message.bot .chat-link {
+  color: #16191d;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.chatbox-body .message.bot .chat-link:hover { color: #000; }
+
+.typing-indicator {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 5px;
+}
+.typing-indicator span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #9aa1a9;
+  display: inline-block;
+  animation: chatTyping 1.2s infinite ease-in-out both;
+}
+.typing-indicator span:nth-child(2) { animation-delay: 0.15s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes chatTyping {
+  0%, 80%, 100% { transform: scale(0.7); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
