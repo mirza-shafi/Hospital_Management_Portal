@@ -1,100 +1,134 @@
+/* Modern White / Neutral Add Medicine Styling */
 .add-medicine-container {
-    background: linear-gradient(to right, #243b55, #141e30);
-    padding: 2rem;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  background: var(--hw-bg-subtle, #f7f8f9);
+  padding: 2.5rem 1.5rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .add-medicine-title {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #fff;
-    margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--hw-ink, #16191d);
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
 }
 
 .add-medicine-form {
-    width: 50%;
-    max-width: 800px;
-    background: #fff;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+  width: 100%;
+  max-width: 800px;
+  background: var(--hw-bg, #ffffff);
+  padding: 1.75rem;
+  border-radius: 14px;
+  border: 1px solid var(--hw-border, #e7e9ec);
+  box-shadow: var(--hw-shadow, 0 1px 3px rgba(16, 19, 23, .06));
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .form-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .form-group {
-    flex: 1 1 calc(33.333% - 0.25rem);
-    min-width: 150px;
+  flex: 1 1 calc(33.333% - 1rem);
+  min-width: 150px;
 }
 
 .form-label {
-    font-weight: bold;
-    color: #333;
-    display: block;
-    margin-bottom: 0.25rem;
+  font-weight: 700;
+  color: var(--hw-ink, #16191d);
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
 }
 
 .form-input, .form-textarea, .form-file-input {
-    width: 100%;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    padding: 0.5rem;
-    box-sizing: border-box;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--hw-border, #e7e9ec);
+  background: var(--hw-bg-subtle, #f7f8f9);
+  color: var(--hw-ink, #16191d);
+  padding: 0.65rem 0.75rem;
+  box-sizing: border-box;
+  font-size: 0.95rem;
+  transition: var(--hw-transition, 0.2s ease);
+}
+
+.form-input::placeholder, .form-textarea::placeholder {
+  color: var(--hw-muted, #777f88);
+}
+
+.form-input:focus, .form-textarea:focus, .form-file-input:focus {
+  outline: none;
+  background: var(--hw-bg, #ffffff);
+  border-color: var(--hw-primary, #1b1f24);
+  box-shadow: 0 0 0 4px rgba(16, 19, 23, .12);
 }
 
 .form-textarea {
-    min-height: 80px;
-    resize: vertical;
+  min-height: 80px;
+  resize: vertical;
 }
 
 .form-file-input {
-    margin-top: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
 }
 
 .file-name {
-    margin-top: 0.5rem;
-    color: #333;
+  margin-top: 0.5rem;
+  color: var(--hw-ink-soft, #444a52);
+  font-size: 0.85rem;
 }
 
 .form-button {
-    width: 100%;
-    background-color: #00d1b2;
-    border: none;
-    color: #fff;
-    font-size: 1rem;
-    padding: 0.5rem;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 0.5rem;
+  width: 100%;
+  background-color: var(--hw-primary, #1b1f24);
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 0.75rem;
+  transition: var(--hw-transition, 0.2s ease);
 }
 
 .form-button:hover {
-    background-color: #00b89c;
+  background-color: var(--hw-primary-dark, #0c0e11);
 }
 
 .toast {
-    padding: 0.75rem;
-    border-radius: 4px;
-    color: #fff;
-    width: 100%;
-    text-align: center;
-    margin-top: 1rem;
+  padding: 0.85rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: 600;
 }
 
 .toast-error {
-    background-color: #e74c3c;
+  background-color: rgba(193, 18, 31, .1);
+  color: var(--hw-emergency, #c1121f);
+  border: 1px solid rgba(193, 18, 31, .25);
 }
 
 .toast-success {
-    background-color: #2ecc71;
+  background-color: rgba(42, 157, 92, .1);
+  color: var(--hw-success, #2a9d5c);
+  border: 1px solid rgba(42, 157, 92, .25);
+}
+
+@media (max-width: 640px) {
+  .form-group {
+    flex: 1 1 100%;
+  }
 }

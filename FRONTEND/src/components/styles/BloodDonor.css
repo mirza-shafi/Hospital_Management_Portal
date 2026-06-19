@@ -1,47 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
 .blooddonor-page {
-  background-color: #f8fafc;
+  background-color: var(--hw-bg-subtle, #f7f8f9);
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
+  padding: 48px 20px;
   font-family: 'Poppins', sans-serif;
   position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-/* Dark Mode Background */
-.dark .blooddonor-page {
-  background-color: #09090b; /* zinc-950 */
-}
-
-/* Abstract background shapes */
-.blooddonor-page::before,
-.blooddonor-page::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  z-index: 0;
-}
-
-.blooddonor-page::before {
-  width: 400px;
-  height: 400px;
-  background: rgba(255, 107, 107, 0.2);
-  top: -50px;
-  left: -100px;
-}
-
-.blooddonor-page::after {
-  width: 300px;
-  height: 300px;
-  background: rgba(255, 71, 87, 0.15);
-  bottom: -50px;
-  right: -50px;
 }
 
 .blooddonor-form-container {
@@ -52,13 +19,12 @@
 }
 
 .blooddonor-form {
-  background: white;
-  padding: 32px;
-  border-radius: 20px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e2e8f0;
+  background: var(--hw-bg, #ffffff);
+  padding: 36px;
+  border-radius: 14px;
+  box-shadow: var(--hw-shadow, 0 1px 3px rgba(16, 19, 23, 0.06));
+  border: 1px solid var(--hw-border, #e7e9ec);
   width: 100%;
-  transition: all 0.3s ease;
 }
 
 .form-row {
@@ -74,36 +40,20 @@
   }
 }
 
-/* Dark Mode Form */
-.dark .blooddonor-form {
-  background: #18181b; /* zinc-900 */
-  border: 1px solid rgba(63, 63, 70, 0.4);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-}
-
-.blooddonor-form:hover {
-  transform: translateY(-5px);
-}
-
 .blooddonor-form-title {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #2d3436;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--hw-ink, #16191d);
   margin-bottom: 1.5rem;
   text-align: center;
-  letter-spacing: -0.5px;
-  transition: color 0.3s ease;
-}
-
-.dark .blooddonor-form-title {
-  color: #f7fafc;
+  letter-spacing: -0.02em;
 }
 
 /* Back Button */
 .back-button {
   background: none;
   border: none;
-  color: #64748b !important;
+  color: var(--hw-ink-soft, #444a52) !important;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -111,50 +61,34 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 24px;
-  transition: all 0.2s ease;
+  transition: var(--hw-transition, 0.2s ease);
   padding: 0;
   width: fit-content;
 }
 
 .back-button:hover {
-  color: #ef4444 !important;
-  transform: translateX(-4px);
+  color: var(--hw-ink, #16191d) !important;
+  transform: translateX(-3px);
 }
-
-.dark .back-button {
-  color: #94a3b8 !important;
-}
-
-.dark .back-button:hover {
-  color: #f87171 !important;
-}
-
 
 /* Form Fields */
 .field {
   margin-bottom: 1rem;
-  display: block; /* Stack labels and inputs */
+  display: block;
 }
 
-.field label {
+.field label,
+.field .label {
   display: block;
   font-size: 0.9rem;
-  font-weight: 500;
-  color: #636e72;
+  font-weight: 600;
+  color: var(--hw-ink, #16191d);
   margin-bottom: 0.5rem;
-  transition: color 0.3s ease;
 }
 
-.dark .field label {
-  color: #cbd5e0;
-}
-
-.field:focus-within label {
-  color: #ff4757;
-}
-
-.dark .field:focus-within label {
-  color: #ff6b81;
+.field:focus-within label,
+.field:focus-within .label {
+  color: var(--hw-ink, #16191d);
 }
 
 .control {
@@ -164,84 +98,71 @@
 .input,
 .select select {
   width: 100%;
-  padding: 0.6rem 1rem;
+  padding: 0.65rem 1rem;
   font-size: 1rem;
-  background-color: #f1f2f6;
-  border: 2px solid transparent;
-  border-radius: 12px;
-  color: #2d3436;
-  transition: all 0.3s ease;
+  background-color: var(--hw-bg-subtle, #f7f8f9);
+  border: 1px solid var(--hw-border, #e7e9ec);
+  border-radius: 10px;
+  color: var(--hw-ink, #16191d);
+  transition: var(--hw-transition, 0.2s ease);
   outline: none;
   font-family: inherit;
-}
-
-.dark .input,
-.dark .select select {
-  background-color: #09090b; /* zinc-950 */
-  color: #f1f5f9;
-  border-color: #27272a; /* zinc-800 */
+  height: auto;
 }
 
 .input:focus,
 .select select:focus {
-  background-color: #fff;
-  border-color: #ff4757;
-  box-shadow: 0 0 0 4px rgba(255, 71, 87, 0.1);
-}
-
-.dark .input:focus,
-.dark .select select:focus {
-  background-color: #18181b;
-  border-color: #ef4444;
-  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+  background-color: var(--hw-bg, #ffffff);
+  border-color: var(--hw-primary, #1b1f24);
+  box-shadow: 0 0 0 3px rgba(16, 19, 23, 0.12);
 }
 
 .select {
   width: 100%;
   height: auto;
 }
-.select::after {
-    border-color: #ff4757;
-}
-.dark .select::after {
-    border-color: #ff6b81 !important;
+.select:not(.is-multiple):not(.is-loading)::after {
+  border-color: var(--hw-ink-soft, #444a52);
 }
 
 /* Button Styling */
 .button.is-primary {
   width: 100%;
   padding: 1rem;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
-  border: none;
-  border-radius: 12px;
-  color: white;
+  background: var(--hw-primary, #1b1f24);
+  border: 1px solid var(--hw-primary, #1b1f24);
+  border-radius: 8px;
+  color: #ffffff;
   margin-top: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 10px 20px rgba(255, 71, 87, 0.3);
+  transition: var(--hw-transition, 0.2s ease);
+  box-shadow: none;
+  height: auto;
 }
 
 .button.is-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 30px rgba(255, 71, 87, 0.4);
-  background: linear-gradient(135deg, #ff6b81 0%, #ff4757 100%);
+  transform: translateY(-1px);
+  background: var(--hw-primary-dark, #0c0e11);
+  border-color: var(--hw-primary-dark, #0c0e11);
+  box-shadow: var(--hw-shadow, 0 1px 3px rgba(16, 19, 23, 0.06));
+  color: #ffffff;
 }
 
 .button.is-primary:active {
-  transform: translateY(1px);
+  transform: translateY(0);
 }
 
 /* Notifications */
 .notification {
   padding: 1rem;
-  border-radius: 12px;
+  border-radius: 10px;
   margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  animation: slideDown 0.4s ease-out;
+  box-shadow: none;
+  animation: slideDown 0.3s ease-out;
 }
 
 @keyframes slideDown {
@@ -250,15 +171,17 @@
 }
 
 .notification.is-success {
-  background-color: #e3f9e5;
-  color: #2ecc71;
-  border-left: 5px solid #2ecc71;
+  background-color: #eef7f1;
+  color: var(--hw-success, #2a9d5c);
+  border: 1px solid #cfe8d9;
+  border-left: 4px solid var(--hw-success, #2a9d5c);
 }
 
 .notification.is-danger {
-  background-color: #ffeaea;
-  color: #ff4757;
-  border-left: 5px solid #ff4757;
+  background-color: #fbeaec;
+  color: var(--hw-emergency, #c1121f);
+  border: 1px solid #f3ccd1;
+  border-left: 4px solid var(--hw-emergency, #c1121f);
 }
 
 .notification .icon {
@@ -287,13 +210,12 @@
   .blooddonor-page {
     padding: 1rem;
   }
-  
+
   .blooddonor-form {
     padding: 1.5rem;
   }
 
   .blooddonor-form-title {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 }
-  

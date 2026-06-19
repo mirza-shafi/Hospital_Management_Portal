@@ -5,6 +5,7 @@ import '../components/styles/Home.css';
 
 import api from '../core/api/config';
 import { storage } from '../utils/storage';
+import { useAuthModal } from '../features/auth/AuthModalContext';
 import Chatbot from '../features/shared/components/utils/Chatbot';
 import NewsTicker from '../features/shared/components/utils/NewsTicker';
 import { Helmet } from 'react-helmet';
@@ -19,6 +20,7 @@ import hospital4 from '../assets/hospital4.png';
 
 const Home = () => {
   const navigate = useNavigate();
+  const { openAuth } = useAuthModal();
   const [showChatbox, setShowChatbox] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [featuredDoctors, setFeaturedDoctors] = useState([]);
@@ -71,8 +73,7 @@ const Home = () => {
     if (storage.getItem('patientToken')) {
       navigate(target);
     } else {
-      storage.setItem('postLoginRedirect', target);
-      navigate('/patient-login');
+      openAuth({ role: 'patient', mode: 'login', redirect: target });
     }
   };
 

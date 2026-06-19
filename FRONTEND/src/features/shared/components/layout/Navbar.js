@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import '../../../../components/styles/Navbar.css';
 import logo from '../../../../assets/healingwave.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCapsules, faContactBook, faHome, faInfoCircle, faTint, faBars, faTimes, faUserMd, faUserInjured, faUserNurse } from '@fortawesome/free-solid-svg-icons';
+import { faCapsules, faContactBook, faHome, faInfoCircle, faTint, faBars, faTimes, faUserMd, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useAuthModal } from '../../../auth/AuthModalContext';
 
 const NavbarComponent = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const { openAuth } = useAuthModal();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -56,11 +58,8 @@ const NavbarComponent = () => {
             </div>
 
             <div className="nav-actions">
-              <button className="nav-link-btn" onClick={() => navigate('/doctor-login')}>
-                <FontAwesomeIcon icon={faUserNurse} /> <span>Doctor</span>
-              </button>
-              <button className="nav-link-btn" onClick={() => navigate('/patient-login')}>
-                <FontAwesomeIcon icon={faUserInjured} /> <span>Patient</span>
+              <button className="nav-link-btn" onClick={() => openAuth({ mode: 'login' })}>
+                <FontAwesomeIcon icon={faRightToBracket} /> <span>Sign In</span>
               </button>
               <button className="nav-cta" onClick={() => navigate('/doctors')}>
                 Book Appointment

@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bulma/css/bulma.min.css';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AdminThemeProvider } from './features/admin/context/AdminThemeContext';
+import { AuthModalProvider } from './features/auth/AuthModalContext';
 
 // Shared components
 import NavbarComponent from './features/shared/components/layout/Navbar';
@@ -99,7 +100,9 @@ function App() {
             {/* Routes WITH Navbar - Wrapped in Public ThemeProvider */}
             <Route element={
               <ThemeProvider>
-                <MainLayout />
+                <AuthModalProvider>
+                  <MainLayout />
+                </AuthModalProvider>
               </ThemeProvider>
             }>
               <Route path="/" element={<Home />} />

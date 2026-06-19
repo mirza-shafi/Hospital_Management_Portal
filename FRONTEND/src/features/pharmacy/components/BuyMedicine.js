@@ -185,7 +185,7 @@ const BuyMedicine = () => {
             
             <div className="selected-medicines">
               {selectedMedicines.length === 0 ? (
-                <p style={{ color: '#94a3b8', textAlign: 'center', padding: '20px' }}>Cart is empty</p>
+                <p style={{ color: '#777f88', textAlign: 'center', padding: '20px' }}>Cart is empty</p>
               ) : (
                 selectedMedicines.map((item) => {
                   const medicine = medicines.find((med) => med._id === item.medicineId);

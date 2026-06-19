@@ -53,7 +53,7 @@ const Pharmacy = () => {
       </Helmet>
 
       <div style={{ width: '100%', maxWidth: '1200px', marginBottom: '20px' }}>
-        <Link to="/" className="back-home" style={{ color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 'bold' }}>
+        <Link to="/" className="back-home" style={{ color: '#444a52', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 'bold' }}>
           <FaArrowLeft /> Back to Home
         </Link>
       </div>

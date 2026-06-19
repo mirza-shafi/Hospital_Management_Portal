@@ -1,92 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
 .blood-availability-page {
-  background-color: #f8fafc;
+  background-color: var(--hw-bg-subtle, #f7f8f9);
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
+  padding: 48px 20px;
   font-family: 'Poppins', sans-serif;
   position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-/* Dark Mode Background */
-.dark .blood-availability-page {
-  background-color: #09090b; /* zinc-950 */
-}
-
-/* Abstract background shapes */
-.blood-availability-page::before,
-.blood-availability-page::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  z-index: 0;
-}
-
-.blood-availability-page::before {
-  width: 400px;
-  height: 400px;
-  background: rgba(255, 107, 107, 0.2);
-  top: -50px;
-  left: -100px;
-}
-
-.blood-availability-page::after {
-  width: 300px;
-  height: 300px;
-  background: rgba(255, 71, 87, 0.15);
-  bottom: -50px;
-  right: -50px;
 }
 
 .blood-availability-box-container {
   position: relative;
   z-index: 1;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e2e8f0;
-  padding: 32px;
+  background: var(--hw-bg, #ffffff);
+  border-radius: 14px;
+  box-shadow: var(--hw-shadow, 0 1px 3px rgba(16, 19, 23, 0.06));
+  border: 1px solid var(--hw-border, #e7e9ec);
+  padding: 36px;
   max-width: 700px;
   width: 100%;
-  transition: all 0.3s ease;
-}
-
-/* Dark Mode Container */
-.dark .blood-availability-box-container {
-  background: #18181b; /* zinc-900 */
-  border: 1px solid rgba(63, 63, 70, 0.4);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-}
-
-.blood-availability-box-container:hover {
-  transform: translateY(-5px);
 }
 
 .blood-availability-title {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #2d3436;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--hw-ink, #16191d);
   margin-bottom: 1.5rem;
   text-align: center;
-  letter-spacing: -0.5px;
-  transition: color 0.3s ease;
-}
-
-.dark .blood-availability-title {
-  color: #f7fafc;
+  letter-spacing: -0.02em;
 }
 
 /* Back Button */
 .blood-availability-back-button {
   background: none;
   border: none;
-  color: #64748b !important;
+  color: var(--hw-ink-soft, #444a52) !important;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -94,121 +44,76 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 24px;
-  transition: all 0.2s ease;
+  transition: var(--hw-transition, 0.2s ease);
   padding: 0;
   width: fit-content;
 }
 
 .blood-availability-back-button:hover {
-  color: #ef4444 !important;
-  transform: translateX(-4px);
-}
-
-.dark .blood-availability-back-button {
-  color: #94a3b8 !important;
-}
-
-.dark .blood-availability-back-button:hover {
-  color: #f87171 !important;
+  color: var(--hw-ink, #16191d) !important;
+  transform: translateX(-3px);
 }
 
 .blood-availability-table-container {
   margin-top: 1rem;
   overflow-x: auto;
+  border: 1px solid var(--hw-border, #e7e9ec);
+  border-radius: 12px;
 }
 
 .blood-availability-table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  background-color: transparent;
+  border-collapse: collapse;
+  background-color: var(--hw-bg, #ffffff);
 }
 
 .blood-availability-table thead th {
-  background-color: #ff4757;
-  color: white;
+  background-color: var(--hw-bg-subtle, #f7f8f9);
+  color: var(--hw-ink, #16191d);
   text-align: left;
-  padding: 0.8rem 1rem;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  padding: 0.85rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  border: none;
-  transition: background-color 0.3s ease;
-}
-
-.dark .blood-availability-table thead th {
-  background-color: #9b2c2c; /* distinct red for dark mode */
-}
-
-
-.blood-availability-table thead th:first-child {
-  border-top-left-radius: 12px;
-}
-
-.blood-availability-table thead th:last-child {
-  border-top-right-radius: 12px;
+  border-bottom: 1px solid var(--hw-border, #e7e9ec);
 }
 
 .blood-availability-table tbody tr {
-  transition: all 0.3s ease;
-  background-color: white;
-}
-
-.dark .blood-availability-table tbody tr {
-  background-color: #18181b; /* zinc-900 */
-}
-
-.blood-availability-table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.dark .blood-availability-table tbody tr:nth-child(even) {
-  background-color: #141416;
+  transition: background-color var(--hw-transition, 0.2s ease);
+  background-color: var(--hw-bg, #ffffff);
 }
 
 .blood-availability-row:hover {
-  transform: scale(1.01);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-  z-index: 2;
-  position: relative;
-  background-color: white !important;
+  background-color: var(--hw-bg-subtle, #f7f8f9);
 }
-
-.dark .blood-availability-row:hover {
-  background-color: #27272a !important; /* zinc-800 */
-}
-
 
 .blood-availability-table td {
-  padding: 0.8rem 1rem;
-  font-size: 1rem;
-  color: #2d3436;
-  border-bottom: 1px solid #f1f2f6;
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  color: var(--hw-ink-soft, #444a52);
+  border-bottom: 1px solid var(--hw-border, #e7e9ec);
   text-align: left;
-  transition: color 0.3s ease, border-color 0.3s ease;
 }
 
-.dark .blood-availability-table td {
-  color: #e2e8f0;
-  border-bottom: 1px solid #4a5568;
+/* Blood group value emphasis (blood = red) */
+.blood-availability-table tbody td:first-child {
+  font-weight: 700;
+  color: var(--hw-emergency, #c1121f);
 }
 
-.blood-availability-table tbody tr:last-child td:first-child {
-  border-bottom-left-radius: 12px;
-}
-
-.blood-availability-table tbody tr:last-child td:last-child {
-  border-bottom-right-radius: 12px;
+.blood-availability-table tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .blood-availability-notification {
   margin-bottom: 1.5rem;
   padding: 1rem;
-  border-radius: 12px;
-  background-color: #ffeaea;
-  color: #ff4757;
-  border-left: 5px solid #ff4757;
+  border-radius: 10px;
+  background-color: #fbeaec;
+  color: var(--hw-emergency, #c1121f);
+  border: 1px solid #f3ccd1;
+  border-left: 4px solid var(--hw-emergency, #c1121f);
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -219,18 +124,18 @@
   .blood-availability-page {
     padding: 1rem;
   }
-  
+
   .blood-availability-box-container {
     padding: 1.5rem;
   }
 
   .blood-availability-title {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
-  
+
   .blood-availability-table thead th,
   .blood-availability-table td {
-    padding: 0.8rem;
-    font-size: 0.9rem;
+    padding: 0.7rem 0.8rem;
+    font-size: 0.85rem;
   }
 }

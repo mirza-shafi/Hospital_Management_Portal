@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import api from '../core/api/config';
 import { storage } from '../utils/storage';
+import { useAuthModal } from '../features/auth/AuthModalContext';
 import DoctorCard from '../features/shared/components/DoctorCard';
 import Footer from '../features/shared/components/layout/Footer';
 import '../components/styles/Doctors.css';
 
 const Doctors = () => {
   const navigate = useNavigate();
+  const { openAuth } = useAuthModal();
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeDept, setActiveDept] = useState('All');
@@ -37,8 +39,7 @@ const Doctors = () => {
     if (patientToken) {
       navigate(target);
     } else {
-      storage.setItem('postLoginRedirect', target);
-      navigate('/patient-login');
+      openAuth({ role: 'patient', mode: 'login', redirect: target });
     }
   };
 
