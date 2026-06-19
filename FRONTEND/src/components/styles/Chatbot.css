@@ -101,6 +101,7 @@
   font-size: 0.92rem;
   line-height: 1.55;
   word-wrap: break-word;
+  text-align: left;
 }
 
 .message.user {

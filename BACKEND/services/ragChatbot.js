@@ -185,6 +185,26 @@ async function askLLM(message, contextDocs, history = []) {
   } finally { clearTimeout(timeout); }
 }
 
+// Live aggregate totals so count/"how many" questions are accurate.
+async function statsContext() {
+  try {
+    const [doctorCount, medicineCount, depts, blood] = await Promise.all([
+      Doctor.countDocuments(),
+      Medicine.countDocuments(),
+      Doctor.distinct('department'),
+      BloodAvailability.find().lean(),
+    ]);
+    const cleanDepts = depts.filter(Boolean);
+    const bloodTotal = blood.reduce((s, b) => s + (b.count || 0), 0);
+    return {
+      title: 'Hospital statistics (live totals)',
+      text: `The hospital currently has ${doctorCount} doctors across ${cleanDepts.length} departments (${cleanDepts.join(', ') || 'various'}). The pharmacy stocks ${medicineCount} different medicines. The blood bank has ${bloodTotal} total units across ${blood.length} blood groups.`,
+    };
+  } catch (e) {
+    return null;
+  }
+}
+
 async function generateAnswer(message, history = []) {
   let top = [];
   let retrieval = 'vector';
@@ -197,6 +217,10 @@ async function generateAnswer(message, history = []) {
     const docs = await buildKnowledgeBase();
     top = keywordRetrieve(message, docs, 5);
   }
+  // Always prepend accurate live totals (for "how many / total" questions)
+  const stats = await statsContext();
+  if (stats) top = [stats, ...top];
+
   const answer = await askLLM(message, top, history);
   return { answer, retrieval, usedContext: top.map((d) => d.title) };
 }
