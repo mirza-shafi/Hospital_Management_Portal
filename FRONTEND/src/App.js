@@ -18,6 +18,7 @@ import SupportForm from './features/shared/components/forms/SupportForm';
 // Pages
 import Home from './pages/Home';
 import About from './pages/About';
+import Doctors from './pages/Doctors';
 
 // Auth components
 import DoctorSignUp from './features/auth/components/DoctorSignUp';
@@ -103,6 +104,7 @@ function App() {
             }>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About/>} />
+              <Route path="/doctors" element={<Doctors />} />
               <Route path="/blood-bank" element={<BloodBank />} />
               <Route path="/pharmacy" element={<Pharmacy />} />
               <Route path="/support" element={<SupportForm />} />

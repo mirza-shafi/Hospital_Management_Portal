@@ -102,7 +102,7 @@ const AdminManageUsers = () => {
 
     const getStatusColor = (status) => {
         switch(status) {
-          case 'Stable': return 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-900/30';
+          case 'Stable': return 'bg-gray-100 dark:bg-gray-900/20 text-gray-800 dark:text-gray-400 border border-gray-100 dark:border-gray-900/30';
           case 'Mild': return 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30';
           case 'Critical': return 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900/30';
           default: return 'bg-gray-50 dark:bg-zinc-800 text-gray-600 dark:text-gray-400';
@@ -128,7 +128,7 @@ const AdminManageUsers = () => {
                 </div>
                 <button 
                     onClick={() => setShowAddForm(true)}
-                    className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-semibold shadow-lg shadow-blue-200 dark:shadow-none transition-all font-sans"
+                    className="flex items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white px-5 py-2.5 rounded-xl font-semibold shadow-lg shadow-gray-200 dark:shadow-none transition-all font-sans"
                 >
                     <FaUserPlus />
                     Add New Patient
@@ -147,7 +147,7 @@ const AdminManageUsers = () => {
                         <input 
                             type="text" 
                             placeholder="Search patients..." 
-                            className="admin-search-input w-full pl-10 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 dark:text-gray-200 transition-all"
+                            className="admin-search-input w-full pl-10 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-700/20 focus:border-gray-700 dark:text-gray-200 transition-all"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -171,7 +171,7 @@ const AdminManageUsers = () => {
                         <thead>
                             <tr className="bg-gray-50/80 dark:bg-zinc-800/20 border-b border-gray-100 dark:border-zinc-800">
                                 <th className="p-4 w-10">
-                                    <input type="checkbox" className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                                    <input type="checkbox" className="rounded border-gray-300 text-gray-800 focus:ring-gray-700" />
                                 </th>
                                 <th className="p-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Patient Name</th>
                                 <th className="p-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Contact</th>
@@ -196,14 +196,14 @@ const AdminManageUsers = () => {
                                     <tr 
                                         key={patient._id} 
                                         onClick={() => setSelectedPatient(patient)}
-                                        className="hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition-colors cursor-pointer group border-b border-gray-100 dark:border-zinc-800"
+                                        className="hover:bg-gray-100/30 dark:hover:bg-gray-900/10 transition-colors cursor-pointer group border-b border-gray-100 dark:border-zinc-800"
                                     >
                                         <td className="p-4" onClick={(e) => e.stopPropagation()}>
-                                            <input type="checkbox" className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                                            <input type="checkbox" className="rounded border-gray-300 text-gray-800 focus:ring-gray-700" />
                                         </td>
                                         <td className="p-4">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-900/20 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold text-sm border border-blue-100 dark:border-blue-900/30">
+                                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-100 to-gray-100 dark:from-gray-900/40 dark:to-gray-900/20 flex items-center justify-center text-gray-800 dark:text-gray-400 font-bold text-sm border border-gray-100 dark:border-gray-900/30">
                                                     {patient.name ? patient.name[0] : 'U'}
                                                 </div>
                                                 <div>
@@ -230,12 +230,12 @@ const AdminManageUsers = () => {
                                             <div className="flex items-center gap-2 justify-end">
                                                 <button 
                                                     onClick={(e) => handleEditClick(patient, e)}
-                                                    className="p-1.5 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/40 rounded-lg transition-colors"
+                                                    className="p-1.5 text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900/40 rounded-lg transition-colors"
                                                     title="Edit Patient"
                                                 >
                                                     <FaCog size={14} />
                                                 </button>
-                                                <FaChevronRight className="text-gray-300 group-hover:text-blue-400 transition-colors text-xs" />
+                                                <FaChevronRight className="text-gray-300 group-hover:text-gray-400 transition-colors text-xs" />
                                             </div>
                                         </td>
                                     </tr>
@@ -269,35 +269,35 @@ const AdminManageUsers = () => {
                         <form onSubmit={handleAddPatient} className="grid grid-cols-2 gap-4">
                             <div className="col-span-1">
                                 <label className="block text-xs font-bold text-gray-400 uppercase mb-2">First Name</label>
-                                <input required className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-blue-500/10 dark:text-gray-100" value={newPatient.firstName} onChange={e => setNewPatient({...newPatient, firstName: e.target.value})} />
+                                <input required className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-gray-700/10 dark:text-gray-100" value={newPatient.firstName} onChange={e => setNewPatient({...newPatient, firstName: e.target.value})} />
                             </div>
                             <div className="col-span-1">
                                 <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Last Name</label>
-                                <input required className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-blue-500/10 dark:text-gray-100" value={newPatient.lastName} onChange={e => setNewPatient({...newPatient, lastName: e.target.value})} />
+                                <input required className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-gray-700/10 dark:text-gray-100" value={newPatient.lastName} onChange={e => setNewPatient({...newPatient, lastName: e.target.value})} />
                             </div>
                             <div className="col-span-2">
                                 <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Email Address</label>
-                                <input required type="email" className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-blue-500/10 dark:text-gray-100" value={newPatient.email} onChange={e => setNewPatient({...newPatient, email: e.target.value})} />
+                                <input required type="email" className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-gray-700/10 dark:text-gray-100" value={newPatient.email} onChange={e => setNewPatient({...newPatient, email: e.target.value})} />
                             </div>
                             <div className="col-span-1">
                                 <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Gender</label>
-                                <select className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-blue-500/10 dark:text-gray-100" value={newPatient.sex} onChange={e => setNewPatient({...newPatient, sex: e.target.value})}>
+                                <select className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-gray-700/10 dark:text-gray-100" value={newPatient.sex} onChange={e => setNewPatient({...newPatient, sex: e.target.value})}>
                                     <option>Male</option><option>Female</option><option>Other</option>
                                 </select>
                             </div>
                             <div className="col-span-1">
                                 <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Phone</label>
-                                <input required className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-blue-500/10 dark:text-gray-100" value={newPatient.mobileNumber} onChange={e => setNewPatient({...newPatient, mobileNumber: e.target.value})} />
+                                <input required className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-gray-700/10 dark:text-gray-100" value={newPatient.mobileNumber} onChange={e => setNewPatient({...newPatient, mobileNumber: e.target.value})} />
                             </div>
                             <div className="col-span-1">
                                 <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Date of Birth</label>
-                                <input required type="date" className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-blue-500/10 dark:text-gray-100" value={newPatient.dateOfBirth} onChange={e => setNewPatient({...newPatient, dateOfBirth: e.target.value})} />
+                                <input required type="date" className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-gray-700/10 dark:text-gray-100" value={newPatient.dateOfBirth} onChange={e => setNewPatient({...newPatient, dateOfBirth: e.target.value})} />
                             </div>
                             <div className="col-span-1">
                                 <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Initial Diagnosis</label>
                                 <input 
                                     list="diagnosis-options"
-                                    className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-blue-500/10 dark:text-gray-100" 
+                                    className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-gray-700/10 dark:text-gray-100" 
                                     placeholder="e.g. Fever" 
                                     value={newPatient.diagnosis}
                                     onChange={e => setNewPatient({...newPatient, diagnosis: e.target.value})} 
@@ -314,7 +314,7 @@ const AdminManageUsers = () => {
                             </div>
                             <div className="col-span-1">
                                 <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Admission Status</label>
-                                <select className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-blue-500/10 dark:text-gray-100" value={newPatient.status} onChange={e => setNewPatient({...newPatient, status: e.target.value})}>
+                                <select className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-gray-700/10 dark:text-gray-100" value={newPatient.status} onChange={e => setNewPatient({...newPatient, status: e.target.value})}>
                                     <option>Stable</option>
                                     <option>Mild</option>
                                     <option>Critical</option>
@@ -327,7 +327,7 @@ const AdminManageUsers = () => {
                                 </div>
                             )}
                             <div className="col-span-2 flex gap-3 mt-4">
-                                <button type="submit" className="flex-1 bg-blue-600 dark:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-blue-100 dark:shadow-none">
+                                <button type="submit" className="flex-1 bg-gray-800 dark:bg-gray-900 text-white font-bold py-3 rounded-xl shadow-lg shadow-gray-100 dark:shadow-none">
                                     {editingPatient ? 'Update Patient' : 'Create Patient'}
                                 </button>
                                 <button type="button" onClick={() => { setShowAddForm(false); setEditingPatient(null); }} className="px-6 py-3 bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-gray-400 font-bold rounded-xl transition-all">Cancel</button>

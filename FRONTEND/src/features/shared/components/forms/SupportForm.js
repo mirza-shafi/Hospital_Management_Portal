@@ -17,9 +17,9 @@ const SupportForm = () => {
   const [isError, setIsError] = useState(false);
 
   const categories = [
-    { title: 'User Management', icon: <FaUsers className="text-blue-500" />, desc: 'How to register patients and manage roles.' },
+    { title: 'User Management', icon: <FaUsers className="text-gray-700" />, desc: 'How to register patients and manage roles.' },
     { title: 'Inventory Control', icon: <FaCapsules className="text-emerald-500" />, desc: 'Managing pharmacy stock and equipment.' },
-    { title: 'Clinical Operations', icon: <FaStethoscope className="text-indigo-500" />, desc: 'Handling appointments and reports.' },
+    { title: 'Clinical Operations', icon: <FaStethoscope className="text-gray-700" />, desc: 'Handling appointments and reports.' },
   ];
 
   const faqs = [
@@ -57,13 +57,13 @@ const SupportForm = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header Navigation */}
         <div className="mb-8">
-            <Link to="/" className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold hover:underline group">
+            <Link to="/" className="inline-flex items-center gap-2 text-gray-800 dark:text-gray-400 font-bold hover:underline group">
                 <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" /> Back to Home
             </Link>
         </div>
 
         <div className="text-center mb-16">
-            <h1 className="text-5xl font-black text-gray-900 dark:text-gray-100 mb-4 tracking-tight">Help & Support <span className="text-blue-600">Portal</span></h1>
+            <h1 className="text-5xl font-black text-gray-900 dark:text-gray-100 mb-4 tracking-tight">Help & Support <span className="text-gray-800">Portal</span></h1>
             <p className="text-xl text-gray-500 dark:text-gray-400">Find answers or get in touch with our expert team.</p>
         </div>
 
@@ -71,12 +71,12 @@ const SupportForm = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             {categories.map((cat, i) => (
                 <div key={i} className="support-card p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all group">
-                    <div className="w-14 h-14 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                    <div className="w-14 h-14 bg-gray-100 dark:bg-gray-900/20 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
                         {cat.icon}
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3">{cat.title}</h3>
                     <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-6">{cat.desc}</p>
-                    <button className="flex items-center gap-2 text-blue-600 dark:text-blue-400 text-sm font-bold group">
+                    <button className="flex items-center gap-2 text-gray-800 dark:text-gray-400 text-sm font-bold group">
                         Read Docs <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
                     </button>
                 </div>
@@ -97,7 +97,7 @@ const SupportForm = () => {
                     {faqs.map((faq, i) => (
                         <div key={i} className="group cursor-pointer">
                             <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-2 flex items-start gap-3">
-                                <span className="text-blue-600">Q:</span> {faq.q}
+                                <span className="text-gray-800">Q:</span> {faq.q}
                             </h4>
                             <p className="text-sm text-gray-500 dark:text-gray-400 pl-7 leading-relaxed flex items-start gap-3">
                                 <span className="text-emerald-500 font-bold">A:</span> {faq.a}
@@ -117,7 +117,7 @@ const SupportForm = () => {
             {/* Support Form Container */}
             <div className="support-card p-10 shadow-sm">
                 <div className="flex items-center gap-3 mb-10">
-                    <div className="w-10 h-10 bg-blue-50 dark:bg-blue-900/20 rounded-xl flex items-center justify-center text-blue-600 text-xl">
+                    <div className="w-10 h-10 bg-gray-100 dark:bg-gray-900/20 rounded-xl flex items-center justify-center text-gray-800 text-xl">
                         <FaPaperPlane />
                     </div>
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 uppercase tracking-tight">Submit Request</h2>
@@ -128,7 +128,7 @@ const SupportForm = () => {
                         <div className="space-y-2">
                             <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Full Name</label>
                             <input
-                                className="w-full px-5 py-4 bg-gray-50 dark:bg-zinc-800 border-none rounded-2xl outline-none focus:ring-2 focus:ring-blue-500/20 text-gray-900 dark:text-gray-100 font-medium transition-all"
+                                className="w-full px-5 py-4 bg-gray-50 dark:bg-zinc-800 border-none rounded-2xl outline-none focus:ring-2 focus:ring-gray-700/20 text-gray-900 dark:text-gray-100 font-medium transition-all"
                                 type="text"
                                 name="name"
                                 value={formData.name}
@@ -140,7 +140,7 @@ const SupportForm = () => {
                         <div className="space-y-2">
                             <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Email Address</label>
                             <input
-                                className="w-full px-5 py-4 bg-gray-50 dark:bg-zinc-800 border-none rounded-2xl outline-none focus:ring-2 focus:ring-blue-500/20 text-gray-900 dark:text-gray-100 font-medium transition-all"
+                                className="w-full px-5 py-4 bg-gray-50 dark:bg-zinc-800 border-none rounded-2xl outline-none focus:ring-2 focus:ring-gray-700/20 text-gray-900 dark:text-gray-100 font-medium transition-all"
                                 type="email"
                                 name="email"
                                 value={formData.email}
@@ -154,7 +154,7 @@ const SupportForm = () => {
                     <div className="space-y-2">
                         <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">Phone Number</label>
                         <input
-                            className="w-full px-5 py-4 bg-gray-50 dark:bg-zinc-800 border-none rounded-2xl outline-none focus:ring-2 focus:ring-blue-500/20 text-gray-900 dark:text-gray-100 font-medium transition-all"
+                            className="w-full px-5 py-4 bg-gray-50 dark:bg-zinc-800 border-none rounded-2xl outline-none focus:ring-2 focus:ring-gray-700/20 text-gray-900 dark:text-gray-100 font-medium transition-all"
                             type="tel"
                             name="phone"
                             value={formData.phone}
@@ -167,7 +167,7 @@ const SupportForm = () => {
                     <div className="space-y-2">
                         <label className="text-xs font-bold text-gray-400 uppercase tracking-widest pl-1">How can we help?</label>
                         <textarea
-                            className="w-full px-5 py-4 bg-gray-50 dark:bg-zinc-800 border-none rounded-2xl outline-none focus:ring-2 focus:ring-blue-500/20 text-gray-900 dark:text-gray-100 font-medium transition-all min-h-[140px]"
+                            className="w-full px-5 py-4 bg-gray-50 dark:bg-zinc-800 border-none rounded-2xl outline-none focus:ring-2 focus:ring-gray-700/20 text-gray-900 dark:text-gray-100 font-medium transition-all min-h-[140px]"
                             name="message"
                             value={formData.message}
                             onChange={handleChange}
@@ -176,7 +176,7 @@ const SupportForm = () => {
                         ></textarea>
                     </div>
 
-                    <button className="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-xl shadow-blue-500/20 flex items-center justify-center gap-3 transition-all active:scale-95">
+                    <button className="w-full py-5 bg-gray-800 hover:bg-gray-900 text-white font-bold rounded-2xl shadow-xl shadow-gray-700/20 flex items-center justify-center gap-3 transition-all active:scale-95">
                         <FaPaperPlane /> Submit Ticket
                     </button>
 

@@ -61,7 +61,7 @@
 .appointment-input:focus,
 .appointment-select:focus,
 .appointment-button:hover {
-    border-color: #80bdff;
+    border-color: #eceef0;
     outline: 0;
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
 }
@@ -82,7 +82,7 @@
 }
 
 .appointment-button:hover {
-    background-color: #2c5364;
+    background-color: #1b1f24;
 }
 
 .appointment-message {

@@ -89,7 +89,7 @@ const AdminReports = () => {
                                 onClick={() => setActiveCategory(cat)}
                                 className={`px-4 py-1.5 text-xs font-semibold rounded-md transition-all ${
                                     activeCategory === cat 
-                                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' 
+                                    ? 'bg-gray-800 text-white shadow-lg shadow-gray-700/30' 
                                     : 'admin-btn-secondary bg-transparent text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-zinc-700'
                                 }`}
                             >
@@ -105,7 +105,7 @@ const AdminReports = () => {
                         <input 
                             type="text" 
                             placeholder="Search by patient or category..." 
-                            className="admin-search-input w-full pl-9 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:text-gray-200 transition-all font-sans"
+                            className="admin-search-input w-full pl-9 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-700/20 dark:text-gray-200 transition-all font-sans"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -141,7 +141,7 @@ const AdminReports = () => {
                                         </td>
                                         <td className="p-4">
                                             <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                                                t.type === 'Medicine' ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400' :
+                                                t.type === 'Medicine' ? 'bg-gray-100 dark:bg-gray-900/20 text-gray-800 dark:text-gray-400' :
                                                 t.type === 'Test' ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400' : 'bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400'
                                             }`}>
                                                 {t.type}
@@ -156,7 +156,7 @@ const AdminReports = () => {
                                             </span>
                                         </td>
                                         <td className="p-4 text-right">
-                                            <span className="text-blue-500 hover:text-blue-700 cursor-pointer text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all flex items-center justify-end gap-1">
+                                            <span className="text-gray-700 hover:text-gray-900 cursor-pointer text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all flex items-center justify-end gap-1">
                                                 Details <FaArrowRight className="text-[10px]" />
                                             </span>
                                         </td>
@@ -173,8 +173,8 @@ const AdminReports = () => {
 
 const SummaryCard = ({ title, value, icon, color }) => {
     const colors = {
-        blue: "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-blue-100 dark:border-blue-900/30",
-        indigo: "bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 border-indigo-100 dark:border-indigo-900/30",
+        blue: "bg-gray-100 dark:bg-gray-900/20 text-gray-800 dark:text-gray-400 border-gray-100 dark:border-gray-900/30",
+        indigo: "bg-gray-100 dark:bg-gray-900/20 text-gray-800 dark:text-gray-400 border-gray-100 dark:border-gray-900/30",
         emerald: "bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border-emerald-100 dark:border-emerald-900/30",
         orange: "bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 border-orange-100 dark:border-orange-900/30"
     };

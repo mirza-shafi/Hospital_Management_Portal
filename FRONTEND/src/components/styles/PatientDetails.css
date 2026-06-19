@@ -45,7 +45,7 @@
 }
 
 .pd-search-bar:focus-within {
-    border-color: #3b82f6;
+    border-color: #1b1f24;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
 }
@@ -73,7 +73,7 @@
 }
 
 .pd-search-button {
-    background: #3b82f6;
+    background: #1b1f24;
     color: white;
     border: none;
     padding: 12px 28px;
@@ -85,7 +85,7 @@
 }
 
 .pd-search-button:hover {
-    background: #2563eb;
+    background: #1b1f24;
 }
 
 .pd-search-button:disabled {
@@ -131,7 +131,7 @@
 .patient-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -6px rgba(0, 0, 0, 0.04);
-    border-color: #3b82f655;
+    border-color: #1b1f2455;
 }
 
 .card-header {
@@ -147,8 +147,8 @@
     width: 48px;
     height: 48px;
     border-radius: 14px;
-    background: #eff6ff;
-    color: #3b82f6;
+    background: #eceef0;
+    color: #1b1f24;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -210,8 +210,8 @@
 }
 
 .info-value.highlight-blue {
-    color: #2563eb;
-    background: #eff6ff;
+    color: #1b1f24;
+    background: #eceef0;
     padding: 2px 8px;
     border-radius: 6px;
     font-size: 0.85rem;

@@ -32,7 +32,7 @@
 .admin-support-box .title {
   font-size: 2.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -41,7 +41,7 @@
 }
 
 .dark .admin-support-box .title {
-  background: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%);
+  background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -68,11 +68,11 @@
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-  border-color: #667eea;
+  border-color: #1b1f24;
 }
 
 .dark .card:hover {
-  border-color: #a78bfa;
+  border-color: #1b1f24;
 }
 
 .card.is-resolved {
@@ -110,11 +110,11 @@
 
 .card-header-email {
   font-size: 0.85rem;
-  color: #667eea;
+  color: #1b1f24;
 }
 
 .dark .card-header-email {
-  color: #a78bfa;
+  color: #1b1f24;
 }
 
 .card-content {
@@ -204,19 +204,19 @@
 }
 
 .pagination-button:hover {
-  border-color: #667eea;
-  color: #667eea;
+  border-color: #1b1f24;
+  color: #1b1f24;
 }
 
 .pagination-button.is-active {
-  background: #667eea;
-  border-color: #667eea;
+  background: #1b1f24;
+  border-color: #1b1f24;
   color: white;
 }
 
 .dark .pagination-button.is-active {
-  background: #a78bfa;
-  border-color: #a78bfa;
+  background: #1b1f24;
+  border-color: #1b1f24;
 }
 
 /* Animations */

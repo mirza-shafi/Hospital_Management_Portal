@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../../../components/styles/Navbar.css';
 import logo from '../../../../assets/healingwave.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCapsules, faContactBook, faHome, faInfoCircle, faTint, faBars, faTimes, faPhone, faUserMd, faUserInjured } from '@fortawesome/free-solid-svg-icons';
+import { faCapsules, faContactBook, faHome, faInfoCircle, faTint, faBars, faTimes, faUserMd, faUserInjured, faUserNurse } from '@fortawesome/free-solid-svg-icons';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 const NavbarComponent = () => {
@@ -17,32 +17,12 @@ const NavbarComponent = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close menu when route changes
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location]);
 
   return (
     <header className="site-header">
-      {/* Top utility bar */}
-      <div className="topbar">
-        <div className="topbar-inner">
-          <a className="topbar-emergency" href="tel:+8801234567890">
-            <FontAwesomeIcon icon={faPhone} />
-            <span>Emergency: <strong>+880 1234-567890</strong></span>
-          </a>
-          <div className="topbar-actions">
-            <button className="topbar-link" onClick={() => navigate('/doctor-login')}>
-              <FontAwesomeIcon icon={faUserMd} /> Doctor Login
-            </button>
-            <button className="topbar-link" onClick={() => navigate('/patient-login')}>
-              <FontAwesomeIcon icon={faUserInjured} /> Patient Login
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Main navigation */}
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="navbar-container">
           <Link className="navbar-brand" to="/">
@@ -57,6 +37,9 @@ const NavbarComponent = () => {
             <div className="nav-links">
               <NavLink to="/" end className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
                 <FontAwesomeIcon icon={faHome} /> <span>Home</span>
+              </NavLink>
+              <NavLink to="/doctors" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+                <FontAwesomeIcon icon={faUserMd} /> <span>Doctors</span>
               </NavLink>
               <NavLink to="/blood-bank" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
                 <FontAwesomeIcon icon={faTint} /> <span>Blood Bank</span>
@@ -73,7 +56,13 @@ const NavbarComponent = () => {
             </div>
 
             <div className="nav-actions">
-              <button className="nav-cta" onClick={() => navigate('/patient/appointment')}>
+              <button className="nav-link-btn" onClick={() => navigate('/doctor-login')}>
+                <FontAwesomeIcon icon={faUserNurse} /> <span>Doctor</span>
+              </button>
+              <button className="nav-link-btn" onClick={() => navigate('/patient-login')}>
+                <FontAwesomeIcon icon={faUserInjured} /> <span>Patient</span>
+              </button>
+              <button className="nav-cta" onClick={() => navigate('/doctors')}>
                 Book Appointment
               </button>
             </div>

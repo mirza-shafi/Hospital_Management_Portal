@@ -9,7 +9,7 @@
 
 /* --- Hero --- */
 .about-hero {
-    background: linear-gradient(rgba(8, 48, 79, 0.78), rgba(8, 48, 79, 0.78)), url('../../assets/hospital1.png');
+    background: linear-gradient(rgba(16, 19, 23, 0.78), rgba(16, 19, 23, 0.78)), url('../../assets/hospital1.png');
     background-size: cover;
     background-position: center;
     height: 52vh;
@@ -54,18 +54,18 @@
     border-radius: 14px;
     box-shadow: var(--hw-shadow);
     border: 1px solid var(--hw-border, #e3e9ef);
-    border-top: 4px solid var(--hw-primary, #0a558c);
+    border-top: 4px solid var(--hw-primary, #1b1f24);
     text-align: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .mission-card:hover { transform: translateY(-6px); box-shadow: var(--hw-shadow-md); }
-.mission-card:nth-child(2) { border-top-color: var(--hw-teal, #0a9396); }
+.mission-card:nth-child(2) { border-top-color: var(--hw-teal, #1b1f24); }
 
 .card-icon {
     font-size: 2rem;
     margin: 0 auto 1.5rem;
-    color: var(--hw-primary, #0a558c);
+    color: var(--hw-primary, #1b1f24);
     background: var(--hw-bg-tint, #eef5fc);
     width: 72px;
     height: 72px;
@@ -73,7 +73,7 @@
     border-radius: 16px;
 }
 
-.mission-card:nth-child(2) .card-icon { color: var(--hw-teal, #0a9396); background: #e6f4f4; }
+.mission-card:nth-child(2) .card-icon { color: var(--hw-teal, #1b1f24); background: #e6f4f4; }
 
 .mission-card h2 { font-size: 1.6rem; margin-bottom: 1rem; color: var(--hw-ink, #14283b); font-weight: 700; }
 .mission-card p { font-size: 1.05rem; line-height: 1.7; color: var(--hw-ink-soft, #41566b); }
@@ -103,7 +103,7 @@
     display: block;
     width: 60px;
     height: 4px;
-    background: var(--hw-primary, #0a558c);
+    background: var(--hw-primary, #1b1f24);
     margin: 14px auto 0;
     border-radius: 2px;
 }
@@ -129,7 +129,7 @@
 
 .value-icon {
     font-size: 2rem;
-    color: var(--hw-primary, #0a558c);
+    color: var(--hw-primary, #1b1f24);
     margin-bottom: 1rem;
     width: 60px;
     height: 60px;
@@ -163,24 +163,24 @@
 }
 
 .service-item:hover {
-    border-color: var(--hw-primary, #0a558c);
+    border-color: var(--hw-primary, #1b1f24);
     background: var(--hw-bg-tint, #eef5fc);
     transform: translateY(-3px);
 }
 
-.service-item i { font-size: 1.8rem; color: var(--hw-primary, #0a558c); margin-bottom: 1rem; display: block; }
+.service-item i { font-size: 1.8rem; color: var(--hw-primary, #1b1f24); margin-bottom: 1rem; display: block; }
 .service-item span { font-weight: 600; color: var(--hw-ink, #14283b); font-size: 1.05rem; }
 
 /* --- Contact --- */
 .contact-section {
-    background: #08304f;
+    background: #16191d;
     color: #fff;
     padding: 5rem 2rem;
     text-align: center;
 }
 
 .contact-section .section-title { color: #fff; }
-.contact-section .section-title::after { background: #5fb0e6; }
+.contact-section .section-title::after { background: rgba(255, 255, 255, 0.5); }
 
 .contact-grid {
     display: grid;
@@ -197,9 +197,9 @@
     border-radius: 12px;
 }
 
-.contact-icon { font-size: 1.8rem; margin-bottom: 1rem; color: #5fb0e6; }
+.contact-icon { font-size: 1.8rem; margin-bottom: 1rem; color: #c5c9cf; }
 .contact-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; font-weight: 700; }
-.contact-card p { color: #a9c1d4; line-height: 1.7; }
+.contact-card p { color: #a7adb5; line-height: 1.7; }
 
 /* --- Responsive --- */
 @media (max-width: 768px) {

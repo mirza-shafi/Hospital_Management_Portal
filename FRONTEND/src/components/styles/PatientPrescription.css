@@ -28,7 +28,7 @@
 
 .search-icon {
     font-size: 24px;
-    color: #3498db;
+    color: #1b1f24;
     margin-right: 12px;
 }
 
@@ -85,7 +85,7 @@
 .card-detail {
     font-size: 16px;
     padding: 12px 18px;
-    border-left: 5px solid #3498db;
+    border-left: 5px solid #1b1f24;
     background-color: #f9f9f9;
     border-radius: 6px;
     margin-bottom: 10px;
@@ -126,7 +126,7 @@
 }
 
 .download-button:hover {
-    background-color: #3498db;
+    background-color: #1b1f24;
     transform: translateY(-3px);
 }
 

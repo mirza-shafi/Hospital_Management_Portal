@@ -28,7 +28,7 @@
 .pharmacy-header h1 {
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 800;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -36,7 +36,7 @@
 }
 
 .dark .pharmacy-header h1 {
-  background: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%);
+  background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -74,7 +74,7 @@
 }
 
 .pharmacy-search-bar:focus-within {
-  border-color: #667eea;
+  border-color: #1b1f24;
   box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
   transform: translateY(-2px);
 }
@@ -128,7 +128,7 @@
 .pharmacy-medicine-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  border-color: #667eea;
+  border-color: #1b1f24;
 }
 
 .pharmacy-medicine-image {
@@ -194,7 +194,7 @@
 
 .pharmacy-generic-name {
   font-size: 0.85rem;
-  color: #667eea;
+  color: #1b1f24;
   font-weight: 600;
 }
 
@@ -219,7 +219,7 @@
 }
 
 .back-home:hover {
-  color: #667eea !important;
+  color: #1b1f24 !important;
   transform: translateX(-5px);
 }
 
@@ -256,13 +256,13 @@
 }
 
 .pharmacy-pagination-button:hover:not(.active) {
-  border-color: #667eea;
-  color: #667eea;
+  border-color: #1b1f24;
+  color: #1b1f24;
 }
 
 .pharmacy-pagination-button.active {
-  background: #667eea;
-  border-color: #667eea;
+  background: #1b1f24;
+  border-color: #1b1f24;
   color: white;
 }
 

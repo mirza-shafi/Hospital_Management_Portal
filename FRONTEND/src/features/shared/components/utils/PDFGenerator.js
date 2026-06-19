@@ -61,7 +61,7 @@ export const prescriptionPDF = (formData) => {
       header: {
         fontSize: 32,
         bold: true,
-        color: '#3498db', 
+        color: '#1b1f24', 
         decoration: 'underline',
         margin: [0, 10],
       },
@@ -73,19 +73,19 @@ export const prescriptionPDF = (formData) => {
       sectionHeader: {
         fontSize: 22,
         bold: true,
-        color: '#3498db', 
+        color: '#1b1f24', 
         decoration: 'underline',
         margin: [0, 20],
       },
       detailsTable: {
         margin: [0, 10],
-        borderColor: '#3498db',
+        borderColor: '#1b1f24',
         borderWidth: 1,
         fontSize: 12,
         layout: {
           fillColor: (rowIndex, node, columnIndex) => (rowIndex % 2 === 0 ? '#f9f9f9' : '#ffffff'),
-          hLineColor: '#3498db',
-          vLineColor: '#3498db',
+          hLineColor: '#1b1f24',
+          vLineColor: '#1b1f24',
           hLineWidth: 1,
           vLineWidth: 1,
         },
@@ -105,7 +105,7 @@ export const prescriptionPDF = (formData) => {
         fontSize: 14,
         margin: [0, 10],
         border: [true, true, true, true],
-        borderColor: '#3498db',
+        borderColor: '#1b1f24',
         borderWidth: 1,
         padding: [15, 15],
         background: '#f9f9f9',
@@ -136,13 +136,13 @@ const generateBillPDF = (bills, type) => {
       {
         text: hospitalName,
         style: 'header',
-        color: '#3498db', 
+        color: '#1b1f24', 
         bold: true
       },
       {
         text: hospitalAddress,
         style: 'subheader',
-        color: '#3498db', 
+        color: '#1b1f24', 
         margin: [0, 0, 0, 10]
       },
       {
@@ -177,8 +177,8 @@ const generateBillPDF = (bills, type) => {
           ]
         },
         layout: {
-          hLineColor: () => '#3498db',
-          vLineColor: () => '#3498db',
+          hLineColor: () => '#1b1f24',
+          vLineColor: () => '#1b1f24',
           hLineWidth: () => 1,
           vLineWidth: () => 1,
           paddingLeft: () => 8,
@@ -212,11 +212,11 @@ const generateBillPDF = (bills, type) => {
         fontSize: 18,
         alignment: 'center',
         margin: [0, 0, 0, 20],
-        color: '#3498db',
+        color: '#1b1f24',
         bold: true
       },
       tableHeader: {
-        fillColor: '#3498db',
+        fillColor: '#1b1f24',
         color: 'white',
         alignment: 'center',
         bold: true,
@@ -227,7 +227,7 @@ const generateBillPDF = (bills, type) => {
         fontSize: 12,
         alignment: 'center',
         margin: [0, 20, 0, 0],
-        color: '#3498db'
+        color: '#1b1f24'
       }
     },
     pageSize: 'A4',
@@ -253,13 +253,13 @@ const generateTestBillPDF = (bills) => {
       {
         text: hospitalName,
         style: 'header',
-        color: '#3498db', 
+        color: '#1b1f24', 
         bold: true
       },
       {
         text: hospitalAddress,
         style: 'subheader',
-        color: '#3498db', 
+        color: '#1b1f24', 
         margin: [0, 0, 0, 10]
       },
       {
@@ -290,8 +290,8 @@ const generateTestBillPDF = (bills) => {
           ]
         },
         layout: {
-          hLineColor: () => '#3498db',
-          vLineColor: () => '#3498db',
+          hLineColor: () => '#1b1f24',
+          vLineColor: () => '#1b1f24',
           hLineWidth: () => 1,
           vLineWidth: () => 1,
           paddingLeft: () => 8,
@@ -325,11 +325,11 @@ const generateTestBillPDF = (bills) => {
         fontSize: 18,
         alignment: 'center',
         margin: [0, 0, 0, 20],
-        color: '#3498db',
+        color: '#1b1f24',
         bold: true
       },
       tableHeader: {
-        fillColor: '#3498db',
+        fillColor: '#1b1f24',
         color: 'white',
         alignment: 'center',
         bold: true,
@@ -340,7 +340,7 @@ const generateTestBillPDF = (bills) => {
         fontSize: 12,
         alignment: 'center',
         margin: [0, 20, 0, 0],
-        color: '#3498db'
+        color: '#1b1f24'
       }
     },
     pageSize: 'A4',
@@ -367,13 +367,13 @@ export const generateMedicineBillPDF = (bills) => {
       {
         text: hospitalName,
         style: 'header',
-        color: '#3498db', 
+        color: '#1b1f24', 
         bold: true
       },
       {
         text: hospitalAddress,
         style: 'subheader',
-        color: '#3498db', 
+        color: '#1b1f24', 
         margin: [0, 0, 0, 10]
       },
       {
@@ -404,8 +404,8 @@ export const generateMedicineBillPDF = (bills) => {
           ]
         },
         layout: {
-          hLineColor: () => '#3498db',
-          vLineColor: () => '#3498db',
+          hLineColor: () => '#1b1f24',
+          vLineColor: () => '#1b1f24',
           hLineWidth: () => 1,
           vLineWidth: () => 1,
           paddingLeft: () => 8,
@@ -439,11 +439,11 @@ export const generateMedicineBillPDF = (bills) => {
         fontSize: 18,
         alignment: 'center',
         margin: [0, 0, 0, 20],
-        color: '#3498db',
+        color: '#1b1f24',
         bold: true
       },
       tableHeader: {
-        fillColor: '#3498db',
+        fillColor: '#1b1f24',
         color: 'white',
         alignment: 'center',
         bold: true,
@@ -454,7 +454,7 @@ export const generateMedicineBillPDF = (bills) => {
         fontSize: 12,
         alignment: 'center',
         margin: [0, 20, 0, 0],
-        color: '#3498db'
+        color: '#1b1f24'
       }
     },
     pageSize: 'A4',

@@ -30,13 +30,13 @@
 }
 
 .chatbox-header {
-  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
   color: white;
   padding: 24px;
 }
 
 .chatbox.dark-mode .chatbox-header {
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
 }
 
 .header-info {
@@ -116,7 +116,7 @@
 }
 
 .message.user {
-  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
   color: white;
   border-bottom-right-radius: 4px;
 }
@@ -170,7 +170,7 @@
 
 .chatbox-input:focus {
   background: white;
-  border-color: #6366f1;
+  border-color: #1b1f24;
   box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
   outline: none;
 }
@@ -182,7 +182,7 @@
 .chatbox-send-icon {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
   color: white;
   border-radius: 50%;
   display: flex;

@@ -98,7 +98,7 @@ const AdminManagePharmacy = () => {
                     <button 
                         onClick={() => setViewMode('inventory')}
                         className={`flex items-center gap-2 px-6 py-2.5 rounded-lg font-semibold transition-all ${
-                            viewMode === 'inventory' ? 'bg-indigo-600 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800'
+                            viewMode === 'inventory' ? 'bg-gray-800 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800'
                         }`}
                     >
                         <FaCapsules /> Inventory Registry
@@ -106,7 +106,7 @@ const AdminManagePharmacy = () => {
                     <button 
                         onClick={() => setViewMode('add')}
                         className={`flex items-center gap-2 px-6 py-2.5 rounded-lg font-semibold transition-all ${
-                            viewMode === 'add' ? 'bg-indigo-600 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800'
+                            viewMode === 'add' ? 'bg-gray-800 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800'
                         }`}
                     >
                         <FaPlus /> Add New Drug
@@ -121,7 +121,7 @@ const AdminManagePharmacy = () => {
                         <input 
                             type="text" 
                             placeholder="Search by brand or generic name..." 
-                            className="admin-search-input w-full pl-9 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:text-gray-200 font-sans"
+                            className="admin-search-input w-full pl-9 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-700/20 dark:text-gray-200 font-sans"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -149,7 +149,7 @@ const AdminManagePharmacy = () => {
                                     <tr><td colSpan="5" className="p-12 text-center text-gray-400">Nomenclature not found.</td></tr>
                                 ) : (
                                     filteredMedicines.map((m) => (
-                                        <tr key={m._id} className="hover:bg-indigo-50/30 dark:hover:bg-indigo-900/10 transition-colors border-b border-gray-100 dark:border-zinc-800 group">
+                                        <tr key={m._id} className="hover:bg-gray-100/30 dark:hover:bg-gray-900/10 transition-colors border-b border-gray-100 dark:border-zinc-800 group">
                                             <td className="p-4">
                                                 <div className="flex items-center gap-3">
                                                     <div className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-zinc-800 flex items-center justify-center overflow-hidden border border-gray-200 dark:border-zinc-700">
@@ -170,14 +170,14 @@ const AdminManagePharmacy = () => {
                                                 <div className="text-[10px] text-gray-500 dark:text-gray-400">MRPT per Strip</div>
                                             </td>
                                             <td className="p-4">
-                                                <div className={`text-lg font-black ${m.strip < 10 ? 'text-red-600' : 'text-indigo-600'}`}>
+                                                <div className={`text-lg font-black ${m.strip < 10 ? 'text-red-600' : 'text-gray-800'}`}>
                                                     {m.strip}
                                                 </div>
                                                 {m.strip < 10 && <div className="text-[10px] text-red-500 font-bold">REORDER SOON</div>}
                                             </td>
                                             <td className="p-4 text-right">
                                                 <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all">
-                                                    <button onClick={() => handleStockUpdate(m._id, m.strip)} className="p-2 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 rounded-lg text-indigo-600 dark:text-indigo-400 title='Update Stock'">
+                                                    <button onClick={() => handleStockUpdate(m._id, m.strip)} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-900/40 rounded-lg text-gray-800 dark:text-gray-400 title='Update Stock'">
                                                         <FaSyncAlt className="text-sm" />
                                                     </button>
                                                     <button className="p-2 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-lg text-red-600 dark:text-red-400 title='Delete'">
@@ -198,11 +198,11 @@ const AdminManagePharmacy = () => {
                         <div className="space-y-4">
                             <div>
                                 <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">DRUG NAME</label>
-                                <input name="name" value={formData.name} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-indigo-500/20 dark:text-gray-200 font-sans" required />
+                                <input name="name" value={formData.name} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-gray-700/20 dark:text-gray-200 font-sans" required />
                             </div>
                             <div>
                                 <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">GENERIC NAME</label>
-                                <input name="genericName" value={formData.genericName} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-indigo-500/20 dark:text-gray-200 font-sans" required />
+                                <input name="genericName" value={formData.genericName} onChange={handleInputChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-gray-700/20 dark:text-gray-200 font-sans" required />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
@@ -233,7 +233,7 @@ const AdminManagePharmacy = () => {
                             </div>
                             <div>
                                 <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">PRODUCT IMAGE</label>
-                                <div className="border-2 border-dashed border-gray-200 dark:border-zinc-700 rounded-xl p-4 flex flex-col items-center justify-center gap-2 hover:border-indigo-300 dark:hover:border-indigo-500 transition-all cursor-pointer relative overflow-hidden h-32">
+                                <div className="border-2 border-dashed border-gray-200 dark:border-zinc-700 rounded-xl p-4 flex flex-col items-center justify-center gap-2 hover:border-gray-300 dark:hover:border-gray-700 transition-all cursor-pointer relative overflow-hidden h-32">
                                     {imagePreview ? (
                                         <img src={imagePreview} className="absolute inset-0 w-full h-full object-contain" />
                                     ) : (
@@ -257,7 +257,7 @@ const AdminManagePharmacy = () => {
                                     {status.message}
                                 </div>
                             )}
-                            <button type="submit" className="w-full py-3 bg-indigo-600 text-white font-black rounded-xl shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all">
+                            <button type="submit" className="w-full py-3 bg-gray-800 text-white font-black rounded-xl shadow-lg shadow-gray-200 hover:bg-gray-900 transition-all">
                                 COMPLETE REGISTRATION
                             </button>
                         </div>

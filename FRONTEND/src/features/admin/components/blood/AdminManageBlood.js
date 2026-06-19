@@ -148,7 +148,7 @@ const AdminManageBlood = () => {
                                         <tr key={i} className="hover:bg-red-50/30 dark:hover:bg-red-900/10 transition-colors border-b border-gray-100 dark:border-zinc-800">
                                             <td className="p-4 font-semibold text-gray-900 dark:text-gray-100">{r.firstName} {r.lastName}</td>
                                             <td className="p-4">
-                                                <span className="bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 px-2.5 py-1 rounded-full text-xs font-bold">
+                                                <span className="bg-gray-100 dark:bg-gray-900/40 text-gray-900 dark:text-gray-400 px-2.5 py-1 rounded-full text-xs font-bold">
                                                     {r.bloodNeeded}
                                                 </span>
                                             </td>

@@ -23,7 +23,7 @@
 .buy-medicine-header h1 {
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 800;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -31,7 +31,7 @@
 }
 
 .dark .buy-medicine-header h1 {
-  background: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%);
+  background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
 }
 
 .buy-medicine-container {
@@ -83,7 +83,7 @@
 .buy-medicine input:focus {
   outline: none;
   background: rgba(255, 255, 255, 0.1);
-  border-color: #667eea;
+  border-color: #1b1f24;
   box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
 }
 
@@ -108,7 +108,7 @@
 
 .medicine-item:hover {
   background: rgba(255, 255, 255, 0.08);
-  border-color: #667eea;
+  border-color: #1b1f24;
   transform: translateY(-5px);
 }
 
@@ -139,7 +139,7 @@
 }
 
 .add-btn {
-  background: #667eea;
+  background: #1b1f24;
   color: white;
   border: none;
   padding: 8px 15px;
@@ -150,7 +150,7 @@
 }
 
 .add-btn:hover {
-  background: #5a67d8;
+  background: #1b1f24;
   transform: scale(1.05);
 }
 
@@ -189,7 +189,7 @@
 }
 
 .quantity-btn:hover {
-  background: #667eea;
+  background: #1b1f24;
 }
 
 .total-bill {
@@ -246,8 +246,8 @@
 }
 
 .page-btn.active {
-  background: #667eea;
-  border-color: #667eea;
+  background: #1b1f24;
+  border-color: #1b1f24;
 }
 
 .back-home-link {
@@ -262,7 +262,7 @@
 }
 
 .back-home-link:hover {
-  color: #667eea;
+  color: #1b1f24;
   transform: translateX(-5px);
 }
   

@@ -63,7 +63,7 @@ const AdminManageFeedback = () => {
                             key={tab}
                             onClick={() => setStatusFilter(tab)}
                             className={`px-6 py-2 rounded-lg font-semibold transition-all ${
-                                statusFilter === tab ? 'bg-indigo-600 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800'
+                                statusFilter === tab ? 'bg-gray-800 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800'
                             }`}
                         >
                             {tab}
@@ -86,13 +86,13 @@ const AdminManageFeedback = () => {
                                 onClick={() => setSelectedRequest(req)}
                                 className={`p-6 rounded-2xl border transition-all cursor-pointer ${
                                     selectedRequest?._id === req._id 
-                                    ? 'bg-indigo-50 dark:bg-indigo-900/20 border-indigo-200 dark:border-indigo-900/30 shadow-md' 
-                                    : 'admin-card bg-white dark:bg-zinc-900 border-gray-100 dark:border-zinc-800 hover:border-indigo-100 dark:hover:border-indigo-900/40 shadow-sm'
+                                    ? 'bg-gray-100 dark:bg-gray-900/20 border-gray-200 dark:border-gray-900/30 shadow-md' 
+                                    : 'admin-card bg-white dark:bg-zinc-900 border-gray-100 dark:border-zinc-800 hover:border-gray-100 dark:hover:border-gray-900/40 shadow-sm'
                                 }`}
                             >
                                 <div className="flex justify-between items-start mb-3">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600">
+                                        <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-800">
                                             <FaUserCircle size={20} />
                                         </div>
                                         <div>
@@ -118,9 +118,9 @@ const AdminManageFeedback = () => {
                         <>
                             <div className="border-b border-gray-100 dark:border-zinc-800 pb-6 mb-6">
                                 <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
-                                    <FaReply className="text-indigo-600 dark:text-indigo-400" /> Response Flow
+                                    <FaReply className="text-gray-800 dark:text-gray-400" /> Response Flow
                                 </h3>
-                                <div className="mt-4 p-4 bg-gray-50 dark:bg-zinc-800 rounded-xl text-sm text-gray-700 dark:text-gray-300 italic border-l-4 border-indigo-500">
+                                <div className="mt-4 p-4 bg-gray-50 dark:bg-zinc-800 rounded-xl text-sm text-gray-700 dark:text-gray-300 italic border-l-4 border-gray-700">
                                     {selectedRequest.message}
                                 </div>
                             </div>
@@ -136,7 +136,7 @@ const AdminManageFeedback = () => {
                                     </div>
                                     <button 
                                         onClick={() => setSelectedRequest(null)}
-                                        className="w-full py-2.5 text-indigo-600 dark:text-indigo-400 font-bold hover:bg-indigo-50 dark:hover:bg-indigo-900/10 rounded-xl transition-all"
+                                        className="w-full py-2.5 text-gray-800 dark:text-gray-400 font-bold hover:bg-gray-100 dark:hover:bg-gray-900/10 rounded-xl transition-all"
                                     >
                                         Close Details
                                     </button>
@@ -147,14 +147,14 @@ const AdminManageFeedback = () => {
                                     <textarea 
                                         value={solution}
                                         onChange={(e) => setSolution(e.target.value)}
-                                        className="w-full p-4 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl h-40 resize-none focus:ring-2 focus:ring-indigo-500/10 transition-all outline-none dark:text-gray-200"
+                                        className="w-full p-4 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl h-40 resize-none focus:ring-2 focus:ring-gray-700/10 transition-all outline-none dark:text-gray-200"
                                         placeholder="Type your response to the user..."
                                         required
                                     ></textarea>
                                     <div className="flex gap-3 pt-2">
                                         <button 
                                             type="submit"
-                                            className="flex-1 py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-lg hover:bg-indigo-700 transition-all flex items-center justify-center gap-2"
+                                            className="flex-1 py-3 bg-gray-800 text-white font-bold rounded-xl shadow-lg hover:bg-gray-900 transition-all flex items-center justify-center gap-2"
                                         >
                                             <FaEnvelope /> Send Email Response
                                         </button>

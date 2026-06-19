@@ -10,33 +10,33 @@
    Dark mode has been removed: the UI is always light.
    ============================================================ */
 :root {
-  /* Brand blues */
-  --hw-primary: #0a558c;
-  --hw-primary-dark: #08456f;
-  --hw-primary-light: #1f6fc0;
-  --hw-primary-50: #eef5fc;
-  --hw-primary-100: #d6e7f7;
+  /* Primary = neutral charcoal (clean, modern, no blue) */
+  --hw-primary: #1b1f24;
+  --hw-primary-dark: #0c0e11;
+  --hw-primary-light: #3b424b;
+  --hw-primary-50: #f6f7f8;
+  --hw-primary-100: #eceef0;
 
   /* Accents */
-  --hw-teal: #0a9396;
+  --hw-teal: #2f6f6b;      /* restrained, used sparingly */
   --hw-emergency: #c1121f; /* red for emergency / blood */
   --hw-success: #2a9d5c;
   --hw-warning: #d98a00;
 
   /* Neutrals */
-  --hw-ink: #14283b;        /* primary text */
-  --hw-ink-soft: #41566b;   /* secondary text */
-  --hw-muted: #6b7d8f;      /* muted text */
-  --hw-border: #e3e9ef;
+  --hw-ink: #16191d;        /* primary text */
+  --hw-ink-soft: #444a52;   /* secondary text */
+  --hw-muted: #777f88;      /* muted text */
+  --hw-border: #e7e9ec;
   --hw-bg: #ffffff;
-  --hw-bg-subtle: #f4f7fa;  /* section background */
-  --hw-bg-tint: #eef5fc;
+  --hw-bg-subtle: #f7f8f9;  /* section background */
+  --hw-bg-tint: #f1f2f4;    /* neutral tint (was blue) */
 
   /* Shape & motion */
   --hw-radius: 12px;
   --hw-radius-sm: 8px;
-  --hw-shadow: 0 1px 3px rgba(16, 42, 67, 0.06), 0 1px 2px rgba(16, 42, 67, 0.04);
-  --hw-shadow-md: 0 8px 24px rgba(16, 42, 67, 0.08);
+  --hw-shadow: 0 1px 3px rgba(16, 19, 23, 0.06), 0 1px 2px rgba(16, 19, 23, 0.04);
+  --hw-shadow-md: 0 8px 24px rgba(16, 19, 23, 0.08);
   --hw-transition: 0.2s ease;
 }
 

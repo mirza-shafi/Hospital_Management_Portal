@@ -46,7 +46,7 @@ const AdminDashboard = () => {
     }
   };
 
-  const COLORS = ['#6366f1', '#10b981', '#f59e0b', '#ef4444'];
+  const COLORS = ['#1b1f24', '#10b981', '#f59e0b', '#ef4444'];
   const patientStatusData = [
     { name: 'Stable', value: 45 },
     { name: 'Mild', value: 30 },
@@ -56,7 +56,7 @@ const AdminDashboard = () => {
 
   const getStatusColor = (status) => {
     switch(status) {
-      case 'Stable': return 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-900/30';
+      case 'Stable': return 'bg-gray-100 dark:bg-gray-900/20 text-gray-800 dark:text-gray-400 border border-gray-100 dark:border-gray-900/30';
       case 'Mild': return 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30';
       case 'Critical': return 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900/30';
       default: return 'bg-gray-50 dark:bg-zinc-800 text-gray-600 dark:text-gray-400';
@@ -67,7 +67,7 @@ const AdminDashboard = () => {
     <AdminLayout>
       <div className="flex items-center justify-center h-[80vh]">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-12 h-12 border-4 border-gray-800 border-t-transparent rounded-full animate-spin"></div>
           <p className="text-gray-500 dark:text-gray-400 font-bold animate-pulse">Syncing Clinic Intelligence...</p>
         </div>
       </div>
@@ -105,8 +105,8 @@ const AdminDashboard = () => {
               <AreaChart data={stats.appointmentTrends}>
                 <defs>
                   <linearGradient id="colorApp" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.1}/>
-                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#1b1f24" stopOpacity={0.1}/>
+                    <stop offset="95%" stopColor="#1b1f24" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={theme === 'dark' ? '#334155' : '#e2e8f0'} opacity={0.5} />
@@ -120,9 +120,9 @@ const AdminDashboard = () => {
                     boxShadow: '0 8px 12px -2px rgba(0,0,0,0.12)', 
                     padding: '8px' 
                   }}
-                  itemStyle={{ color: '#6366f1', fontWeight: 'bold', fontSize: '11px' }}
+                  itemStyle={{ color: '#1b1f24', fontWeight: 'bold', fontSize: '11px' }}
                 />
-                <Area type="monotone" dataKey="appointments" stroke="#6366f1" strokeWidth={2} fillOpacity={1} fill="url(#colorApp)" />
+                <Area type="monotone" dataKey="appointments" stroke="#1b1f24" strokeWidth={2} fillOpacity={1} fill="url(#colorApp)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -164,12 +164,12 @@ const AdminDashboard = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
         {/* Pharmacy Card */}
-        <div className="admin-card bg-white dark:bg-zinc-900 p-3.5 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm hover:border-indigo-200 dark:hover:border-indigo-900/40 transition-all group">
+        <div className="admin-card bg-white dark:bg-zinc-900 p-3.5 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm hover:border-gray-200 dark:hover:border-gray-900/40 transition-all group">
           <div className="flex items-center justify-between mb-2">
-            <div className="w-8 h-8 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded-lg flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">
+            <div className="w-8 h-8 bg-gray-100 dark:bg-gray-900/20 text-gray-800 dark:text-gray-400 rounded-lg flex items-center justify-center group-hover:bg-gray-800 group-hover:text-white transition-all">
               <FaCapsules size={14} />
             </div>
-            <span className="text-[8px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-widest">Pharmacy</span>
+            <span className="text-[8px] font-black text-gray-800 dark:text-gray-400 uppercase tracking-widest">Pharmacy</span>
           </div>
           <div className="flex items-end justify-between">
             <div>
@@ -202,12 +202,12 @@ const AdminDashboard = () => {
         </div>
 
         {/* Equipment Card */}
-        <div className="admin-card bg-white dark:bg-zinc-900 p-3.5 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm hover:border-blue-200 dark:hover:border-blue-900/40 transition-all group">
+        <div className="admin-card bg-white dark:bg-zinc-900 p-3.5 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm hover:border-gray-200 dark:hover:border-gray-900/40 transition-all group">
           <div className="flex items-center justify-between mb-2">
-            <div className="w-8 h-8 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-lg flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">
+            <div className="w-8 h-8 bg-gray-100 dark:bg-gray-900/20 text-gray-800 dark:text-gray-400 rounded-lg flex items-center justify-center group-hover:bg-gray-800 group-hover:text-white transition-all">
               <FaTools size={14} />
             </div>
-            <span className="text-[8px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest">Equipment</span>
+            <span className="text-[8px] font-black text-gray-800 dark:text-gray-400 uppercase tracking-widest">Equipment</span>
           </div>
           <div className="flex items-end justify-between">
             <div>
@@ -228,7 +228,7 @@ const AdminDashboard = () => {
             <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100">Medical Registry</h3>
             <p className="text-[10px] text-gray-400 dark:text-gray-500">Latest patients admitted</p>
           </div>
-          <button className="text-indigo-600 dark:text-indigo-400 font-bold text-[10px] flex items-center gap-1 hover:underline">
+          <button className="text-gray-800 dark:text-gray-400 font-bold text-[10px] flex items-center gap-1 hover:underline">
             Directory <FaChevronRight size={7} />
           </button>
         </div>
@@ -244,14 +244,14 @@ const AdminDashboard = () => {
             </thead>
             <tbody className="divide-y divide-gray-100 dark:divide-zinc-800">
               {patients.map((patient) => (
-                <tr key={patient._id} className="hover:bg-indigo-50/10 transition-all group">
+                <tr key={patient._id} className="hover:bg-gray-100/10 transition-all group">
                   <td className="px-5 py-2.5">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded-md bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-[10px]">
+                      <div className="w-6 h-6 rounded-md bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-400 flex items-center justify-center font-bold text-[10px]">
                         {patient.firstName ? patient.firstName[0] : 'U'}
                       </div>
                       <div>
-                        <div className="font-bold text-gray-900 dark:text-gray-100 text-[12px] leading-tight underline decoration-indigo-200 dark:decoration-indigo-900/40 decoration-1 underline-offset-2">{patient.firstName} {patient.lastName}</div>
+                        <div className="font-bold text-gray-900 dark:text-gray-100 text-[12px] leading-tight underline decoration-gray-200 dark:decoration-gray-900/40 decoration-1 underline-offset-2">{patient.firstName} {patient.lastName}</div>
                         <div className="text-[8px] text-gray-400 dark:text-gray-500 font-medium truncate max-w-[100px] leading-none">{patient.email}</div>
                       </div>
                     </div>

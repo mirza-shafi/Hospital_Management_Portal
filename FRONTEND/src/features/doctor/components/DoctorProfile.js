@@ -85,7 +85,7 @@ const DoctorProfile = ({ email, onClose }) => {
     <div className="space-y-6 animate-fade-in py-2 w-full">
         {/* Profile Card Style Header */}
         <div className="bg-gray-100 dark:bg-[#111827] p-5 rounded-[24px] flex items-center gap-4 shadow-sm border border-gray-200 dark:border-none">
-            <div className="w-16 h-16 rounded-full bg-[#0d9488] flex items-center justify-center text-white text-2xl font-bold shadow-inner shrink-0">
+            <div className="w-16 h-16 rounded-full bg-[#1b1f24] flex items-center justify-center text-white text-2xl font-bold shadow-inner shrink-0">
                 {formData.firstName?.[0]}{formData.lastName?.[0]}
             </div>
             <div className="flex flex-col min-w-0">
@@ -100,7 +100,7 @@ const DoctorProfile = ({ email, onClose }) => {
             <div className="bg-white dark:bg-[#111827] rounded-[24px] divide-y divide-gray-100 dark:divide-gray-700/30 overflow-hidden shadow-sm border border-gray-100 dark:border-none">
                 <button onClick={() => setView('edit-profile')} className="w-full flex justify-between items-center px-5 py-4 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors group">
                     <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-xl bg-blue-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
+                        <div className="w-9 h-9 rounded-xl bg-gray-700 flex items-center justify-center shadow-lg shadow-gray-700/20">
                             <FaUser className="text-white text-sm" />
                         </div>
                         <span className="text-sm font-semibold text-gray-700 dark:text-gray-100">Edit Profile & Professional Data</span>
@@ -127,7 +127,7 @@ const DoctorProfile = ({ email, onClose }) => {
                     </div>
                     <div 
                         onClick={() => setSettingsData(prev => ({ ...prev, twoFactor: !prev.twoFactor }))}
-                        className={`w-11 h-6 rounded-full p-1 cursor-pointer transition-colors duration-200 ease-in-out ${settingsData.twoFactor ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'}`}
+                        className={`w-11 h-6 rounded-full p-1 cursor-pointer transition-colors duration-200 ease-in-out ${settingsData.twoFactor ? 'bg-gray-800' : 'bg-gray-300 dark:bg-gray-600'}`}
                     >
                         <div className={`bg-white w-4 h-4 rounded-full shadow-sm transform transition-transform duration-200 ease-in-out ${settingsData.twoFactor ? 'translate-x-5' : 'translate-x-0'}`} />
                     </div>
@@ -158,7 +158,7 @@ const DoctorProfile = ({ email, onClose }) => {
                     </div>
                     <div 
                         onClick={() => setSettingsData(prev => ({ ...prev, notifications: { ...prev.notifications, email: !prev.notifications.email } }))}
-                        className={`w-11 h-6 rounded-full p-1 cursor-pointer transition-colors duration-200 ease-in-out ${settingsData.notifications.email ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'}`}
+                        className={`w-11 h-6 rounded-full p-1 cursor-pointer transition-colors duration-200 ease-in-out ${settingsData.notifications.email ? 'bg-gray-800' : 'bg-gray-300 dark:bg-gray-600'}`}
                     >
                         <div className={`bg-white w-4 h-4 rounded-full shadow-sm transform transition-transform duration-200 ease-in-out ${settingsData.notifications.email ? 'translate-x-5' : 'translate-x-0'}`} />
                     </div>
@@ -222,24 +222,24 @@ const DoctorProfile = ({ email, onClose }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                   <label className="block text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">First Name</label>
-                  <input type="text" name="firstName" value={formData.firstName || ''} onChange={handleInputChange} className="w-full px-4 py-3 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:!bg-[#18181b] text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 outline-none transition-all placeholder:text-gray-400 font-medium" />
+                  <input type="text" name="firstName" value={formData.firstName || ''} onChange={handleInputChange} className="w-full px-4 py-3 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:!bg-[#18181b] text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-700/20 focus:border-gray-700/50 outline-none transition-all placeholder:text-gray-400 font-medium" />
               </div>
               <div className="space-y-2">
                   <label className="block text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Last Name</label>
-                  <input type="text" name="lastName" value={formData.lastName || ''} onChange={handleInputChange} className="w-full px-4 py-3 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:!bg-[#18181b] text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 outline-none transition-all placeholder:text-gray-400 font-medium" />
+                  <input type="text" name="lastName" value={formData.lastName || ''} onChange={handleInputChange} className="w-full px-4 py-3 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:!bg-[#18181b] text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-700/20 focus:border-gray-700/50 outline-none transition-all placeholder:text-gray-400 font-medium" />
               </div>
               <div className="space-y-2">
                   <label className="block text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Phone</label>
-                  <input type="text" name="phone" value={formData.phone || ''} onChange={handleInputChange} className="w-full px-4 py-3 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:!bg-[#18181b] text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 outline-none transition-all placeholder:text-gray-400 font-medium" />
+                  <input type="text" name="phone" value={formData.phone || ''} onChange={handleInputChange} className="w-full px-4 py-3 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:!bg-[#18181b] text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-700/20 focus:border-gray-700/50 outline-none transition-all placeholder:text-gray-400 font-medium" />
               </div>
               <div className="space-y-2">
                   <label className="block text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Degree</label>
-                  <input type="text" name="degree" value={formData.degree || ''} onChange={handleInputChange} className="w-full px-4 py-3 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:!bg-[#18181b] text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 outline-none transition-all placeholder:text-gray-400 font-medium" />
+                  <input type="text" name="degree" value={formData.degree || ''} onChange={handleInputChange} className="w-full px-4 py-3 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:!bg-[#18181b] text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-700/20 focus:border-gray-700/50 outline-none transition-all placeholder:text-gray-400 font-medium" />
               </div>
           </div>
           <div className="pt-8 flex justify-end gap-3 border-t border-gray-50 dark:border-white/5 mt-8">
               <button type="button" onClick={() => setView('dashboard')} className="px-6 py-2.5 text-gray-500 dark:text-gray-400 font-bold text-xs uppercase tracking-widest hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl transition-all">Cancel</button>
-              <button type="submit" className="px-8 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs uppercase tracking-widest shadow-xl shadow-blue-500/20 transition-all active:scale-95">Save Changes</button>
+              <button type="submit" className="px-8 py-2.5 bg-gray-800 hover:bg-gray-900 text-white rounded-xl font-bold text-xs uppercase tracking-widest shadow-xl shadow-gray-700/20 transition-all active:scale-95">Save Changes</button>
           </div>
       </form>
   );
@@ -253,20 +253,20 @@ const DoctorProfile = ({ email, onClose }) => {
           <div className="space-y-4">
               <div className="space-y-2">
                   <label className="block text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Current Password</label>
-                  <input type="password" name="currentPassword" value={passwordData.currentPassword} onChange={handlePasswordChange} className="w-full px-4 py-3 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:!bg-[#18181b] text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 outline-none transition-all placeholder:text-gray-400 font-medium" />
+                  <input type="password" name="currentPassword" value={passwordData.currentPassword} onChange={handlePasswordChange} className="w-full px-4 py-3 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:!bg-[#18181b] text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-700/20 focus:border-gray-700/50 outline-none transition-all placeholder:text-gray-400 font-medium" />
               </div>
               <div className="space-y-2">
                   <label className="block text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">New Password</label>
-                  <input type="password" name="newPassword" value={passwordData.newPassword} onChange={handlePasswordChange} className="w-full px-4 py-3 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:!bg-[#18181b] text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 outline-none transition-all placeholder:text-gray-400 font-medium" />
+                  <input type="password" name="newPassword" value={passwordData.newPassword} onChange={handlePasswordChange} className="w-full px-4 py-3 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:!bg-[#18181b] text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-700/20 focus:border-gray-700/50 outline-none transition-all placeholder:text-gray-400 font-medium" />
               </div>
               <div className="space-y-2">
                   <label className="block text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Confirm New Password</label>
-                  <input type="password" name="confirmPassword" value={passwordData.confirmPassword} onChange={handlePasswordChange} className="w-full px-4 py-3 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:!bg-[#18181b] text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 outline-none transition-all placeholder:text-gray-400 font-medium" />
+                  <input type="password" name="confirmPassword" value={passwordData.confirmPassword} onChange={handlePasswordChange} className="w-full px-4 py-3 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:!bg-[#18181b] text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-700/20 focus:border-gray-700/50 outline-none transition-all placeholder:text-gray-400 font-medium" />
               </div>
           </div>
            <div className="pt-8 flex justify-end gap-3 border-t border-gray-50 dark:border-white/5 mt-8">
               <button type="button" onClick={() => setView('dashboard')} className="px-6 py-2.5 text-gray-500 dark:text-gray-400 font-bold text-xs uppercase tracking-widest hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl transition-all">Cancel</button>
-              <button type="submit" className="px-8 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs uppercase tracking-widest shadow-xl shadow-blue-500/20 transition-all active:scale-95">Update Password</button>
+              <button type="submit" className="px-8 py-2.5 bg-gray-800 hover:bg-gray-900 text-white rounded-xl font-bold text-xs uppercase tracking-widest shadow-xl shadow-gray-700/20 transition-all active:scale-95">Update Password</button>
           </div>
       </form>
   );
@@ -279,7 +279,7 @@ const DoctorProfile = ({ email, onClose }) => {
       <div className={`${containerClass} ${theme === 'dark' ? 'dark-mode bg-[#121214]' : ''}`}>
         <div className={headerClass}>
             <div className="flex items-center gap-3">
-                 <FaUserMd className="text-2xl text-blue-600 dark:text-blue-400" />
+                 <FaUserMd className="text-2xl text-gray-800 dark:text-gray-400" />
                  <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Settings & Profile</h2>
             </div>
             {isModal && <button className="profile-close-btn" onClick={onClose}><FaTimes /></button>}

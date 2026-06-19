@@ -303,7 +303,7 @@ const PatientProfile = ({ email, onClose, onProfileUpdate }) => {
                           onClick={() => fileInputRef.current.click()}
                           style={{
                               padding: '10px 20px',
-                              background: '#3b82f6',
+                              background: '#1b1f24',
                               color: 'white',
                               border: 'none',
                               borderRadius: '8px',

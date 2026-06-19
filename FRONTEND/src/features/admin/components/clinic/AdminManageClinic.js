@@ -55,7 +55,7 @@ const AdminManageClinic = () => {
                     <button 
                         onClick={() => setActiveTab('wards')}
                         className={`flex items-center gap-2 px-6 py-2.5 rounded-lg font-semibold transition-all ${
-                            activeTab === 'wards' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800'
+                            activeTab === 'wards' ? 'bg-gray-800 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800'
                         }`}
                     >
                         <FaBed /> Wards
@@ -63,7 +63,7 @@ const AdminManageClinic = () => {
                     <button 
                         onClick={() => setActiveTab('cabins')}
                         className={`flex items-center gap-2 px-6 py-2.5 rounded-lg font-semibold transition-all ${
-                            activeTab === 'cabins' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800'
+                            activeTab === 'cabins' ? 'bg-gray-800 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800'
                         }`}
                     >
                         <FaHotel /> Private Cabins
@@ -86,7 +86,7 @@ const AdminManageClinic = () => {
                         <input 
                             type="text" 
                             placeholder={`Search ${activeTab === 'wards' ? 'ward' : 'cabin'} bookings...`}
-                            className="admin-search-input w-full pl-10 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:text-gray-200 font-sans"
+                            className="admin-search-input w-full pl-10 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-700/20 dark:text-gray-200 font-sans"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -112,7 +112,7 @@ const AdminManageClinic = () => {
                                 <tr><td colSpan="6" className="p-12 text-center text-gray-400">No active bookings found.</td></tr>
                             ) : (
                                 filteredData.map((item) => (
-                                    <tr key={item._id} className="hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition-colors border-b border-gray-100 dark:border-zinc-800 group cursor-pointer">
+                                    <tr key={item._id} className="hover:bg-gray-100/30 dark:hover:bg-gray-900/10 transition-colors border-b border-gray-100 dark:border-zinc-800 group cursor-pointer">
                                         <td className="p-4">
                                             <div className="font-semibold text-gray-900 dark:text-gray-100">{item.patientName}</div>
                                             <div className="text-xs text-gray-500 dark:text-gray-400">{item.email}</div>
@@ -136,7 +136,7 @@ const AdminManageClinic = () => {
                                             </span>
                                         </td>
                                         <td className="p-4 text-right">
-                                            <FaChevronRight className="text-gray-300 group-hover:text-blue-500 transition-colors" />
+                                            <FaChevronRight className="text-gray-300 group-hover:text-gray-700 transition-colors" />
                                         </td>
                                     </tr>
                                 ))

@@ -52,7 +52,7 @@ const AdminManageConsultations = () => {
                         <input 
                             type="text" 
                             placeholder="Search by patient or doctor..." 
-                            className="admin-search-input w-full pl-10 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:text-gray-200 font-sans"
+                            className="admin-search-input w-full pl-10 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-700/20 dark:text-gray-200 font-sans"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -77,7 +77,7 @@ const AdminManageConsultations = () => {
                                 <tr><td colSpan="5" className="p-12 text-center text-gray-400">No records found.</td></tr>
                             ) : (
                                 filteredPrescriptions.map((p) => (
-                                    <tr key={p._id} className="hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition-colors border-b border-gray-100 dark:border-zinc-800 group cursor-pointer">
+                                    <tr key={p._id} className="hover:bg-gray-100/30 dark:hover:bg-gray-900/10 transition-colors border-b border-gray-100 dark:border-zinc-800 group cursor-pointer">
                                         <td className="p-4">
                                             <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
                                                 <FaCalendarAlt className="text-gray-400 dark:text-gray-500" />
@@ -86,7 +86,7 @@ const AdminManageConsultations = () => {
                                         </td>
                                         <td className="p-4">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-900/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+                                                <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-900/20 flex items-center justify-center text-gray-800 dark:text-gray-400">
                                                     <FaUser className="text-xs" />
                                                 </div>
                                                 <div>
@@ -97,7 +97,7 @@ const AdminManageConsultations = () => {
                                         </td>
                                         <td className="p-4">
                                             <div className="flex items-center gap-2">
-                                                <FaUserMd className="text-blue-500 dark:text-blue-400" />
+                                                <FaUserMd className="text-gray-700 dark:text-gray-400" />
                                                 <div>
                                                     <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Dr. {p.doctorName}</div>
                                                     <div className="text-[10px] text-gray-400 dark:text-gray-500 uppercase tracking-wide">{p.doctorEmail}</div>
@@ -110,7 +110,7 @@ const AdminManageConsultations = () => {
                                             </div>
                                         </td>
                                         <td className="p-4 text-right">
-                                            <FaChevronRight className="text-gray-300 group-hover:text-blue-500 transition-colors" />
+                                            <FaChevronRight className="text-gray-300 group-hover:text-gray-700 transition-colors" />
                                         </td>
                                     </tr>
                                 ))

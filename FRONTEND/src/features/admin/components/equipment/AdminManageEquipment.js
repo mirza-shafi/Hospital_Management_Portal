@@ -82,7 +82,7 @@ const AdminManageEquipment = () => {
                     <button 
                         onClick={() => setViewMode('list')}
                         className={`flex items-center gap-2 px-6 py-2.5 rounded-lg font-semibold transition-all ${
-                            viewMode === 'list' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800'
+                            viewMode === 'list' ? 'bg-gray-800 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800'
                         }`}
                     >
                         <FaTools /> Asset Registry
@@ -90,7 +90,7 @@ const AdminManageEquipment = () => {
                     <button 
                         onClick={() => setViewMode('add')}
                         className={`flex items-center gap-2 px-6 py-2.5 rounded-lg font-semibold transition-all ${
-                            viewMode === 'add' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800'
+                            viewMode === 'add' ? 'bg-gray-800 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-zinc-800'
                         }`}
                     >
                         <FaPlus /> Register New
@@ -105,7 +105,7 @@ const AdminManageEquipment = () => {
                         <input 
                             type="text" 
                             placeholder="Search by name or serial..." 
-                            className="admin-search-input w-full pl-9 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:text-gray-200 font-sans"
+                            className="admin-search-input w-full pl-9 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-700/20 dark:text-gray-200 font-sans"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -134,13 +134,13 @@ const AdminManageEquipment = () => {
                                     <tr><td colSpan="6" className="p-12 text-center text-gray-400">No equipment found.</td></tr>
                                 ) : (
                                     filteredEquipment.map((e) => (
-                                        <tr key={e._id} className="hover:bg-blue-50/20 dark:hover:bg-blue-900/10 transition-colors border-b border-gray-100 dark:border-zinc-800 group">
+                                        <tr key={e._id} className="hover:bg-gray-100/20 dark:hover:bg-gray-900/10 transition-colors border-b border-gray-100 dark:border-zinc-800 group">
                                             <td className="p-4">
                                                 <div className="font-bold text-gray-900 dark:text-gray-100">{e.name}</div>
                                                 <div className="text-[10px] text-gray-400 dark:text-gray-500 uppercase">{e.location || 'Central Facility'}</div>
                                             </td>
                                             <td className="p-4 text-sm text-gray-600 dark:text-gray-400">{e.category}</td>
-                                            <td className="p-4 text-sm font-mono text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 w-fit px-2 py-0.5 rounded whitespace-nowrap border border-blue-100 dark:border-blue-800">{e.serialNumber}</td>
+                                            <td className="p-4 text-sm font-mono text-gray-800 dark:text-gray-400 bg-gray-100 dark:bg-gray-900/30 w-fit px-2 py-0.5 rounded whitespace-nowrap border border-gray-100 dark:border-gray-900">{e.serialNumber}</td>
                                             <td className="p-4">
                                                 <div className="flex items-center gap-2">
                                                     {getStatusIcon(e.status)}
@@ -154,7 +154,7 @@ const AdminManageEquipment = () => {
                                                 <select 
                                                     value={e.status}
                                                     onChange={(opt) => handleStatusUpdate(e._id, opt.target.value)}
-                                                    className="p-1 text-[10px] bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded focus:ring-1 focus:ring-blue-500 outline-none dark:text-gray-200"
+                                                    className="p-1 text-[10px] bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded focus:ring-1 focus:ring-gray-700 outline-none dark:text-gray-200"
                                                 >
                                                     <option value="Functional">Functional</option>
                                                     <option value="Maintenance">Maintenance</option>
@@ -179,7 +179,7 @@ const AdminManageEquipment = () => {
                                     value={formData.name} 
                                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                                     placeholder="e.g. MRI Scanner"
-                                    className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-blue-500/20 dark:text-gray-200 font-sans" 
+                                    className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-gray-700/20 dark:text-gray-200 font-sans" 
                                     required 
                                 />
                             </div>
@@ -241,7 +241,7 @@ const AdminManageEquipment = () => {
                         </div>
 
                         <div className="md:col-span-2 pt-4">
-                            <button type="submit" className="w-full py-3 bg-blue-600 text-white font-black rounded-xl shadow-lg border-b-4 border-blue-800 active:border-b-0 active:translate-y-1 transition-all">
+                            <button type="submit" className="w-full py-3 bg-gray-800 text-white font-black rounded-xl shadow-lg border-b-4 border-gray-900 active:border-b-0 active:translate-y-1 transition-all">
                                 REGISTER MEDICAL ASSET
                             </button>
                         </div>

@@ -29,7 +29,7 @@ const AdminManageAppointments = () => {
           case 'completed': return 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30';
           case 'pending': return 'bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 border border-orange-100 dark:border-orange-900/30';
           case 'cancelled': return 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900/30';
-          default: return 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-900/30';
+          default: return 'bg-gray-100 dark:bg-gray-900/20 text-gray-800 dark:text-gray-400 border border-gray-100 dark:border-gray-900/30';
         }
     };
 
@@ -73,7 +73,7 @@ const AdminManageAppointments = () => {
                         <input 
                             type="text" 
                             placeholder="Search by patient, doctor or department..." 
-                            className="admin-search-input w-full pl-10 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 dark:text-gray-200 transition-all font-sans"
+                            className="admin-search-input w-full pl-10 pr-4 py-2 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-700/20 focus:border-gray-700 dark:text-gray-200 transition-all font-sans"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -111,7 +111,7 @@ const AdminManageAppointments = () => {
                                 <tr><td colSpan="7" className="p-12 text-center text-gray-400">No appointments found.</td></tr>
                             ) : (
                                 filteredAppointments.map((app) => (
-                                    <tr key={app._id} className="hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition-colors border-b border-gray-100 dark:border-zinc-800 group">
+                                    <tr key={app._id} className="hover:bg-gray-100/30 dark:hover:bg-gray-900/10 transition-colors border-b border-gray-100 dark:border-zinc-800 group">
                                         <td className="p-4">
                                             <div className="font-semibold text-gray-900 dark:text-gray-100">{app.patientName}</div>
                                             <div className="text-xs text-gray-500 dark:text-gray-400">{app.patientEmail}</div>
@@ -125,7 +125,7 @@ const AdminManageAppointments = () => {
                                         </td>
                                         <td className="p-4">
                                             <div className="text-sm text-gray-900 dark:text-gray-200">{new Date(app.date).toLocaleDateString()}</div>
-                                            <div className="text-xs font-medium text-blue-600 dark:text-blue-400">{app.timeSlot}</div>
+                                            <div className="text-xs font-medium text-gray-800 dark:text-gray-400">{app.timeSlot}</div>
                                         </td>
                                         <td className="p-4">
                                             <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${getPaidStatusColor(app.paidStatus)}`}>
@@ -138,7 +138,7 @@ const AdminManageAppointments = () => {
                                             </span>
                                         </td>
                                         <td className="p-4 text-right">
-                                            <FaChevronRight className="text-gray-300 group-hover:text-blue-400 transition-colors text-xs" />
+                                            <FaChevronRight className="text-gray-300 group-hover:text-gray-400 transition-colors text-xs" />
                                         </td>
                                     </tr>
                                 ))

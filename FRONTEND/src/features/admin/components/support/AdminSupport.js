@@ -101,7 +101,7 @@ const AdminSupport = () => {
               <div className={`card dark:bg-zinc-800 dark:border-zinc-700 ${request.status === 'Resolved' ? 'is-resolved dark:bg-emerald-900/10' : ''}`}>
                 <header className="card-header dark:border-zinc-700">
                   <p className="card-header-title dark:text-gray-100">
-                    <i className="fas fa-user-circle" style={{ marginRight: '10px', color: '#667eea' }}></i>
+                    <i className="fas fa-user-circle" style={{ marginRight: '10px', color: '#1b1f24' }}></i>
                     {request.name}
                   </p>
                   <p className="card-header-email dark:text-gray-400">{request.email}</p>
@@ -110,7 +110,7 @@ const AdminSupport = () => {
                   <div className="content dark:text-gray-300">
                     <p><strong className="dark:text-gray-100"><i className="fas fa-comment-alt" style={{ marginRight: '8px' }}></i> Message:</strong><br/>{request.message}</p>
                     {request.solution && (
-                      <div style={{ marginTop: '15px', padding: '15px', background: 'rgba(102, 126, 234, 0.1)', borderRadius: '10px' }} className="dark:bg-indigo-900/20">
+                      <div style={{ marginTop: '15px', padding: '15px', background: 'rgba(102, 126, 234, 0.1)', borderRadius: '10px' }} className="dark:bg-gray-900/20">
                         <p><strong className="dark:text-gray-100"><i className="fas fa-check-circle" style={{ marginRight: '8px', color: '#10b981' }}></i> Solution:</strong><br/>{request.solution}</p>
                       </div>
                     )}
@@ -165,7 +165,7 @@ const AdminSupport = () => {
                 </div>
               </div>
               <div className="field" style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
-                <button className="support-form-button dark:bg-indigo-600 dark:text-white" style={{ flex: 1, margin: 0 }}>
+                <button className="support-form-button dark:bg-gray-800 dark:text-white" style={{ flex: 1, margin: 0 }}>
                   Submit Response
                 </button>
                 <button 

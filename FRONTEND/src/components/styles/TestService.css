@@ -62,8 +62,8 @@
 }
 
 .test-service-submit-btn {
-  background-color: #0c8cac;
-  border-color: #0c8cac;
+  background-color: #1b1f24;
+  border-color: #1b1f24;
   color: #fff;
   margin-top: 20px;
 }
@@ -82,15 +82,15 @@
 }
 
 .test-service-select-btn {
-  background-color: #0c8cac;
-  border-color: #0c8cac;
+  background-color: #1b1f24;
+  border-color: #1b1f24;
   color: #fff;
 }
 
 .test-service-list-group-item.selected {
-  background-color: #d1ecf1;
-  border-color: #0c8cac;
-  color: #0c5460;
+  background-color: #eceef0;
+  border-color: #1b1f24;
+  color: #1b1f24;
 }
 
 .test-service-error-message {
@@ -122,6 +122,6 @@
 }
 
 .page-item.active .page-link {
-  background-color: #0c8cac;
-  border-color: #0c8cac;
+  background-color: #1b1f24;
+  border-color: #1b1f24;
 }

@@ -10,7 +10,7 @@
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
   position: relative;
   overflow-x: hidden;
 }
@@ -238,7 +238,7 @@
 
 /* Special Cards with Vibrant Accents */
 .total-appointments-card {
-  border-bottom: 4px solid #4facfe;
+  border-bottom: 4px solid #1b1f24;
 }
 .total-patients-card {
   border-bottom: 4px solid #43e97b;
@@ -247,7 +247,7 @@
   border-bottom: 4px solid #fa709a;
 }
 
-.total-appointments-card .icon { color: #4facfe; }
+.total-appointments-card .icon { color: #1b1f24; }
 .total-patients-card .icon { color: #43e97b; }
 .today-appointment-card .icon { color: #fa709a; }
 
@@ -259,7 +259,7 @@
 
 .dashboard-card i.fa-prescription { color: #f093fb; }
 .dashboard-card i.fa-calendar-alt { color: #48bb78; }
-.dashboard-card i.fa-user-injured { color: #63b3ed; }
+.dashboard-card i.fa-user-injured { color: #1b1f24; }
 .dashboard-card i.fa-file-medical { color: #ed64a6; }
 
 /* Modal Styles */
@@ -315,7 +315,7 @@
 
 .chart-modal-title {
   font-size: 1.8rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -372,7 +372,7 @@
 }
 
 .appointments-container::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
   border-radius: 10px;
 }
 
@@ -388,7 +388,7 @@
 .appointment-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-  border-color: #667eea;
+  border-color: #1b1f24;
 }
 
 .appointment-card p {
@@ -407,7 +407,7 @@
 
 .appointment-card p strong {
   font-weight: 600;
-  color: #667eea;
+  color: #1b1f24;
   display: inline-block;
   min-width: 60px;
 }
@@ -542,7 +542,7 @@
 }
 
 .dark .dashboard-card:hover .dashboard-card-link {
-  color: #38bdf8; /* Light Blue on hover */
+  color: #1b1f24; /* Light Blue on hover */
 }
 
 .dark .dashboard-card-subtext {
@@ -550,7 +550,7 @@
 }
 
 .dark .dashboard-card .icon {
-  background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+  background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -588,7 +588,7 @@
 }
 
 .dark .chart-modal-title {
-  background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+  background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -606,7 +606,7 @@
 }
 
 .dark .appointment-card:hover {
-  border-color: #818cf8;
+  border-color: #1b1f24;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
 
@@ -616,7 +616,7 @@
 }
 
 .dark .appointment-card p strong {
-  color: #818cf8;
+  color: #1b1f24;
 }
 
 /* Scrollbar for Dark Mode */
@@ -767,7 +767,7 @@
   height: 45px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #667eea;
+  border: 2px solid #1b1f24;
   margin-right: 12px;
 }
 

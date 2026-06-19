@@ -50,7 +50,7 @@ const DoctorDashboard = () => {
           </div>
           <div className="flex items-center gap-6">
               <div className="flex items-center gap-2">
-                  <div className="p-1.5 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-blue-600 dark:text-blue-400">
+                  <div className="p-1.5 bg-gray-100 dark:bg-gray-900/20 rounded-lg text-gray-800 dark:text-gray-400">
                       <FaCalendarCheck className="text-sm" />
                   </div>
                   <div>
@@ -92,8 +92,8 @@ const DoctorDashboard = () => {
                          icon: <FaClipboardList />, 
                          label: 'Prescribe', 
                          path: '/doctor/add-prescription', 
-                         btnClass: 'hover:bg-blue-50 dark:hover:bg-blue-900/10',
-                         iconBgClass: 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' 
+                         btnClass: 'hover:bg-gray-100 dark:hover:bg-gray-900/10',
+                         iconBgClass: 'bg-gray-100 dark:bg-gray-900/20 text-gray-800 dark:text-gray-400' 
                      },
                      { 
                          icon: <FaCalendarAlt />, 
@@ -113,8 +113,8 @@ const DoctorDashboard = () => {
                          icon: <FaFileMedical />, 
                          label: 'Records', 
                          path: '/doctor/prescriptions', 
-                         btnClass: 'hover:bg-indigo-50 dark:hover:bg-indigo-900/10',
-                         iconBgClass: 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400' 
+                         btnClass: 'hover:bg-gray-100 dark:hover:bg-gray-900/10',
+                         iconBgClass: 'bg-gray-100 dark:bg-gray-900/20 text-gray-800 dark:text-gray-400' 
                      },
                  ].map((action, idx) => (
                      <button 
@@ -138,11 +138,11 @@ const DoctorDashboard = () => {
           <div className="lg:col-span-2 bg-[#ffffff] dark:bg-[#18181b] rounded-xl shadow-sm overflow-hidden flex flex-col h-full transition-all duration-200">
             <div className="px-5 py-3 flex justify-between items-center bg-gray-50/50 dark:bg-[#18181b] shrink-0">
               <h3 className="text-sm font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">
-                   <FaCalendarDay className="text-blue-500" /> Today's Schedule
+                   <FaCalendarDay className="text-gray-700" /> Today's Schedule
               </h3>
               <div className="flex gap-2">
                   <button className="p-1.5 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors"><FaSearch className="text-xs" /></button>
-                  <button onClick={() => window.location.href='/doctor/appointments'} className="text-xs font-medium text-blue-500 hover:text-blue-600 px-3 py-1 bg-blue-50 dark:bg-blue-900/20 rounded-lg">View All</button>
+                  <button onClick={() => window.location.href='/doctor/appointments'} className="text-xs font-medium text-gray-700 hover:text-gray-800 px-3 py-1 bg-gray-100 dark:bg-gray-900/20 rounded-lg">View All</button>
               </div>
             </div>
             
@@ -159,15 +159,15 @@ const DoctorDashboard = () => {
                 <tbody className="divide-y divide-transparent dark:divide-transparent">
                   {todayAppointments.length > 0 ? (
                     todayAppointments.map((apt) => (
-                      <tr key={apt._id} className="hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors group cursor-default">
+                      <tr key={apt._id} className="hover:bg-gray-100/50 dark:hover:bg-gray-900/10 transition-colors group cursor-default">
                         <td className="px-5 py-3 text-xs text-gray-700 dark:text-gray-300 font-bold whitespace-nowrap font-mono">{apt.timeSlot}</td>
                         <td className="px-5 py-3">
                             <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-indigo-500 flex items-center justify-center text-white font-bold text-xs shadow-sm">
+                                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-gray-700 to-gray-700 flex items-center justify-center text-white font-bold text-xs shadow-sm">
                                     {apt.patientName.charAt(0)}
                                 </div>
                                 <div>
-                                    <p className="text-sm font-bold text-gray-800 dark:text-gray-200 leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{apt.patientName}</p>
+                                    <p className="text-sm font-bold text-gray-800 dark:text-gray-200 leading-tight group-hover:text-gray-800 dark:group-hover:text-gray-400 transition-colors">{apt.patientName}</p>
                                     <p className="text-[11px] text-gray-500 dark:text-gray-500 leading-tight">{apt.patientEmail}</p>
                                 </div>
                             </div>
@@ -178,7 +178,7 @@ const DoctorDashboard = () => {
                           </span>
                         </td>
                         <td className="px-5 py-3 text-right">
-                            <button className="text-[11px] font-medium bg-[#ffffff] border border-gray-200 text-gray-600 px-3 py-1.5 rounded-lg hover:bg-gray-50 hover:border-blue-300 hover:text-blue-600 transition-all dark:bg-[#27272a] dark:border-[#3f3f46] dark:text-gray-300 dark:hover:bg-[#3f3f46] shadow-sm">
+                            <button className="text-[11px] font-medium bg-[#ffffff] border border-gray-200 text-gray-600 px-3 py-1.5 rounded-lg hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 transition-all dark:bg-[#27272a] dark:border-[#3f3f46] dark:text-gray-300 dark:hover:bg-[#3f3f46] shadow-sm">
                                 Open
                             </button>
                         </td>
@@ -208,7 +208,7 @@ const DoctorDashboard = () => {
                <div className="flex shrink-0">
                    <button 
                        onClick={() => setActiveTab('trends')}
-                       className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider transition-colors border-b-2 ${activeTab === 'trends' ? 'border-blue-500 text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/10' : 'border-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
+                       className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider transition-colors border-b-2 ${activeTab === 'trends' ? 'border-gray-700 text-gray-800 dark:text-gray-400 bg-gray-100/50 dark:bg-gray-900/10' : 'border-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
                    >
                        Overview
                    </button>

@@ -106,7 +106,7 @@ const DoctorLayout = ({ children, title = "Doctor Panel", subtitle = "Manage you
       >
         {/* Resize Handle */}
         <div
-            className="absolute right-0 top-0 bottom-0 w-1 cursor-col-resize hover:bg-blue-500 transition-colors opacity-0 hover:opacity-100 z-50"
+            className="absolute right-0 top-0 bottom-0 w-1 cursor-col-resize hover:bg-gray-700 transition-colors opacity-0 hover:opacity-100 z-50"
             onMouseDown={startResizing}
         />
 
@@ -133,7 +133,7 @@ const DoctorLayout = ({ children, title = "Doctor Panel", subtitle = "Manage you
             <div className="px-4 mb-4 mt-2">
                 <button 
                     onClick={toggleSidebar}
-                    className="w-full flex justify-center p-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 transition-all hover:bg-blue-100 dark:hover:bg-blue-900/40"
+                    className="w-full flex justify-center p-2 rounded-lg bg-gray-100 dark:bg-gray-900/20 text-gray-800 transition-all hover:bg-gray-100 dark:hover:bg-gray-900/40"
                     title="Expand Sidebar"
                 >
                     <FaChevronRight className="text-xs" />
@@ -151,7 +151,7 @@ const DoctorLayout = ({ children, title = "Doctor Panel", subtitle = "Manage you
                         to={item.path}
                         className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group
                             ${isActive 
-                                ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' 
+                                ? 'bg-gray-100 dark:bg-gray-900/20 text-gray-800 dark:text-gray-400' 
                                 : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#27272a] hover:text-gray-900 dark:hover:text-gray-100'
                             }
                             ${isSidebarCollapsed ? 'justify-center' : ''}
@@ -207,9 +207,9 @@ const DoctorLayout = ({ children, title = "Doctor Panel", subtitle = "Manage you
                             <Link 
                                 to="/doctor-profile"
                                 onClick={() => setIsDropdownOpen(false)}
-                                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group ${theme === 'dark' ? 'text-gray-400 hover:bg-blue-900/20 hover:text-blue-400' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'}`}
+                                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group ${theme === 'dark' ? 'text-gray-400 hover:bg-gray-900/20 hover:text-gray-400' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800'}`}
                             >
-                                <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${theme === 'dark' ? 'bg-white/5 group-hover:bg-blue-900/40' : 'bg-gray-100 group-hover:bg-blue-100'}`}>
+                                <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${theme === 'dark' ? 'bg-white/5 group-hover:bg-gray-900/40' : 'bg-gray-100 group-hover:bg-gray-100'}`}>
                                     <FaUserMd className="text-sm" />
                                 </div>
                                 <span className="text-sm font-medium">Profile Settings</span>
@@ -238,7 +238,7 @@ const DoctorLayout = ({ children, title = "Doctor Panel", subtitle = "Manage you
                     ${isDropdownOpen ? 'bg-gray-50 dark:bg-white/5' : ''}
                 `}
              >
-                <div className="w-10 h-10 rounded-xl bg-blue-500 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/20 shrink-0 overflow-hidden">
+                <div className="w-10 h-10 rounded-xl bg-gray-700 flex items-center justify-center text-white font-bold shadow-lg shadow-gray-700/20 shrink-0 overflow-hidden">
                     {doctorProfile?.profilePicture ? (
                         <img 
                             src={getImageUrl(doctorProfile.profilePicture)} 
@@ -251,14 +251,14 @@ const DoctorLayout = ({ children, title = "Doctor Panel", subtitle = "Manage you
                 </div>
                 {!isSidebarCollapsed && (
                     <div className="flex-1 text-left overflow-hidden">
-                         <p className="text-sm font-bold text-gray-700 dark:text-gray-200 truncate leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                         <p className="text-sm font-bold text-gray-700 dark:text-gray-200 truncate leading-tight group-hover:text-gray-800 dark:group-hover:text-gray-400 transition-colors">
                             {doctorProfile.firstName} {doctorProfile.lastName || 'Md.'}
                          </p>
-                         <p className="text-[10px] font-semibold text-blue-500/80 dark:text-blue-400/80 uppercase tracking-wider">Doctor</p>
+                         <p className="text-[10px] font-semibold text-gray-700/80 dark:text-gray-400/80 uppercase tracking-wider">Doctor</p>
                     </div>
                 )}
                 {!isSidebarCollapsed && (
-                    <FaChevronDown className={`text-gray-400 text-[10px] transition-transform duration-300 ${isDropdownOpen ? 'rotate-180 text-blue-500' : 'group-hover:text-gray-600'}`} />
+                    <FaChevronDown className={`text-gray-400 text-[10px] transition-transform duration-300 ${isDropdownOpen ? 'rotate-180 text-gray-700' : 'group-hover:text-gray-600'}`} />
                 )}
              </button>
         </div>

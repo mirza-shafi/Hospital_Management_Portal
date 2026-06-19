@@ -24,7 +24,7 @@
   }
   
   .back-home-link:hover {
-    color: #3b82f6;
+    color: #1b1f24;
   }
   
   .nav-icon {
@@ -220,19 +220,19 @@
     left: 0;
     width: 4px;
     height: 100%;
-    background: #3b82f6;
+    background: #1b1f24;
     opacity: 0;
     transition: opacity 0.2s;
   }
   
   .card-box:hover {
-    border-color: #3b82f6;
+    border-color: #1b1f24;
     transform: translateY(-4px);
     box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1);
   }
   
   .dark .card-box:hover {
-    border-color: #3b82f6;
+    border-color: #1b1f24;
     box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.2);
   }
   
@@ -262,14 +262,14 @@
   }
   
   /* Icon Colors */
-  .bg-blue-100 { background-color: #dbeafe; color: #2563eb; }
+  .bg-gray-100 { background-color: #eceef0; color: #1b1f24; }
   .bg-green-100 { background-color: #dcfce7; color: #16a34a; }
-  .bg-purple-100 { background-color: #f3e8ff; color: #9333ea; }
+  .bg-purple-100 { background-color: #f3e8ff; color: #1b1f24; }
   .bg-orange-100 { background-color: #ffedd5; color: #ea580c; }
   
-  .dark .bg-blue-100 { background-color: rgba(37, 99, 235, 0.2); color: #60a5fa; }
+  .dark .bg-gray-100 { background-color: rgba(37, 99, 235, 0.2); color: #1b1f24; }
   .dark .bg-green-100 { background-color: rgba(22, 163, 74, 0.2); color: #4ade80; }
-  .dark .bg-purple-100 { background-color: rgba(147, 51, 234, 0.2); color: #c084fc; }
+  .dark .bg-purple-100 { background-color: rgba(147, 51, 234, 0.2); color: #1b1f24; }
   .dark .bg-orange-100 { background-color: rgba(234, 88, 12, 0.2); color: #fb923c; }
 
 /* Generic Admin Card for Dark Mode Support */

@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 body.appointment-details-body {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
     color: #2d3748;
     margin: 0;
     padding: 0;
@@ -41,7 +41,7 @@ body.appointment-details-body {
     margin-bottom: 30px;
     text-align: center;
     font-weight: 700;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -103,7 +103,7 @@ body.appointment-details-body {
 }
 
 .appointment-details-table button {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -138,7 +138,7 @@ body.appointment-details-body {
 }
 
 .dark .appointment-details-title {
-    background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+    background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -169,6 +169,6 @@ body.appointment-details-body {
 }
 
 .dark .appointment-details-table button {
-    background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+    background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
     box-shadow: 0 4px 10px rgba(129, 140, 248, 0.3);
 }

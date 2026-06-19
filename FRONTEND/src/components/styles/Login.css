@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #0b3a5e 0%, #0a558c 100%);
+  background: linear-gradient(135deg, #16191d 0%, #2a2f36 100%);
   padding: 24px 15px;
 }
 
@@ -20,7 +20,7 @@
   background: #fff;
   border-radius: 16px;
   padding: 28px 30px;
-  box-shadow: 0 24px 60px rgba(8, 48, 79, 0.35);
+  box-shadow: 0 24px 60px rgba(16, 19, 23, 0.35);
   animation: slideUp 0.4s ease-out;
 }
 
@@ -33,7 +33,7 @@
 
 .login-header i {
   font-size: 2.6rem;
-  color: var(--hw-primary, #0a558c);
+  color: var(--hw-primary, #1b1f24);
   margin-bottom: 10px;
   display: block;
 }
@@ -61,7 +61,7 @@
   width: fit-content;
 }
 
-.back-home:hover { color: var(--hw-primary, #0a558c); transform: translateX(-3px); }
+.back-home:hover { color: var(--hw-primary, #1b1f24); transform: translateX(-3px); }
 
 .login-form { margin-bottom: 14px; }
 
@@ -111,7 +111,7 @@
 .input-group input:focus,
 .input-group select:focus {
   outline: none;
-  border-color: var(--hw-primary, #0a558c);
+  border-color: var(--hw-primary, #1b1f24);
   background: #fff;
   box-shadow: 0 0 0 3px rgba(10, 85, 140, 0.12);
 }
@@ -139,7 +139,7 @@
   z-index: 10;
 }
 
-.toggle-password:hover { color: var(--hw-primary, #0a558c); }
+.toggle-password:hover { color: var(--hw-primary, #1b1f24); }
 
 .error-msg {
   background: #fdecec;
@@ -167,11 +167,11 @@
   letter-spacing: 0.3px;
 }
 
-.doctor-btn { background: var(--hw-primary, #0a558c); box-shadow: 0 4px 14px rgba(10, 85, 140, 0.3); }
+.doctor-btn { background: var(--hw-primary, #1b1f24); box-shadow: 0 4px 14px rgba(10, 85, 140, 0.3); }
 .doctor-btn:hover:not(:disabled) { background: var(--hw-primary-dark, #08456f); transform: translateY(-2px); }
 
-.patient-btn { background: var(--hw-teal, #0a9396); box-shadow: 0 4px 14px rgba(10, 147, 150, 0.3); }
-.patient-btn:hover:not(:disabled) { background: #087f82; transform: translateY(-2px); }
+.patient-btn { background: var(--hw-teal, #1b1f24); box-shadow: 0 4px 14px rgba(10, 147, 150, 0.3); }
+.patient-btn:hover:not(:disabled) { background: #1b1f24; transform: translateY(-2px); }
 
 .login-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; }
 
@@ -185,7 +185,7 @@
 .login-footer p { color: var(--hw-muted, #6b7d8f); font-size: 0.875rem; }
 
 .login-footer a {
-  color: var(--hw-primary, #0a558c);
+  color: var(--hw-primary, #1b1f24);
   font-weight: 700;
   text-decoration: none;
   transition: color 0.2s ease;

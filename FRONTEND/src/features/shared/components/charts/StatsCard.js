@@ -26,7 +26,7 @@ const StatsCard = ({ title, value, type = 'default', icon }) => {
     default: { border: 'border-l-4 border-gray-800' },
     success: { border: 'border-l-4 border-emerald-500' },
     warning: { border: 'border-l-4 border-yellow-500' }, // Mild
-    info: { border: 'border-l-4 border-blue-500' }, // Stable
+    info: { border: 'border-l-4 border-gray-700' }, // Stable
     critical: { border: 'border-l-4 border-red-500' }, // Critical
   };
 

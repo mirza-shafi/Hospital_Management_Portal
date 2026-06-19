@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 .view-prescription-container {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
     min-height: 100vh;
     padding: 40px;
     display: flex;
@@ -40,7 +40,7 @@
 
 .search-icon {
     font-size: 24px;
-    color: #667eea;
+    color: #1b1f24;
     margin-right: 15px;
 }
 
@@ -110,7 +110,7 @@
 .card-detail {
     font-size: 1rem;
     padding: 16px 20px;
-    border-left: 5px solid #667eea;
+    border-left: 5px solid #1b1f24;
     background-color: #f7fafc;
     border-radius: 8px;
     width: 100%;
@@ -144,7 +144,7 @@
 }
 
 .download-button {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
     color: #fff;
     border: none;
     padding: 12px 30px;
@@ -202,7 +202,7 @@
 }
 
 .dark .search-icon {
-    color: #818cf8;
+    color: #1b1f24;
 }
 
 .dark .prescription-card {
@@ -212,9 +212,9 @@
 
 .dark .card-detail {
     background-color: #1e293b;
-    border-left-color: #818cf8;
+    border-left-color: #1b1f24;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-left: 5px solid #818cf8;
+    border-left: 5px solid #1b1f24;
 }
 
 .dark .card-detail strong {
@@ -235,7 +235,7 @@
 }
 
 .dark .download-button {
-    background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+    background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
     box-shadow: 0 4px 15px rgba(129, 140, 248, 0.3);
 }
 

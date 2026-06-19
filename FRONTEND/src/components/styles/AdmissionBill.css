@@ -28,7 +28,7 @@
   }
   
   .tab.active {
-    background-color: #3498db;
+    background-color: #1b1f24;
   }
   
   .bills-section {
@@ -96,7 +96,7 @@
   }
   
   .pay-btn, .download-btn {
-    background-color: #3498db;
+    background-color: #1b1f24;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -108,7 +108,7 @@
   }
   
   .pay-btn:hover, .download-btn:hover {
-    background-color: #2980b9;
+    background-color: #1b1f24;
   }
   
   .success-message, .error-message {

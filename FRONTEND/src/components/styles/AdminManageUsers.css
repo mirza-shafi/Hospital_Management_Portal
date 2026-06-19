@@ -69,7 +69,7 @@
 
 .admin-manage-users-form .button {
     margin-top: 10px;
-    background-color: #0056b3;
+    background-color: #1b1f24;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -77,14 +77,14 @@
 }
 
 .admin-manage-users-form .button:hover {
-    background-color: #004494;
+    background-color: #1b1f24;
 }
 
 .admin-manage-users-form .close-button {
     background: transparent;
     border: none;
     font-size: 1.5em;
-    color: #0056b3;
+    color: #1b1f24;
     cursor: pointer;
     position: absolute;
     top: 10px;
@@ -136,12 +136,12 @@
 }
 
 .table-container .table td button.is-info {
-    background-color: #17a2b8;
+    background-color: #1b1f24;
     color: #fff;
 }
 
 .table-container .table td button.is-info:hover {
-    background-color: #138496;
+    background-color: #1b1f24;
 }
 
 .table-container .table td button.is-danger {

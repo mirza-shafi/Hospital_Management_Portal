@@ -88,7 +88,7 @@ const ViewPrescription = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyDown={handleSearch}
-                className="w-full pl-4 pr-10 py-2 bg-gray-50 dark:bg-[#27272a] rounded-lg text-sm text-gray-700 dark:text-gray-200 outline-none focus:ring-2 focus:ring-blue-500/20 transition-all border border-transparent focus:border-blue-500/30"
+                className="w-full pl-4 pr-10 py-2 bg-gray-50 dark:bg-[#27272a] rounded-lg text-sm text-gray-700 dark:text-gray-200 outline-none focus:ring-2 focus:ring-gray-700/20 transition-all border border-transparent focus:border-gray-700/30"
               />
               <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -109,7 +109,7 @@ const ViewPrescription = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
             {prescriptions.map((prescription) => (
-              <div className="bg-[#ffffff] dark:bg-[#18181b] rounded-xl shadow-sm p-5 relative group border border-transparent hover:border-blue-100 dark:hover:border-blue-900/30 transition-all duration-200" key={prescription._id}>
+              <div className="bg-[#ffffff] dark:bg-[#18181b] rounded-xl shadow-sm p-5 relative group border border-transparent hover:border-gray-100 dark:hover:border-gray-900/30 transition-all duration-200" key={prescription._id}>
                 
                 <button 
                     onClick={() => handleRemove(prescription._id)}
@@ -120,7 +120,7 @@ const ViewPrescription = () => {
 
                 <div className="space-y-3 mb-4">
                     <div className="flex items-start gap-3">
-                         <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold shrink-0">
+                         <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-900/20 flex items-center justify-center text-gray-800 dark:text-gray-400 font-bold shrink-0">
                              Rx
                          </div>
                          <div>
@@ -147,7 +147,7 @@ const ViewPrescription = () => {
 
                 <button 
                     onClick={() => handleDownload(prescription)} 
-                    className="w-full py-2 rounded-lg text-xs font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/10 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors flex items-center justify-center gap-2"
+                    className="w-full py-2 rounded-lg text-xs font-bold text-gray-800 dark:text-gray-400 bg-gray-100 dark:bg-gray-900/10 hover:bg-gray-100 dark:hover:bg-gray-900/30 transition-colors flex items-center justify-center gap-2"
                 >
                   Download PDF
                 </button>

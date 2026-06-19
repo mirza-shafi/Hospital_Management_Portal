@@ -15,11 +15,11 @@ const AppointmentsChart = ({ totalAppointments }) => {
     datasets: [{
       data: [displayValue, remaining],
       backgroundColor: [
-        '#6366f1', // Indigo 500
+        '#1b1f24', // Indigo 500
         '#f1f5f9'  // Slate 100 
       ],
       hoverBackgroundColor: [
-        '#4f46e5', // Indigo 600
+        '#3b424b', // Indigo 600
         '#f8fafc'  // Slate 50
       ],
       borderWidth: 0,

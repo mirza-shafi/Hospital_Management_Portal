@@ -38,7 +38,13 @@ const PatientLogin = () => {
       if (res.data.token) {
         storage.setItem('patientToken', res.data.token);
         storage.setItem('patientEmail', email);
-        navigate('/patient');
+        const redirect = storage.getItem('postLoginRedirect');
+        if (redirect) {
+          storage.removeItem('postLoginRedirect');
+          navigate(redirect);
+        } else {
+          navigate('/patient');
+        }
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');

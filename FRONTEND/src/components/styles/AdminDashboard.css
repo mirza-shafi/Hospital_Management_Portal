@@ -43,14 +43,14 @@
 .admin-dashboard-title {
   font-size: 2.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .dark .admin-dashboard-title {
-  background: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%);
+  background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
 }
 
 .logout-btn {
@@ -97,13 +97,13 @@
 
 .card-box:hover {
   transform: translateY(-8px);
-  border-color: #667eea;
+  border-color: #1b1f24;
   background: white;
   box-shadow: 0 15px 35px rgba(102, 126, 234, 0.15);
 }
 
 .dark .card-box:hover {
-  border-color: #a78bfa;
+  border-color: #1b1f24;
   background: #2d3748;
   box-shadow: 0 15px 35px rgba(167, 139, 250, 0.15);
 }
@@ -167,7 +167,7 @@
 }
 
 .back-home-link:hover {
-  color: #667eea !important;
+  color: #1b1f24 !important;
   background: transparent;
   transform: none;
   box-shadow: none;
@@ -175,7 +175,7 @@
 
 .dark .back-home-link:hover {
   background: transparent;
-  color: #a78bfa !important;
+  color: #1b1f24 !important;
 }
 
 .back-home-link:hover .nav-icon {

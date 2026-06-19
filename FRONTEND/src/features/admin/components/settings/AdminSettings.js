@@ -54,7 +54,7 @@ const AdminSettings = () => {
                             onClick={() => setActiveSection(item.id)}
                             className={`flex items-center gap-3 px-6 py-3.5 rounded-2xl font-bold transition-all text-sm ${
                                 activeSection === item.id 
-                                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200 dark:shadow-none' 
+                                ? 'bg-gray-800 text-white shadow-lg shadow-gray-200 dark:shadow-none' 
                                 : 'text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-zinc-800 hover:text-gray-900 dark:hover:text-gray-200'
                             }`}
                         >
@@ -75,15 +75,15 @@ const AdminSettings = () => {
                             </div>
                             
                              <div className="flex items-center gap-6 p-6 bg-gray-50 dark:bg-zinc-800 rounded-2xl border border-gray-100 dark:border-zinc-700/50">
-                                <div className="w-20 h-20 bg-indigo-100 rounded-2xl overflow-hidden relative group cursor-pointer">
+                                <div className="w-20 h-20 bg-gray-100 rounded-2xl overflow-hidden relative group cursor-pointer">
                                     <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Profile" />
-                                    <div className="absolute inset-0 bg-indigo-900/60 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <div className="absolute inset-0 bg-gray-900/60 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
                                         <FaCloudUploadAlt size={24} />
                                     </div>
                                 </div>
                                  <div className="space-y-1">
                                     <div className="font-bold text-gray-900 dark:text-gray-100">{profile.name}</div>
-                                    <div className="text-xs text-gray-500 font-black tracking-widest text-indigo-600 dark:text-indigo-400 uppercase">Super Administrator</div>
+                                    <div className="text-xs text-gray-500 font-black tracking-widest text-gray-800 dark:text-gray-400 uppercase">Super Administrator</div>
                                 </div>
                             </div>
 
@@ -91,7 +91,7 @@ const AdminSettings = () => {
                                  <div>
                                     <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-2">Display Name</label>
                                     <input 
-                                        className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500/10 dark:text-gray-100" 
+                                        className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-gray-700/10 dark:text-gray-100" 
                                         value={profile.name} 
                                         onChange={(e) => setProfile({...profile, name: e.target.value})}
                                     />
@@ -99,13 +99,13 @@ const AdminSettings = () => {
                                 <div>
                                     <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-2">Contact Email</label>
                                     <input 
-                                        className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500/10 dark:text-gray-100" 
+                                        className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-gray-700/10 dark:text-gray-100" 
                                         value={profile.email} 
                                         onChange={(e) => setProfile({...profile, email: e.target.value})}
                                     />
                                 </div>
                                 <div className="md:col-span-2">
-                                    <button type="submit" className="flex items-center gap-2 px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-lg shadow-indigo-200 dark:shadow-none hover:bg-indigo-700 transition-all">
+                                    <button type="submit" className="flex items-center gap-2 px-8 py-3 bg-gray-800 text-white font-bold rounded-xl shadow-lg shadow-gray-200 dark:shadow-none hover:bg-gray-900 transition-all">
                                         <FaSave /> Save Profile Changes
                                     </button>
                                 </div>

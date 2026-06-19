@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bulma/css/bulma.min.css';
 import '../components/styles/Home.css';
 
+import api from '../core/api/config';
+import { storage } from '../utils/storage';
 import Chatbot from '../features/shared/components/utils/Chatbot';
 import NewsTicker from '../features/shared/components/utils/NewsTicker';
 import { Helmet } from 'react-helmet';
 import Footer from '../features/shared/components/layout/Footer';
 import StatsCard from '../features/shared/components/charts/StatsCard';
+import DoctorCard from '../features/shared/components/DoctorCard';
 import { FaUserMd, FaSmile, FaCalendarCheck, FaTrophy } from 'react-icons/fa';
 import hospital1 from '../assets/hospital1.png';
 import hospital2 from '../assets/hospital2.png';
@@ -18,22 +21,23 @@ const Home = () => {
   const navigate = useNavigate();
   const [showChatbox, setShowChatbox] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [featuredDoctors, setFeaturedDoctors] = useState([]);
 
   const slides = [
     {
       image: hospital1,
-      title: 'World-Class Healthcare Facility',
-      subtitle: 'State-of-the-art medical center with expert professionals'
+      title: 'World-Class Healthcare, Close to You',
+      subtitle: 'State-of-the-art medical center staffed by leading specialists'
     },
     {
       image: hospital2,
-      title: 'Modern Reception & Waiting Area',
-      subtitle: 'Comfortable and welcoming environment for all patients'
+      title: 'Comfortable, Patient-First Spaces',
+      subtitle: 'A calm, welcoming environment designed around your care'
     },
     {
       image: hospital3,
       title: 'Advanced Medical Consultation',
-      subtitle: 'Personalized care with cutting-edge technology'
+      subtitle: 'Personalized care backed by modern diagnostic technology'
     },
     {
       image: hospital4,
@@ -42,36 +46,42 @@ const Home = () => {
     }
   ];
 
-  // Auto-slide effect
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 4000); // Change slide every 4 seconds
-
+    }, 5000);
     return () => clearInterval(timer);
   }, [slides.length]);
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
+  useEffect(() => {
+    api.get('/doctors/all')
+      .then((res) => {
+        const list = Array.isArray(res.data) ? res.data : [];
+        setFeaturedDoctors(list.slice(0, 4));
+      })
+      .catch((err) => console.error('Error loading featured doctors:', err));
+  }, []);
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
+  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  const goToSlide = (index) => setCurrentSlide(index);
 
-  const goToSlide = (index) => {
-    setCurrentSlide(index);
+  const handleBook = (doctor) => {
+    const target = `/patient/appointment?doctor=${doctor._id}`;
+    if (storage.getItem('patientToken')) {
+      navigate(target);
+    } else {
+      storage.setItem('postLoginRedirect', target);
+      navigate('/patient-login');
+    }
   };
-
-  const handleDoctorLogin = () => navigate('/doctor-login');
-  const handlePatientLogin = () => navigate('/patient-login');
 
   const toggleChatbox = () => setShowChatbox(!showChatbox);
 
   return (
     <div className="home-page">
       <Helmet>
-        <title>Home Page</title>
+        <title>HealingWave — Health Services</title>
       </Helmet>
       <NewsTicker />
 
@@ -86,13 +96,15 @@ const Home = () => {
                   <div className="carousel-content">
                     <h1 className="carousel-title">{slide.title}</h1>
                     <p className="carousel-subtitle">{slide.subtitle}</p>
+                    <button className="hero-cta" onClick={() => navigate('/doctors')}>
+                      Find a Doctor &amp; Book Appointment
+                    </button>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-          
-          {/* Navigation Arrows */}
+
           <button className="carousel-arrow carousel-arrow-left" onClick={prevSlide}>
             <i className="fas fa-chevron-left"></i>
           </button>
@@ -100,7 +112,6 @@ const Home = () => {
             <i className="fas fa-chevron-right"></i>
           </button>
 
-          {/* Dots Indicator */}
           <div className="carousel-dots">
             {slides.map((_, index) => (
               <button
@@ -110,28 +121,6 @@ const Home = () => {
               />
             ))}
           </div>
-
-          {/* Login Buttons Overlay */}
-          <div className="carousel-login-overlay">
-            <button
-              className="login-button doctor-button"
-              onClick={handleDoctorLogin}
-            >
-              <span className="icon is-small">
-                <i className="fas fa-user-md"></i>
-              </span>
-              <span>Doctor Login</span>
-            </button>
-            <button
-              className="login-button patient-button"
-              onClick={handlePatientLogin}
-            >
-              <span className="icon is-small">
-                <i className="fas fa-user-injured"></i>
-              </span>
-              <span>Patient Login</span>
-            </button>
-          </div>
         </div>
       </div>
 
@@ -140,77 +129,65 @@ const Home = () => {
         <h2 className="features-title">Our Services</h2>
         <div className="features-grid">
           <div className="feature-card">
-            <div className="feature-icon">
-              <i className="fas fa-heartbeat"></i>
-            </div>
+            <div className="feature-icon"><i className="fas fa-heartbeat"></i></div>
             <h3>24/7 Emergency Care</h3>
             <p>Round-the-clock emergency services with expert medical staff</p>
           </div>
           <div className="feature-card">
-            <div className="feature-icon">
-              <i className="fas fa-user-md"></i>
-            </div>
+            <div className="feature-icon"><i className="fas fa-user-md"></i></div>
             <h3>Expert Doctors</h3>
             <p>Highly qualified specialists across all medical departments</p>
           </div>
           <div className="feature-card">
-            <div className="feature-icon">
-              <i className="fas fa-procedures"></i>
-            </div>
+            <div className="feature-icon"><i className="fas fa-procedures"></i></div>
             <h3>Modern Facilities</h3>
             <p>State-of-the-art equipment and comfortable patient rooms</p>
           </div>
           <div className="feature-card">
-            <div className="feature-icon">
-              <i className="fas fa-ambulance"></i>
-            </div>
+            <div className="feature-icon"><i className="fas fa-ambulance"></i></div>
             <h3>Ambulance Service</h3>
             <p>Quick response ambulance service available 24/7</p>
           </div>
         </div>
       </div>
 
+      {/* Featured Doctors */}
+      {featuredDoctors.length > 0 && (
+        <section className="featured-doctors">
+          <div className="featured-doctors__head">
+            <h2>Meet Our Specialists</h2>
+            <p>Experienced, board-certified doctors dedicated to your care</p>
+          </div>
+          <div className="featured-doctors__grid">
+            {featuredDoctors.map((doctor) => (
+              <DoctorCard key={doctor._id} doctor={doctor} onBook={handleBook} />
+            ))}
+          </div>
+          <div className="featured-doctors__cta">
+            <button className="btn-outline-dark" onClick={() => navigate('/doctors')}>
+              View All Doctors
+            </button>
+          </div>
+        </section>
+      )}
+
       {/* Statistics Section */}
       <div className="stats-section">
         <div className="stats-container">
-          <StatsCard 
-            title="Expert Doctors" 
-            value="500+" 
-            icon={<FaUserMd size={24} className="text-blue-500" />} 
-            type="info"
-          />
-          <StatsCard 
-            title="Happy Patients" 
-            value="50,000+" 
-            icon={<FaSmile size={24} className="text-yellow-500" />} 
-            type="warning"
-          />
-          <StatsCard 
-            title="Years Experience" 
-            value="25+" 
-            icon={<FaCalendarCheck size={24} className="text-emerald-500" />} 
-            type="success"
-          />
-          <StatsCard 
-            title="Medical Awards" 
-            value="100+" 
-            icon={<FaTrophy size={24} className="text-indigo-500" />} 
-            type="default"
-          />
+          <StatsCard title="Expert Doctors" value="500+" icon={<FaUserMd size={24} />} type="default" />
+          <StatsCard title="Happy Patients" value="50,000+" icon={<FaSmile size={24} />} type="default" />
+          <StatsCard title="Years Experience" value="25+" icon={<FaCalendarCheck size={24} />} type="default" />
+          <StatsCard title="Medical Awards" value="100+" icon={<FaTrophy size={24} />} type="default" />
         </div>
       </div>
 
       <Footer />
 
-
-
       <div className="chatbot-icon" onClick={toggleChatbox}>
         <i className="fas fa-robot"></i>
       </div>
 
-      {showChatbox && (
-        <Chatbot onClose={toggleChatbox} />
-      )}
+      {showChatbox && <Chatbot onClose={toggleChatbox} />}
     </div>
   );
 };

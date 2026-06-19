@@ -39,12 +39,12 @@
   }
   
   .registration-form input:focus {
-    border-color: #3498db;
+    border-color: #1b1f24;
     box-shadow: 0 0 6px rgba(52, 152, 219, 0.4);
   }
   
   .registration-form button {
-    background: linear-gradient(to right, #3498db, #2980b9);
+    background: linear-gradient(to right, #1b1f24, #1b1f24);
     color: white;
     padding: 10px 15px;
     border: none;
@@ -56,7 +56,7 @@
   }
   
   .registration-form button:hover {
-    background: linear-gradient(to right, #2980b9, #3498db);
+    background: linear-gradient(to right, #1b1f24, #1b1f24);
   }
   
   .top-up-form {
@@ -73,7 +73,7 @@
   }
   
   .top-up-form button {
-    background: linear-gradient(to right, #3498db, #2980b9);
+    background: linear-gradient(to right, #1b1f24, #1b1f24);
     color: white;
     padding: 10px 15px;
     border: none;
@@ -85,7 +85,7 @@
   }
   
   .top-up-form button:hover {
-    background: linear-gradient(to right, #2980b9, #3498db);
+    background: linear-gradient(to right, #1b1f24, #1b1f24);
   }
   
   .health-card {
@@ -106,7 +106,7 @@
   
   .health-card-left {
     width: 40%;
-    background: #0c8cac;
+    background: #1b1f24;
     border-radius: 12px 0 0 12px;
     display: flex;
     align-items: center;

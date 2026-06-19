@@ -107,13 +107,13 @@ const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Ma
         {!isSidebarCollapsed && (
           <div 
             onMouseDown={startResizing}
-            className={`absolute right-0 top-0 w-1.5 h-full cursor-col-resize hover:bg-blue-500/30 transition-colors z-40 ${isResizing ? 'bg-blue-500/50' : ''}`}
+            className={`absolute right-0 top-0 w-1.5 h-full cursor-col-resize hover:bg-gray-700/30 transition-colors z-40 ${isResizing ? 'bg-gray-700/50' : ''}`}
           />
         )}
 
         <div className={`p-6 pb-2 flex items-center justify-between ${isSidebarCollapsed ? 'px-4' : 'px-6'}`}>
             <div className="flex items-center gap-3 overflow-hidden">
-                <div className="min-w-[32px] w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white font-bold text-xl">
+                <div className="min-w-[32px] w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center text-white font-bold text-xl">
                     +
                 </div>
             </div>
@@ -132,7 +132,7 @@ const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Ma
             <div className="px-4 mb-4">
                 <button 
                     onClick={toggleSidebar}
-                    className="w-full flex justify-center p-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 transition-all"
+                    className="w-full flex justify-center p-2 rounded-lg bg-gray-100 dark:bg-gray-900/20 text-gray-800 transition-all"
                 >
                     <FaChevronDown className="-rotate-90" />
                 </button>
@@ -146,7 +146,7 @@ const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Ma
               to={item.path}
               className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${
                 location.pathname === item.path || (location.pathname === '/' && item.name === 'Dashboard')
-                  ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600'
+                  ? 'bg-gray-100 dark:bg-gray-900/20 text-gray-800'
                   : 'text-gray-500 hover:bg-gray-50 dark:hover:bg-zinc-800 hover:text-gray-901 dark:hover:text-gray-100'
               } ${isSidebarCollapsed ? 'justify-center' : ''}`}
               title={isSidebarCollapsed ? item.name : ''}
@@ -202,7 +202,7 @@ const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Ma
                     <input 
                         type="text" 
                         placeholder="Search..." 
-                        className="w-full pl-10 pr-4 py-2 bg-gray-50 dark:bg-zinc-800 border-none rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/20 text-gray-600 dark:text-gray-300 placeholder-gray-400"
+                        className="w-full pl-10 pr-4 py-2 bg-gray-50 dark:bg-zinc-800 border-none rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-gray-100 dark:focus:ring-gray-900/20 text-gray-600 dark:text-gray-300 placeholder-gray-400"
                     />
                 </div>
                 
@@ -220,10 +220,10 @@ const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Ma
                       <img 
                           src="https://i.pravatar.cc/150?u=a042581f4e29026704d" 
                           alt="Profile" 
-                          className="w-8 h-8 rounded-full border border-gray-200 dark:border-zinc-700 object-cover group-hover:border-blue-300 transition-all"
+                          className="w-8 h-8 rounded-full border border-gray-200 dark:border-zinc-700 object-cover group-hover:border-gray-300 transition-all"
                       />
                       <div className="hidden lg:block text-left">
-                          <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 transition-colors whitespace-nowrap">{adminProfile.name}</p>
+                          <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 group-hover:text-gray-800 transition-colors whitespace-nowrap">{adminProfile.name}</p>
                           <p className="text-xs text-gray-500 dark:text-gray-400 truncate w-32">{adminProfile.email}</p>
                       </div>
                       <FaChevronDown className={`text-gray-400 text-xs transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
@@ -237,10 +237,10 @@ const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Ma
                       </div>
                       <Link 
                         to="/settings" 
-                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 transition-colors"
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900/20 hover:text-gray-800 transition-colors"
                         onClick={() => setIsDropdownOpen(false)}
                       >
-                        <FaUserCog className="text-gray-400 group-hover:text-blue-600" />
+                        <FaUserCog className="text-gray-400 group-hover:text-gray-800" />
                         Settings
                       </Link>
                       <button 

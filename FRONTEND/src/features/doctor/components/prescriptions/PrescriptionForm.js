@@ -113,7 +113,7 @@ const PrescriptionForm = () => {
                 {/* Doctor Details Section */}
                 <div className="bg-gray-50/50 dark:bg-[#27272a]/20 p-4 rounded-xl transition-all duration-200">
                     <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-gray-700"></span>
                         Doctor Details
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -124,7 +124,7 @@ const PrescriptionForm = () => {
                                 name="doctorName"
                                 value={formData.doctorName}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2.5 bg-gray-100 dark:!bg-[#121214] border-none rounded-xl text-sm text-gray-800 dark:text-gray-100 outline-none focus:ring-2 focus:ring-blue-500/20 transition-all placeholder:text-gray-400/50"
+                                className="w-full px-4 py-2.5 bg-gray-100 dark:!bg-[#121214] border-none rounded-xl text-sm text-gray-800 dark:text-gray-100 outline-none focus:ring-2 focus:ring-gray-700/20 transition-all placeholder:text-gray-400/50"
                                 placeholder="Enter doctor's name"
                                 required
                             />
@@ -136,7 +136,7 @@ const PrescriptionForm = () => {
                                 name="doctorEmail"
                                 value={formData.doctorEmail}
                                 onChange={handleChange}
-                                className="w-full px-4 py-2.5 bg-gray-100 dark:!bg-[#121214] border-none rounded-xl text-sm text-gray-800 dark:text-gray-100 outline-none focus:ring-2 focus:ring-blue-500/20 transition-all placeholder:text-gray-400/50"
+                                className="w-full px-4 py-2.5 bg-gray-100 dark:!bg-[#121214] border-none rounded-xl text-sm text-gray-800 dark:text-gray-100 outline-none focus:ring-2 focus:ring-gray-700/20 transition-all placeholder:text-gray-400/50"
                                 placeholder="Enter doctor's email"
                                 required
                             />
@@ -258,11 +258,11 @@ const PrescriptionForm = () => {
                   onClick={handleDownload} 
                   className="px-4 py-2 rounded-lg text-sm font-semibold text-gray-600 dark:text-gray-300 bg-white dark:bg-[#111827] border border-gray-200 dark:border-none hover:bg-gray-50 dark:hover:bg-white/5 transition-all flex items-center gap-2 group/btn relative overflow-hidden active:scale-95 shadow-sm"
                 >
-                  <FontAwesomeIcon icon={faDownload} className="text-blue-500 group-hover/btn:scale-110 transition-transform" /> Download
+                  <FontAwesomeIcon icon={faDownload} className="text-gray-700 group-hover/btn:scale-110 transition-transform" /> Download
                 </button>
                 <button 
                   type="submit" 
-                  className="px-6 py-2 rounded-lg text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/30 transition-all flex items-center gap-2 transform hover:translate-y-[-1px]"
+                  className="px-6 py-2 rounded-lg text-sm font-bold text-white bg-gray-800 hover:bg-gray-900 shadow-lg shadow-gray-700/30 transition-all flex items-center gap-2 transform hover:translate-y-[-1px]"
                 >
                   <FontAwesomeIcon icon={faPaperPlane} /> Submit Prescription
                 </button>

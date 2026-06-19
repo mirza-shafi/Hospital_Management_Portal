@@ -32,14 +32,14 @@ const DoctorDetailsSheet = ({ doctor, onClose }) => {
         {/* Header */}
         <div className="p-6 border-b border-gray-100 dark:border-zinc-800 flex items-start justify-between bg-gray-50/50 dark:bg-zinc-800/20">
             <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-blue-600 dark:text-blue-400 text-2xl font-bold border-4 border-white dark:border-zinc-800 shadow-sm">
+                <div className="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-900/40 flex items-center justify-center text-gray-800 dark:text-gray-400 text-2xl font-bold border-4 border-white dark:border-zinc-800 shadow-sm">
                     {doctor.firstName?.[0]}
                 </div>
                 <div>
                     <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Dr. {doctor.firstName} {doctor.lastName}</h2>
                     <p className="text-sm text-gray-500 dark:text-gray-400">{doctor.specialty || 'General Physician'}</p>
                     <div className="flex gap-2 mt-2">
-                        <span className={`px-2 py-0.5 rounded text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400`}>
+                        <span className={`px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-900/30 text-gray-900 dark:text-gray-400`}>
                             {doctor.department || 'General'}
                         </span>
                         <span className={`px-2 py-0.5 rounded text-xs font-medium ${doctor.status === 'Available' ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400' : 'bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-400'}`}>
@@ -89,8 +89,8 @@ const DoctorDetailsSheet = ({ doctor, onClose }) => {
             <div>
                 <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">Professional Details</h3>
                  <div className="grid grid-cols-2 gap-3">
-                    <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-900/30">
-                        <div className="flex items-center gap-2 mb-2 text-blue-600 dark:text-blue-400">
+                    <div className="p-4 bg-gray-100 dark:bg-gray-900/20 rounded-xl border border-gray-100 dark:border-gray-900/30">
+                        <div className="flex items-center gap-2 mb-2 text-gray-800 dark:text-gray-400">
                             <FaStethoscope />
                             <span className="text-xs font-bold">Specialty</span>
                         </div>
@@ -129,7 +129,7 @@ const DoctorDetailsSheet = ({ doctor, onClose }) => {
                 <div className="space-y-3">
                       {['09:00 AM - Consultation', '11:30 AM - Surgery', '02:00 PM - Rounds'].map((slot, i) => (
                         <div key={i} className="flex items-center gap-3 p-3 border border-gray-100 dark:border-zinc-800 rounded-lg">
-                             <div className="text-blue-500 dark:text-blue-400"><FaCalendarCheck /></div>
+                             <div className="text-gray-700 dark:text-gray-400"><FaCalendarCheck /></div>
                              <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">{slot}</span>
                         </div>
                       ))}
@@ -140,7 +140,7 @@ const DoctorDetailsSheet = ({ doctor, onClose }) => {
 
         {/* Footer Actions */}
         <div className="p-4 border-t border-gray-100 dark:border-zinc-800 bg-gray-50 dark:bg-zinc-800/20">
-            <button className="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-blue-200 dark:shadow-none transition-all flex items-center justify-center gap-2">
+            <button className="w-full bg-gray-800 hover:bg-gray-900 dark:bg-gray-900 dark:hover:bg-gray-900 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-gray-200 dark:shadow-none transition-all flex items-center justify-center gap-2">
                 <FaUserMd />
                 View Full Profile
             </button>

@@ -39,7 +39,7 @@
 }
 
 .registration-header h2 {
-    color: #1a4f7a;
+    color: #1b1f24;
     font-size: 2.2rem;
     margin-bottom: 1rem;
     font-weight: 600;
@@ -77,7 +77,7 @@
 
 .form-group input:focus,
 .form-group select:focus {
-    border-color: #2d89b5;
+    border-color: #1b1f24;
     outline: none;
     box-shadow: 0 0 0 4px rgba(45, 137, 181, 0.1);
     background-color: #fff;
@@ -92,7 +92,7 @@
 }
 
 .form-group input:focus + i {
-    color: #2d89b5;
+    color: #1b1f24;
 }
 
 .error-message,
@@ -127,7 +127,7 @@
 .register-button {
     width: 100%;
     padding: 15px;
-    background: linear-gradient(135deg, #1a4f7a 0%, #2d89b5 100%);
+    background: linear-gradient(135deg, #1b1f24 0%, #1b1f24 100%);
     color: white;
     border: none;
     border-radius: 12px;
@@ -167,7 +167,7 @@
 }
 
 .form-footer a {
-    color: #2d89b5;
+    color: #1b1f24;
     text-decoration: none;
     font-weight: 500;
     margin-left: 5px;
@@ -175,7 +175,7 @@
 }
 
 .form-footer a:hover {
-    color: #1a4f7a;
+    color: #1b1f24;
     text-decoration: underline;
 }
 
