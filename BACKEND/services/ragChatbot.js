@@ -225,4 +225,24 @@ async function generateAnswer(message, history = []) {
   return { answer, retrieval, usedContext: top.map((d) => d.title) };
 }
 
-module.exports = { generateAnswer, ensureIndex, buildKnowledgeBase, vectorRetrieve, keywordRetrieve };
+// ---- Debounced background rebuild (called after admin writes) ----
+let rebuildTimer = null;
+let rebuilding = false;
+function scheduleRebuild(delay = 2500) {
+  if (rebuildTimer) clearTimeout(rebuildTimer);
+  rebuildTimer = setTimeout(async () => {
+    rebuildTimer = null;
+    if (rebuilding) return;
+    rebuilding = true;
+    try {
+      const res = await ensureIndex(); // only rebuilds if the content hash changed
+      if (res && res.built) console.log(`[RAG] Knowledge index rebuilt in background: ${res.count} chunks.`);
+    } catch (e) {
+      console.error('[RAG] Background rebuild failed:', e.message);
+    } finally {
+      rebuilding = false;
+    }
+  }, delay);
+}
+
+module.exports = { generateAnswer, ensureIndex, scheduleRebuild, buildKnowledgeBase, vectorRetrieve, keywordRetrieve };

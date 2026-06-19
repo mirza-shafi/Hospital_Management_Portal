@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const Medicine = require('../models/Medicine');
+const { scheduleRebuild } = require('../services/ragChatbot');
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
@@ -35,6 +36,7 @@ router.post('/add', upload.single('image'), async (req, res) => {
     });
 
     await newMedicine.save();
+    scheduleRebuild();
     res.status(201).json({ message: 'Medicine added to the list successfully!' });
   } catch (err) {
     res.status(500).json({ message: 'Failed to add medicine.', error: err.message });
@@ -103,6 +105,7 @@ router.put('/edit/:id', async (req, res) => {
     Object.keys(allowed).forEach((k) => allowed[k] === undefined && delete allowed[k]);
     const medicine = await Medicine.findByIdAndUpdate(req.params.id, allowed, { new: true });
     if (!medicine) return res.status(404).json({ message: 'Medicine not found' });
+    scheduleRebuild();
     res.json({ message: 'Medicine updated successfully', medicine });
   } catch (error) {
     res.status(500).json({ message: 'Failed to update medicine', error: error.message });
@@ -114,6 +117,7 @@ router.delete('/:id', async (req, res) => {
   try {
     const medicine = await Medicine.findByIdAndDelete(req.params.id);
     if (!medicine) return res.status(404).json({ message: 'Medicine not found' });
+    scheduleRebuild();
     res.json({ message: 'Medicine deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Failed to delete medicine', error: error.message });

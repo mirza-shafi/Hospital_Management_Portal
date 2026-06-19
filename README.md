@@ -263,6 +263,10 @@ Hospital_Management_Portal/
 │   │   └── about.js
 │   ├── scripts/                  # Utility scripts
 │   │   ├── initAboutData.js
+│   │   ├── seedDoctors.js        # seed 10 sample doctors
+│   │   ├── seedMedicines.js      # seed 25 sample medicines
+│   │   ├── seedBlood.js          # seed blood stock + donors
+│   │   ├── buildEmbeddings.js    # build the RAG vector index
 │   │   ├── testConnection.js
 │   │   └── testDB.js
 │   ├── uploads/                  # File storage
@@ -384,6 +388,15 @@ flowchart TD
   stored in MongoDB and reused across requests. A content hash (`buildHash`)
   rebuilds the index only when the underlying data changes. Build/refresh with
   `node scripts/buildEmbeddings.js`.
+- **Live totals**: aggregate questions ("how many doctors / medicines / blood
+  units?") are answered from real-time `countDocuments`/aggregation injected into
+  the context on every request, so totals are always exact and never stale.
+- **Automatic refresh**: whenever an admin adds, edits, or deletes a **doctor**,
+  **medicine**, or **blood group**, the affected route calls a debounced
+  background rebuild (`scheduleRebuild` in `ragChatbot.js`). The write returns
+  instantly and the embedding index is re-embedded a couple of seconds later —
+  so the assistant learns about new data with no user-facing lag and no manual
+  step.
 - **Retrieval** (`vectorRetrieve`): query embedding → **Atlas `$vectorSearch`**
   (cosine, index `vector_index` on `embedding`, 384 dims) → child hits grouped
   into unique parents → top-K parents. If the Atlas index is unavailable it
@@ -434,6 +447,8 @@ node scripts/buildEmbeddings.js
 | Persistent vector store (`KnowledgeChunk`) | ✅ Implemented |
 | Atlas `$vectorSearch` index | ✅ Implemented |
 | Cosine + keyword fallbacks | ✅ Implemented |
+| Live aggregate totals (exact counts) | ✅ Implemented |
+| Auto-refresh on admin add/edit/delete | ✅ Implemented |
 | Rule-based fallback when LLM is unavailable | ✅ Implemented |
 
 ---

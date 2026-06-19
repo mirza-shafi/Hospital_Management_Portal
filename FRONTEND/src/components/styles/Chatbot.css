@@ -214,3 +214,14 @@
     bottom: 90px;
   }
 }
+
+
+/* Bulletproof: always left-align chat text regardless of global cascade (Bulma, etc.) */
+.chatbox .chatbox-body .message,
+.chatbox .chatbox-body .message * {
+  text-align: left !important;
+}
+.chatbox .chatbox-body .message {
+  width: fit-content;
+  max-width: 82%;
+}

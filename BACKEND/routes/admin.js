@@ -11,6 +11,7 @@ const BloodDonor = require('../models/BloodDonor');
 const BloodRecipient = require('../models/BloodRecipient');
 const BloodAvailability = require('../models/BloodAvailability');
 const authMiddleware = require('../middleware/authMiddleware');
+const { scheduleRebuild } = require('../services/ragChatbot');
 const router = express.Router();
 require('dotenv').config();
 
@@ -95,9 +96,12 @@ router.post('/doctors', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const newDoctor = new Doctor({
-      firstName, lastName, email, sex, dateOfBirth, mobileNumber, password: hashedPassword
+      firstName, lastName, email, sex, dateOfBirth, mobileNumber,
+      specialty: req.body.specialty, department: req.body.department,
+      password: hashedPassword
     });
     await newDoctor.save();
+    scheduleRebuild();
     res.status(201).json(newDoctor);
   } catch (error) {
     console.error(error);
@@ -142,6 +146,7 @@ router.put('/doctors/:id', async (req, res) => {
     if (!doctor) {
       return res.status(404).json({ message: 'Doctor not found' });
     }
+    scheduleRebuild();
     res.json(doctor);
   } catch (error) {
     console.error(error);
@@ -194,6 +199,7 @@ router.delete('/doctors/:id', async (req, res) => {
     if (!doctor) {
       return res.status(404).json({ message: 'Doctor not found' });
     }
+    scheduleRebuild();
     res.json({ message: 'Doctor deleted successfully' });
   } catch (error) {
     console.error(error);

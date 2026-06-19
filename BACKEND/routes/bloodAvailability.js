@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const BloodAvailability = require('../models/BloodAvailability');
+const { scheduleRebuild } = require('../services/ragChatbot');
 
 // Route to get blood availability
 router.get('/', async (req, res) => {
@@ -20,6 +21,7 @@ router.post('/', async (req, res) => {
     const existing = await BloodAvailability.findOne({ bloodGroup });
     if (existing) return res.status(400).json({ message: 'Blood group already exists.' });
     const created = await BloodAvailability.create({ bloodGroup, count: Number(count) || 0 });
+    scheduleRebuild();
     res.status(201).json(created);
   } catch (error) {
     console.error(error);
@@ -37,6 +39,7 @@ router.put('/:id', async (req, res) => {
       { new: true }
     );
     if (!updated) return res.status(404).json({ message: 'Blood group not found.' });
+    scheduleRebuild();
     res.json(updated);
   } catch (error) {
     console.error(error);
@@ -49,6 +52,7 @@ router.delete('/:id', async (req, res) => {
   try {
     const deleted = await BloodAvailability.findByIdAndDelete(req.params.id);
     if (!deleted) return res.status(404).json({ message: 'Blood group not found.' });
+    scheduleRebuild();
     res.json({ message: 'Blood group entry deleted.' });
   } catch (error) {
     console.error(error);
