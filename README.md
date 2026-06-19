@@ -329,22 +329,43 @@ and **parent–child retrieval**.
 
 ### How it works
 
+**A. Indexing (offline / on data change)** — build the searchable knowledge base:
+
+```mermaid
+flowchart LR
+    DB[("🗄️ MongoDB live data<br/>doctors · blood · medicines")] --> P["📄 Build parent docs<br/>(+ static portal pages)"]
+    P --> C["✂️ Split into small<br/>child chunks"]
+    C --> E["🔢 Embed each child<br/>MiniLM · 384-dim"]
+    E --> V[("📦 KnowledgeChunk store<br/>+ Atlas vector_index")]
 ```
-User question
-     ↓
-Embed query  ── Hugging Face all-MiniLM-L6-v2 (384-dim sentence embedding)
-     ↓
-Vector search ── Atlas $vectorSearch over persisted CHILD chunks
-                 (falls back to in-app cosine, then keyword matching)
-     ↓
-Parent expansion ── child hits collapse to their PARENT documents (top-K)
-     ↓
-Prompt assembly  ── retrieved parent context + guardrails (system prompt)
-     ↓
-LLM generation   ── Hugging Face router → meta-llama/Llama-3.1-8B-Instruct
-     ↓
-Answer (+ rule-based fallback if the LLM is unavailable)
+
+**B. Answering a question (live)** — retrieve, then generate:
+
+```mermaid
+flowchart TD
+    Q(["👤 User question"]) --> EMB["🔢 Embed the query<br/>MiniLM · 384-dim"]
+    EMB --> R{"🔎 Find matching<br/>child chunks"}
+    R -->|primary| VS["🟢 Atlas $vectorSearch"]
+    R -->|fallback 1| COS["🟡 In-app cosine"]
+    R -->|fallback 2| KW["🟠 Keyword match"]
+    VS --> PAR["👪 Parent expansion<br/>child hits → parent docs (top-K)"]
+    COS --> PAR
+    KW --> PAR
+    PAR --> PR["🧩 Build prompt<br/>context + safety guardrails"]
+    PR --> LLM["🤖 LLM generation<br/>Llama-3.1-8B-Instruct"]
+    LLM --> ANS(["💬 Answer with clickable in-app links"])
+    LLM -.->|LLM unavailable| RB["🛟 Rule-based fallback reply"]
+    RB --> ANS
 ```
+
+**In plain steps:**
+
+1. **You ask** a question in the chat widget.
+2. The question is turned into a **384-number vector** (embedding) that captures its meaning.
+3. The system **searches** the stored knowledge for the closest child chunks — using Atlas Vector Search, or cosine, or keywords if needed.
+4. Each match is **expanded to its full parent document** (e.g. the complete doctor or medicine record) for richer context.
+5. That context + **safety rules** are sent to the **LLM**, which writes a short, grounded answer with clickable page links.
+6. If the LLM is ever unreachable, a built-in **rule-based reply** is used instead — so the assistant never breaks.
 
 ### Implementation details
 
