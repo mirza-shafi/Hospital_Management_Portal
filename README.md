@@ -323,21 +323,25 @@ MongoDB Database
 
 HealingWave includes an AI assistant that answers questions about doctors,
 appointments, blood availability, medicines, and how to use the portal. It is
-grounded in the application's **own live data** using a lightweight
-Retrieval-Augmented Generation (RAG) pipeline.
+grounded in the application's **own live data** using a modern
+Retrieval-Augmented Generation (RAG) pipeline with **semantic vector search**
+and **parent–child retrieval**.
 
 ### How it works
 
 ```
 User question
      ↓
-Build knowledge base (live from MongoDB + static portal docs)
+Embed query  ── Hugging Face all-MiniLM-L6-v2 (384-dim sentence embedding)
      ↓
-Keyword retriever  ── term-overlap scoring, title-weighted, top-K (≈6)
+Vector search ── Atlas $vectorSearch over persisted CHILD chunks
+                 (falls back to in-app cosine, then keyword matching)
      ↓
-Prompt assembly    ── retrieved context + guardrails (system prompt)
+Parent expansion ── child hits collapse to their PARENT documents (top-K)
      ↓
-LLM generation     ── Hugging Face router → meta-llama/Llama-3.1-8B-Instruct
+Prompt assembly  ── retrieved parent context + guardrails (system prompt)
+     ↓
+LLM generation   ── Hugging Face router → meta-llama/Llama-3.1-8B-Instruct
      ↓
 Answer (+ rule-based fallback if the LLM is unavailable)
 ```
@@ -345,14 +349,27 @@ Answer (+ rule-based fallback if the LLM is unavailable)
 ### Implementation details
 
 - **Knowledge base** (`BACKEND/services/ragChatbot.js → buildKnowledgeBase`):
-  generated on each request from live collections — every **doctor** (name,
-  specialty, department, availability), live **blood stock** per group, and all
-  **medicines** (generic name, price, manufacturer) — plus static documents for
-  services, appointments, blood bank, pharmacy, health card, and support.
-- **Retriever** (`retrieve`): lexical, keyword/term-overlap scoring with a
-  title weight; returns the top documents and caps the context size. *(No
-  vector embeddings — retrieval is lexical, not semantic.)*
-- **Generation** (`askLLM`): retrieved snippets are injected into a system
+  built from live collections — every **doctor** (name, specialty, department,
+  availability), live **blood stock** per group, and all **medicines** (generic
+  name, price, manufacturer) — plus static documents for services, appointments,
+  blood bank, pharmacy, health card, and support.
+- **Parent–child chunking** (`chunkParent`): each parent document is split into
+  small sentence-level **child chunks** (title-prefixed for recall). Children are
+  matched at query time; the larger **parent** document is returned as context.
+- **Embeddings** (`BACKEND/services/embeddings.js`): child chunks and the query
+  are embedded with **`sentence-transformers/all-MiniLM-L6-v2`** (384-dim) via the
+  Hugging Face hosted feature-extraction endpoint.
+- **Persistent vector store** (`KnowledgeChunk` collection): embeddings are
+  stored in MongoDB and reused across requests. A content hash (`buildHash`)
+  rebuilds the index only when the underlying data changes. Build/refresh with
+  `node scripts/buildEmbeddings.js`.
+- **Retrieval** (`vectorRetrieve`): query embedding → **Atlas `$vectorSearch`**
+  (cosine, index `vector_index` on `embedding`, 384 dims) → child hits grouped
+  into unique parents → top-K parents. If the Atlas index is unavailable it
+  falls back to **in-app cosine similarity** over the stored embeddings, and if
+  embeddings are unavailable entirely it falls back to **lexical keyword**
+  retrieval.
+- **Generation** (`askLLM`): retrieved parent snippets are injected into a system
   prompt with guardrails — answer only from context, never invent
   doctor/price/stock data, always link pages as `[Label](/path)`, and never
   provide a diagnosis (advise consulting a doctor). Calls the Hugging Face
@@ -366,27 +383,37 @@ Answer (+ rule-based fallback if the LLM is unavailable)
 
 ### Configuration
 
-Set these in `BACKEND/.env` (the token is read at runtime; the `.env` file is
-git-ignored):
+Set these in `BACKEND/.env` (read at runtime; the `.env` file is git-ignored):
 
 ```env
 HF_API_TOKEN=your_hugging_face_access_token   # https://huggingface.co/settings/tokens
 HF_MODEL=meta-llama/Llama-3.1-8B-Instruct
+HF_EMBED_MODEL=sentence-transformers/all-MiniLM-L6-v2
+ATLAS_VECTOR_INDEX=vector_index
+```
+
+Then build the embedding index once (and after seeding new data):
+
+```bash
+cd BACKEND
+node scripts/buildEmbeddings.js
 ```
 
 > Note: this uses a **Hugging Face** inference token (prefix `hf_`), not Google
-> Gemini.
+> Gemini. The Atlas Vector Search index (`vector_index`, vector field
+> `embedding`, 384 dims, cosine) is created on the `knowledgechunks` collection.
 
-### Current scope vs. possible enhancements
+### Capabilities
 
 | Capability | Status |
 | --- | --- |
 | DB-grounded retrieval + LLM generation | ✅ Implemented |
-| Rule-based fallback | ✅ Implemented |
-| Lexical (keyword) retrieval | ✅ Implemented |
-| Vector / embedding semantic search | ⬜ Not implemented (planned) |
-| Parent–child chunk retrieval | ⬜ Not implemented (planned) |
-| Persistent vector store | ⬜ Not implemented (planned) |
+| Vector / embedding semantic search (MiniLM, 384-dim) | ✅ Implemented |
+| Parent–child chunk retrieval | ✅ Implemented |
+| Persistent vector store (`KnowledgeChunk`) | ✅ Implemented |
+| Atlas `$vectorSearch` index | ✅ Implemented |
+| Cosine + keyword fallbacks | ✅ Implemented |
+| Rule-based fallback when LLM is unavailable | ✅ Implemented |
 
 ---
 
