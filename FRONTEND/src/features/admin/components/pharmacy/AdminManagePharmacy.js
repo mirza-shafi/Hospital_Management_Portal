@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../../../core/api/config';
 import AdminLayout from '../layout/AdminLayout';
-import { FaPlus, FaSearch, FaCapsules, FaSyncAlt, FaTrashAlt, FaImage } from 'react-icons/fa';
+import { FaPlus, FaSearch, FaCapsules, FaSyncAlt, FaTrashAlt, FaImage, FaPen, FaTimes } from 'react-icons/fa';
 import { Helmet } from 'react-helmet';
 
 const AdminManagePharmacy = () => {
@@ -18,6 +18,15 @@ const AdminManagePharmacy = () => {
     });
     const [imagePreview, setImagePreview] = useState(null);
     const [status, setStatus] = useState({ type: '', message: '' });
+
+    // Edit modal state
+    const [editMedicine, setEditMedicine] = useState(null);
+    const [editForm, setEditForm] = useState({
+        name: '', genericName: '', dosageForm: '', strength: '',
+        price: '', strip: '', manufacturer: '', description: ''
+    });
+    const [editStatus, setEditStatus] = useState({ type: '', message: '' });
+    const [editSaving, setEditSaving] = useState(false);
 
     useEffect(() => {
         fetchMedicines();
@@ -79,6 +88,65 @@ const AdminManagePharmacy = () => {
             fetchMedicines();
         } catch (error) {
             alert('Stock update failed.');
+        }
+    };
+
+    const openEditModal = (m) => {
+        setEditMedicine(m);
+        setEditForm({
+            name: m.name || '',
+            genericName: m.genericName || '',
+            dosageForm: m.dosageForm || '',
+            strength: m.strength || '',
+            price: m.price ?? '',
+            strip: m.strip ?? '',
+            manufacturer: m.manufacturer || '',
+            description: m.description || ''
+        });
+        setEditStatus({ type: '', message: '' });
+    };
+
+    const closeEditModal = () => {
+        setEditMedicine(null);
+        setEditSaving(false);
+        setEditStatus({ type: '', message: '' });
+    };
+
+    const handleEditChange = (e) => {
+        const { name, value } = e.target;
+        setEditForm(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleEditSubmit = async (e) => {
+        e.preventDefault();
+        if (!editMedicine) return;
+        setEditSaving(true);
+        try {
+            await api.put(`/medicines/edit/${editMedicine._id}`, {
+                name: editForm.name,
+                genericName: editForm.genericName,
+                dosageForm: editForm.dosageForm,
+                strength: editForm.strength,
+                price: editForm.price,
+                strip: editForm.strip,
+                manufacturer: editForm.manufacturer,
+                description: editForm.description
+            });
+            await fetchMedicines();
+            closeEditModal();
+        } catch (error) {
+            setEditSaving(false);
+            setEditStatus({ type: 'error', message: 'Failed to update medicine.' });
+        }
+    };
+
+    const handleDeleteMedicine = async (id, name) => {
+        if (!window.confirm(`Delete "${name}" from the inventory? This action cannot be undone.`)) return;
+        try {
+            await api.delete(`/medicines/${id}`);
+            fetchMedicines();
+        } catch (error) {
+            alert('Failed to delete medicine.');
         }
     };
 
@@ -177,10 +245,13 @@ const AdminManagePharmacy = () => {
                                             </td>
                                             <td className="p-4 text-right">
                                                 <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all">
-                                                    <button onClick={() => handleStockUpdate(m._id, m.strip)} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-900/40 rounded-lg text-gray-800 dark:text-gray-400 title='Update Stock'">
+                                                    <button onClick={() => handleStockUpdate(m._id, m.strip)} title="Update Stock" className="p-2 hover:bg-gray-100 dark:hover:bg-gray-900/40 rounded-lg text-gray-800 dark:text-gray-400">
                                                         <FaSyncAlt className="text-sm" />
                                                     </button>
-                                                    <button className="p-2 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-lg text-red-600 dark:text-red-400 title='Delete'">
+                                                    <button onClick={() => openEditModal(m)} title="Edit Details" className="p-2 hover:bg-gray-100 dark:hover:bg-gray-900/40 rounded-lg text-gray-800 dark:text-gray-400">
+                                                        <FaPen className="text-sm" />
+                                                    </button>
+                                                    <button onClick={() => handleDeleteMedicine(m._id, m.name)} title="Delete" className="p-2 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-lg text-red-600 dark:text-red-400">
                                                         <FaTrashAlt className="text-sm" />
                                                     </button>
                                                 </div>
@@ -262,6 +333,77 @@ const AdminManagePharmacy = () => {
                             </button>
                         </div>
                     </form>
+                </div>
+            )}
+
+            {editMedicine && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm" onClick={closeEditModal}>
+                    <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-200 dark:border-zinc-800 shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+                        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-zinc-800 sticky top-0 bg-white dark:bg-zinc-900 z-10">
+                            <div className="flex items-center gap-3">
+                                <div className="w-9 h-9 rounded-lg bg-gray-100 dark:bg-zinc-800 flex items-center justify-center text-gray-800 dark:text-gray-300">
+                                    <FaPen className="text-sm" />
+                                </div>
+                                <div>
+                                    <h3 className="font-bold text-gray-900 dark:text-gray-100 leading-tight">Edit Medicine</h3>
+                                    <p className="text-[11px] text-gray-400 uppercase tracking-tight">{editMedicine.name}</p>
+                                </div>
+                            </div>
+                            <button onClick={closeEditModal} className="p-2 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-lg text-gray-500">
+                                <FaTimes />
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleEditSubmit} className="p-6 grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">DRUG NAME</label>
+                                <input name="name" value={editForm.name} onChange={handleEditChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-gray-700/20 dark:text-gray-200 font-sans" required />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">GENERIC NAME</label>
+                                <input name="genericName" value={editForm.genericName} onChange={handleEditChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-gray-700/20 dark:text-gray-200 font-sans" required />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">STRENGTH</label>
+                                <input name="strength" value={editForm.strength} onChange={handleEditChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-gray-700/20 dark:text-gray-200 font-sans" />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">DOSAGE FORM</label>
+                                <input name="dosageForm" value={editForm.dosageForm} onChange={handleEditChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-gray-700/20 dark:text-gray-200 font-sans" />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">UNIT PRICE (৳)</label>
+                                <input type="number" name="price" value={editForm.price} onChange={handleEditChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-gray-700/20 dark:text-gray-200 font-sans" required />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">STOCK (STRIPS)</label>
+                                <input type="number" name="strip" value={editForm.strip} onChange={handleEditChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-gray-700/20 dark:text-gray-200 font-sans" required />
+                            </div>
+                            <div className="md:col-span-2">
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">MANUFACTURER</label>
+                                <input name="manufacturer" value={editForm.manufacturer} onChange={handleEditChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg focus:ring-2 focus:ring-gray-700/20 dark:text-gray-200 font-sans" />
+                            </div>
+                            <div className="md:col-span-2">
+                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 mb-1">DESCRIPTION</label>
+                                <textarea name="description" value={editForm.description} onChange={handleEditChange} className="w-full p-2.5 bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-lg h-24 resize-none focus:ring-2 focus:ring-gray-700/20 dark:text-gray-200 font-sans"></textarea>
+                            </div>
+
+                            {editStatus.message && (
+                                <div className="md:col-span-2 px-4 py-2 rounded-lg text-sm font-bold bg-red-50 text-red-700">
+                                    {editStatus.message}
+                                </div>
+                            )}
+
+                            <div className="md:col-span-2 flex items-center justify-end gap-3 pt-2">
+                                <button type="button" onClick={closeEditModal} className="px-5 py-2.5 rounded-xl font-bold text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800 transition-all">
+                                    Cancel
+                                </button>
+                                <button type="submit" disabled={editSaving} className="px-6 py-2.5 bg-gray-800 text-white font-bold rounded-xl shadow-lg shadow-gray-200 hover:bg-gray-900 transition-all disabled:opacity-60">
+                                    {editSaving ? 'Saving...' : 'Save Changes'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             )}
         </AdminLayout>

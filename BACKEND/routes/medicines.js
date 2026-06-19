@@ -95,4 +95,29 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// Full update of a medicine (price, name, stock, etc.)
+router.put('/edit/:id', async (req, res) => {
+  try {
+    const allowed = (({ name, genericName, dosageForm, strength, price, strip, manufacturer, description, image }) =>
+      ({ name, genericName, dosageForm, strength, price, strip, manufacturer, description, image }))(req.body);
+    Object.keys(allowed).forEach((k) => allowed[k] === undefined && delete allowed[k]);
+    const medicine = await Medicine.findByIdAndUpdate(req.params.id, allowed, { new: true });
+    if (!medicine) return res.status(404).json({ message: 'Medicine not found' });
+    res.json({ message: 'Medicine updated successfully', medicine });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to update medicine', error: error.message });
+  }
+});
+
+// Delete a medicine
+router.delete('/:id', async (req, res) => {
+  try {
+    const medicine = await Medicine.findByIdAndDelete(req.params.id);
+    if (!medicine) return res.status(404).json({ message: 'Medicine not found' });
+    res.json({ message: 'Medicine deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to delete medicine', error: error.message });
+  }
+});
+
 module.exports = router;

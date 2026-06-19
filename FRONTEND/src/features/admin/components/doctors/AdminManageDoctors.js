@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../../../core/api/config';
 import AdminLayout from '../layout/AdminLayout';
 import DoctorDetailsSheet from './DoctorDetailsSheet';
-import { FaFilter, FaFileExport, FaCog, FaEllipsisH, FaSearch, FaUserPlus, FaChevronRight, FaUserMd } from 'react-icons/fa';
+import { FaFilter, FaFileExport, FaCog, FaEllipsisH, FaSearch, FaUserPlus, FaUserMd } from 'react-icons/fa';
 import { Helmet } from 'react-helmet';
 
 const AdminManageDoctors = () => {
@@ -12,6 +12,7 @@ const AdminManageDoctors = () => {
     const [selectedDoctor, setSelectedDoctor] = useState(null);
     const [showAddForm, setShowAddForm] = useState(false);
     const [newDoctor, setNewDoctor] = useState({ firstName: '', lastName: '', email: '', sex: 'Male', dateOfBirth: '', mobileNumber: '', password: 'password123' });
+    const [editDoctor, setEditDoctor] = useState(null);
 
     useEffect(() => {
         fetchDoctors();
@@ -48,6 +49,50 @@ const AdminManageDoctors = () => {
             console.error('Failed to add doctor:', error);
             alert('Failed to register doctor. Please check your connection.');
         } finally {
+            setLoading(false);
+        }
+    };
+
+    const openEditDoctor = (doctor) => {
+        setEditDoctor({
+            _id: doctor._id,
+            firstName: doctor.firstName || '',
+            lastName: doctor.lastName || '',
+            email: doctor.email || '',
+            sex: doctor.sex || 'Male',
+            dateOfBirth: doctor.dateOfBirth ? String(doctor.dateOfBirth).slice(0, 10) : '',
+            mobileNumber: doctor.mobileNumber || '',
+            specialty: doctor.specialty || '',
+            department: doctor.department || ''
+        });
+    };
+
+    const handleEditDoctor = async (e) => {
+        e.preventDefault();
+        if (!editDoctor) return;
+        setLoading(true);
+        try {
+            const { _id, ...payload } = editDoctor;
+            await api.put('/admin/doctors/' + _id, payload);
+            setEditDoctor(null);
+            await fetchDoctors();
+        } catch (error) {
+            console.error('Failed to update doctor:', error);
+            alert('Failed to update doctor. Please check your connection.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleDeleteDoctor = async (doctor) => {
+        if (!window.confirm(`Delete Dr. ${doctor.firstName} ${doctor.lastName}? This action cannot be undone.`)) return;
+        setLoading(true);
+        try {
+            await api.delete('/admin/doctors/' + doctor._id);
+            await fetchDoctors();
+        } catch (error) {
+            console.error('Failed to delete doctor:', error);
+            alert('Failed to delete doctor. Please check your connection.');
             setLoading(false);
         }
     };
@@ -133,7 +178,7 @@ const AdminManageDoctors = () => {
                                 <th className="p-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Department</th>
                                 <th className="p-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Rating</th>
                                 <th className="p-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
-                                <th className="p-4 w-10"></th>
+                                <th className="p-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100 dark:divide-zinc-800">
@@ -180,8 +225,21 @@ const AdminManageDoctors = () => {
                                                 {doctor.status}
                                             </span>
                                         </td>
-                                        <td className="p-4 text-right">
-                                            <FaChevronRight className="text-gray-300 group-hover:text-gray-400 transition-colors text-xs" />
+                                        <td className="p-4 text-right" onClick={(e) => e.stopPropagation()}>
+                                            <div className="flex items-center justify-end gap-2">
+                                                <button
+                                                    onClick={() => openEditDoctor(doctor)}
+                                                    className="px-3 py-1.5 bg-gray-800 hover:bg-gray-900 text-white text-xs font-semibold rounded-lg transition-colors"
+                                                >
+                                                    Edit
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDeleteDoctor(doctor)}
+                                                    className="px-3 py-1.5 bg-white dark:bg-zinc-800 border border-red-200 dark:border-red-900/40 text-red-600 hover:bg-red-600 hover:text-white hover:border-red-600 text-xs font-semibold rounded-lg transition-colors"
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 ))
@@ -236,6 +294,56 @@ const AdminManageDoctors = () => {
                             <div className="col-span-2 flex gap-3 mt-4">
                                 <button type="submit" className="flex-1 bg-gray-800 dark:bg-gray-900 text-white font-bold py-3 rounded-xl shadow-lg shadow-gray-100 dark:shadow-none transition-all">Create Staff Account</button>
                                 <button type="button" onClick={() => setShowAddForm(false)} className="px-6 py-3 bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-gray-400 font-bold rounded-xl transition-all">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Edit Doctor Modal */}
+            {editDoctor && (
+                <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-black/40 dark:bg-black/80 backdrop-blur-sm" onClick={() => setEditDoctor(null)}></div>
+                    <div className="relative bg-white dark:bg-zinc-900 rounded-3xl p-8 max-w-lg w-full shadow-2xl animate-in zoom-in-95 duration-200 border border-gray-100 dark:border-zinc-800">
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Edit Doctor</h2>
+                        <form onSubmit={handleEditDoctor} className="grid grid-cols-2 gap-4">
+                            <div className="col-span-1">
+                                <label className="block text-xs font-bold text-gray-400 uppercase mb-2">First Name</label>
+                                <input required value={editDoctor.firstName} className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-gray-700/10 dark:text-gray-100" onChange={e => setEditDoctor({...editDoctor, firstName: e.target.value})} />
+                            </div>
+                            <div className="col-span-1">
+                                <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Last Name</label>
+                                <input required value={editDoctor.lastName} className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-gray-700/10 dark:text-gray-100" onChange={e => setEditDoctor({...editDoctor, lastName: e.target.value})} />
+                            </div>
+                            <div className="col-span-2">
+                                <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Email Address</label>
+                                <input required type="email" value={editDoctor.email} className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-gray-700/10 dark:text-gray-100" onChange={e => setEditDoctor({...editDoctor, email: e.target.value})} />
+                            </div>
+                            <div className="col-span-1">
+                                <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Gender</label>
+                                <select value={editDoctor.sex} className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-gray-700/10 dark:text-gray-100" onChange={e => setEditDoctor({...editDoctor, sex: e.target.value})}>
+                                    <option>Male</option><option>Female</option><option>Other</option>
+                                </select>
+                            </div>
+                            <div className="col-span-1">
+                                <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Phone</label>
+                                <input required value={editDoctor.mobileNumber} className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-gray-700/10 dark:text-gray-100" onChange={e => setEditDoctor({...editDoctor, mobileNumber: e.target.value})} />
+                            </div>
+                            <div className="col-span-1">
+                                <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Date of Birth</label>
+                                <input type="date" value={editDoctor.dateOfBirth} className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-gray-700/10 dark:text-gray-100" onChange={e => setEditDoctor({...editDoctor, dateOfBirth: e.target.value})} />
+                            </div>
+                            <div className="col-span-1">
+                                <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Specialty</label>
+                                <input value={editDoctor.specialty} className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-gray-700/10 dark:text-gray-100" onChange={e => setEditDoctor({...editDoctor, specialty: e.target.value})} />
+                            </div>
+                            <div className="col-span-1">
+                                <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Department</label>
+                                <input value={editDoctor.department} className="w-full p-3 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 rounded-xl outline-none focus:ring-2 focus:ring-gray-700/10 dark:text-gray-100" onChange={e => setEditDoctor({...editDoctor, department: e.target.value})} />
+                            </div>
+                            <div className="col-span-2 flex gap-3 mt-4">
+                                <button type="submit" className="flex-1 bg-gray-800 hover:bg-gray-900 dark:bg-gray-900 text-white font-bold py-3 rounded-xl shadow-lg shadow-gray-100 dark:shadow-none transition-all">Save Changes</button>
+                                <button type="button" onClick={() => setEditDoctor(null)} className="px-6 py-3 bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-gray-400 font-bold rounded-xl transition-all">Cancel</button>
                             </div>
                         </form>
                     </div>

@@ -3,7 +3,7 @@ import api from '../../../../core/api/config';
 import AdminLayout from '../layout/AdminLayout';
 import PatientDetailsSheet from './PatientDetailsSheet';
 import SuccessNotification from '../../../../features/shared/components/ui/SuccessNotification';
-import { FaFilter, FaFileExport, FaCog, FaEllipsisH, FaSearch, FaUserPlus, FaChevronRight, FaTimes } from 'react-icons/fa';
+import { FaFilter, FaFileExport, FaCog, FaEllipsisH, FaSearch, FaUserPlus, FaChevronRight, FaTimes, FaTrash } from 'react-icons/fa';
 import { Helmet } from 'react-helmet';
 
 const AdminManageUsers = () => {
@@ -98,6 +98,20 @@ const AdminManageUsers = () => {
             status: patient.status || 'Stable'
         });
         setShowAddForm(true);
+    };
+
+    const handleDeletePatient = async (patient, e) => {
+        if (e) e.stopPropagation();
+        if (!window.confirm(`Are you sure you want to delete ${patient.name || 'this patient'}? This action cannot be undone.`)) {
+            return;
+        }
+        try {
+            await api.delete(`/admin/patients/${patient._id}`);
+            await fetchPatients();
+        } catch (error) {
+            console.error('Failed to delete patient:', error);
+            alert('Failed to delete patient. Please try again.');
+        }
     };
 
     const getStatusColor = (status) => {
@@ -234,6 +248,13 @@ const AdminManageUsers = () => {
                                                     title="Edit Patient"
                                                 >
                                                     <FaCog size={14} />
+                                                </button>
+                                                <button 
+                                                    onClick={(e) => handleDeletePatient(patient, e)}
+                                                    className="p-1.5 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                                                    title="Delete Patient"
+                                                >
+                                                    <FaTrash size={14} />
                                                 </button>
                                                 <FaChevronRight className="text-gray-300 group-hover:text-gray-400 transition-colors text-xs" />
                                             </div>
