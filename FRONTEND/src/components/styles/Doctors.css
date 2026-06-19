@@ -8,22 +8,22 @@
 .doctors-hero {
   background: var(--hw-bg-subtle, #f7f8f9);
   border-bottom: 1px solid var(--hw-border, #e7e9ec);
-  padding: 56px 20px;
+  padding: 30px 20px;
   text-align: center;
 }
 
 .doctors-hero h1 {
-  font-size: 2.4rem;
+  font-size: 1.85rem;
   font-weight: 800;
   color: var(--hw-ink, #16191d);
   letter-spacing: -0.5px;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .doctors-hero p {
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   color: var(--hw-ink-soft, #444a52);
-  max-width: 640px;
+  max-width: 620px;
   margin: 0 auto;
 }
 

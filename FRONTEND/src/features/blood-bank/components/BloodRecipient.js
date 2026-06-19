@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bulma/css/bulma.min.css';
 import '../../../components/styles/BloodRecipient.css';
 import axios from 'axios';
 import successSoundFile from '../../../assets/success.mp3';
 import errorSoundFile from '../../../assets/error.mp3';
 import { Helmet } from 'react-helmet';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { storage } from '../../../utils/storage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
@@ -14,6 +15,7 @@ const errorSound = new Audio(errorSoundFile);
 
 const BloodRecipient = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -25,6 +27,18 @@ const BloodRecipient = () => {
   });
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+
+  // Preselect blood group from URL and prefill the logged-in patient's email
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const group = params.get('group');
+    const patientEmail = storage.getItem('patientEmail') || '';
+    setFormData((prev) => ({
+      ...prev,
+      ...(group ? { bloodNeeded: group } : {}),
+      ...(patientEmail ? { email: patientEmail } : {}),
+    }));
+  }, [location.search]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -62,7 +76,7 @@ const BloodRecipient = () => {
             <button type="button" className="blood-recipient-back-button" onClick={() => navigate(-1)}>
                 <FontAwesomeIcon icon={faArrowLeft} /> Back
             </button>
-            <h1 className="blood-recipient-form-title">Blood Recipient Form</h1>
+            <h1 className="blood-recipient-form-title">Book / Buy Blood</h1>
             {message && (
               <div className="notification is-success blood-recipient-notification">
                 <div className="icon">
@@ -203,7 +217,7 @@ const BloodRecipient = () => {
             <div className="field blood-recipient-field mt-5">
               <div className="control">
                 <button className="button is-primary blood-recipient-button" type="submit">
-                  Find Blood
+                  Confirm Booking
                 </button>
               </div>
             </div>

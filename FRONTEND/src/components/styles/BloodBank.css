@@ -124,3 +124,139 @@
     font-size: 2rem;
   }
 }
+
+
+/* ---------------- Live blood availability (top of landing) ---------------- */
+.blood-stock {
+  background: #ffffff;
+  border: 1px solid var(--hw-border, #e7e9ec);
+  border-radius: 16px;
+  box-shadow: var(--hw-shadow, 0 1px 3px rgba(16,19,23,.06));
+  padding: 28px;
+  margin: 0 auto 48px;
+  max-width: 1100px;
+}
+
+.blood-stock-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.blood-stock-head h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--hw-ink, #16191d);
+  letter-spacing: -0.4px;
+  margin: 0;
+}
+
+.blood-stock-total {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--hw-ink-soft, #444a52);
+  background: var(--hw-bg-subtle, #f7f8f9);
+  border: 1px solid var(--hw-border, #e7e9ec);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+}
+
+.blood-stock-loading {
+  text-align: center;
+  color: var(--hw-muted, #777f88);
+  padding: 30px 0;
+}
+
+.blood-stock-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.blood-stat-card {
+  background: var(--hw-bg-subtle, #f7f8f9);
+  border: 1px solid var(--hw-border, #e7e9ec);
+  border-radius: 12px;
+  padding: 20px 14px;
+  text-align: center;
+  transition: transform var(--hw-transition, 0.2s ease), box-shadow var(--hw-transition, 0.2s ease);
+}
+
+.blood-stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--hw-shadow-md, 0 8px 24px rgba(16,19,23,.08));
+}
+
+.blood-stat-group {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--hw-emergency, #c1121f);
+  letter-spacing: -0.5px;
+}
+
+.blood-stat-count {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--hw-ink, #16191d);
+  line-height: 1.1;
+  margin-top: 6px;
+}
+
+.blood-stat-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--hw-muted, #777f88);
+  margin-top: 4px;
+}
+
+.blood-stat-card.low .blood-stat-label { color: var(--hw-emergency, #c1121f); }
+.blood-stat-card.low { border-color: #f1c9cc; background: #fdf3f4; }
+
+.blood-stock-actions { text-align: right; margin-top: 18px; }
+
+.blood-stock-link {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--hw-ink, #16191d);
+  text-decoration: none;
+  border-bottom: 2px solid var(--hw-ink, #16191d);
+  padding-bottom: 2px;
+}
+
+.blood-stock-link:hover { color: var(--hw-emergency, #c1121f); border-color: var(--hw-emergency, #c1121f); }
+
+.bloodbank-section-title {
+  max-width: 1100px;
+  margin: 0 auto 22px;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--hw-ink, #16191d);
+  letter-spacing: -0.4px;
+}
+
+@media (max-width: 768px) {
+  .blood-stock-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+
+.blood-stat-book {
+  margin-top: 12px;
+  width: 100%;
+  border: none;
+  background: var(--hw-primary, #1b1f24);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.5rem 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background var(--hw-transition, 0.2s ease);
+}
+
+.blood-stat-book:hover:not(:disabled) { background: var(--hw-primary-dark, #0c0e11); }
+.blood-stat-book:disabled { background: #c2c6cc; cursor: not-allowed; }
