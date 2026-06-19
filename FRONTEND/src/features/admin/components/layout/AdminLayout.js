@@ -6,7 +6,7 @@ import { storage } from '../../../../utils/storage';
 import {
   FaThLarge, FaCalendarAlt, FaUserInjured, FaChartBar, FaClinicMedical, 
   FaTint, FaCapsules, FaUserMd, FaNotesMedical, FaTools, FaRegCommentDots, FaCog, 
-  FaSearch, FaBell, FaChevronDown, FaSignOutAlt, FaUserCog, FaExclamationTriangle
+  FaSearch, FaBell, FaChevronDown, FaSignOutAlt, FaUserCog, FaExclamationTriangle, FaBars
 } from 'react-icons/fa';
 
 const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Manage Your Consultations" }) => {
@@ -19,6 +19,8 @@ const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Ma
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const dropdownRef = useRef(null);
   const sidebarRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < 1024 : false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const startResizing = useCallback((mouseDownEvent) => {
     mouseDownEvent.preventDefault();
@@ -71,6 +73,18 @@ const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Ma
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Track viewport for mobile drawer behavior
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 1024);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  // Close the mobile drawer whenever the route changes
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
+
   const handleLogout = () => {
     storage.removeItem('token');
     storage.removeItem('adminToken');
@@ -100,11 +114,14 @@ const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Ma
       {/* Sidebar */}
       <aside 
         ref={sidebarRef}
-        style={{ width: isSidebarCollapsed ? '80px' : `${sidebarWidth}px` }}
-        className={`${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'} border-r flex flex-col fixed h-full z-30 ${!isResizing ? 'transition-all duration-300' : ''}`}
+        style={{
+          width: isMobile ? '280px' : (isSidebarCollapsed ? '80px' : `${sidebarWidth}px`),
+          transform: isMobile && !mobileOpen ? 'translateX(-100%)' : 'translateX(0)',
+        }}
+        className={`${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'} border-r flex flex-col fixed h-full z-40 ${!isResizing ? 'transition-all duration-300' : ''}`}
       >
-        {/* Resize Handle */}
-        {!isSidebarCollapsed && (
+        {/* Resize Handle (desktop only) */}
+        {!isSidebarCollapsed && !isMobile && (
           <div 
             onMouseDown={startResizing}
             className={`absolute right-0 top-0 w-1.5 h-full cursor-col-resize hover:bg-gray-700/30 transition-colors z-40 ${isResizing ? 'bg-gray-700/50' : ''}`}
@@ -117,7 +134,7 @@ const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Ma
                     +
                 </div>
             </div>
-            {!isSidebarCollapsed && (
+            {!isSidebarCollapsed && !isMobile && (
                 <button 
                     onClick={toggleSidebar}
                     className={`p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-400 hover:text-gray-600 transition-all absolute -right-3 top-6 ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'} border shadow-sm z-50`}
@@ -128,7 +145,7 @@ const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Ma
             )}
         </div>
 
-        {isSidebarCollapsed && (
+        {isSidebarCollapsed && !isMobile && (
             <div className="px-4 mb-4">
                 <button 
                     onClick={toggleSidebar}
@@ -182,19 +199,36 @@ const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Ma
         </div>
       </aside>
 
+      {/* Mobile drawer backdrop */}
+      {isMobile && mobileOpen && (
+        <div
+          className="fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-30 lg:hidden"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
       {/* Main Content */}
       <main 
-        style={{ marginLeft: isSidebarCollapsed ? '80px' : `${sidebarWidth}px` }}
+        style={{ marginLeft: isMobile ? 0 : (isSidebarCollapsed ? '80px' : `${sidebarWidth}px`) }}
         className={`flex-1 flex flex-col min-w-0 overflow-hidden ${!isResizing ? 'transition-all duration-300' : ''}`}
       >
         {/* Top Header */}
-        <header className={`${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'} border-b h-16 flex items-center justify-between px-8 sticky top-0 z-20 transition-all`}>
-            <div>
-                <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">{title}</h2>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{subtitle}</p>
+        <header className={`${theme === 'dark' ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-gray-200'} border-b h-16 flex items-center justify-between px-4 sm:px-6 lg:px-8 sticky top-0 z-20 transition-all`}>
+            <div className="flex items-center gap-3 min-w-0">
+                <button
+                    onClick={() => setMobileOpen(true)}
+                    className="lg:hidden p-2 -ml-1 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-zinc-800 shrink-0"
+                    aria-label="Open menu"
+                >
+                    <FaBars />
+                </button>
+                <div className="min-w-0">
+                    <h2 className="text-base sm:text-lg font-bold text-gray-900 dark:text-gray-100 truncate">{title}</h2>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate hidden sm:block">{subtitle}</p>
+                </div>
             </div>
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3 sm:gap-6">
                 <div className="relative w-64 hidden lg:block">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
                         <FaSearch />
@@ -257,7 +291,7 @@ const AdminLayout = ({ children, title = "Consultation", subtitle = "View and Ma
         </header>
 
         {/* Content Area */}
-        <div className={`flex-1 overflow-auto p-8 transition-colors duration-300 ${theme === 'dark' ? 'bg-pure-dark' : 'bg-white'}`}>
+        <div className={`flex-1 overflow-auto p-4 sm:p-6 lg:p-8 transition-colors duration-300 ${theme === 'dark' ? 'bg-pure-dark' : 'bg-white'}`}>
             <div className="max-w-[1600px] mx-auto">
                 {children}
             </div>

@@ -244,14 +244,14 @@ const AdminManagePharmacy = () => {
                                                 {m.strip < 10 && <div className="text-[10px] text-red-500 font-bold">REORDER SOON</div>}
                                             </td>
                                             <td className="p-4 text-right">
-                                                <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all">
-                                                    <button onClick={() => handleStockUpdate(m._id, m.strip)} title="Update Stock" className="p-2 hover:bg-gray-100 dark:hover:bg-gray-900/40 rounded-lg text-gray-800 dark:text-gray-400">
+                                                <div className="flex items-center justify-end gap-2 transition-all">
+                                                    <button onClick={() => handleStockUpdate(m._id, m.strip)} title="Update Stock" className="p-2 border border-gray-200 dark:border-zinc-700 hover:bg-gray-100 dark:hover:bg-gray-900/40 rounded-lg text-gray-800 dark:text-gray-400">
                                                         <FaSyncAlt className="text-sm" />
                                                     </button>
-                                                    <button onClick={() => openEditModal(m)} title="Edit Details" className="p-2 hover:bg-gray-100 dark:hover:bg-gray-900/40 rounded-lg text-gray-800 dark:text-gray-400">
+                                                    <button onClick={() => openEditModal(m)} title="Edit Details" className="p-2 border border-gray-200 dark:border-zinc-700 hover:bg-gray-100 dark:hover:bg-gray-900/40 rounded-lg text-gray-800 dark:text-gray-400">
                                                         <FaPen className="text-sm" />
                                                     </button>
-                                                    <button onClick={() => handleDeleteMedicine(m._id, m.name)} title="Delete" className="p-2 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-lg text-red-600 dark:text-red-400">
+                                                    <button onClick={() => handleDeleteMedicine(m._id, m.name)} title="Delete" className="p-2 border border-red-200 dark:border-red-900/40 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-lg text-red-600 dark:text-red-400">
                                                         <FaTrashAlt className="text-sm" />
                                                     </button>
                                                 </div>
