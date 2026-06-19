@@ -214,16 +214,6 @@ const DoctorLayout = ({ children, title = "Doctor Panel", subtitle = "Manage you
                                 </div>
                                 <span className="text-sm font-medium">Profile Settings</span>
                             </Link>
-
-                            <button 
-                                onClick={toggleTheme}
-                                className={`flex w-full items-center gap-3 px-3 py-2.5 rounded-xl transition-all group text-left ${theme === 'dark' ? 'text-gray-400 hover:bg-yellow-900/20 hover:text-yellow-600' : 'text-gray-600 hover:bg-yellow-50 hover:text-yellow-600'}`}
-                            >
-                                <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${theme === 'dark' ? 'bg-white/5 group-hover:bg-yellow-900/40' : 'bg-gray-100 group-hover:bg-yellow-100'}`}>
-                                    {theme === 'dark' ? <FaSun className="text-sm" /> : <FaMoon className="text-sm" />}
-                                </div>
-                                <span className="text-sm font-medium">{theme === 'dark' ? 'Light Appearance' : 'Dark Appearance'}</span>
-                            </button>
                         </div>
 
                         <div className={`my-1.5 h-px mx-2 ${theme === 'dark' ? 'bg-white/5' : 'bg-gray-100'}`}></div>

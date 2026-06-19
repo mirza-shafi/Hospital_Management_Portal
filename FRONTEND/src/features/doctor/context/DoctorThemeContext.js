@@ -3,14 +3,9 @@ import { storage } from '../../../utils/storage';
 
 const DoctorThemeContext = createContext();
 
+// Dark mode has been removed. Theme is always 'light'. Sidebar state is
+// preserved. `toggleTheme`/`setTheme` are no-ops kept for compatibility.
 export const DoctorThemeProvider = ({ children }) => {
-    const [theme, setTheme] = useState(() => {
-        if (typeof window !== 'undefined') {
-            return storage.getItem('doctorTheme') || 'light';
-        }
-        return 'light';
-    });
-    
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => {
         if (typeof window !== 'undefined') {
             return storage.getItem('doctorSidebarCollapsed') === 'true';
@@ -26,25 +21,14 @@ export const DoctorThemeProvider = ({ children }) => {
     });
 
     useEffect(() => {
-        // Apply theme to root
         const root = window.document.documentElement;
         const body = window.document.body;
-        
-        // Remove potentially conflicting classes
-        root.classList.remove('light', 'dark');
-        body.classList.remove('light', 'dark');
-
-        if (theme === 'dark') {
-            root.classList.add('dark');
-            body.classList.add('dark');
-            root.style.colorScheme = 'dark';
-        } else {
-            root.classList.add('light');
-            body.classList.add('light');
-            root.style.colorScheme = 'light';
-        }
-        storage.setItem('doctorTheme', theme);
-    }, [theme]);
+        root.classList.remove('dark');
+        body.classList.remove('dark');
+        root.classList.add('light');
+        body.classList.add('light');
+        root.style.colorScheme = 'light';
+    }, []);
 
     useEffect(() => {
         storage.setItem('doctorSidebarCollapsed', isSidebarCollapsed);
@@ -54,19 +38,15 @@ export const DoctorThemeProvider = ({ children }) => {
         storage.setItem('doctorSidebarWidth', sidebarWidth);
     }, [sidebarWidth]);
 
-    const toggleTheme = () => {
-        setTheme(prev => prev === 'light' ? 'dark' : 'light');
-    };
-
     const toggleSidebar = () => {
         setIsSidebarCollapsed(prev => !prev);
     };
 
     return (
         <DoctorThemeContext.Provider value={{ 
-            theme, 
-            setTheme,
-            toggleTheme, 
+            theme: 'light', 
+            setTheme: () => {},
+            toggleTheme: () => {}, 
             isSidebarCollapsed, 
             toggleSidebar,
             sidebarWidth,

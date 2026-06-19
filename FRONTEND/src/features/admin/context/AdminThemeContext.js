@@ -3,14 +3,9 @@ import { storage } from '../../../utils/storage';
 
 const AdminThemeContext = createContext();
 
+// Dark mode has been removed. Theme is always 'light'. Sidebar state is
+// preserved. `toggleTheme`/`setTheme` are no-ops kept for compatibility.
 export const AdminThemeProvider = ({ children }) => {
-    const [theme, setTheme] = useState(() => {
-        if (typeof window !== 'undefined') {
-            return storage.getItem('adminTheme') || 'light';
-        }
-        return 'light';
-    });
-    
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => {
         if (typeof window !== 'undefined') {
             return storage.getItem('adminSidebarCollapsed') === 'true';
@@ -27,20 +22,10 @@ export const AdminThemeProvider = ({ children }) => {
 
     useEffect(() => {
         const root = window.document.documentElement;
-        console.log(`[AdminThemeContext] Switching theme to: ${theme}`);
-        
-        // Remove any existing theme classes to avoid conflicts
-        root.classList.remove('light', 'dark');
-
-        if (theme === 'dark') {
-            root.classList.add('dark');
-            root.style.colorScheme = 'dark';
-        } else {
-            root.classList.add('light'); // Optional, but good for specificity
-            root.style.colorScheme = 'light';
-        }
-        storage.setItem('adminTheme', theme);
-    }, [theme]);
+        root.classList.remove('dark');
+        root.classList.add('light');
+        root.style.colorScheme = 'light';
+    }, []);
 
     useEffect(() => {
         storage.setItem('adminSidebarCollapsed', isSidebarCollapsed);
@@ -50,19 +35,15 @@ export const AdminThemeProvider = ({ children }) => {
         storage.setItem('adminSidebarWidth', sidebarWidth);
     }, [sidebarWidth]);
 
-    const toggleTheme = () => {
-        setTheme(prev => prev === 'light' ? 'dark' : 'light');
-    };
-
     const toggleSidebar = () => {
         setIsSidebarCollapsed(prev => !prev);
     };
 
     return (
         <AdminThemeContext.Provider value={{ 
-            theme, 
-            setTheme,
-            toggleTheme, 
+            theme: 'light', 
+            setTheme: () => {},
+            toggleTheme: () => {}, 
             isSidebarCollapsed, 
             toggleSidebar,
             sidebarWidth,

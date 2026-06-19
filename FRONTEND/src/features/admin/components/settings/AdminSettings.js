@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../../../core/api/config';
 import AdminLayout from '../layout/AdminLayout';
-import { FaCloudUploadAlt, FaSave, FaShieldAlt, FaPalette, FaUserShield, FaMoon, FaSun } from 'react-icons/fa';
-import { useAdminTheme } from '../../context/AdminThemeContext';
+import { FaCloudUploadAlt, FaSave, FaShieldAlt, FaPalette, FaUserShield } from 'react-icons/fa';
 import { Helmet } from 'react-helmet';
 
 const AdminSettings = () => {
     const [activeSection, setActiveSection] = useState('profile');
     const [profile, setProfile] = useState({ name: '', email: '', password: '' });
     const [loading, setLoading] = useState(true);
-    const { theme, setTheme } = useAdminTheme();
 
     useEffect(() => {
         fetchProfile();
@@ -49,7 +47,6 @@ const AdminSettings = () => {
                     {[
                         { id: 'profile', label: 'Admin Profile', icon: <FaUserShield /> },
                         { id: 'security', label: 'Security', icon: <FaShieldAlt /> },
-                        { id: 'theme', label: 'Appearance', icon: <FaMoon /> },
                         { id: 'branding', label: 'Clinic Branding', icon: <FaPalette /> },
                     ].map(item => (
                         <button 
@@ -136,39 +133,6 @@ const AdminSettings = () => {
                                         <div className="text-xs text-gray-400 mt-1">Current: 30 minutes</div>
                                     </div>
                                     <button className="px-6 py-2 border border-gray-200 dark:border-zinc-700 rounded-lg text-sm font-bold hover:bg-gray-50 dark:hover:bg-zinc-800 transition-all text-gray-700 dark:text-gray-300">Change</button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
-                    {activeSection === 'theme' && (
-                        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                             <div>
-                                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">Appearance Settings</h3>
-                                <p className="text-sm text-gray-400">Customize how the admin panel looks on your device.</p>
-                            </div>
-                            
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div 
-                                    onClick={() => setTheme('light')}
-                                    className={`p-6 rounded-2xl border-2 cursor-pointer transition-all ${theme === 'light' ? 'border-indigo-600 bg-indigo-50/10' : 'border-gray-100 dark:border-zinc-800'}`}
-                                >
-                                    <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-600 mb-4">
-                                        <FaSun size={24} />
-                                    </div>
-                                    <h4 className="font-bold text-gray-900 dark:text-gray-100">Light Mode</h4>
-                                    <p className="text-xs text-gray-400 mt-1">Standard interface for bright environments.</p>
-                                </div>
-
-                                <div 
-                                    onClick={() => setTheme('dark')}
-                                    className={`p-6 rounded-2xl border-2 cursor-pointer transition-all ${theme === 'dark' ? 'border-indigo-600 bg-indigo-50/10' : 'border-gray-100 dark:border-zinc-800'}`}
-                                >
-                                    <div className="w-12 h-12 bg-zinc-900 rounded-xl flex items-center justify-center text-indigo-400 mb-4 border border-zinc-800">
-                                        <FaMoon size={24} />
-                                    </div>
-                                    <h4 className="font-bold text-gray-900 dark:text-gray-100">Pure Dark Mode</h4>
-                                    <p className="text-xs text-gray-400 mt-1">Ultra-dark theme for OLED screens and low light.</p>
                                 </div>
                             </div>
                         </div>

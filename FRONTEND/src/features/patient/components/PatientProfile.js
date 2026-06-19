@@ -8,18 +8,12 @@ import {
 } from 'react-icons/fa';
 import axios from 'axios';
 
-// Placeholder hook for theme if not available in this context
+// Dark mode has been removed. Theme is always light; toggle is a no-op.
 const useTheme = () => {
-  const [theme, setTheme] = useState('light');
   useEffect(() => {
-    if (document.body.classList.contains('dark')) setTheme('dark');
+    document.body.classList.remove('dark');
   }, []);
-  const toggleTheme = (newTheme) => {
-    setTheme(newTheme);
-    if (newTheme === 'dark') document.body.classList.add('dark');
-    else document.body.classList.remove('dark');
-  };
-  return { theme, setTheme: toggleTheme };
+  return { theme: 'light', setTheme: () => {} };
 };
 
 const PatientProfile = ({ email, onClose, onProfileUpdate }) => {
@@ -251,14 +245,6 @@ const PatientProfile = ({ email, onClose, onProfileUpdate }) => {
         {/* Preferences Group */}
         <div className="settings-group">
             <div className="group-title">Preferences</div>
-            <div className="settings-row">
-                <div className="row-left"><div className="icon-small purple"><FaPalette /></div> <span>Appearance</span></div>
-                <div className="theme-toggle-compact">
-                    <button className={`theme-btn-mini ${theme === 'light' ? 'active' : ''}`} onClick={() => toggleTheme('light')}><FaSun /></button>
-                    <button className={`theme-btn-mini ${theme === 'dark' ? 'active' : ''}`} onClick={() => toggleTheme('dark')}><FaMoon /></button>
-                </div>
-            </div>
-            <div className="divider"></div>
             <div className="settings-row">
                 <div className="row-left"><div className="icon-small orange"><FaBell /></div> <span>Email Notifications</span></div>
                 <label className="switch-small">

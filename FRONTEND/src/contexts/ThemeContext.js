@@ -1,5 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
-import { storage } from '../utils/storage';
+import React, { createContext, useContext, useEffect } from 'react';
 
 const ThemeContext = createContext();
 
@@ -11,36 +10,25 @@ export const useTheme = () => {
   return context;
 };
 
+// Dark mode has been removed from the application. The theme is always
+// 'light'. `toggleTheme`/`setTheme` are kept as no-ops so existing
+// callers continue to work without changes.
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const savedTheme = storage.getItem('theme');
-      return savedTheme || 'light';
-    }
-    return 'light';
-  });
-
   useEffect(() => {
-    storage.setItem('theme', theme);
     const root = document.documentElement;
-    // Clean up potential conflicts from Admin Theme
-    root.classList.remove('light', 'dark');
-    
-    if (theme === 'dark') {
-      root.classList.add('dark');
-      root.style.colorScheme = 'dark';
-    } else {
-      root.classList.remove('dark'); // 'light' is default/implied
-      root.style.colorScheme = 'light';
-    }
-  }, [theme]);
+    root.classList.remove('dark');
+    root.classList.add('light');
+    root.style.colorScheme = 'light';
+  }, []);
 
-  const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+  const value = {
+    theme: 'light',
+    toggleTheme: () => {},
+    setTheme: () => {},
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
+    <ThemeContext.Provider value={value}>
       {children}
     </ThemeContext.Provider>
   );

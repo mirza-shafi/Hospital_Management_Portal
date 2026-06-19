@@ -1,49 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
+/* ============================================================
+   HealingWave — Medical Design System (light, clinical theme)
+   Inspired by Mayo Clinic / Cleveland Clinic / Mass General
+   Dark mode has been removed: the UI is always light.
+   ============================================================ */
+:root {
+  /* Brand blues */
+  --hw-primary: #0a558c;
+  --hw-primary-dark: #08456f;
+  --hw-primary-light: #1f6fc0;
+  --hw-primary-50: #eef5fc;
+  --hw-primary-100: #d6e7f7;
+
+  /* Accents */
+  --hw-teal: #0a9396;
+  --hw-emergency: #c1121f; /* red for emergency / blood */
+  --hw-success: #2a9d5c;
+  --hw-warning: #d98a00;
+
+  /* Neutrals */
+  --hw-ink: #14283b;        /* primary text */
+  --hw-ink-soft: #41566b;   /* secondary text */
+  --hw-muted: #6b7d8f;      /* muted text */
+  --hw-border: #e3e9ef;
+  --hw-bg: #ffffff;
+  --hw-bg-subtle: #f4f7fa;  /* section background */
+  --hw-bg-tint: #eef5fc;
+
+  /* Shape & motion */
+  --hw-radius: 12px;
+  --hw-radius-sm: 8px;
+  --hw-shadow: 0 1px 3px rgba(16, 42, 67, 0.06), 0 1px 2px rgba(16, 42, 67, 0.04);
+  --hw-shadow-md: 0 8px 24px rgba(16, 42, 67, 0.08);
+  --hw-transition: 0.2s ease;
 }
 
-.dark body {
-  background-color: #09090b; /* zinc-950 */
-  color: #f1f5f9; /* zinc-100 */
+html {
+  color-scheme: light only;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Helvetica Neue', Arial, sans-serif;
+  color: var(--hw-ink);
+  background-color: var(--hw-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-* {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-
-/* Autofill styling for dark mode */
-.dark input:-webkit-autofill,
-.dark input:-webkit-autofill:hover, 
-.dark input:-webkit-autofill:focus, 
-.dark input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px #18181b inset !important;
-    -webkit-text-fill-color: #f1f5f9 !important;
-    caret-color: #f1f5f9 !important;
-    transition: background-color 5000s ease-in-out 0s;
-}
-
-/* Autofill styling for light mode */
+/* Autofill styling (light only) */
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px #f9fafb inset !important; /* gray-50 */
-    -webkit-text-fill-color: #1f2937 !important; /* gray-800 */
-    caret-color: #1f2937 !important;
-    transition: background-color 5000s ease-in-out 0s;
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+  -webkit-text-fill-color: var(--hw-ink) !important;
+  caret-color: var(--hw-ink) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Accessible focus ring */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--hw-primary-light);
+  outline-offset: 2px;
 }

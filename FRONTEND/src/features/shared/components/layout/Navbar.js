@@ -2,31 +2,19 @@ import React, { useState, useEffect } from 'react';
 import '../../../../components/styles/Navbar.css';
 import logo from '../../../../assets/healingwave.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCapsules, faContactBook, faHome, faInfoCircle, faTint, faMoon, faSun, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { useTheme } from '../../../../contexts/ThemeContext';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { faCapsules, faContactBook, faHome, faInfoCircle, faTint, faBars, faTimes, faPhone, faUserMd, faUserInjured } from '@fortawesome/free-solid-svg-icons';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 const NavbarComponent = () => {
-  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
-  const { theme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const timer = setInterval(() => {
-        setCurrentTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-    }, 1000);
-
-    const handleScroll = () => {
-        setScrolled(window.scrollY > 20);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
-    return () => {
-        clearInterval(timer);
-        window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Close menu when route changes
@@ -35,19 +23,39 @@ const NavbarComponent = () => {
   }, [location]);
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${theme}`}>
-      <div className="navbar-container">
-        
-        {/* Logo Section */}
-        <Link className="navbar-brand" to="/admin-login">
-          <img src={logo} alt="HealingWave" className="brand-logo" />
-          <span className="brand-text">HealingWave</span>
-        </Link>
+    <header className="site-header">
+      {/* Top utility bar */}
+      <div className="topbar">
+        <div className="topbar-inner">
+          <a className="topbar-emergency" href="tel:+8801234567890">
+            <FontAwesomeIcon icon={faPhone} />
+            <span>Emergency: <strong>+880 1234-567890</strong></span>
+          </a>
+          <div className="topbar-actions">
+            <button className="topbar-link" onClick={() => navigate('/doctor-login')}>
+              <FontAwesomeIcon icon={faUserMd} /> Doctor Login
+            </button>
+            <button className="topbar-link" onClick={() => navigate('/patient-login')}>
+              <FontAwesomeIcon icon={faUserInjured} /> Patient Login
+            </button>
+          </div>
+        </div>
+      </div>
 
-        {/* Desktop Menu */}
-        <div className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
-           <div className="nav-links">
-              <NavLink to="/" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+      {/* Main navigation */}
+      <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+        <div className="navbar-container">
+          <Link className="navbar-brand" to="/">
+            <img src={logo} alt="HealingWave" className="brand-logo" />
+            <span className="brand-text">
+              HealingWave
+              <small className="brand-tagline">Health Services</small>
+            </span>
+          </Link>
+
+          <div className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
+            <div className="nav-links">
+              <NavLink to="/" end className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
                 <FontAwesomeIcon icon={faHome} /> <span>Home</span>
               </NavLink>
               <NavLink to="/blood-bank" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
@@ -62,25 +70,21 @@ const NavbarComponent = () => {
               <NavLink to="/about" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
                 <FontAwesomeIcon icon={faInfoCircle} /> <span>About</span>
               </NavLink>
-           </div>
+            </div>
 
-           <div className="nav-actions">
-              <div className="time-badge">
-                 {currentTime}
-              </div>
-              <button className="theme-toggle-btn" onClick={toggleTheme} aria-label="Toggle theme">
-                <FontAwesomeIcon icon={theme === 'dark' ? faSun : faMoon} />
+            <div className="nav-actions">
+              <button className="nav-cta" onClick={() => navigate('/patient/appointment')}>
+                Book Appointment
               </button>
-           </div>
+            </div>
+          </div>
+
+          <button className="mobile-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
+            <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
+          </button>
         </div>
-
-        {/* Mobile Toggle */}
-        <button className="mobile-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-           <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
-        </button>
-
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 };
 

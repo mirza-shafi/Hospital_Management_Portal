@@ -146,10 +146,7 @@ const DoctorProfile = ({ email, onClose }) => {
                         </div>
                         <span className="text-sm font-semibold text-gray-700 dark:text-gray-100">Appearance</span>
                     </div>
-                    <div className="bg-gray-100 dark:bg-[#0f172a] p-1 rounded-full flex gap-1 border border-gray-200 dark:border-none">
-                        <button onClick={() => setTheme('light')} className={`p-1.5 rounded-full transition-colors ${theme === 'light' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500'}`}><FaSun size={12}/></button>
-                        <button onClick={() => setTheme('dark')} className={`p-1.5 rounded-full transition-colors ${theme === 'dark' ? 'bg-blue-600 text-white' : 'text-gray-500'}`}><FaMoon size={12}/></button>
-                    </div>
+                    <span className="text-xs font-medium text-gray-400">Light</span>
                 </div>
 
                 <div className="flex justify-between items-center px-5 py-4">
