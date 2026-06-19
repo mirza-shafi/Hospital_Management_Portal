@@ -110,6 +110,7 @@ function App() {
               <Route path="/doctors" element={<Doctors />} />
               <Route path="/blood-bank" element={<BloodBank />} />
               <Route path="/pharmacy" element={<Pharmacy />} />
+              <Route path="/buy-medicine" element={<BuyMedicine />} />
               <Route path="/support" element={<SupportForm />} />
               <Route path="/doctor-signup" element={<DoctorSignUp />} />
               <Route path="/patient-signup" element={<PatientSignUp />} />

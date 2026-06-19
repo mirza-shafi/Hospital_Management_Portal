@@ -1,50 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { FaSearch, FaArrowLeft } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaSearch, FaArrowLeft, FaTimes, FaShoppingCart } from 'react-icons/fa';
 import { Helmet } from 'react-helmet';
 import '../../../components/styles/Pharmacy.css';
 
-const ITEMS_PER_PAGE = 12;
-
 const Pharmacy = () => {
+  const navigate = useNavigate();
   const [medicines, setMedicines] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
+  const [category, setCategory] = useState('All');
+  const [sort, setSort] = useState('featured');
+  const [selected, setSelected] = useState(null); // medicine for details modal
 
   useEffect(() => {
     const fetchMedicines = async () => {
       try {
         const response = await axios.get('/api/medicines');
-        setMedicines(response.data);
+        setMedicines(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
         console.error('Error fetching medicines:', error);
       }
     };
-
     fetchMedicines();
   }, []);
 
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-    setCurrentPage(1);
-  };
+  // Categories derived from dosage form
+  const categories = useMemo(() => {
+    const set = new Set(medicines.map((m) => m.dosageForm).filter(Boolean));
+    return ['All', ...Array.from(set).sort()];
+  }, [medicines]);
 
-  const filteredMedicines = medicines.filter((medicine) =>
-    medicine.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const totalPages = Math.ceil(filteredMedicines.length / ITEMS_PER_PAGE);
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const displayedMedicines = filteredMedicines.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  );
+  const visible = useMemo(() => {
+    let list = medicines.filter((m) =>
+      m.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (m.genericName || '').toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    if (category !== 'All') list = list.filter((m) => m.dosageForm === category);
+    switch (sort) {
+      case 'price-asc': list = [...list].sort((a, b) => a.price - b.price); break;
+      case 'price-desc': list = [...list].sort((a, b) => b.price - a.price); break;
+      case 'name': list = [...list].sort((a, b) => a.name.localeCompare(b.name)); break;
+      default: break;
+    }
+    return list;
+  }, [medicines, searchTerm, category, sort]);
 
   return (
     <div className="pharmacy-page">
@@ -52,34 +52,61 @@ const Pharmacy = () => {
         <title>Pharmacy - HealingWave</title>
       </Helmet>
 
-      <div style={{ width: '100%', maxWidth: '1200px', marginBottom: '20px' }}>
-        <Link to="/" className="back-home" style={{ color: '#444a52', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 'bold' }}>
-          <FaArrowLeft /> Back to Home
-        </Link>
-      </div>
-
+      {/* Title at the very top */}
       <div className="pharmacy-header">
         <h1>HealingWave Pharmacy</h1>
         <p>Your Trusted Partner in Health and Wellness</p>
       </div>
 
-      <div className="pharmacy-search-bar-container">
+      <div className="pharmacy-subbar">
+        <Link to="/" className="pharmacy-back">
+          <FaArrowLeft /> Back to Home
+        </Link>
+        <span className="pharmacy-count">{visible.length} medicines</span>
+      </div>
+
+      {/* Modern toolbar: search + category + sort */}
+      <div className="pharmacy-toolbar">
         <div className="pharmacy-search-bar">
           <FaSearch className="pharmacy-search-icon" />
           <input
             type="text"
-            placeholder="Search for medicines by name..."
+            placeholder="Search by medicine or generic name..."
             value={searchTerm}
-            onChange={handleSearch}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
+        </div>
+
+        <div className="pharmacy-sort">
+          <label>Sort</label>
+          <select value={sort} onChange={(e) => setSort(e.target.value)}>
+            <option value="featured">Featured</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="name">Name: A → Z</option>
+          </select>
         </div>
       </div>
 
+      <div className="pharmacy-categories">
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            className={`pharmacy-chip ${category === cat ? 'active' : ''}`}
+            onClick={() => setCategory(cat)}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* All medicines grid */}
       <div className="pharmacy-medicine-cards-container">
-        {displayedMedicines.map((medicine) => (
-          <div key={medicine._id} className="pharmacy-medicine-card">
+        {visible.map((medicine) => (
+          <div key={medicine._id} className="pharmacy-medicine-card" onClick={() => setSelected(medicine)}>
             <div className="pharmacy-medicine-image">
               <img src={medicine.image} alt={medicine.name} />
+              <span className="pharmacy-card-form">{medicine.dosageForm}</span>
             </div>
             <div className="pharmacy-medicine-details">
               <h4 className="pharmacy-medicine-name">
@@ -88,29 +115,61 @@ const Pharmacy = () => {
               </h4>
               <p className="pharmacy-generic-name">{medicine.genericName}</p>
               <p className="pharmacy-manufacturer">{medicine.manufacturer}</p>
-              
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: 'auto', paddingTop: '10px' }}>
+
+              <div className="pharmacy-card-footer">
                 <p className="pharmacy-medicine-price">৳ {medicine.price}</p>
-                <Link to="/buy-medicine" className="button is-small is-primary is-rounded" style={{ fontWeight: 'bold' }}>
+                <button
+                  className="pharmacy-buy-btn"
+                  onClick={(e) => { e.stopPropagation(); navigate('/buy-medicine'); }}
+                >
                   Buy Now
-                </Link>
+                </button>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      {totalPages > 1 && (
-        <div className="pharmacy-pagination-container">
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button
-              key={index + 1}
-              className={`pharmacy-pagination-button ${currentPage === index + 1 ? 'active' : ''}`}
-              onClick={() => handlePageChange(index + 1)}
-            >
-              {index + 1}
+      {visible.length === 0 && (
+        <p className="pharmacy-empty">No medicines match your search.</p>
+      )}
+
+      {/* Details modal */}
+      {selected && (
+        <div className="pharmacy-modal__overlay" onMouseDown={() => setSelected(null)}>
+          <div className="pharmacy-modal" onMouseDown={(e) => e.stopPropagation()}>
+            <button className="pharmacy-modal__close" onClick={() => setSelected(null)} aria-label="Close">
+              <FaTimes />
             </button>
-          ))}
+            <div className="pharmacy-modal__body">
+              <div className="pharmacy-modal__media">
+                <img src={selected.image} alt={selected.name} />
+              </div>
+              <div className="pharmacy-modal__info">
+                <span className="pharmacy-modal__tag">{selected.dosageForm}</span>
+                <h2>{selected.name} <small>{selected.strength}</small></h2>
+                <p className="pharmacy-modal__generic">{selected.genericName}</p>
+
+                <ul className="pharmacy-modal__specs">
+                  <li><span>Manufacturer</span><strong>{selected.manufacturer}</strong></li>
+                  <li><span>Dosage Form</span><strong>{selected.dosageForm}</strong></li>
+                  <li><span>Strength</span><strong>{selected.strength}</strong></li>
+                  <li><span>In Stock</span><strong>{selected.strip} strips</strong></li>
+                </ul>
+
+                {selected.description && (
+                  <p className="pharmacy-modal__desc">{selected.description}</p>
+                )}
+
+                <div className="pharmacy-modal__footer">
+                  <span className="pharmacy-modal__price">৳ {selected.price}</span>
+                  <button className="pharmacy-buy-btn lg" onClick={() => navigate('/buy-medicine')}>
+                    <FaShoppingCart /> Buy Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>
