@@ -66,16 +66,28 @@ async function buildKnowledgeBase() {
 
 // ---- Parent -> child chunks ----
 function chunkParent(parent) {
-  const sentences = (parent.text.match(/[^.!?]+[.!?]+|\S[^.!?]*$/g) || [parent.text])
-    .map((s) => s.trim()).filter(Boolean);
+  // Split on sentence-ending punctuation, but skip:
+  //   - decimal numbers   (BDT 50.50)
+  //   - known abbreviations (Dr., M.D., MBBS, FCPS, M.D., B.Sc.)
+  //   - email domain dots  (info@healingwave.com)
+  // The lookbehind (?<!\d)\.(?!\d) avoids splitting on decimals.
+  // The lookbehind on abbreviation prefixes avoids splitting on titles.
+  // The negative lookahead (?!\w+@) avoids splitting email TLDs.
+  const sentences = parent.text
+    .split(/(?<!\b(?:Dr|Mr|Ms|Mrs|MBBS|FCPS|MD|M\.D|B\.Sc|BDT\s\d+))(?<!\d)\.(?!\d)(?![\w.]*@)(?=\s+[A-Z]|$)|[!?]+(?=\s|$)/g)
+    .map((s) => s.trim())
+    .filter(Boolean);
   // Title-prefixed children improve recall on short docs.
   const children = sentences.map((s) => `${parent.title}. ${s}`);
   return children.length ? children : [parent.title];
 }
 
 function hashParents(parents) {
+  // Sort by id before hashing so the hash is stable regardless of MongoDB
+  // document return order, preventing false-positive full index rebuilds.
+  const sorted = [...parents].sort((a, b) => a.id.localeCompare(b.id));
   const h = crypto.createHash('sha1');
-  for (const p of parents) h.update(p.id + '|' + p.text + '\n');
+  for (const p of sorted) h.update(p.id + '|' + p.text + '\n');
   return h.digest('hex').slice(0, 16);
 }
 
@@ -228,11 +240,20 @@ async function generateAnswer(message, history = []) {
 // ---- Debounced background rebuild (called after admin writes) ----
 let rebuildTimer = null;
 let rebuilding = false;
+// rebuildPending: set to true if a rebuild was requested while one was already
+// running. The active rebuild checks this flag on completion and immediately
+// triggers a fresh rebuild so no admin write is silently dropped.
+let rebuildPending = false;
+
 function scheduleRebuild(delay = 2500) {
   if (rebuildTimer) clearTimeout(rebuildTimer);
-  rebuildTimer = setTimeout(async () => {
+  rebuildTimer = setTimeout(async function run() {
     rebuildTimer = null;
-    if (rebuilding) return;
+    if (rebuilding) {
+      // A rebuild is already in flight — queue this request instead of dropping it.
+      rebuildPending = true;
+      return;
+    }
     rebuilding = true;
     try {
       const res = await ensureIndex(); // only rebuilds if the content hash changed
@@ -241,6 +262,11 @@ function scheduleRebuild(delay = 2500) {
       console.error('[RAG] Background rebuild failed:', e.message);
     } finally {
       rebuilding = false;
+      // If a new rebuild was requested while we were running, trigger it now.
+      if (rebuildPending) {
+        rebuildPending = false;
+        scheduleRebuild(0);
+      }
     }
   }, delay);
 }

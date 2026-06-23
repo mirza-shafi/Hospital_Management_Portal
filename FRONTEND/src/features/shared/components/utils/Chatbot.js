@@ -4,6 +4,7 @@ import '../../../../components/styles/Chatbot.css';
 import { FaPaperPlane, FaRobot, FaTimes } from 'react-icons/fa';
 import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
+import { useChat } from '../../../../contexts/ChatContext';
 
 // Escape HTML then render a safe subset of markdown: links, bold, line breaks.
 const escapeHtml = (s) =>
@@ -25,9 +26,9 @@ const renderMarkdown = (text) => {
 const Chatbot = ({ onClose }) => {
   const navigate = useNavigate();
   const bodyRef = useRef(null);
-  const [messages, setMessages] = useState([
-    { sender: 'bot', text: 'Hello! I am your HealingWave AI assistant. Ask me about doctors, appointments, blood availability, medicines, or how to use the portal.' }
-  ]);
+  // messages and setMessages are shared via ChatContext so the conversation
+  // survives route changes. They reset on a hard page refresh (no storage used).
+  const { messages, setMessages } = useChat();
   const [input, setInput] = useState('');
   const [typing, setTyping] = useState(false);
 

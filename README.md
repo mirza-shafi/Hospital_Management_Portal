@@ -97,7 +97,10 @@
 ### **🤖 AI Health Assistant (RAG)**
 - Answers grounded in the portal's own live data (doctors, blood stock, medicines)
 - Semantic vector search with parent–child retrieval (see the AI Assistant section)
-- Clickable in-app links, conversation memory, and 24/7 availability
+- Robust sentence-level chunking — handles medical abbreviations (`Dr.`, `M.D.`), decimal prices (`BDT 50.50`), and email addresses without fragmentation
+- Race-condition-safe debounced index rebuild — no admin edit is ever silently dropped
+- Conversation state persists across in-app navigation without `localStorage` or `sessionStorage`
+- Clickable in-app links and 24/7 availability
 
 ### **📊 Analytics & Reporting**
 - Appointment statistics with Chart.js visualizations
@@ -381,6 +384,10 @@ flowchart TD
 - **Parent–child chunking** (`chunkParent`): each parent document is split into
   small sentence-level **child chunks** (title-prefixed for recall). Children are
   matched at query time; the larger **parent** document is returned as context.
+  The splitter uses negative-lookbehind regex to correctly preserve medical
+  abbreviations (`Dr.`, `M.D.`, `MBBS`, `FCPS`), decimal prices (`BDT 50.50`),
+  and email addresses (`info@healingwave.com`) without fragmenting them into
+  broken sub-chunks.
 - **Embeddings** (`BACKEND/services/embeddings.js`): child chunks and the query
   are embedded with **`sentence-transformers/all-MiniLM-L6-v2`** (384-dim) via the
   Hugging Face hosted feature-extraction endpoint.
@@ -396,7 +403,16 @@ flowchart TD
   background rebuild (`scheduleRebuild` in `ragChatbot.js`). The write returns
   instantly and the embedding index is re-embedded a couple of seconds later —
   so the assistant learns about new data with no user-facing lag and no manual
-  step.
+  step. The debouncer uses a `rebuildPending` flag so rapid concurrent writes
+  during an active rebuild are queued and never silently dropped.
+- **Stable content hashing** (`hashParents`): the SHA-1 hash that decides
+  whether to rebuild is computed over a **sorted** copy of the parent array,
+  making it deterministic regardless of MongoDB document return order and
+  eliminating false-positive full-index rebuilds.
+- **Persistent chat state** (`ChatContext`): the conversation history lives in
+  a React Context mounted above the router, so switching pages does not reset
+  the chat. A hard browser refresh starts a fresh conversation (no
+  `localStorage` or `sessionStorage` is used).
 - **Retrieval** (`vectorRetrieve`): query embedding → **Atlas `$vectorSearch`**
   (cosine, index `vector_index` on `embedding`, 384 dims) → child hits grouped
   into unique parents → top-K parents. If the Atlas index is unavailable it
@@ -450,6 +466,10 @@ node scripts/buildEmbeddings.js
 | Live aggregate totals (exact counts) | ✅ Implemented |
 | Auto-refresh on admin add/edit/delete | ✅ Implemented |
 | Rule-based fallback when LLM is unavailable | ✅ Implemented |
+| Medical-safe sentence splitter (decimals, abbreviations, emails) | ✅ Implemented |
+| Race-condition-safe rebuild debouncer (`rebuildPending` flag) | ✅ Implemented |
+| Stable order-independent content hash (`hashParents`) | ✅ Implemented |
+| Cross-route chat persistence (React Context, memory-only) | ✅ Implemented |
 
 ---
 
@@ -575,6 +595,49 @@ BACKEND_PORT=1002
 ## 📸 Screenshots
 
 > Add screenshots of your application here to showcase the UI
+
+---
+
+## 📋 Changelog
+
+### v1.1.0 — RAG Pipeline Hardening & Chat Persistence
+
+**Backend — `BACKEND/services/ragChatbot.js`**
+
+- **Fix: Race condition in `scheduleRebuild`** — Previously, if an admin edit
+  triggered a rebuild while one was already running, the second request was
+  silently dropped and the vector index stayed out of sync. Added a
+  `rebuildPending` boolean flag: concurrent requests are queued and executed
+  immediately once the active rebuild completes.
+
+- **Fix: Order-sensitive `hashParents`** — The SHA-1 content hash was computed
+  in MongoDB's unpredictable document return order, causing false-positive full
+  rebuilds when nothing had changed. Parents are now sorted by `id` before
+  hashing, making the hash deterministic.
+
+- **Fix: Broken sentence splitter in `chunkParent`** — The previous regex
+  `/[^.!?]+[.!?]+|\S[^.!?]*$/g` split on every literal `.`, producing broken
+  fragments from medical data (`"Dr."` → `["Dr.", "John..."]`,
+  `"BDT 50.50"` → `["BDT 50.", "50."]`,
+  `"info@healingwave.com"` → `["info@healingwave.", "com."]`).
+  Replaced with a negative-lookbehind split that correctly preserves decimal
+  prices, physician titles (`Dr.`, `Mr.`, `Ms.`), medical qualifications
+  (`M.D.`, `MBBS`, `FCPS`, `B.Sc.`), and email addresses. Verified against
+  7 real data cases — all pass.
+
+**Frontend — Chat Persistence**
+
+- **New: `ChatContext.js`** — Created a `ChatProvider` + `useChat()` hook that
+  holds the conversation `messages` array in React memory at the app root level.
+  Conversation state now survives in-app route changes. A hard browser refresh
+  resets to the greeting (no `localStorage` or `sessionStorage` used).
+
+- **Modified: `App.js`** — Wrapped the `<Router>` with `<ChatProvider>` so
+  chat state lives above all route renders.
+
+- **Modified: `Chatbot.js`** — Replaced local `useState([greeting])` with
+  `const { messages, setMessages } = useChat()`. Local `input` and `typing`
+  state remain unchanged.
 
 ---
 

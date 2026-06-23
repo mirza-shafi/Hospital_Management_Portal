@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bulma/css/bulma.min.css';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { ChatProvider } from './contexts/ChatContext';
 import { AdminThemeProvider } from './features/admin/context/AdminThemeContext';
 import { AuthModalProvider } from './features/auth/AuthModalContext';
 
@@ -94,7 +95,8 @@ import AdminLayout from './features/admin/components/layout/AdminLayout';
 
 function App() {
   return (
-    <Router>
+    <ChatProvider>
+      <Router>
         <div className="App">
           <Routes>
             {/* Routes WITH Navbar - Wrapped in Public ThemeProvider */}
@@ -197,6 +199,7 @@ function App() {
           </Routes>
         </div>
       </Router>
+    </ChatProvider>
   );
 }
 
